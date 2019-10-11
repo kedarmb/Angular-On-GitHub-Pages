@@ -22,6 +22,16 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import {LoginComponent} from './login/login.component';
+import {SignupComponent} from './signup/signup.component';
+import {
+    MatButtonModule,
+    MatInputModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatTooltipModule,
+    MatSelectModule
+} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -32,14 +42,23 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatButtonModule,
+      MatRippleModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatSelectModule,
+      MatTooltipModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
   ],
   declarations: [
-    AppComponent,
-    AdminLayoutComponent,
-
+     AppComponent,
+     AdminLayoutComponent,
+      LoginComponent,
+      SignupComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

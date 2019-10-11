@@ -4,13 +4,27 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import {LoginComponent} from './login/login.component';
+import {SignupComponent} from './signup/signup.component';
 
-const routes: Routes =[
+
+const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
-  }, {
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    pathMatch: 'full',
+  },
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [{
@@ -24,7 +38,7 @@ const routes: Routes =[
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes,{
+    RouterModule.forRoot(routes, {
        useHash: true
     })
   ],
