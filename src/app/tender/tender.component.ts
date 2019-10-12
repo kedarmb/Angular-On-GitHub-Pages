@@ -25,7 +25,7 @@ export class TenderComponent implements OnInit {
   }
   constructor(private modalService: NgbModal, private tenderService: TenderService) {}
 
-  open(item) {
+  open(item?) {
     const modalRef = this.modalService.open(TenderModalComponent, {centered: true});
     modalRef.componentInstance.tender = item || new Tender();
 
