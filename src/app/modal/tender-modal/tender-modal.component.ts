@@ -15,6 +15,22 @@ export class TenderModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit() {
+    if (this.tender) {
+      this.tender.quoteStartDate = {year: this.tender.quoteStartDate.getUTCFullYear(),
+        month: this.tender.quoteStartDate.getUTCMonth() + 1,
+        day: this.tender.quoteStartDate.getUTCDate()};
+      this.tender.quoteEndDate = {year: this.tender.quoteEndDate.getUTCFullYear(),
+        month: this.tender.quoteEndDate.getUTCMonth() + 1,
+        day: this.tender.quoteEndDate.getUTCDate()};
+      this.tender.openDate = {year: this.tender.openDate.getUTCFullYear(),
+        month: this.tender.openDate.getUTCMonth() + 1,
+        day: this.tender.openDate.getUTCDate()};
+      this.tender.closeDate = {year: this.tender.closeDate.getUTCFullYear(),
+        month: this.tender.closeDate.getUTCMonth() + 1,
+        day: this.tender.closeDate.getUTCDate()};
+    }
+
+
   }
   close() {
     this.activeModal.close('closed');

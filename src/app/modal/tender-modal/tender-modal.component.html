@@ -20,7 +20,7 @@
       <label>Open Date</label>
       <div class="input-group">
         <input class="form-control" placeholder="yyyy-mm-dd"
-               name="dp" [(ngModel)]="tender.openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
+               name="openDate" [(ngModel)]="tender.openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
 
       </div>
     </div>
@@ -28,21 +28,21 @@
     <div class="form-group">
       <label >Closed date</label>
       <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" [(ngModel)]="tender.closeDate" ngbDatepicker #d2="ngbDatepicker"  [placement]="placement" (focus)="d2.toggle()">
+             name="closeDate" [(ngModel)]="tender.closeDate" ngbDatepicker #d2="ngbDatepicker"  [placement]="placement" (focus)="d2.toggle()">
 
     </div>
 
     <div class="form-group">
       <label>Quote Start Date</label>
       <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" [(ngModel)]="tender.quoteStartDate" ngbDatepicker #d3="ngbDatepicker" [placement]="placement" (focus)="d3.toggle()">
+             name="quoteStartDate" [(ngModel)]="tender.quoteStartDate" ngbDatepicker #d3="ngbDatepicker" [placement]="placement" (focus)="d3.toggle()">
     </div>
 
     <div class="form-group">
       <label>Quote End Date</label>
 
       <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" [(ngModel)]="tender.quoteEndDate" ngbDatepicker #d4="ngbDatepicker"  [placement]="placement"(focus)="d4.toggle()">
+             name="quoteEndDate" [(ngModel)]="tender.quoteEndDate" ngbDatepicker #d4="ngbDatepicker"  [placement]="placement"(focus)="d4.toggle()">
     </div>
     <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
     <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
