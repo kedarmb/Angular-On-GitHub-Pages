@@ -11,6 +11,7 @@ export class TenderModalComponent implements OnInit {
 
   @Input('tender')
   tender: Tender ;
+  placement = 'bottom';
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit() {

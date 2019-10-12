@@ -17,25 +17,34 @@
 
 
     <div class="form-group">
-      <label for="openDate">Open Date</label>
-      <input type="email" class="form-control" id="openDate" name="openDate" [(ngModel)]="tender.openDate" placeholder="Open Date">
+      <label>Open Date</label>
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+               name="dp" [(ngModel)]="tender.openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
+
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="closedDate">Closed date</label>
-      <input type="email" class="form-control" id="closedDate" name="closeDate" [(ngModel)]="tender.closeDate" placeholder="Close Date">
+      <label >Closed date</label>
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" [(ngModel)]="tender.closeDate" ngbDatepicker #d2="ngbDatepicker"  [placement]="placement" (focus)="d2.toggle()">
+
     </div>
 
     <div class="form-group">
-      <label for="quoteStartDate">Quote Start Date</label>
-      <input type="email" class="form-control" id="quoteStartDate" name="quoteStartDate" [(ngModel)]="tender.quoteStartDate" placeholder="Start Date">
+      <label>Quote Start Date</label>
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" [(ngModel)]="tender.quoteStartDate" ngbDatepicker #d3="ngbDatepicker" [placement]="placement" (focus)="d3.toggle()">
     </div>
 
     <div class="form-group">
-      <label for="quoteEndDate">Quote End Date</label>
-      <input type="email" class="form-control" id="quoteEndDate"  name="quoteEndDate" [(ngModel)]="tender.quoteEndDate" placeholder="End Date">
-    </div>
+      <label>Quote End Date</label>
 
-    <button type="submit" class="btn btn-default" (click)="close()">Submit</button>
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" [(ngModel)]="tender.quoteEndDate" ngbDatepicker #d4="ngbDatepicker"  [placement]="placement"(focus)="d4.toggle()">
+    </div>
+    <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+    <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
   </form>
 </div>
