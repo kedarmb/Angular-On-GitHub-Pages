@@ -18,9 +18,14 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatExpansionModule
 } from '@angular/material';
+
+
 import {TenderComponent} from '../../tender/tender.component';
+import {TenderitemComponent} from '../../tenderitem/tenderitem.component';
+
 
 @NgModule({
   imports: [
@@ -34,7 +39,8 @@ import {TenderComponent} from '../../tender/tender.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    NgbModule
+    NgbModule,
+    MatExpansionModule
   ],
   declarations: [
     DashboardComponent,
@@ -45,7 +51,8 @@ import {TenderComponent} from '../../tender/tender.component';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-      TenderComponent
+      TenderComponent,
+      TenderitemComponent
   ]
 })
 

@@ -1,0 +1,41 @@
+<div class="modal-body">
+  <form role="form">
+    <div class="form-group">
+      <label for="itemCode">Item Code</label>
+      <input type="email" class="form-control" id="itemCode" name="itemCode" [(ngModel)]="tenderSubitem.subItemCode" placeholder="subItemCode">
+    </div>
+
+    <div class="form-group">
+      <label for="specNo">SpecNo</label>
+      <input type="email" class="form-control" id="specNo" placeholder="tenderName" name="specNo" [(ngModel)]="tenderSubitem.specNo" placeholder="specNo">
+    </div>
+
+    <div class="form-group">
+      <label for="unit">Unit Price</label>
+      <input type="text" class="form-control" id="unit" placeholder="tenderName" name="unit" [(ngModel)]="tenderSubitem.unit" placeholder="unit">
+    </div>
+
+
+    <div class="form-group">
+      <label for="unitPrice">Unit Price</label>
+      <input type="email" class="form-control" id="unitPrice" placeholder="tenderName" name="unitPrice" [(ngModel)]="tenderSubitem.unitPrice" placeholder="unit price">
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">quantity</label>
+      <input type="email" class="form-control" id="quantity" placeholder="tenderName" name="quantity" [(ngModel)]="tenderSubitem.quantity" placeholder="Quantity">
+    </div>
+
+    <div class="form-group">
+      <label for="totalPrice">total Price</label>
+      <input type="email" class="form-control" id="totalPrice" placeholder="tenderName" name="totalPrice" [(ngModel)]="tenderSubitem.totalPrice" placeholder="total PRice">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="email" class="form-control" id="description"  name="tenderDescription" [(ngModel)]="tenderSubitem.subItemDescription" placeholder="Enter Description">
+    </div>
+    <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+    <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
+  </form>
+</div>

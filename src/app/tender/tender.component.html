@@ -9,7 +9,7 @@
                         <div class="card-header card-header-tabs card-header-danger">
                           <div class="nav-tabs-navigation">
                             <div class="nav-tabs-wrapper">
-                              <span class="nav-tabs-title">TENDER:</span>
+
                               <ul class="nav nav-tabs" data-tabs="tabs">
                                 <li class="nav-item">
                                   <a mat-button class="nav-link active"  (click)="open()" href="#profile" data-toggle="tab">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table id="mainTable" class="table table-hover">
                                 <thead class="">
                                 <th>
                                     ID
@@ -74,10 +74,14 @@
                                         {{index+1}}
                                     </td>
                                   <td>
+
                                     {{item.clientName}}
                                   </td>
                                     <td>
-                                      {{item.tenderName}}
+                                        <a class="btn btn-link" routerLink="/tender-items">
+                                            {{item.tenderName}}
+                                        </a>
+
                                     </td>
                                     <td>
                                         {{item.tenderDescription}}

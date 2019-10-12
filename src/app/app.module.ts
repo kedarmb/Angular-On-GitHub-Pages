@@ -36,6 +36,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TenderModalComponent} from './modal/tender-modal/tender-modal.component';
 import {TenderService} from './service/tender.service';
 import {HttpClientModule} from '@angular/common/http';
+import {TenderitemService} from './service/tenderitem.service';
+import { TenderItemModalComponent } from './modal/tender-item-modal/tender-item-modal.component';
+import { TenderSubitemModalComponent } from './modal/tender-subitem-modal/tender-subitem-modal.component';
+
 
 @NgModule({
   imports: [
@@ -64,10 +68,13 @@ import {HttpClientModule} from '@angular/common/http';
      AdminLayoutComponent,
       LoginComponent,
       SignupComponent,
-      TenderModalComponent
-  ],
-  providers: [TenderService],
+      TenderModalComponent,
+      TenderItemModalComponent,
+      TenderSubitemModalComponent],
+  providers: [TenderService, TenderitemService],
   bootstrap: [AppComponent],
-    entryComponents:[TenderModalComponent]
+    entryComponents: [TenderModalComponent,
+        TenderItemModalComponent,
+        TenderSubitemModalComponent]
 })
 export class AppModule { }

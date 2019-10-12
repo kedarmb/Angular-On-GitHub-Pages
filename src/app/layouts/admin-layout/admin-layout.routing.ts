@@ -9,6 +9,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {TenderComponent} from '../../tender/tender.component';
+import {TenderitemComponent} from '../../tenderitem/tenderitem.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -56,6 +57,7 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'dashboard',      component: DashboardComponent },
     { path: 'tender',      component: TenderComponent },
+    {path: 'tender-items', component: TenderitemComponent},
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
