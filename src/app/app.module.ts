@@ -32,6 +32,8 @@ import {
     MatTooltipModule,
     MatSelectModule
 } from '@angular/material';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TenderModalComponent} from './modal/tender-modal/tender-modal.component';
 
 @NgModule({
   imports: [
@@ -50,7 +52,8 @@ import {
       MatInputModule,
       MatSelectModule,
       MatTooltipModule,
-    AgmCoreModule.forRoot({
+      NgbModule,
+      AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
   ],
@@ -58,9 +61,11 @@ import {
      AppComponent,
      AdminLayoutComponent,
       LoginComponent,
-      SignupComponent
+      SignupComponent,
+      TenderModalComponent
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+    entryComponents:[TenderModalComponent]
 })
 export class AppModule { }

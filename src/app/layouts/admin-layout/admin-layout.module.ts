@@ -11,7 +11,7 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
   MatButtonModule,
   MatInputModule,
@@ -20,6 +20,8 @@ import {
   MatTooltipModule,
   MatSelectModule
 } from '@angular/material';
+import {TenderComponent} from '../../tender/tender.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    NgbModule
   ],
   declarations: [
     DashboardComponent,
@@ -42,6 +45,7 @@ import {
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
+      TenderComponent
   ]
 })
 
