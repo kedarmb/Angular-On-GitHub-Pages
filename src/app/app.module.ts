@@ -34,13 +34,15 @@ import {
 } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TenderModalComponent} from './modal/tender-modal/tender-modal.component';
+import {TenderService} from './service/tender.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+      HttpClientModule,
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
@@ -64,7 +66,7 @@ import {TenderModalComponent} from './modal/tender-modal/tender-modal.component'
       SignupComponent,
       TenderModalComponent
   ],
-  providers: [],
+  providers: [TenderService],
   bootstrap: [AppComponent],
     entryComponents:[TenderModalComponent]
 })

@@ -95,7 +95,7 @@
                                     {{item.quoteEndDate | date: 'dd/MM/yyyy'}}
                                   </td>
                                   <td class="td-actions">
-                                    <button mat-raised-button type="button" matTooltip="Edit Task"  (click)="open()" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                    <button mat-raised-button type="button" matTooltip="Edit Task"  (click)="open(item)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                       <i class="material-icons">edit</i>
                                     </button>
                                     <button mat-raised-button type="button" matTooltip="Remove"  (click)="onDelete(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">

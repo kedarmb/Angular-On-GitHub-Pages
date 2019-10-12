@@ -1,12 +1,41 @@
-<div class="modal-header">
-  <h4 class="modal-title">Create New </h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
 <div class="modal-body">
-  <p>One fine body&hellip;</p>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-success" (click)="activeModal.close('Close click')">Create</button>
+  <form role="form">
+    <div class="form-group">
+      <label for="clientName">Client Name</label>
+      <input type="email" class="form-control" id="clientName" name="clientName" [(ngModel)]="tender.clientName" placeholder="Client Name">
+    </div>
+
+    <div class="form-group">
+      <label for="tenderName">Name</label>
+      <input type="email" class="form-control" id="tenderName" placeholder="tenderName" name="tenderName" [(ngModel)]="tender.tenderName" placeholder="tender Name">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="email" class="form-control" id="description"  name="tenderDescription" [(ngModel)]="tender.tenderDescription" placeholder="Enter Description">
+    </div>
+
+
+    <div class="form-group">
+      <label for="openDate">Open Date</label>
+      <input type="email" class="form-control" id="openDate" name="openDate" [(ngModel)]="tender.openDate" placeholder="Open Date">
+    </div>
+
+    <div class="form-group">
+      <label for="closedDate">Closed date</label>
+      <input type="email" class="form-control" id="closedDate" name="closeDate" [(ngModel)]="tender.closeDate" placeholder="Close Date">
+    </div>
+
+    <div class="form-group">
+      <label for="quoteStartDate">Quote Start Date</label>
+      <input type="email" class="form-control" id="quoteStartDate" name="quoteStartDate" [(ngModel)]="tender.quoteStartDate" placeholder="Start Date">
+    </div>
+
+    <div class="form-group">
+      <label for="quoteEndDate">Quote End Date</label>
+      <input type="email" class="form-control" id="quoteEndDate"  name="quoteEndDate" [(ngModel)]="tender.quoteEndDate" placeholder="End Date">
+    </div>
+
+    <button type="submit" class="btn btn-default" (click)="close()">Submit</button>
+  </form>
 </div>

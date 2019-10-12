@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Tender} from '../../model/tender.model';
 
 @Component({
   selector: 'app-tender-modal',
@@ -8,8 +9,13 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class TenderModalComponent implements OnInit {
 
+  @Input('tender')
+  tender: Tender ;
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit() {
+  }
+  close() {
+    this.activeModal.close('closed');
   }
 }
