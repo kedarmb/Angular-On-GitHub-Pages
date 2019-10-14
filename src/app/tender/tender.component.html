@@ -5,111 +5,120 @@
             <div class="col-md-12">
                 <div class="card card-plain">
                     <div class="card-header">
-                      <div class="card">
-                        <div class="card-header card-header-tabs card-header-danger">
-                          <div class="nav-tabs-navigation">
-                            <div class="nav-tabs-wrapper">
+                        <div class="card">
+                            <div class="card-header card-header-tabs card-header-danger">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
 
-                              <ul class="nav nav-tabs" data-tabs="tabs">
-                                <li class="nav-item">
-                                  <a mat-button class="nav-link active"  (click)="open()" href="#profile" data-toggle="tab">
-                                    <i class="material-icons">bug_report</i> ADD
-                                    <div class="ripple-container"></div>
-                                  </a>
-                                </li>
-                               <!-- <li class="nav-item">
-                                  <a mat-button class="nav-link" href="#messages" data-toggle="tab">
-                                    <i class="material-icons">code</i> Website
-                                    <div class="ripple-container"></div>
-                                  </a>
-                                </li>
-                                <li class="nav-item">
-                                  <a mat-button class="nav-link" href="#settings" data-toggle="tab">
-                                    <i class="material-icons">cloud</i> Server
-                                    <div class="ripple-container"></div>
-                                  </a>
-                                </li>-->
-                              </ul>
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="nav-item">
+                                                <a mat-button class="nav-link active" (click)="open()" href="#profile"
+                                                   data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i> ADD
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            <!-- <li class="nav-item">
+                                               <a mat-button class="nav-link" href="#messages" data-toggle="tab">
+                                                 <i class="material-icons">code</i> Website
+                                                 <div class="ripple-container"></div>
+                                               </a>
+                                             </li>
+                                             <li class="nav-item">
+                                               <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                                                 <i class="material-icons">cloud</i> Server
+                                                 <div class="ripple-container"></div>
+                                               </a>
+                                             </li>-->
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
+                            <!-- <h4 class="card-title mt-0"> Tender</h4>-->
+                            <!--<p class="card-category"> Here is a subtitle for this table</p>-->
                         </div>
-                       <!-- <h4 class="card-title mt-0"> Tender</h4>-->
-                        <!--<p class="card-category"> Here is a subtitle for this table</p>-->
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="mainTable" class="table table-hover">
-                                <thead class="">
-                                <th>
-                                    ID
-                                </th>
-                                <th>
-                                  Client Name
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Description
-                                </th>
-                                <th>
-                                    Open Date
-                                </th>
-                                <th>
-                                    Close Date
-                                </th>
-                                <th>
-                                  Quote Start Date
-                                </th>
-                                <th>
-                                  Quote End Date
-                                </th>
-                                <th>
-                                  Actions
-                                </th>
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let item of tender;let index=index;">
-                                    <td>
-                                        {{index+1}}
-                                    </td>
-                                  <td>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="mainTable" class="table table-hover">
+                                    <thead class="">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Client Name
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Open Date
+                                    </th>
+                                    <th>
+                                        Close Date
+                                    </th>
+                                    <th>
+                                        Quote Start Date
+                                    </th>
+                                    <th>
+                                        Quote End Date
+                                    </th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let item of tender;let index=index;">
+                                        <td>
+                                            {{index + 1}}
+                                        </td>
+                                        <td>
+                                            {{item.clientName}}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-link" routerLink="/tender-items">
+                                                {{item.tenderName}}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{item.tenderDescription}}
+                                        </td>
+                                        <td>
+                                            {{item.openDate | date: 'dd/MM/yyyy'}}
+                                        </td>
+                                        <td>
+                                            {{item.closeDate | date: 'dd/MM/yyyy'}}
+                                        </td>
+                                        <td>
+                                            {{item.quoteStartDate | date: 'dd/MM/yyyy'}}
+                                        </td>
+                                        <td>
+                                            {{item.quoteEndDate | date: 'dd/MM/yyyy'}}
+                                        </td>
+                                        <td class="td-actions">
+                                            <button mat-raised-button type="button" matTooltip="Edit Task"
+                                                    (click)="open(item)" [matTooltipPosition]="'above'"
+                                                    class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button mat-raised-button type="button" matTooltip="Remove"
+                                                    (click)="onDelete(index)" [matTooltipPosition]="'above'"
+                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                            <button mat-raised-button type="button" matTooltip="Remove"
+                                                    (click)="viewTender()" [matTooltipPosition]="'above'"
+                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">exit_to_app</i>
+                                            </button>
+                                        </td>
+                                    </tr>
 
-                                    {{item.clientName}}
-                                  </td>
-                                    <td>
-                                        <a class="btn btn-link" routerLink="/tender-items">
-                                            {{item.tenderName}}
-                                        </a>
-
-                                    </td>
-                                    <td>
-                                        {{item.tenderDescription}}
-                                    </td>
-                                    <td>
-                                        {{item.openDate | date: 'dd/MM/yyyy'}}
-                                    </td>
-                                    <td>
-                                       {{item.closeDate | date: 'dd/MM/yyyy'}}
-                                    </td>
-                                  <td>
-                                    {{item.quoteStartDate | date: 'dd/MM/yyyy'}}
-                                  </td>
-                                  <td>
-                                    {{item.quoteEndDate | date: 'dd/MM/yyyy'}}
-                                  </td>
-                                  <td class="td-actions">
-                                    <button mat-raised-button type="button" matTooltip="Edit Task"  (click)="open(item)"  [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                      <i class="material-icons">edit</i>
-                                    </button>
-                                    <button mat-raised-button type="button" matTooltip="Remove"  (click)="onDelete(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                      <i class="material-icons">close</i>
-                                    </button>
-                                  </td>
-                                </tr>
-
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

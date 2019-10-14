@@ -41,6 +41,7 @@ import { TenderItemModalComponent } from './modal/tender-item-modal/tender-item-
 import { TenderSubitemModalComponent } from './modal/tender-subitem-modal/tender-subitem-modal.component';
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,

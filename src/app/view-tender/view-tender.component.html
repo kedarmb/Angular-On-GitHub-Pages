@@ -1,0 +1,102 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-danger">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#profile" data-toggle="tab">
+                      Name : {{tender.name}}
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#messages" data-toggle="tab">
+                    Start Date  : {{tender.openDate}}
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                      End Date :  {{tender.closeDate}}
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                     Quote Start Date :  {{tender.quoteEndDate}}
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                      Quote End Date :  {{tender.quoteStartDate}}
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class=" text-primary">
+                <th>
+                  Item No
+                </th>
+                <th>
+                  Spec No
+                </th>
+                <th>
+                  Item Name
+                </th>
+                <th>
+                  Description
+                </th>
+                <th>
+                Unit
+                </th>
+                <th>
+                  Quantity
+                </th>
+                <th>
+                  Unit Price
+                </th>
+                <th>
+                  Total Price
+                </th>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let item of tender.items">
+                  <ng-container *ngFor="let subitem of item.subitems;let index=index">
+                    <tr>
+                      <td *ngIf="index==0">{{item.itemNo}}</td>
+                      <td *ngIf="index==0">{{item.specNo}}</td>
+                      <td *ngIf="index==0">{{item.itemName}}</td>
+                      <td *ngIf="index!==0"></td>
+                      <td *ngIf="index!==0"></td>
+                      <td *ngIf="index!==0"></td>
+                      <td>{{subitem.description}}</td>
+                      <td>{{subitem.unit}}</td>
+                      <td>{{subitem.quantity}}</td>
+                      <td><input type="text" class="form-control" name="unitPrice" [(ngModel)]="subitem.unitPrice" /></td>
+                      <td>{{subitem.totalPrice}}</td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
