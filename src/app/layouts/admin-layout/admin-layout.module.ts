@@ -26,6 +26,7 @@ import {
 import {TenderComponent} from '../../tender/tender.component';
 import {TenderitemComponent} from '../../tenderitem/tenderitem.component';
 import { ViewTenderComponent } from './../../view-tender/view-tender.component';
+import {EditInputComponent} from '../../edit-input/edit-input.component';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { ViewTenderComponent } from './../../view-tender/view-tender.component';
     UpgradeComponent,
     TenderComponent,
     TenderitemComponent,
-    ViewTenderComponent
+    ViewTenderComponent,
+    EditInputComponent
   ]
 })
 

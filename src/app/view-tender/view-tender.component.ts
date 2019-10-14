@@ -117,5 +117,8 @@ export class ViewTenderComponent implements OnInit {
 
   ngOnInit() {
   }
+  save() {
+
+  }
 
 }

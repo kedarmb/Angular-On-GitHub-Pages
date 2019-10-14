@@ -46,6 +46,7 @@
             <div class="table-responsive">
               <table class="table table-bordered">
                 <thead class=" text-primary">
+
                 <th>
                   Item No
                 </th>
@@ -75,17 +76,17 @@
                 <ng-container *ngFor="let item of tender.items">
                   <ng-container *ngFor="let subitem of item.subitems;let index=index">
                     <tr>
-                      <td *ngIf="index==0">{{item.itemNo}}</td>
-                      <td *ngIf="index==0">{{item.specNo}}</td>
-                      <td *ngIf="index==0">{{item.itemName}}</td>
+                      <td *ngIf="index==0"><app-edit-input [data]="item.itemNo"></app-edit-input></td>
+                      <td *ngIf="index==0"><app-edit-input [data]="item.specNo"></app-edit-input></td>
+                      <td *ngIf="index==0"><app-edit-input [data]="item.itemName"></app-edit-input></td>
                       <td *ngIf="index!==0"></td>
                       <td *ngIf="index!==0"></td>
                       <td *ngIf="index!==0"></td>
-                      <td>{{subitem.description}}</td>
-                      <td>{{subitem.unit}}</td>
-                      <td>{{subitem.quantity}}</td>
-                      <td><input type="text" class="form-control" name="unitPrice" [(ngModel)]="subitem.unitPrice" /></td>
-                      <td>{{subitem.totalPrice}}</td>
+                      <td><app-edit-input [data]="subitem.description"></app-edit-input></td>
+                      <td><app-edit-input [data]="subitem.unit"></app-edit-input></td>
+                      <td><app-edit-input [data]="subitem.quantity"></app-edit-input></td>
+                      <td><app-edit-input [data]="subitem.unitPrice"></app-edit-input></td>
+                      <td><app-edit-input [data]="subitem.totalPrice"></app-edit-input></td>
                     </tr>
                   </ng-container>
                 </ng-container>
