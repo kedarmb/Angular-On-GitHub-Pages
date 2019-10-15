@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TrenchModalComponent} from '../modal/trench-modal/trench-modal.component';
+import {CrewModalComponent} from '../modal/crew-modal/crew-modal.component';
 
 @Component({
   selector: 'app-view-tender',
@@ -18,6 +21,14 @@ export class ViewTenderComponent implements OnInit {
       'itemNo': 'A-1',
       'specNo': 'PW.2 OPSS 442 SP',
       'itemName': 'Construction of Watermain, including Temporary Connections for Flushing:',
+       'labour': [{name: 'Foreman', price: '$56.45'},
+         {name: 'Pipelayer', price: '$56.45'},
+         {name: 'Surveyor', price: '$56.45'},
+         {name: 'Truck Driver', price: '$56.45'}],
+      'equipments': [{name: 'Float', price: '$23.23'},
+        {name: 'Sweeper', price: '$23.23'},
+        {name: 'Triaxle', price: '$23.23'},
+        {name: 'Hammer', price: '$23.23'}],
        subitems: [{'description': 'a) Supply and Installation of Proposed 600mm Diameter AWWA C301 CPP Watermain ' +
              'on Mayfield Road (Sta. 12+772.3 to Sta.13+656.8) [Dwg. 68331-D to 68335-D]',
          'unit': 'm', 'unitPrice': 0, 'totalPrice': 0,
@@ -49,6 +60,14 @@ export class ViewTenderComponent implements OnInit {
         'itemNo': 'A-2',
         'specNo': 'PW.2 OPSS 442 SP',
         'itemName': 'Construction of Watermain, including Temporary Connections for Flushing:',
+        'labour': [{name: 'Foreman', price: '$56.45'},
+          {name: 'Pipelayer', price: '$56.45'},
+          {name: 'Surveyor', price: '$56.45'},
+          {name: 'Truck Driver', price: '$56.45'}],
+        'equipments': [{name: 'Float', price: '$23.23'},
+          {name: 'Sweeper', price: '$23.23'},
+          {name: 'Triaxle', price: '$23.23'},
+          {name: 'Hammer', price: '$23.23'}],
         subitems: [{'description': 'a) Supply and Installation of Proposed 600mm Diameter AWWA C301 CPP Watermain ' +
               'on Mayfield Road (Sta. 12+772.3 to Sta.13+656.8) [Dwg. 68331-D to 68335-D]',
           'unit': 'm', 'unitPrice': 0, 'totalPrice': 0,
@@ -80,6 +99,14 @@ export class ViewTenderComponent implements OnInit {
         'itemNo': 'A-3',
         'specNo': 'PW.2 OPSS 442 SP',
         'itemName': 'Construction of Watermain, including Temporary Connections for Flushing:',
+        'labour': [{name: 'Foreman', price: '$56.45'},
+          {name: 'Pipelayer', price: '$56.45'},
+          {name: 'Surveyor', price: '$56.45'},
+          {name: 'Truck Driver', price: '$56.45'}],
+        'equipments': [{name: 'Float', price: '$23.23'},
+          {name: 'Sweeper', price: '$23.23'},
+          {name: 'Triaxle', price: '$23.23'},
+          {name: 'Hammer', price: '$23.23'}],
         subitems: [{'description': 'a) Supply and Installation of Proposed 600mm Diameter AWWA C301 CPP Watermain ' +
               'on Mayfield Road (Sta. 12+772.3 to Sta.13+656.8) [Dwg. 68331-D to 68335-D]',
           'unit': 'm', 'unitPrice': 0, 'totalPrice': 0,
@@ -111,7 +138,7 @@ export class ViewTenderComponent implements OnInit {
     ]
   }
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
 
 
@@ -119,6 +146,13 @@ export class ViewTenderComponent implements OnInit {
   }
   save() {
 
+  }
+  trench(item) {
+    const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
+  }
+
+  crew(item) {
+  const modalRef = this.modalService.open(CrewModalComponent, {centered: true, size: 'lg'});
   }
 
 }
