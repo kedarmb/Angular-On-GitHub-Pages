@@ -41,6 +41,8 @@ import {TenderItemModalComponent} from './modal/tender-item-modal/tender-item-mo
 import {TenderSubitemModalComponent} from './modal/tender-subitem-modal/tender-subitem-modal.component';
 import {TrenchModalComponent} from './modal/trench-modal/trench-modal.component';
 import {CrewModalComponent} from './modal/crew-modal/crew-modal.component';
+import { OrganizationModalComponent } from './modal/organization-modal/organization-modal.component';
+import { OrganizationComponent } from './organization/organization.component';
 
 
 @NgModule({
@@ -74,14 +76,15 @@ import {CrewModalComponent} from './modal/crew-modal/crew-modal.component';
         TenderItemModalComponent,
         TenderSubitemModalComponent,
         TrenchModalComponent,
-        CrewModalComponent],
+        CrewModalComponent,
+        OrganizationModalComponent],
     providers: [TenderService, TenderitemService],
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
         TenderItemModalComponent,
         TenderSubitemModalComponent,
         TrenchModalComponent,
-        CrewModalComponent]
+        CrewModalComponent, OrganizationModalComponent]
 })
 export class AppModule {
 }
