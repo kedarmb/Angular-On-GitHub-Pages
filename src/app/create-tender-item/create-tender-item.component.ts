@@ -18,10 +18,12 @@ export class CreateTenderItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  hello() {
-    alert('hey add');
-   // this.items.push({name: '', unitPrice: 0, quantity: 0, totalPrice: 0})
-  }
 
+  add() {
+   this.items.push({name: '', unitPrice: 0, quantity: 0, totalPrice: 0});
+  }
+ remove(index) {
+    this.items.splice(index, 1);
+ }
 
 }
