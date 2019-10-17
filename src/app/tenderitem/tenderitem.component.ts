@@ -5,6 +5,7 @@ import {TenderItemModalComponent} from '../modal/tender-item-modal/tender-item-m
 import {TenderSubitemModalComponent} from '../modal/tender-subitem-modal/tender-subitem-modal.component';
 import {TenderSubitem} from '../model/tender-subitem.model';
 import {TenderItem} from '../model/tender-item.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-tenderitem',
@@ -17,7 +18,7 @@ export class TenderitemComponent implements OnInit {
   isCollapsed = false;
   accordion = {};
   constructor(private tenderItemService:
-                  TenderitemService, private modalService: NgbModal) { }
+                  TenderitemService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit() {
     this.tenderItemService.getTendersItems().subscribe((result) => {
@@ -35,6 +36,8 @@ export class TenderitemComponent implements OnInit {
   toggleCollapse(index) {
     this.accordion[index] = !this.accordion[index]
   }
-
+  navigate() {
+    this.router.navigateByUrl('/create-tenderitem');
+  }
 
 }
