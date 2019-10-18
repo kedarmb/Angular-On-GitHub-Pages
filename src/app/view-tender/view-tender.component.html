@@ -38,6 +38,12 @@
                       <div class="ripple-container"></div>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#settings" data-toggle="tab" (click)="add()">
+                      <i class="material-icons">add</i>
+
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -58,12 +64,6 @@
                 </th>
 
                 <th>
-                  Trench Calculation
-                </th>
-                <th>
-                  Crew
-                </th>
-                <th>
                   Description
                 </th>
                 <th>
@@ -76,49 +76,250 @@
                   Unit Price
                 </th>
                 <th>
-                  Total Price
+                  Actions
                 </th>
+
                 </thead>
                 <tbody>
-                <ng-container *ngFor="let item of tender.items">
-                  <ng-container *ngFor="let subitem of item.subitems;let index=index">
-                    <tr>
-                      <td *ngIf="index==0"><app-edit-input [data]="item.itemNo"></app-edit-input></td>
-                      <td *ngIf="index==0"><app-edit-input [data]="item.specNo"></app-edit-input></td>
-                      <td *ngIf="index==0"><app-edit-input [data]="item.itemName"></app-edit-input></td>
-                      <td *ngIf="index==0" (click)="trench(item)">{{item.itemName}}</td>
-                      <td *ngIf="index==0" (click)="crew(item)">
-                           <div class="table-responsive">
-                            <table class="table table-hover">
-                              <tbody>
-                              <tr *ngFor="let labour of item.labour">
-                                <td>{{labour.name}}</td>
-                                <td>{{labour.price}}</td>
-                              </tr>
-                              <tr *ngFor="let equipment of item.equipments">
-                                <td>{{equipment.name}}</td>
-                                <td>{{equipment.price}}</td>
-                              </tr>
-                              </tbody>
-                            </table>
-                           </div>
+                <ng-container *ngFor="let item of tender.items; let index=index;">
 
-
-
+                  <tr>
+                      <td class="width-2"> <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.itemNo"></textarea></td>
+                      <td class="width-10"><textarea type="text" class="form-control" appAutoAdjust name="specNo" [(ngModel)]="item.specNo"></textarea></td>
+                      <td class="width-20"><textarea type="text" class="form-control" appAutoAdjust name="specNo"  [(ngModel)]="item.itemName"></textarea></td>
+                      <td class="width-36"><textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.description"></textarea></td>
+                      <td class="width-2"><textarea type="text" class="form-control" appAutoAdjust name="unit" [(ngModel)]="item.unit"></textarea></td>
+                      <td class="width-5"><textarea type="text" class="form-control" appAutoAdjust name="quantity"   [(ngModel)]="item.quantity"></textarea></td>
+                      <td class="width-5"><textarea type="text" class="form-control" appAutoAdjust name="unitPrice"  [(ngModel)]="item.unitPrice"></textarea></td>
+                      <td class="td-actions width-10">
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" (click)="delete(index)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                          <i class="material-icons">close</i>
+                        </button>
+                        <button mat-raised-button type="button"  *ngIf="!accordion[index]" matTooltip="expand"  (click)="toggleCollapse(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                          <i class="material-icons">expand_more</i>
+                        </button>
+                        <button mat-raised-button type="button" *ngIf="accordion[index]" matTooltip="less"  (click)="toggleCollapse(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                          <i class="material-icons">expand_less</i>
+                        </button>
                       </td>
-                      <td *ngIf="index!==0"></td>
-                      <td *ngIf="index!==0"></td>
-                      <td *ngIf="index!==0"></td>
-                      <td *ngIf="index!==0"></td>
-                      <td *ngIf="index!==0"></td>
-                      <td><app-edit-input [data]="subitem.description"></app-edit-input></td>
-                      <td><app-edit-input [data]="subitem.unit"></app-edit-input></td>
-                      <td><app-edit-input [data]="subitem.quantity"></app-edit-input></td>
-                      <td><app-edit-input [data]="subitem.unitPrice"></app-edit-input></td>
-                      <td><app-edit-input [data]="subitem.totalPrice"></app-edit-input></td>
                     </tr>
+                  <tr [ngbCollapse]="!accordion[index]">
+                    <td colspan="8">
+                      <div class="hr">
+                        <span class="">CREW</span>
+                      </div>
+                      <div class="row w-100">
+                        <div class="col-4">
+                          <table class="table table-striped">
+
+                            <thead>
+                            <th>Name</th>
+                            <th>Price/Hour</th>
+                            <th>Hour</th>
+                            <th>Actions</th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let equipment of item.equipments">
+                              <td>
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.name"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.price"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.hour"></textarea>
+                              </td>
+                              <td class="td-actions width-10">
+                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                  <i class="material-icons">edit</i>
+                                </button>
+                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" (click)="delete(index)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                  <i class="material-icons">close</i>
+                                </button>
+                            </tr>
+                            </tbody>
+
+                          </table>
+                        </div>
+                        <div class="col-4">
+                          <table class="table table-striped">
+
+                            <thead>
+                            <th>Name</th>
+                            <th>Price/Hour</th>
+                            <th>Hour</th>
+                            <th>Actions</th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let equipment of item.equipments">
+                              <td>
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.name"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.price"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.hour"></textarea>
+                              </td>
+                              <td class="td-actions width-10">
+                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                  <i class="material-icons">edit</i>
+                                </button>
+                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" (click)="delete(index)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                  <i class="material-icons">close</i>
+                                </button>
+                            </tr>
+                            </tbody>
+
+                          </table>
+                        </div>
+                        <div class="col-4">
+                          <table class="table table-striped">
+
+                            <thead>
+                            <th>Name</th>
+                            <th>Price/Hour</th>
+                            <th>Hour</th>
+                            <th>Actions</th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let equipment of item.equipments">
+                              <td>
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.name"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.price"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.hour"></textarea>
+                              </td>
+                              <td class="td-actions width-10">
+                                <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                  <i class="material-icons">edit</i>
+                                </button>
+                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" (click)="delete(index)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                  <i class="material-icons">close</i>
+                                </button>
+                            </tr>
+                            </tbody>
+
+                          </table>
+                        </div>
+                      </div>
+                      <div class="hr">
+                        <span class="">SUBLINE ITEMS</span>
+                      </div>
+                      <div class="row w-100">
+                        <div class="col-8 offset-2">
+                          <table class="table table-bordered">
+                            <thead>
+                            <th>Name</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Actions
+                              <a mat-button class="nav-link" href="#settings" data-toggle="tab" (click)="addSubitem(item)">
+                              <i class="material-icons">add</i>
+
+                            </a> </th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let subitem of item.subitems">
+                              <td>
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="subitem.name"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="subitem.unitPrice"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="subitem.quantity"></textarea>
+                              </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="subitem.totalPrice"></textarea>
+                              </td>
+                              <td class="td-actions width-10">
+
+                                <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" (click)="deleteSubitem(item,index)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                  <i class="material-icons">close</i>
+                                </button>
+                            </tr>
+                            </tbody>
+
+                          </table>
+                        </div>
+                      </div>
+                      <div class="hr">
+                        <span class="">TRENCH CALCULATION</span>
+                      </div>
+                      <div class="row w-100">
+                        <div class="col-8 offset-2">
+                          <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                              <td>
+                                Length
+                              </td>
+                              <td>
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.length"></textarea>
+                              </td>
+                              <td rowspan="3">
+                                <div class="title">Cube Volume</div>
+                               <div class="volume"> {{item.trench.cubeVolume}} </div>
+                              </td>
+                              </tr>
+                            <tr>
+                               <td>
+                                 HEIGHT
+                               </td>
+                              <td>
+
+                                <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.height"></textarea>
+                              </td>
+                            </tr>
+                          <tr>
+                            <td>
+                              WIDTH
+
+                            </td>
+                            <td>
+
+                              <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.width"></textarea>
+                            </td>
+                          </tr>
+
+ <tr>
+   <td>Diameter</td>
+   <td>
+     <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.diameter"></textarea>
+   </td>
+   <td>
+     <div class="title">Pipe Volume</div>
+    <div class="volume">{{item.trench.pipeVolume}}</div>
+   </td>
+ </tr>
+
+
+                            </tbody>
+
+                          </table>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                   </ng-container>
-                </ng-container>
+
                 </tbody>
 
               </table>

@@ -306,7 +306,7 @@ select {
 }
 
 textarea{
-    height: auto !important;
+    height: auto;
     resize: none;
     line-height: $bmd-line-height !important;
 }

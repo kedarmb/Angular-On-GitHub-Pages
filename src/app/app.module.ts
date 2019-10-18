@@ -44,6 +44,7 @@ import {CrewModalComponent} from './modal/crew-modal/crew-modal.component';
 import { OrganizationModalComponent } from './modal/organization-modal/organization-modal.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
+import { AutoAdjustDirective } from './directive/auto-adjust.directive';
 
 
 @NgModule({

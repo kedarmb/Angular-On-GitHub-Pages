@@ -29,6 +29,7 @@ import { ViewTenderComponent } from './../../view-tender/view-tender.component';
 import {EditInputComponent} from '../../edit-input/edit-input.component';
 import {OrganizationComponent} from '../../organization/organization.component';
 import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
+import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-
     ViewTenderComponent,
     EditInputComponent,
     OrganizationComponent,
-    CreateTenderItemComponent
+    CreateTenderItemComponent,
+      AutoAdjustDirective
   ]
 })
 
