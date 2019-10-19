@@ -18,7 +18,9 @@ export class AutoAdjustDirective implements AfterViewInit {
   }
    autosize() {
     setTimeout(() => {
+
       const height = parseInt(this.elementRef.nativeElement.scrollHeight,10);
+
       if (height > 0) {
       this.elementRef.nativeElement.style.cssText = 'height : ' + this.elementRef.nativeElement.scrollHeight + 'px !important';
       }

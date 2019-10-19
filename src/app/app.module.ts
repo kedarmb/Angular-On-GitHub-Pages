@@ -45,6 +45,7 @@ import { OrganizationModalComponent } from './modal/organization-modal/organizat
 import { OrganizationComponent } from './organization/organization.component';
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { AutoAdjustDirective } from './directive/auto-adjust.directive';
+import {OrganizationService} from './service/organization.service';
 
 
 @NgModule({
@@ -80,7 +81,7 @@ import { AutoAdjustDirective } from './directive/auto-adjust.directive';
         TrenchModalComponent,
         CrewModalComponent,
         OrganizationModalComponent],
-    providers: [TenderService, TenderitemService],
+    providers: [TenderService, TenderitemService, OrganizationService],
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
         TenderItemModalComponent,
