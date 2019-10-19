@@ -18,7 +18,8 @@ export class AutoAdjustDirective implements AfterViewInit {
   }
    autosize() {
     setTimeout(() => {
-      let height = parseInt(this.elementRef.nativeElement.scrollHeight);
+        // tslint:disable-next-line:radix
+      const height = parseInt(this.elementRef.nativeElement.scrollHeight);
       if (height > 0) {
       this.elementRef.nativeElement.style.height =  this.elementRef.nativeElement.scrollHeight + 'px';
       }

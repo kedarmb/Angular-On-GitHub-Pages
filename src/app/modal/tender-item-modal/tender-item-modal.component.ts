@@ -13,7 +13,7 @@ export class TenderItemModalComponent implements OnInit {
   @Input('tenderItem')
   tenderItem: TenderItem ;
   placement = 'bottom';
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal,) {}
 
   ngOnInit() {
 
