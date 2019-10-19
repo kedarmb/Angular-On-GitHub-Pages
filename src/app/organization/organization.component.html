@@ -51,16 +51,16 @@
                                         </th>
 
                                         <th>
-                                            ServiceArea
-                                        </th>
-                                        <th>
-                                            Country
-                                        </th>
-                                        <th>
                                             ServiceType
                                         </th>
                                         <th>
-                                            Province
+                                            ServiceArea
+                                        </th>
+                                        <th>
+                                            province
+                                        </th>
+                                        <th>
+                                            Country
                                         </th>
                                         <th>
                                             City
@@ -76,9 +76,7 @@
                                                 {{organization.name}}
                                             </td>
                                             <td>
-                                                <a class="btn btn-link" routerLink="/tender-items">
-                                              {{organization.streetAddress}}
-                                          </a>
+                                                {{organization.streetAddress}}
                                             </td>
                                             <td>
                                                 {{organization.serviceType}}
@@ -100,7 +98,7 @@
                                                 <button mat-raised-button type="button" matTooltip="Edit Task" (click)="open(organization)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                               <i class="material-icons">edit</i>
                                           </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="onDelete(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(organization)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                               <i class="material-icons">close</i>
                                           </button>
                                                 <!-- <button mat-raised-button type="button" matTooltip="Remove" (click)="viewTender()" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">

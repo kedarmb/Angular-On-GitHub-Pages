@@ -46,6 +46,12 @@ import { OrganizationComponent } from './organization/organization.component';
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { AutoAdjustDirective } from './directive/auto-adjust.directive';
 import {OrganizationService} from './service/organization.service';
+import { NotifySubcontractorComponent } from './modal/notify-subcontractor/notify-subcontractor.component';
+import { CrewComponent } from './crew/crew.component';
+import {CrewItemService} from './service/crew-item.service';
+import {CrewService} from './service/crew.service';
+
+
 
 
 @NgModule({
@@ -80,14 +86,16 @@ import {OrganizationService} from './service/organization.service';
         TenderSubitemModalComponent,
         TrenchModalComponent,
         CrewModalComponent,
-        OrganizationModalComponent],
-    providers: [TenderService, TenderitemService, OrganizationService],
+        OrganizationModalComponent,
+        NotifySubcontractorComponent],
+    providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService],
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
         TenderItemModalComponent,
         TenderSubitemModalComponent,
         TrenchModalComponent,
-        CrewModalComponent, OrganizationModalComponent]
+        CrewModalComponent, OrganizationModalComponent,
+        NotifySubcontractorComponent]
 })
 export class AppModule {
 }

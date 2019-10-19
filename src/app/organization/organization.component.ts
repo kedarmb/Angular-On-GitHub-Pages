@@ -18,22 +18,32 @@ import {OrganizationService} from '../service/organization.service';
 export class OrganizationComponent implements OnInit {
   organizations: any;
   ngOnInit() {
- this.organizationService.getOrganizations().subscribe((data) => {
+ this.organizationService.getAll().subscribe((data) => {
    this.organizations = data;
  })
   }
 
-  onDelete(index) {
 
-  }
   constructor(private modalService: NgbModal, private organizationService: OrganizationService, private router: Router) {}
+
+    delete(organization) {
+        this.organizationService.delete(organization).subscribe((organizations) => {
+            this.organizationService.getAll().subscribe((organizations)=>{
+                this.organizations=organizations;
+            })
+        })
+    }
 
   open(item?) {
     const modalRef = this.modalService.open(OrganizationModalComponent, {centered: true});
-    modalRef.componentInstance.organization = item || new Organization();
+    const obj = {};
+    for (const i in item) {
+        obj[i] = item[i];
+    }
+    modalRef.componentInstance.organization = obj || new Organization();
     modalRef.result.then(() => {
-         this.organizationService.getOrganizations().subscribe((organizations) => {
-
+         this.organizationService.getAll().subscribe((organizations) => {
+           console.log('.>>>>>>>>>>>>>>>>>>>>>>>>>', organizations);
             this.organizations = organizations;
         });
     }).catch(() => {

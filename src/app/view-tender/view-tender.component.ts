@@ -3,7 +3,9 @@ import {NgbModal, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {TrenchModalComponent} from '../modal/trench-modal/trench-modal.component';
 import {CrewModalComponent} from '../modal/crew-modal/crew-modal.component';
 import {Observable, Subject, merge} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
+import {NotifySubcontractorComponent} from '../modal/notify-subcontractor/notify-subcontractor.component';
+import {CrewService} from '../service/crew.service';
 
 
 @Component({
@@ -14,6 +16,8 @@ import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 export class ViewTenderComponent {
 
   accordion = {};
+
+  crews = {}
 
   tender = {
     openDate: '23/07/2019',
@@ -140,14 +144,7 @@ export class ViewTenderComponent {
   model: any;
   searching = false;
   searchFailed = false;
-   states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-    'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-    'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-    'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-    'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-    'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-    'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+   states = [];
 
 
   @ViewChild('instance', {static: true})
@@ -156,7 +153,14 @@ export class ViewTenderComponent {
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private crewService: CrewService) {
+       this.crewService.getAll().subscribe((crews) => {
+               crews.map((crew) => {
+                 this.crews[crew.name] = crew;
+                 this.states.push(crew.name);
+               })
+       })
+  }
 
 
 
@@ -177,7 +181,7 @@ export class ViewTenderComponent {
     this.tender.items.splice(index, 1);
   }
   add() {
-    this.tender.items.push({itemNo: '',
+    this.tender.items.unshift({itemNo: '',
       specNo: '',
       itemName: '',
       description: '',
@@ -201,6 +205,7 @@ export class ViewTenderComponent {
 
 
     const getCities = (text$: Observable<string>) => {
+
       const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
       const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !instance.isPopupOpen()));
       const inputFocus$ = this.focus$;
@@ -208,13 +213,21 @@ export class ViewTenderComponent {
       return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
           map(term => (term === '' ? this.states
               : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-      );
+      )
     }
 
 
     return getCities;
   }
 
+   selectedItem(event, item) {
+     item.equipments = this.crews[event.item] ? this.crews[event.item].equipments : [];
+     item.labours = this.crews[event.item] ? this.crews[event.item].labours : [];
+   }
 
+
+  notify() {
+    const modalRef = this.modalService.open(NotifySubcontractorComponent, {centered: true});
+  }
 
 }

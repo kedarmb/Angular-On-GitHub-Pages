@@ -14,6 +14,7 @@ import {ViewTenderComponent} from '../../view-tender/view-tender.component';
 import {OrganizationModalComponent} from '../../modal/organization-modal/organization-modal.component';
 import {OrganizationComponent} from '../../organization/organization.component';
 import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
+import {CrewComponent} from '../../crew/crew.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -61,6 +62,7 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'dashboard',      component: DashboardComponent },
     {   path: 'organization',      component: OrganizationComponent },
+    {path: 'crew', component: CrewComponent},
     {   path: 'create-tenderitem',      component: CreateTenderItemComponent },
     {path: 'view-tender',      component: ViewTenderComponent },
     { path: 'tender',      component: TenderComponent },

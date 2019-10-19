@@ -17,17 +17,24 @@ export class OrganizationModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private organizationService: OrganizationService) {}
 
   ngOnInit() {
-        console.log('+++++++++++++++++++++', this.organization);
+
   }
 
 
   close() {
     this.activeModal.close('closed');
   }
-  save(organization) {
-    this.organizationService.add(organization).subscribe(() => {
-      this.activeModal.close('closed');
-    })
+     save(organization) {
+    if (organization.id) {
+      this.organizationService.update(organization).subscribe(() => {
+        this.activeModal.close('closed');
+      })
+    } else {
+      this.organizationService.add(organization).subscribe(() => {
+        this.activeModal.close('closed');
+      })
+    }
+
 
 
   }

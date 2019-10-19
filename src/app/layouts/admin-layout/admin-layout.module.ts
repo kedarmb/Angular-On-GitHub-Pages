@@ -30,6 +30,7 @@ import {EditInputComponent} from '../../edit-input/edit-input.component';
 import {OrganizationComponent} from '../../organization/organization.component';
 import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
 import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
+import {CrewComponent} from '../../crew/crew.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
     EditInputComponent,
     OrganizationComponent,
     CreateTenderItemComponent,
-      AutoAdjustDirective
+      AutoAdjustDirective,
+    CrewComponent
   ]
 })
 

@@ -44,6 +44,12 @@
 
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#settings" data-toggle="tab" (click)="notify()">
+                      <i class="material-icons">notifications</i>
+
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -451,6 +457,7 @@
                                           type="text"
                                           class="typeahead"
                                           [(ngModel)]="model"
+                                          (selectItem)="selectedItem($event,item)"
                                           [ngbTypeahead]="searchFunctionFactory(instance)"
                                           (focus)="focus$.next($event.target.value)"
                                           (click)="click$.next($event.target.value)"
