@@ -37,14 +37,14 @@
 
 
 
-::ng-deep .card{
+::ng-deep .accordion .card{
   margin-top:0 !important;
   margin-bottom:0 !important;
   border: 1px solid rgba(0,0,0,.125);
   border-radius:0;
 }
 
-::ng-deep .card-header{
+::ng-deep  .accordion .card-header{
   background-color: rgba(0,0,0,.03) !important;
 }
 
