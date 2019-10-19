@@ -37,7 +37,21 @@
 
 
 
+::ng-deep .card{
+  margin-top:0 !important;
+  margin-bottom:0 !important;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius:0;
+}
 
+::ng-deep .card-header{
+  background-color: rgba(0,0,0,.03) !important;
+}
+
+.collapse-body{
+  padding: 0px 0px;
+
+}
 
 .hr {
   border: 0;
@@ -106,7 +120,7 @@
 }
 .volume{
   font-family: 'Roboto Slab', serif;
-  font-size:3rem;
+  font-size:2.5rem;
   letter-spacing: 0.08em;
   font-weight: 700;
   color: #e53935;
@@ -118,7 +132,39 @@
   font-size: 1rem;
   letter-spacing: 0.08em;
   font-weight: 700;
-  color: #e53935;
+  color: #e53935 !important;
   text-shadow: 0 1px 1px #FFFFFF;
   text-transform: uppercase;
+  padding:10px 0;
+}
+::ng-deep .card .card-header .title{
+  color: #e53935 !important;
+}
+
+.table-condensed.table > thead > tr > th, .table-condensed.table > tbody > tr > th, .table-condensed.table > tfoot > tr > th, .table-condensed.table> thead > tr > td, .table-condensed.table > tbody > tr > td, .table-condensed.table > tfoot > tr > td {
+  padding: 0px 8px;
+  vertical-align: middle;
+}
+.typeahead{
+    display:inline-block;
+    width: 300px;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+::ng-deep .dropdown-menu{
+  width:300px !important;
+}
+
+::ng-deep .dropdown-item{
+  width:290px !important;
 }

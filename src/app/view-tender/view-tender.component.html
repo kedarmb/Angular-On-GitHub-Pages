@@ -52,7 +52,9 @@
             <div class="table-responsive">
               <table class="table table-bordered">
                 <thead class=" text-primary">
-
+              <th>
+                Select
+              </th>
                 <th>
                   Item No
                 </th>
@@ -84,10 +86,20 @@
                 <ng-container *ngFor="let item of tender.items; let index=index;">
 
                   <tr>
+                    <td class="width-2 text-center">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value="" checked>
+                          <span class="form-check-sign">
+                                                          <span class="check"></span>
+                                                      </span>
+                        </label>
+                      </div>
+                    </td>
                       <td class="width-2"> <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.itemNo"></textarea></td>
                       <td class="width-10"><textarea type="text" class="form-control" appAutoAdjust name="specNo" [(ngModel)]="item.specNo"></textarea></td>
                       <td class="width-20"><textarea type="text" class="form-control" appAutoAdjust name="specNo"  [(ngModel)]="item.itemName"></textarea></td>
-                      <td class="width-36"><textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.description"></textarea></td>
+                      <td class="width-30"><textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.description"></textarea></td>
                       <td class="width-2"><textarea type="text" class="form-control" appAutoAdjust name="unit" [(ngModel)]="item.unit"></textarea></td>
                       <td class="width-5"><textarea type="text" class="form-control" appAutoAdjust name="quantity"   [(ngModel)]="item.quantity"></textarea></td>
                       <td class="width-5"><textarea type="text" class="form-control" appAutoAdjust name="unitPrice"  [(ngModel)]="item.unitPrice"></textarea></td>
@@ -107,8 +119,8 @@
                       </td>
                     </tr>
                   <tr [ngbCollapse]="!accordion[index]">
-                    <td colspan="8">
-                      <div class="hr">
+                    <td colspan="9" class="collapse-body">
+                    <!--  <div class="hr">
                         <span class="">CREW</span>
                       </div>
                       <div class="row w-100">
@@ -315,7 +327,210 @@
 
                           </table>
                         </div>
-                      </div>
+                      </div>-->
+                      <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                        <ngb-panel>
+                          <ng-template ngbPanelTitle>
+                            <span class="title">SubLine Items</span>
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+                            <table class="table table-condensed">
+                              <thead>
+                              <th>Name</th>
+                              <th>Unit Price</th>
+                              <th>Quantity</th>
+                              <th>Total Price</th>
+                              <th>
+                                <a mat-button class="nav-link" href="#settings" data-toggle="tab" (click)="addSubitem(item)">
+                                  <i class="material-icons">add</i>
+                                </a>
+                              </th>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let subitem of item.subitems">
+                                <td>
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="subitem.name"></textarea>
+                                </td>
+                                <td>
+
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="subitem.unitPrice"></textarea>
+                                </td>
+                                <td>
+
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="subitem.quantity"></textarea>
+                                </td>
+                                <td>
+
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="subitem.totalPrice"></textarea>
+                                </td>
+                                <td class="td-actions width-10">
+
+                                  <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" (click)="deleteSubitem(item,index)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                    <i class="material-icons">close</i>
+                                  </button>
+                              </tr>
+                              </tbody>
+
+                            </table>
+                          </ng-template>
+                        </ngb-panel>
+                        <ngb-panel>
+                          <ng-template ngbPanelTitle>
+                            <span class="title">Trench Calculation</span>
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+                            <table class="table table-condensed">
+                              <tbody>
+                              <tr>
+                                <td>
+                                  Length
+                                </td>
+                                <td>
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.length"></textarea>
+                                </td>
+                                <td rowspan="3">
+                                  <div class="title">Cube Volume</div>
+                                  <div class="volume"> {{item.trench.cubeVolume}} </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  Height
+                                </td>
+                                <td>
+
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.height"></textarea>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  Width
+
+                                </td>
+                                <td>
+
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.width"></textarea>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td>Diameter</td>
+                                <td>
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.diameter"></textarea>
+                                </td>
+                                <td>
+                                  <div class="title">Pipe Volume</div>
+                                  <div class="volume">{{item.trench.pipeVolume}}</div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colspan="2">Volume</td>
+                                <td>
+                                  <div class="title">Volume</div>
+                                  <div class="volume">{{item.trench.remaningVolume}}</div>
+                                </td>
+                              </tr>
+
+
+                              </tbody>
+
+                            </table>
+                          </ng-template>
+                        </ngb-panel>
+                        <ngb-panel>
+                          <ng-template ngbPanelTitle>
+                            <span class="title">CREW</span>
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+                            <div class="row justify-content-center align-items-center">
+                              <div class="col-auto">
+                                <div class="form-group">
+                                  <label for="typeahead-focus">Search for CREW:</label>
+                                  <input
+                                          id="typeahead-focus"
+                                          type="text"
+                                          class="typeahead"
+                                          [(ngModel)]="model"
+                                          [ngbTypeahead]="searchFunctionFactory(instance)"
+                                          (focus)="focus$.next($event.target.value)"
+                                          (click)="click$.next($event.target.value)"
+                                          #instance="ngbTypeahead"
+                                  />
+                                  <span *ngIf="searching">searching...</span>
+                                  <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+                                </div>
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="title">Equipment</div>
+                              </div>
+                              <div class="col-6">
+                                <div class="title">Labour</div>
+                              </div>
+                            </div>
+                           <div class="row">
+                             <div class="col-6">
+                               <table class="table table-condensed">
+
+                                 <thead>
+                                 <th>Name</th>
+                                 <th>Price/Hour</th>
+                                 <th>Hour</th>
+
+                                 </thead>
+                                 <tbody>
+                                 <tr *ngFor="let equipment of item.equipments">
+                                   <td>
+                                     <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.name"></textarea>
+                                   </td>
+                                   <td>
+
+                                     <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.price"></textarea>
+                                   </td>
+                                   <td>
+
+                                     <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="equipment.hour"></textarea>
+                                   </td>
+
+                                 </tr>
+                                 </tbody>
+
+                               </table>
+                             </div>
+                             <div class="col-6">
+                               <table class="table table-condensed">
+
+                                 <thead>
+                                 <th>Name</th>
+                                 <th>Price/Hour</th>
+                                 <th>Hour</th>
+
+                                 </thead>
+                                 <tbody>
+                                 <tr *ngFor="let labour of item.labours">
+                                   <td>
+                                     <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="labour.name"></textarea>
+                                   </td>
+                                   <td>
+
+                                     <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="labour.price"></textarea>
+                                   </td>
+                                   <td>
+
+                                     <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="labour.hour"></textarea>
+                                   </td>
+
+                                 </tr>
+                                 </tbody>
+
+                               </table>
+                             </div>
+                           </div>
+                          </ng-template>
+                        </ngb-panel>
+                      </ngb-accordion>
                     </td>
                   </tr>
                   </ng-container>
