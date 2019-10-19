@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NgbModal, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {TrenchModalComponent} from '../modal/trench-modal/trench-modal.component';
 import {CrewModalComponent} from '../modal/crew-modal/crew-modal.component';
-import {Observable, of} from 'rxjs';
-import {debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
+import {Observable, Subject, merge} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-view-tender',
   templateUrl: './view-tender.component.html',
   styleUrls: ['./view-tender.component.scss']
 })
-export class ViewTenderComponent implements OnInit {
+export class ViewTenderComponent {
 
   accordion = {};
 
@@ -139,16 +140,27 @@ export class ViewTenderComponent implements OnInit {
   model: any;
   searching = false;
   searchFailed = false;
+   states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
+    'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
+    'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
+    'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
+    'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+    'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
+    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
+    'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+
+
+  @ViewChild('instance', {static: true})
+  instance: NgbTypeahead;
+
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
 
   constructor(private modalService: NgbModal) { }
 
 
 
-  ngOnInit() {
-  }
-  save() {
 
-  }
   trench(item) {
     const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
   }
@@ -184,13 +196,35 @@ export class ViewTenderComponent implements OnInit {
     item.subitems.splice(index, 1);
   }
 
-  search = (text$: Observable<string>) =>
-      text$.pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
-          tap(() => this.searching = true),
-          switchMap(term =>   of([])),
-          tap(() => this.searching = false)
-      )
+  public searchFunctionFactory(instance: any): (text: Observable<string>) => Observable<any[]> {
+
+
+
+    const getCities = (text$: Observable<string>) => {
+      const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+      const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !instance.isPopupOpen()));
+      const inputFocus$ = this.focus$;
+
+      return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+          map(term => (term === '' ? this.states
+              : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+      );
+    }
+
+
+    return getCities;
+  }
+
+  search = (text$: Observable<string>) => {
+    console.log('+++++++++++++++', this.instance);
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+        map(term => (term === '' ? this.states
+            : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    );
+  }
 
 }

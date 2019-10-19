@@ -445,8 +445,17 @@
                             <div class="row justify-content-center align-items-center">
                               <div class="col-auto">
                                 <div class="form-group">
-                                  <label for="typeahead-http">Search for CREW:</label>
-                                  <input id="typeahead-http" type="text" class="typeahead" [class.is-invalid]="searchFailed" [(ngModel)]="model" [ngbTypeahead]="search" placeholder="search" />
+                                  <label for="typeahead-focus">Search for CREW:</label>
+                                  <input
+                                          id="typeahead-focus"
+                                          type="text"
+                                          class="typeahead"
+                                          [(ngModel)]="model"
+                                          [ngbTypeahead]="searchFunctionFactory(instance)"
+                                          (focus)="focus$.next($event.target.value)"
+                                          (click)="click$.next($event.target.value)"
+                                          #instance="ngbTypeahead"
+                                  />
                                   <span *ngIf="searching">searching...</span>
                                   <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
                                 </div>

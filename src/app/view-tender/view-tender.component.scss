@@ -161,4 +161,10 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
 
+::ng-deep .dropdown-menu{
+  width:300px !important;
+}
 
+::ng-deep .dropdown-item{
+  width:290px !important;
+}
