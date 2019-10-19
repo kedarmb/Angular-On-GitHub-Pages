@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TrenchModalComponent} from '../modal/trench-modal/trench-modal.component';
 import {CrewModalComponent} from '../modal/crew-modal/crew-modal.component';
+import {Observable, of} from 'rxjs';
+import {debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-tender',
@@ -28,10 +30,11 @@ export class ViewTenderComponent implements OnInit {
         cubeVolume: 1000,
         diameter: 20,
         pipeVolume: 10,
-        totalVolume: 100
+        totalVolume: 100,
+        remaningVolume: 0
       },
       'itemName': 'Construction of Watermain, including Temporary Connections for Flushing:',
-       'labour': [{name: 'Foreman', price: '$56.45', hour: 13},
+       'labours': [{name: 'Foreman', price: '$56.45', hour: 13},
          {name: 'Pipelayer', price: '$56.45', hour: 10},
          {name: 'Surveyor', price: '$56.45', hour: 3},
          {name: 'Truck Driver', price: '$56.45', hour: 4}],
@@ -57,10 +60,10 @@ export class ViewTenderComponent implements OnInit {
         cubeVolume: 1000,
         diameter: 20,
         pipeVolume: 10,
-        totalVolume: 100
+        totalVolume: 100, remaningVolume: 0
       },
       'itemName': 'Construction of Watermain, including Temporary Connections for Flushing:',
-      'labour': [{name: 'Foreman', price: '$56.45', hour: 13},
+      'labours': [{name: 'Foreman', price: '$56.45', hour: 13},
         {name: 'Pipelayer', price: '$56.45', hour: 10},
         {name: 'Surveyor', price: '$56.45', hour: 3},
         {name: 'Truck Driver', price: '$56.45', hour: 4}],
@@ -86,10 +89,10 @@ export class ViewTenderComponent implements OnInit {
         cubeVolume: 1000,
         diameter: 20,
         pipeVolume: 10,
-        totalVolume: 100
+        totalVolume: 100, remaningVolume: 0
       },
       'itemName': 'Construction of Watermain, including Temporary Connections for Flushing:',
-      'labour': [{name: 'Foreman', price: '$56.45', hour: 13},
+      'labours': [{name: 'Foreman', price: '$56.45', hour: 13},
         {name: 'Pipelayer', price: '$56.45', hour: 10},
         {name: 'Surveyor', price: '$56.45', hour: 3},
         {name: 'Truck Driver', price: '$56.45', hour: 4}],
@@ -111,10 +114,10 @@ export class ViewTenderComponent implements OnInit {
         cubeVolume: 1000,
         diameter: 20,
         pipeVolume: 10,
-        totalVolume: 100
+        totalVolume: 100, remaningVolume: 0
       },
       'itemName': 'Construction of Watermain, including Temporary Connections for Flushing:',
-      'labour': [{name: 'Foreman', price: '$56.45', hour: 13},
+      'labours': [{name: 'Foreman', price: '$56.45', hour: 13},
         {name: 'Pipelayer', price: '$56.45', hour: 10},
         {name: 'Surveyor', price: '$56.45', hour: 3},
         {name: 'Truck Driver', price: '$56.45', hour: 4}],
@@ -132,6 +135,10 @@ export class ViewTenderComponent implements OnInit {
       'quantity': '896.6'}]
 
   }
+
+  model: any;
+  searching = false;
+  searchFailed = false;
 
   constructor(private modalService: NgbModal) { }
 
@@ -166,15 +173,24 @@ export class ViewTenderComponent implements OnInit {
       quantity: '0',
       totalPrice: 0,
       unitPrice: 0,
-      trench: {height: 0, width: 0, length: 0, cubeVolume: 0, totalVolume: 0, pipeVolume : 0, diameter: 0},
-      labour: [{name: '', price: '$0', hour: 0}],
+      trench: {height: 0, width: 0, length: 0, cubeVolume: 0, totalVolume: 0, pipeVolume : 0, diameter: 0, remaningVolume: 0},
+      labours: [{name: '', price: '$0', hour: 0}],
       equipments: [{name: '', price: '$3', hour: 0}]});
   }
-  addSubitem(item){
-    item.subitems.push({name:'',unitPrice:0,quantity:0,totalPrice:0});
+  addSubitem(item) {
+    item.subitems.unshift({name: '', unitPrice: 0, quantity: 0, totalPrice: 0});
   }
   deleteSubitem(item, index) {
     item.subitems.splice(index, 1);
   }
+
+  search = (text$: Observable<string>) =>
+      text$.pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          tap(() => this.searching = true),
+          switchMap(term =>   of([])),
+          tap(() => this.searching = false)
+      )
 
 }
