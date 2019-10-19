@@ -25,7 +25,10 @@ export class OrganizationModalComponent implements OnInit {
     this.activeModal.close('closed');
   }
   save(organization) {
-   console.log(organization);
+    this.organizationService.add(organization).subscribe(() => {
+      this.activeModal.close('closed');
+    })
+
 
   }
 }

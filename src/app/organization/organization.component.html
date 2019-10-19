@@ -49,11 +49,9 @@
                                         <th>
                                             Street Address
                                         </th>
+
                                         <th>
-                                            City
-                                        </th>
-                                        <th>
-                                            Province
+                                            ServiceArea
                                         </th>
                                         <th>
                                             Country
@@ -62,10 +60,10 @@
                                             ServiceType
                                         </th>
                                         <th>
-                                            ServiceArea
+                                            Province
                                         </th>
                                         <th>
-                                            Type
+                                            City
                                         </th>
                                         <th>
                                             Actions
@@ -73,9 +71,7 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let organization of organizations;let index=index;">
-                                            <td>
-                                                {{index + 1}}
-                                            </td>
+
                                             <td>
                                                 {{organization.name}}
                                             </td>
@@ -96,9 +92,7 @@
                                             <td>
                                                 {{organization.country}}
                                             </td>
-                                            <td>
-                                                {{organization.type}}
-                                            </td>
+
                                             <td>
                                                 {{organization.city}}
                                             </td>

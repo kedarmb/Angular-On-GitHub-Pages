@@ -38,8 +38,9 @@ export class OrganizationService {
           city: 'Jeollanam'
       }];
   constructor() { }
-  public addData(organization: Organization): Observable<Organization> {
-    this.array.push(organization);
+  public add(organization: Organization): Observable<Organization> {
+      console.log('+++++++++++++++++++++++--------------+++++++++++++++', organization);
+    this.array.unshift(organization);
     return of(organization);
 
   }

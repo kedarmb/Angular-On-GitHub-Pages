@@ -215,16 +215,6 @@ export class ViewTenderComponent {
     return getCities;
   }
 
-  search = (text$: Observable<string>) => {
-    console.log('+++++++++++++++', this.instance);
-    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
-    const inputFocus$ = this.focus$;
 
-    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-        map(term => (term === '' ? this.states
-            : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-    );
-  }
 
 }

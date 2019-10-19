@@ -31,6 +31,14 @@ export class OrganizationComponent implements OnInit {
   open(item?) {
     const modalRef = this.modalService.open(OrganizationModalComponent, {centered: true});
     modalRef.componentInstance.organization = item || new Organization();
+    modalRef.result.then(() => {
+         this.organizationService.getOrganizations().subscribe((organizations) => {
+
+            this.organizations = organizations;
+        });
+    }).catch(() => {
+        alert('error');
+    })
 
   }
   viewTender() {
