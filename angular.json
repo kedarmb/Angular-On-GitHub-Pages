@@ -18,7 +18,8 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/assets/js/spineboy.json"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -36,7 +37,8 @@
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
-              "node_modules/chartist/dist/chartist.js"
+              "node_modules/chartist/dist/chartist.js",
+              "src/assets/js/pixi-spine.js"
             ]
           },
           "configurations": {
