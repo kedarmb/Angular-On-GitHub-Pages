@@ -62,6 +62,8 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
 
   save() {
      console.log('***************************************************', this.tenderItem);
+      const uid = uuid.v4();
+      this.tenderItem.id = uid;
       this.tender.items.push(this.tenderItem);
       this.tenderItem = new TenderItem();
   }
