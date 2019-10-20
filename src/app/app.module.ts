@@ -50,6 +50,7 @@ import { NotifySubcontractorComponent } from './modal/notify-subcontractor/notif
 import { CrewComponent } from './crew/crew.component';
 import {CrewItemService} from './service/crew-item.service';
 import {CrewService} from './service/crew.service';
+import { CreateCrewComponent } from './create-crew/create-crew.component';
 
 
 

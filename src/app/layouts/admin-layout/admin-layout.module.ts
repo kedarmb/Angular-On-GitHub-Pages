@@ -31,7 +31,7 @@ import {OrganizationComponent} from '../../organization/organization.component';
 import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
 import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
 import {CrewComponent} from '../../crew/crew.component';
-
+import {CreateCrewComponent} from '../../create-crew/create-crew.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -63,7 +63,8 @@ import {CrewComponent} from '../../crew/crew.component';
     OrganizationComponent,
     CreateTenderItemComponent,
       AutoAdjustDirective,
-    CrewComponent
+    CrewComponent,
+    CreateCrewComponent
   ]
 })
 

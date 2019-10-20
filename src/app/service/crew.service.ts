@@ -104,4 +104,10 @@ export class CrewService {
         this.array.unshift(crew);
         return of([]);
     }
+    getCrewById(id) {
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',id);
+        return this.array.find((crew) => {
+             if (crew.id === id) { return true; } else { return false; }
+        })
+    }
 }

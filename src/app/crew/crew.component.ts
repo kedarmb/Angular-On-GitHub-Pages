@@ -4,6 +4,7 @@ import {CrewModalComponent} from '../modal/crew-modal/crew-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Crew} from '../model/crew.model';
 import {CrewService} from '../service/crew.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-crew',
@@ -13,7 +14,7 @@ import {CrewService} from '../service/crew.service';
 export class CrewComponent implements OnInit {
 
    crews: Crew[];
-  constructor(private modalService: NgbModal, private crewService: CrewService) { }
+  constructor(private modalService: NgbModal, private crewService: CrewService, private router: Router) { }
 
   ngOnInit() {
      this.crewService.getAll().subscribe((crews) => {
@@ -61,6 +62,10 @@ export class CrewComponent implements OnInit {
     }
 
     return str;
+  }
+
+  edit(crew) {
+        this.router.navigateByUrl('/create-crew/' + crew.id);
   }
 
 }
