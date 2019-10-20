@@ -1,6 +1,6 @@
 <div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
   <ul class="nav">
-    <li routerLinkActive="active"  class="nav-item">
+    <li  class="nav-item">
       <a class="nav-link">
         <div class="form-group">
           <label>itemNo</label>
@@ -8,7 +8,7 @@
         </div>
       </a>
     </li>
-    <li routerLinkActive="active"  class="nav-item">
+    <li  class="nav-item">
       <a class="nav-link">
         <div class="form-group">
           <label>specNo</label>
@@ -16,7 +16,7 @@
         </div>
       </a>
     </li>
-    <li routerLinkActive="active"  class="nav-item">
+    <li  class="nav-item">
       <a class="nav-link">
         <div class="form-group">
           <label>itemName</label>
@@ -24,15 +24,15 @@
         </div>
       </a>
     </li>
-    <li routerLinkActive="active"  class="nav-item">
+    <li  class="nav-item">
       <a class="nav-link">
         <div class="form-group">
           <label>Description</label>
-          <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="tenderItem.description"></textarea>
+          <textarea type="text" class="form-control" appAutoAdjust name="description"  [(ngModel)]="tenderItem.description"></textarea>
         </div>
       </a>
     </li>
-    <li routerLinkActive="active"  class="nav-item">
+    <li  class="nav-item">
       <a class="nav-link">
         <div class="form-group">
           <label>Unit</label>
@@ -40,7 +40,7 @@
         </div>
       </a>
     </li>
-    <li routerLinkActive="active"  class="nav-item">
+    <li  class="nav-item">
       <a class="nav-link">
         <div class="form-group">
           <label>Quantity</label>
@@ -48,7 +48,7 @@
         </div>
       </a>
     </li>
-    <li routerLinkActive="active"  class="nav-item">
+    <li  class="nav-item">
       <a class="nav-link">
         <div class="form-group">
           <label>Unit Price</label>
@@ -56,7 +56,7 @@
         </div>
       </a>
     </li>
-    <li routerLinkActive="active"  class="nav-item text-center" >
+    <li  class="nav-item text-center" >
       <button mat-raised-button type="submit" (click)="cancel()" class="btn btn-danger">Cancel</button>
       <button mat-raised-button type="submit" (click)="save()" class="btn btn-danger">Save</button>
     </li>
@@ -71,7 +71,7 @@
       <div class="col-md-12">
         <input type="file" (change)="setPreviewFromFile($event.target.files)"/>
         <pdf-viewer [src]="pdfSrc"
-                    [render-text]="true" (text-layer-rendered)="textLayerRendered($event)" [original-size]="true" [fit-to-page]="true"
+                    [render-text]="true" (text-layer-rendered)="textLayerRendered($event)" [original-size]="true" [fit-to-page]="true" [zoom]="1.5"
                     style="display: block;"
         ></pdf-viewer>
       </div>
