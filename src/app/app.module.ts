@@ -37,8 +37,7 @@ import {TenderModalComponent} from './modal/tender-modal/tender-modal.component'
 import {TenderService} from './service/tender.service';
 import {HttpClientModule} from '@angular/common/http';
 import {TenderitemService} from './service/tenderitem.service';
-import {TenderItemModalComponent} from './modal/tender-item-modal/tender-item-modal.component';
-import {TenderSubitemModalComponent} from './modal/tender-subitem-modal/tender-subitem-modal.component';
+
 import {TrenchModalComponent} from './modal/trench-modal/trench-modal.component';
 import {CrewModalComponent} from './modal/crew-modal/crew-modal.component';
 import { OrganizationModalComponent } from './modal/organization-modal/organization-modal.component';
@@ -84,8 +83,6 @@ import { DateConverterPipe } from './pipe/date-converter.pipe';
         LoginComponent,
         SignupComponent,
         TenderModalComponent,
-        TenderItemModalComponent,
-        TenderSubitemModalComponent,
         TrenchModalComponent,
         CrewModalComponent,
         OrganizationModalComponent,
@@ -93,8 +90,6 @@ import { DateConverterPipe } from './pipe/date-converter.pipe';
     providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService],
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
-        TenderItemModalComponent,
-        TenderSubitemModalComponent,
         TrenchModalComponent,
         CrewModalComponent, OrganizationModalComponent,
         NotifySubcontractorComponent]
