@@ -68,7 +68,7 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'create-crew', component: CreateCrewComponent},
     {path: 'create-crew/:id', component: CreateCrewComponent},
     {path: 'create-tenderitem', component: CreateTenderItemComponent},
-    {path: 'view-tender', component: ViewTenderComponent},
+    {path: 'view-tender/:id', component: ViewTenderComponent},
     {path: 'tender', component: TenderComponent},
     {path: 'tender-items', component: TenderitemComponent},
     {path: 'user-profile', component: UserProfileComponent},

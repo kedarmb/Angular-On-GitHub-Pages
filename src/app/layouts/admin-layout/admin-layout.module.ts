@@ -32,6 +32,7 @@ import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-
 import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
 import {CrewComponent} from '../../crew/crew.component';
 import {CreateCrewComponent} from '../../create-crew/create-crew.component';
+import {DateConverterPipe} from '../../pipe/date-converter.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -64,7 +65,8 @@ import {CreateCrewComponent} from '../../create-crew/create-crew.component';
     CreateTenderItemComponent,
       AutoAdjustDirective,
     CrewComponent,
-    CreateCrewComponent
+    CreateCrewComponent,
+     DateConverterPipe
   ]
 })
 

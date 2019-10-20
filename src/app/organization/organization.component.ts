@@ -27,9 +27,9 @@ export class OrganizationComponent implements OnInit {
   constructor(private modalService: NgbModal, private organizationService: OrganizationService, private router: Router) {}
 
     delete(organization) {
-        this.organizationService.delete(organization).subscribe((organizations) => {
-            this.organizationService.getAll().subscribe((organizations)=>{
-                this.organizations=organizations;
+        this.organizationService.delete(organization).subscribe(() => {
+            this.organizationService.getAll().subscribe((organizations) => {
+                this.organizations = organizations;
             })
         })
     }
