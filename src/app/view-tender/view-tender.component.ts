@@ -6,7 +6,7 @@ import {Observable, Subject, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 import {NotifySubcontractorComponent} from '../modal/notify-subcontractor/notify-subcontractor.component';
 import {CrewService} from '../service/crew.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TenderService} from '../service/tender.service';
 import {Tender} from '../model/tender.model';
 import {TenderItem} from '../model/tender-item.model';
@@ -40,7 +40,7 @@ export class ViewTenderComponent {
 
     constructor(private modalService: NgbModal, private crewService: CrewService,
                 private activatedRoute: ActivatedRoute,
-                private tenderService: TenderService) {
+                private tenderService: TenderService,private router: Router) {
         this.activatedRoute.params.subscribe((params) => {
             this.tenderService.getTenderById(params.id).subscribe((tender) => {
                 console.log('******************************', tender);
@@ -167,5 +167,8 @@ export class ViewTenderComponent {
         item.trench.pipeVolume = (3.14 * (item.trench.diameter / 2) * item.trench.height).toFixed(2);
         item.trench.remaningVolume = (item.trench.cubeVolume - item.trench.pipeVolume).toFixed(2);
 
+    }
+    viewer(item) {
+        this.router.navigateByUrl('/pdf-viewer/' + item.id);
     }
 }

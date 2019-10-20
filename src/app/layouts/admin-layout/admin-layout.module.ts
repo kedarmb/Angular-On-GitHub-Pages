@@ -33,6 +33,9 @@ import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
 import {CrewComponent} from '../../crew/crew.component';
 import {CreateCrewComponent} from '../../create-crew/create-crew.component';
 import {DateConverterPipe} from '../../pipe/date-converter.pipe';
+import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 @NgModule({
   imports: [
     CommonModule,
@@ -46,7 +49,9 @@ import {DateConverterPipe} from '../../pipe/date-converter.pipe';
     MatSelectModule,
     MatTooltipModule,
     NgbModule,
-    MatExpansionModule
+    MatExpansionModule,
+    PdfViewerModule,
+    FileUploadModule
   ],
   declarations: [
     DashboardComponent,
@@ -66,7 +71,8 @@ import {DateConverterPipe} from '../../pipe/date-converter.pipe';
       AutoAdjustDirective,
     CrewComponent,
     CreateCrewComponent,
-     DateConverterPipe
+     DateConverterPipe,
+    PdfViewerComponent
   ]
 })
 

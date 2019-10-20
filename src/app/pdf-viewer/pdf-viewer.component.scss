@@ -1,0 +1,19 @@
+::ng-deep .textLayer > span {
+  position: absolute;
+  z-index: 9;
+  background-color: #f1f1f1;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  cursor:move;
+}
+
+.sidebar .nav li a, .sidebar .nav li .dropdown-menu a {
+  margin: 0px 15px;
+  border-radius: 3px;
+  color: #3C4858;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-transform: capitalize;
+  font-size: 13px;
+  padding: 0px 15px;
+}

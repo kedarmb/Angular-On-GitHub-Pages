@@ -44,5 +44,8 @@ export class TenderComponent implements OnInit {
   viewTender(tender) {
     this.router.navigateByUrl('view-tender/' + tender.id);
   }
+  viewer(tender) {
+    this.router.navigateByUrl('pdf-viewer/' + tender.id);
+  }
 
 }

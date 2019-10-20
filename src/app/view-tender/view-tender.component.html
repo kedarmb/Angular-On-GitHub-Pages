@@ -116,7 +116,7 @@
                       <td class="width-5"><textarea type="text" class="form-control" appAutoAdjust name="quantity"   [(ngModel)]="item.quantity"></textarea></td>
                       <td class="width-5"><textarea type="text" class="form-control" appAutoAdjust name="unitPrice"  [(ngModel)]="item.unitPrice"></textarea></td>
                       <td class="td-actions width-15">
-                        <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                        <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'"  (click)="viewer(item)" class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">remove_red_eye</i>
                         </button>
                         <button mat-raised-button type="button" matTooltip="remove" [matTooltipPosition]="'above'" (click)="delete(item)" class="btn btn-danger btn-link btn-sm btn-just-icon">
