@@ -164,7 +164,7 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
 
-::ng-deep .dropdown-menu{
+::ng-deep  .accordion .dropdown-menu{
   width:300px !important;
   position: absolute !important;
   top: 38px !important;
