@@ -23,7 +23,7 @@ export class TenderService {
         id: '105',
         itemNo: 'A-1',
         specNo: 'PW.2 OPSS 442 SP',
-        crew: '201',
+        crew: 'Crew1',
         trench: {
           height: 10,
           width: 10,
@@ -35,14 +35,8 @@ export class TenderService {
           remaningVolume: 0
         },
         itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
-        labours: [{id: '100', name: 'Foreman', price: 56.45, hour: 13},
-          {id: '101', name: 'Pipelayer', price: 56.45, hour: 10},
-          {id: '102', name: 'Surveyor', price: 56.45, hour: 3},
-          {id: '103', name: 'Truck Driver', price: 56.45, hour: 4}],
-        equipments: [{id: '104', name: 'Float', price: 23.23, hour: 10},
-          {id: '105', name: 'Sweeper', price: 23.23, hour: 12},
-          {id: '106', name: 'Triaxle', price: 23.23, hour: 12},
-          {id: '107', name: 'Hammer', price: 23.23, hour: 13}],
+        labours: [],
+        equipments: [],
         subitems: [
           {name: 'Cement', unit: 0, unitPrice: 10, quantity: 10, totalPrice: 100},
           {name: 'Gloves', unit: 0, unitPrice: 10, quantity: 10, totalPrice: 100},
@@ -57,7 +51,7 @@ export class TenderService {
           id: '106',
           itemNo: 'A-2',
           specNo: 'PW.2 OPSS 442 SP',
-          crew: '202',
+          crew: 'Crew2',
           trench: {
             height: 10,
             width: 10,
@@ -69,14 +63,8 @@ export class TenderService {
             remaningVolume: 0
           },
           itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
-          labours: [{id: '100', name: 'Foreman', price: 56.45, hour: 13},
-            {id: '101', name: 'Pipelayer', price: 56.45, hour: 10},
-            {id: '102', name: 'Surveyor', price: 56.45, hour: 3},
-            {id: '103', name: 'Truck Driver', price: 56.45, hour: 4}],
-          equipments: [{id: '104', name: 'Float', price: 23.23, hour: 10},
-            {id: '105', name: 'Sweeper', price: 23.23, hour: 12},
-            {id: '106', name: 'Triaxle', price: 23.23, hour: 12},
-            {id: '107', name: 'Hammer', price: 23.23, hour: 13}],
+          labours: [],
+          equipments: [],
           subitems: [
             {name: 'Cement', unit: 0, unitPrice: 10, quantity: 10, totalPrice: 100},
             {name: 'Gloves', unit: 0, unitPrice: 10, quantity: 10, totalPrice: 100},
@@ -91,7 +79,7 @@ export class TenderService {
           id: '107',
           itemNo: 'A-3',
           specNo: 'PW.2 OPSS 442 SP',
-          crew: '203',
+          crew: 'Crew3',
           trench: {
             height: 10,
             width: 10,
@@ -103,14 +91,8 @@ export class TenderService {
             remaningVolume: 0
           },
           itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
-          labours: [{id: '100', name: 'Foreman', price: 56.45, hour: 13},
-            {id: '101', name: 'Pipelayer', price: 56.45, hour: 10},
-            {id: '102', name: 'Surveyor', price: 56.45, hour: 3},
-            {id: '103', name: 'Truck Driver', price: 56.45, hour: 4}],
-          equipments: [{id: '104', name: 'Float', price: 23.23, hour: 10},
-            {id: '105', name: 'Sweeper', price: 23.23, hour: 12},
-            {id: '106', name: 'Triaxle', price: 23.23, hour: 12},
-            {id: '107', name: 'Hammer', price: 23.23, hour: 13}],
+          labours: [],
+          equipments: [],
           subitems: [
             {name: 'Cement', unit: 0, unitPrice: 10, quantity: 10, totalPrice: 100},
             {name: 'Gloves', unit: 0, unitPrice: 10, quantity: 10, totalPrice: 100},
@@ -125,7 +107,7 @@ export class TenderService {
           id: '108',
           itemNo: 'A-4',
           specNo: 'PW.2 OPSS 442 SP',
-          crew: '204',
+          crew: 'Crew4',
           trench: {
             height: 10,
             width: 10,
@@ -137,14 +119,8 @@ export class TenderService {
             remaningVolume: 0
           },
           itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
-          labours: [{id: '100', name: 'Foreman', price: 56.45, hour: 13},
-            {id: '101', name: 'Pipelayer', price: 56.45, hour: 10},
-            {id: '102', name: 'Surveyor', price: 56.45, hour: 3},
-            {id: '103', name: 'Truck Driver', price: 56.45, hour: 4}],
-          equipments: [{id: '104', name: 'Float', price: 23.23, hour: 10},
-            {id: '105', name: 'Sweeper', price: 23.23, hour: 12},
-            {id: '106', name: 'Triaxle', price: 23.23, hour: 12},
-            {id: '107', name: 'Hammer', price: 23.23, hour: 13}],
+          labours: [],
+          equipments: [],
           subitems: [
             {name: 'Cement', unit: 0, unitPrice: 10, quantity: 10, totalPrice: 100},
             {name: 'Gloves', unit: 0, unitPrice: 10, quantity: 10, totalPrice: 100},

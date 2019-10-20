@@ -5,10 +5,11 @@ export class Tender {
     id = '';
     clientName = '';
     name = '';
-    items: TenderItem [];
+    items: TenderItem [] = [];
     quoteStartDate: any ;
     quoteEndDate: any;
     openDate: any ;
     closeDate: any ;
+
 
 }

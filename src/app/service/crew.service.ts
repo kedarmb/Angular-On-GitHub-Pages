@@ -105,9 +105,18 @@ export class CrewService {
         return of([]);
     }
     getCrewById(id) {
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', id);
+
         return this.array.find((crew) => {
              if (crew.id === id) { return true; } else { return false; }
         })
+    }
+    getCrewByName(name) {
+        return  of(this.array.find((crew) => {
+            if (crew.name === name) {
+                return true;
+            } else {
+                return false;
+            }
+        }))
     }
 }

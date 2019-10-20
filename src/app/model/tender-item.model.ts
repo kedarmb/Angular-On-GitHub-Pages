@@ -8,10 +8,10 @@ export class TenderItem {
     itemName = '';
     specNo = '';
     description = '';
-    trench: Trench;
-    labours: CrewItem[];
-    equipments: CrewItem[];
-    subitems: TenderSubitem[];
+    trench: Trench = new Trench();
+    labours: CrewItem[] = [];
+    equipments: CrewItem[] = [];
+    subitems: TenderSubitem[] = [];
     unit = '';
     quantity = 0;
     unitPrice = 0;

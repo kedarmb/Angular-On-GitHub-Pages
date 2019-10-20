@@ -191,7 +191,7 @@
                                   Length
                                 </td>
                                 <td>
-                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.length"></textarea>
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo" (keyup)="calculateVolume(item)"  [(ngModel)]="item.trench.length"></textarea>
                                 </td>
                                 <td rowspan="3">
                                   <div class="title">Cube Volume</div>
@@ -204,7 +204,7 @@
                                 </td>
                                 <td>
 
-                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.height"></textarea>
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  (keyup)="calculateVolume(item)"   [(ngModel)]="item.trench.height"></textarea>
                                 </td>
                               </tr>
                               <tr>
@@ -214,14 +214,14 @@
                                 </td>
                                 <td>
 
-                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.width"></textarea>
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  (keyup)="calculateVolume(item)"   [(ngModel)]="item.trench.width"></textarea>
                                 </td>
                               </tr>
 
                               <tr>
                                 <td>Diameter</td>
                                 <td>
-                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="item.trench.diameter"></textarea>
+                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  (keyup)="calculateVolume(item)"   [(ngModel)]="item.trench.diameter"></textarea>
                                 </td>
                                 <td>
                                   <div class="title">Pipe Volume</div>
@@ -244,7 +244,7 @@
                         </ngb-panel>
                         <ngb-panel>
                           <ng-template ngbPanelTitle>
-                            <span class="title">CREW</span>
+                            <span class="title" (click)="populateCrew(item)">CREW</span>
                           </ng-template>
                           <ng-template ngbPanelContent>
                             <div class="row justify-content-center align-items-center">
@@ -255,7 +255,7 @@
                                           id="typeahead-focus"
                                           type="text"
                                           class="typeahead"
-                                          [(ngModel)]="model"
+                                          [(ngModel)]="item.crew"
                                           (selectItem)="selectedItem($event,item)"
                                           [ngbTypeahead]="searchFunctionFactory(instance)"
                                           (focus)="focus$.next($event.target.value)"
