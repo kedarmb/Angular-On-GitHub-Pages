@@ -12,14 +12,35 @@
 
                                          <ul class="nav nav-tabs" data-tabs="tabs">
                                            <li class="nav-item">
-                                             <a mat-button class="nav-link active" (click)="contractorWise()" href="#profile" data-toggle="tab">
+                                             <a mat-button class="nav-link active" (click)="contractor=1;" href="#profile" data-toggle="tab">
                                                Contractor
                                                <div class="ripple-container"></div>
                                              </a>
-                                             <a mat-button class="nav-link active" (click)="lineItemWise()" href="#profile" data-toggle="tab">
-                                               LINEITEM
-                                               <div class="ripple-container"></div>
-                                             </a>
+
+                                           </li>
+                                             <li class="nav-item">
+
+                                                 <a mat-button class="nav-link active" (click)="contractor=2;" href="#profile" data-toggle="tab">
+                                                     LINEITEM
+                                                     <div class="ripple-container"></div>
+                                                 </a>
+
+                                             </li>
+                                             <li class="nav-item">
+                                                 <a mat-button class="nav-link active" (click)="contractor=3" href="#profile" data-toggle="tab">
+                                                     BAR GRAPH
+                                                     <div class="ripple-container"></div>
+                                                 </a>
+
+                                             </li>
+                                             <li class="nav-item">
+                                                 <a mat-button class="nav-link active" (click)="contractor=4" href="#profile" data-toggle="tab">
+                                                     LINE GRAPH
+                                                     <div class="ripple-container"></div>
+                                                 </a>
+
+                                             </li>
+
 
                                          </ul>
                                     </div>
@@ -29,8 +50,8 @@
                             <!--<p class="card-category"> Here is a subtitle for this table</p>-->
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table  class="table table-bordered" *ngIf="contractor">
+                            <div class="table-responsive"  [ngSwitch]="contractor">
+                                <table  class="table table-bordered" *ngSwitchCase="1">
 
                                     <thead class="">
                                     <th>
@@ -780,7 +801,7 @@
 
                                     </tbody>
                                 </table>
-                                <table  class="table table-bordered" *ngIf="!contractor">
+                                <table  class="table table-bordered" *ngSwitchCase="2">
 
                                 <thead class="">
                                 <th>
@@ -1310,6 +1331,60 @@
 
                                 </tbody>
                               </table>
+                                <div *ngSwitchCase="3" class="bg-light graph-container">
+                                    <div class="row" *ngFor="let item of tender.items">
+                                        <div class="col mx-0">
+                                            <canvas baseChart
+                                                    [datasets]="barChartData"
+                                                    [labels]="barChartLabels"
+                                                    [options]="barChartOptions"
+                                                    [plugins]="barChartPlugins"
+                                                    [legend]="barChartLegend"
+                                                    [chartType]="barChartType">
+                                            </canvas>
+                                        </div>
+                                        <div class="col mx-0">
+                                            <canvas baseChart
+                                                    [datasets]="barChartData"
+                                                    [labels]="barChartLabels"
+                                                    [options]="barChartOptions"
+                                                    [plugins]="barChartPlugins"
+                                                    [legend]="barChartLegend"
+                                                    [chartType]="barChartType">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngSwitchCase="4" class="bg-light graph-container">
+                                    <div class="row" *ngFor="let item of tender.items">
+                                        <div class="col mx-0">
+                                            <canvas baseChart
+                                                    [datasets]="lineChartData"
+                                                    [labels]="lineChartLabels"
+                                                    [options]="lineChartOptions"
+                                                    [colors]="lineChartColors"
+                                                    [legend]="lineChartLegend"
+                                                    [chartType]="lineChartType"
+                                                    [plugins]="lineChartPlugins">
+                                            </canvas>
+                                        </div>
+                                        <div class="col mx-0">
+                                            <canvas baseChart
+                                                    [datasets]="lineChartData"
+                                                    [labels]="lineChartLabels"
+                                                    [options]="lineChartOptions"
+                                                    [colors]="lineChartColors"
+                                                    [legend]="lineChartLegend"
+                                                    [chartType]="lineChartType"
+                                                    [plugins]="lineChartPlugins">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                             </div>
                         </div>
                     </div>

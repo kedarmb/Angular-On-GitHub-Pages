@@ -37,6 +37,7 @@ import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {QuoteComponent} from '../../quote/quote.component';
+import {ChartsModule} from 'ng2-charts';
 @NgModule({
   imports: [
     CommonModule,
@@ -52,7 +53,8 @@ import {QuoteComponent} from '../../quote/quote.component';
     NgbModule,
     MatExpansionModule,
     PdfViewerModule,
-    FileUploadModule
+    FileUploadModule,
+    ChartsModule
   ],
   declarations: [
     DashboardComponent,
