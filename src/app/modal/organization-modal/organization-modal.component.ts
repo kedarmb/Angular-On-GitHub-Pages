@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Tender} from '../../model/tender.model';
+import Organization from '../../model/organization.model';
+import {OrganizationService} from '../../service/organization.service';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-organization-modal',
   templateUrl: './organization-modal.component.html',
@@ -8,10 +11,10 @@ import {Tender} from '../../model/tender.model';
 })
 export class OrganizationModalComponent implements OnInit {
 
-  @Input('tender')
-  tender: Tender ;
+  @Input('organization')
+  organization: Organization ;
   placement = 'bottom';
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private organizationService: OrganizationService) {}
 
   ngOnInit() {
 
@@ -20,5 +23,19 @@ export class OrganizationModalComponent implements OnInit {
 
   close() {
     this.activeModal.close('closed');
+  }
+     save(organization) {
+    if (organization.id) {
+      this.organizationService.update(organization).subscribe(() => {
+        this.activeModal.close('closed');
+      })
+    } else {
+      this.organizationService.add(organization).subscribe(() => {
+        this.activeModal.close('closed');
+      })
+    }
+
+
+
   }
 }

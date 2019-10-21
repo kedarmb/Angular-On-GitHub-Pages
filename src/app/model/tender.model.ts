@@ -1,12 +1,15 @@
 import {NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {TenderItem} from './tender-item.model';
 
 export class Tender {
+    id = '';
     clientName = '';
-    tenderName = '';
-    tenderDescription = '';
+    name = '';
+    items: TenderItem [] = [];
     quoteStartDate: any ;
-    quoteEndDate: any ;
+    quoteEndDate: any;
     openDate: any ;
     closeDate: any ;
+
 
 }

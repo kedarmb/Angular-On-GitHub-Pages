@@ -28,7 +28,18 @@ import {TenderitemComponent} from '../../tenderitem/tenderitem.component';
 import { ViewTenderComponent } from './../../view-tender/view-tender.component';
 import {EditInputComponent} from '../../edit-input/edit-input.component';
 import {OrganizationComponent} from '../../organization/organization.component';
+
 import { UserComponent } from '../../user/user.component';
+
+
+import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
+import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
+import {CrewComponent} from '../../crew/crew.component';
+import {CreateCrewComponent} from '../../create-crew/create-crew.component';
+import {DateConverterPipe} from '../../pipe/date-converter.pipe';
+import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   imports: [
@@ -43,7 +54,9 @@ import { UserComponent } from '../../user/user.component';
     MatSelectModule,
     MatTooltipModule,
     NgbModule,
-    MatExpansionModule
+    MatExpansionModule,
+    PdfViewerModule,
+    FileUploadModule
   ],
   declarations: [
     DashboardComponent,
@@ -59,7 +72,16 @@ import { UserComponent } from '../../user/user.component';
     ViewTenderComponent,
     EditInputComponent,
     OrganizationComponent,
-    UserComponent
+
+    UserComponent,
+
+    CreateTenderItemComponent,
+      AutoAdjustDirective,
+    CrewComponent,
+    CreateCrewComponent,
+     DateConverterPipe,
+    PdfViewerComponent
+
   ]
 })
 

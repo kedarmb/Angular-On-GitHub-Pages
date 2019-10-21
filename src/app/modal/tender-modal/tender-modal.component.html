@@ -7,13 +7,9 @@
 
     <div class="form-group">
       <label for="tenderName">Name</label>
-      <input type="email" class="form-control" id="tenderName" placeholder="tenderName" name="tenderName" [(ngModel)]="tender.tenderName" placeholder="tender Name">
+      <input type="email" class="form-control" id="tenderName" placeholder="tenderName" name="tenderName" [(ngModel)]="tender.name" placeholder="tender Name">
     </div>
 
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input type="email" class="form-control" id="description"  name="tenderDescription" [(ngModel)]="tender.tenderDescription" placeholder="Enter Description">
-    </div>
 
 
     <div class="form-group">
@@ -45,6 +41,6 @@
              name="quoteEndDate" [(ngModel)]="tender.quoteEndDate" ngbDatepicker #d4="ngbDatepicker"  [placement]="placement"(focus)="d4.toggle()">
     </div>
     <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-    <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
+    <button mat-raised-button type="submit" (click)="save()" class="btn btn-danger pull-right">Save</button>
   </form>
 </div>

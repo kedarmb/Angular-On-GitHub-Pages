@@ -1,77 +1,65 @@
 <div class="modal-body">
     <form role="form">
         <div class="form-group">
-            <label for="clientName"> Name</label>
-            <input type="email" class="form-control" id="name" name="name" [(ngModel)]="tender.name" placeholder="Enter Name">
+            <label for="name"> Name</label>
+            <input type="name" class="form-control" id="name" name="name" [(ngModel)]="organization.name" placeholder="Enter Name">
         </div>
 
         <div class="form-group">
-            <label for="tenderName">Street Address</label>
-            <input type="email" class="form-control" id="tenderName" placeholder="tenderName" name="tenderName" [(ngModel)]="tender.streetaddress" placeholder="Enter Street Address">
+            <label for="organizationName">Street Address</label>
+            <input type="text" class="form-control" id="organizationName" placeholder="organizationName" name="organizationName" [(ngModel)]="organization.streetAddress" placeholder="Enter Street Address">
         </div>
 
         <div class="form-group">
-            <label for="description">City</label>
-            <input type="email" class="form-control" id="city" name="city" [(ngModel)]="tender.city" placeholder="Enter  City">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="organization.city" placeholder="Enter  City">
         </div>
         <div class="form-group">
-            <label for="description">Province</label>
-            <input type="email" class="form-control" id="province" name="province" [(ngModel)]="tender.province" placeholder="Enter  Province">
+            <label for="province">Province</label>
+            <input type="text" class="form-control" id="province" name="province" [(ngModel)]="organization.province" placeholder="Enter  Province">
         </div>
         <div class="form-group">
-            <label for="description"> Country</label>
-            <input type="email" class="form-control" id="country" name="country" [(ngModel)]="tender.country" placeholder="Enter  Country">
+            <label for="country"> Country</label>
+            <input type="text" class="form-control" id="country" name="country" [(ngModel)]="organization.country" placeholder="Enter  Country">
         </div>
         <div class="form-group">
-            <label for="description">   ServiceType</label>
-            <input type="email" class="form-control" id="serviceType" name=" serviceType" [(ngModel)]="tender.servicetype" placeholder="Enter  ServiceType">
+            <label for="serviceType">   ServiceType</label>
+            <input type="text" class="form-control" id="serviceType" name=" serviceType" [(ngModel)]="organization.serviceType" placeholder="Enter  ServiceType">
         </div>
         <div class="form-group">
-            <label for="description">   ServiceArea</label>
-            <input type="email" class="form-control" id="serviceArea" name=" serviceArea" [(ngModel)]="tender.servicearea" placeholder="Enter   ServiceArea">
+            <label for="serviceArea">   ServiceArea</label>
+            <input type="text" class="form-control" id="serviceArea" name=" serviceArea" [(ngModel)]="organization.serviceArea" placeholder="Enter   ServiceArea">
         </div>
         <!-- <div class="form-group"> -->
-        <label for="description">   Type</label>
-        <!-- <input type="email" class="form-control" id="description" name="tenderDescription" [(ngModel)]="tender.tenderDescription" placeholder="Enter  Type"> -->
-        <div class="form-group">
-            <!-- Default inline 1-->
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
-                <label class="custom-control-label" for="defaultInline1">Prime Contractor</label>
-            </div>
 
-            <!-- Default inline 2-->
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
-                <label class="custom-control-label" for="defaultInline2"> Sub Contractor</label>
-            </div>
-        </div>
+        <!-- <input type="email" class="form-control" id="description" name="organizationDescription" [(ngModel)]="organization.organizationDescription" placeholder="Enter  Type"> -->
+
         <!-- </div> -->
         <!-- <div class="form-group">
             <label>Open Date</label>
             <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" name="openDate" [(ngModel)]="tender.openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="openDate" [(ngModel)]="organization.openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
 
             </div>
         </div>
 
         <div class="form-group">
             <label>Closed date</label>
-            <input class="form-control" placeholder="yyyy-mm-dd" name="closeDate" [(ngModel)]="tender.closeDate" ngbDatepicker #d2="ngbDatepicker" [placement]="placement" (focus)="d2.toggle()">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="closeDate" [(ngModel)]="organization.closeDate" ngbDatepicker #d2="ngbDatepicker" [placement]="placement" (focus)="d2.toggle()">
 
         </div>
 
         <div class="form-group">
             <label>Quote Start Date</label>
-            <input class="form-control" placeholder="yyyy-mm-dd" name="quoteStartDate" [(ngModel)]="tender.quoteStartDate" ngbDatepicker #d3="ngbDatepicker" [placement]="placement" (focus)="d3.toggle()">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="quoteStartDate" [(ngModel)]="organization.quoteStartDate" ngbDatepicker #d3="ngbDatepicker" [placement]="placement" (focus)="d3.toggle()">
         </div>
 
         <div class="form-group">
             <label>Quote End Date</label>
 
-            <input class="form-control" placeholder="yyyy-mm-dd" name="quoteEndDate" [(ngModel)]="tender.quoteEndDate" ngbDatepicker #d4="ngbDatepicker" [placement]="placement" (focus)="d4.toggle()">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="quoteEndDate" [(ngModel)]="organization.quoteEndDate" ngbDatepicker #d4="ngbDatepicker" [placement]="placement" (focus)="d4.toggle()">
         </div> -->
-        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
+        <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+        <button mat-raised-button type="button" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
     </form>
 </div>

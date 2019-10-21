@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TenderSubitemModalComponent } from './tender-subitem-modal.component';
+import { CrewComponent } from './crew.component';
 
-describe('TenderSubitemModalComponent', () => {
-  let component: TenderSubitemModalComponent;
-  let fixture: ComponentFixture<TenderSubitemModalComponent>;
+describe('CrewComponent', () => {
+  let component: CrewComponent;
+  let fixture: ComponentFixture<CrewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TenderSubitemModalComponent ]
+      declarations: [ CrewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TenderSubitemModalComponent);
+    fixture = TestBed.createComponent(CrewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

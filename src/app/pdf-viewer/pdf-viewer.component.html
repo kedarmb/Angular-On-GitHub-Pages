@@ -1,0 +1,80 @@
+<div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+  <ul class="nav">
+    <li  class="nav-item">
+      <a class="nav-link">
+        <div class="form-group">
+          <label>itemNo</label>
+          <input type="text" name="itemNo" [(ngModel)]="tenderItem.itemNo" class="form-control"/>
+        </div>
+      </a>
+    </li>
+    <li  class="nav-item">
+      <a class="nav-link">
+        <div class="form-group">
+          <label>specNo</label>
+          <input type="text" name="specNo" [(ngModel)]="tenderItem.specNo" class="form-control"/>
+        </div>
+      </a>
+    </li>
+    <li  class="nav-item">
+      <a class="nav-link">
+        <div class="form-group">
+          <label>itemName</label>
+          <input type="text" name="itemName" [(ngModel)]="tenderItem.itemName" class="form-control"/>
+        </div>
+      </a>
+    </li>
+    <li  class="nav-item">
+      <a class="nav-link">
+        <div class="form-group">
+          <label>Description</label>
+          <textarea type="text" class="form-control" appAutoAdjust name="description"  [(ngModel)]="tenderItem.description"></textarea>
+        </div>
+      </a>
+    </li>
+    <li  class="nav-item">
+      <a class="nav-link">
+        <div class="form-group">
+          <label>Unit</label>
+          <input type="text" name="unit" [(ngModel)]="tenderItem.unit" class="form-control"/>
+        </div>
+      </a>
+    </li>
+    <li  class="nav-item">
+      <a class="nav-link">
+        <div class="form-group">
+          <label>Quantity</label>
+          <input type="text" name="quantity" [(ngModel)]="tenderItem.quantity" class="form-control"/>
+        </div>
+      </a>
+    </li>
+    <li  class="nav-item">
+      <a class="nav-link">
+        <div class="form-group">
+          <label>Unit Price</label>
+          <input type="text" name="unitPrice" [(ngModel)]="tenderItem.unitPrice" class="form-control"/>
+        </div>
+      </a>
+    </li>
+    <li  class="nav-item text-center" >
+      <button mat-raised-button type="submit" (click)="cancel()" class="btn btn-danger">Cancel</button>
+      <button mat-raised-button type="submit" (click)="save()" class="btn btn-danger">Save</button>
+    </li>
+
+  </ul>
+
+</div>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-12">
+        <input type="file" (change)="setPreviewFromFile($event.target.files)"/>
+        <pdf-viewer [src]="pdfSrc"
+                    [render-text]="true" (text-layer-rendered)="textLayerRendered($event)" [original-size]="true" [fit-to-page]="true" [zoom]="1.5"
+                    style="display: block;"
+        ></pdf-viewer>
+      </div>
+    </div>
+  </div>
+</div>

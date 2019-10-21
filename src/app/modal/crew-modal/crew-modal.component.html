@@ -35,7 +35,7 @@
             <div class="tab-pane active" >
               <table class="table">
                 <tbody>
-                <tr>
+                <tr *ngFor="let labour of labours">
                   <td>
                     <div class="form-check">
                       <label class="form-check-label">
@@ -46,107 +46,12 @@
                       </label>
                     </div>
                   </td>
-                  <td>Foreman</td>
+                  <td>{{labour.name}}</td>
                   <td>
-                   $94.61
+                   ${{labour.price}}
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>Pipelayer</td>
-                  <td>
-                    $94.61
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>Labourer</td>
-                  <td>
-                    $94.61
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>Pipelayer Helper </td>
-                  <td class="">
-                  $56.34
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>Operator </td>
-                  <td class="">
-                    $56.34
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>Truck Driver </td>
-                  <td class="">
-                    $56.34
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>Surveyor </td>
-                  <td class="">
-                    $56.34
-                  </td>
-                </tr>
+
                 </tbody>
               </table>
             </div>
@@ -189,7 +94,7 @@
             <div class="tab-pane active" id="">
               <table class="table">
                 <tbody>
-                <tr>
+                <tr *ngFor="let equipment of equipments">
                   <td>
                     <div class="form-check">
                       <label class="form-check-label">
@@ -200,108 +105,12 @@
                       </label>
                     </div>
                   </td>
-                  <td>CAT311</td>
+                  <td>{{equipment.name}}</td>
                   <td>
-                    $94.61
+                    ${{equipment.price}}
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>CAT345</td>
 
-                  <td>
-                    $94.61
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>Triaxle</td>
-                  <td>
-                    $94.61
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>IT28</td>
-                  <td class="">
-                    $56.34
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>CAT262</td>
-                  <td class="">
-                    $56.34
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>Sweeper</td>
-                  <td class="">
-                    $56.34
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked>
-                        <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                      </label>
-                    </div>
-                  </td>
-                  <td>CAT 328</td>
-                  <td class="">
-                    $56.34
-                  </td>
-                </tr>
 
                      </tbody>
               </table>

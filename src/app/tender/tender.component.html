@@ -1,7 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-md-12">
                 <div class="card card-plain">
                     <div class="card-header">
@@ -50,9 +49,7 @@
                                     <th>
                                         Name
                                     </th>
-                                    <th>
-                                        Description
-                                    </th>
+
                                     <th>
                                         Open Date
                                     </th>
@@ -70,52 +67,55 @@
                                     </th>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let item of tender;let index=index;">
+                                    <tr *ngFor="let tender of tenders;let index=index;">
                                         <td>
                                             {{index + 1}}
                                         </td>
                                         <td>
-                                            {{item.clientName}}
+                                            {{tender.clientName}}
                                         </td>
                                         <td>
-                                            <a class="btn btn-link" routerLink="/tender-items">
-                                                {{item.tenderName}}
-                                            </a>
+                                            {{tender.name}}
+                                           <!-- <a class="btn btn-link" routerLink="/tender-items">
+
+                                            </a>-->
+                                        </td>
+
+                                        <td>
+                                            {{tender.openDate | date: 'dd/MM/yyyy'}}
                                         </td>
                                         <td>
-                                            {{item.tenderDescription}}
+                                            {{tender.closeDate | date: 'dd/MM/yyyy'}}
                                         </td>
                                         <td>
-                                            {{item.openDate | date: 'dd/MM/yyyy'}}
+                                            {{tender.quoteStartDate | date: 'dd/MM/yyyy'}}
                                         </td>
                                         <td>
-                                            {{item.closeDate | date: 'dd/MM/yyyy'}}
+                                            {{tender.quoteEndDate | date: 'dd/MM/yyyy'}}
                                         </td>
-                                        <td>
-                                            {{item.quoteStartDate | date: 'dd/MM/yyyy'}}
-                                        </td>
-                                        <td>
-                                            {{item.quoteEndDate | date: 'dd/MM/yyyy'}}
-                                        </td>
-                                        <td class="td-actions">
+                                        <td class="td-actions width-15">
                                             <button mat-raised-button type="button" matTooltip="Edit Task"
-                                                    (click)="open(item)" [matTooltipPosition]="'above'"
+                                                    (click)="open(tender)" [matTooltipPosition]="'above'"
                                                     class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">edit</i>
                                             </button>
                                             <button mat-raised-button type="button" matTooltip="Remove"
-                                                    (click)="onDelete(index)" [matTooltipPosition]="'above'"
+                                                    (click)="delete(tender)" [matTooltipPosition]="'above'"
                                                     class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">close</i>
                                             </button>
                                             <button mat-raised-button type="button" matTooltip="Remove"
-                                                    (click)="viewTender()" [matTooltipPosition]="'above'"
+                                                    (click)="viewTender(tender)" [matTooltipPosition]="'above'"
                                                     class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">exit_to_app</i>
                                             </button>
+                                            <button mat-raised-button type="button" matTooltip="Remove"
+                                                    (click)="viewer(tender)" [matTooltipPosition]="'above'"
+                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">remove_red_eye</i>
+                                            </button>
                                         </td>
                                     </tr>
-
                                     </tbody>
                                 </table>
                             </div>

@@ -14,25 +14,38 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class TenderComponent implements OnInit {
 
 
-   tender: any;
+   tenders: any;
   ngOnInit() {
-    this.tenderService.getTenders().subscribe((result) => {
-      this.tender = result;
+    this.tenderService.getAll().subscribe((result) => {
+      this.tenders = result;
     })
   }
 
-  onDelete(index) {
-     this.tender.splice(index, 1);
+  delete(tender) {
+     this.tenderService.delete(tender).subscribe(() => {
+       this.tenderService.getAll().subscribe((tenders) => {
+         this.tenders = tenders;
+       })
+     })
   }
   constructor(private modalService: NgbModal, private tenderService: TenderService, private router: Router) {}
 
   open(item?) {
     const modalRef = this.modalService.open(TenderModalComponent, {centered: true});
-    modalRef.componentInstance.tender = item || new Tender();
+    modalRef.result.then(() => {
+      this.tenderService.getAll().subscribe((tenders) => {
+        this.tenders = tenders;
+      })
+    })
+    modalRef.componentInstance.tender = JSON.parse(JSON.stringify(item || new Tender()));
 
   }
-  viewTender() {
-    this.router.navigateByUrl('view-tender');
+
+  viewTender(tender) {
+    this.router.navigateByUrl('view-tender/' + tender.id);
+  }
+  viewer(tender) {
+    this.router.navigateByUrl('pdf-viewer/' + tender.id);
   }
 
 }
