@@ -28,6 +28,7 @@ import {TenderitemComponent} from '../../tenderitem/tenderitem.component';
 import { ViewTenderComponent } from './../../view-tender/view-tender.component';
 import {EditInputComponent} from '../../edit-input/edit-input.component';
 import {OrganizationComponent} from '../../organization/organization.component';
+import { UserComponent } from '../../user/user.component';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import {OrganizationComponent} from '../../organization/organization.component';
     TenderitemComponent,
     ViewTenderComponent,
     EditInputComponent,
-    OrganizationComponent
+    OrganizationComponent,
+    UserComponent
   ]
 })
 

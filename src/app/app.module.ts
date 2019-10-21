@@ -43,6 +43,8 @@ import {TrenchModalComponent} from './modal/trench-modal/trench-modal.component'
 import {CrewModalComponent} from './modal/crew-modal/crew-modal.component';
 import { OrganizationModalComponent } from './modal/organization-modal/organization-modal.component';
 import { OrganizationComponent } from './organization/organization.component';
+import { UserComponent } from './user/user.component';
+import { UserModalComponent } from './modal/user-modal/user-modal.component';
 
 
 @NgModule({
@@ -77,7 +79,9 @@ import { OrganizationComponent } from './organization/organization.component';
         TenderSubitemModalComponent,
         TrenchModalComponent,
         CrewModalComponent,
-        OrganizationModalComponent],
+        OrganizationModalComponent,
+        UserComponent,
+        UserModalComponent],
     providers: [TenderService, TenderitemService],
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
