@@ -1,6 +1,7 @@
 import {Trench} from './trench.model';
 import {TenderSubitem} from './tender-subitem.model';
 import {CrewItem} from './crew-item.model';
+import {Subcontractor} from './subcontractor.model';
 
 export class TenderItem {
     id = '';
@@ -17,4 +18,5 @@ export class TenderItem {
     unitPrice = 0;
     totalPrice = 0;
     crew = '';
+    subcontractors: Subcontractor[];
 }

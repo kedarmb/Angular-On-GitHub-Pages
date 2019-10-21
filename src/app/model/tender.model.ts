@@ -1,5 +1,6 @@
 import {NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {TenderItem} from './tender-item.model';
+import {Subcontractor} from './subcontractor.model';
 
 export class Tender {
     id = '';
@@ -10,6 +11,7 @@ export class Tender {
     quoteEndDate: any;
     openDate: any ;
     closeDate: any ;
+
 
 
 }
