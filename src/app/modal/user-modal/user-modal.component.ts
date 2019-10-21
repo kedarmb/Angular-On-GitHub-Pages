@@ -9,8 +9,7 @@ import {Tender} from '../../model/tender.model';
 })
 export class UserModalComponent implements OnInit {
 
-  @Input('tender')
-  tender: Tender ;
+
   placement = 'bottom';
   constructor(public activeModal: NgbActiveModal) {}
 

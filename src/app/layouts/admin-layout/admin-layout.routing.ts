@@ -17,7 +17,8 @@ import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-
 import {CrewComponent} from '../../crew/crew.component';
 import {CreateCrewComponent} from '../../create-crew/create-crew.component';
 import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
-
+    
+    import {UserComponent} from '../../user/user.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -80,4 +81,5 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'maps', component: MapsComponent},
     {path: 'notifications', component: NotificationsComponent},
     {path: 'upgrade', component: UpgradeComponent},
+    {path: 'user', component: UserComponent},
 ];

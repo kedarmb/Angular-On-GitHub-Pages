@@ -5,7 +5,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TenderService} from '../service/tender.service';
 import {Tender} from '../model/tender.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import { OrganizationModalComponent } from 'app/modal/organization-modal/organization-modal.component';
+import { UserModalComponent } from 'app/modal/user-modal/user-modal.component';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class UserComponent implements OnInit {
 
   tender: any;
   ngOnInit() {
-    this.tenderService.getTenders().subscribe((result) => {
+    this.tenderService.getAll().subscribe((result) => {
       this.tender = result;
     })
   }
@@ -28,8 +28,8 @@ export class UserComponent implements OnInit {
   constructor(private modalService: NgbModal, private tenderService: TenderService, private router: Router) {}
 
   open(item?) {
-    const modalRef = this.modalService.open(OrganizationModalComponent, {centered: true});
-    modalRef.componentInstance.tender = item || new Tender();
+    const modalRef = this.modalService.open(UserModalComponent, {centered: true});
+    // modalRef.componentInstance.tender = item || new Tender();
 
   }
   viewTender() {
