@@ -17,6 +17,7 @@ import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-
 import {CrewComponent} from '../../crew/crew.component';
 import {CreateCrewComponent} from '../../create-crew/create-crew.component';
 import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
+import {QuoteComponent} from '../../quote/quote.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -65,6 +66,7 @@ export const AdminLayoutRoutes: Routes = [
         path: 'dashboard', component: DashboardComponent
     },
     {path: 'organization', component: OrganizationComponent},
+    {path: 'quote', component: QuoteComponent},
     {path: 'pdf-viewer/:id', component: PdfViewerComponent},
     {path: 'crew', component: CrewComponent},
     {path: 'create-crew', component: CreateCrewComponent},

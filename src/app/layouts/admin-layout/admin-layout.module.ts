@@ -36,6 +36,7 @@ import {DateConverterPipe} from '../../pipe/date-converter.pipe';
 import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {QuoteComponent} from '../../quote/quote.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -72,7 +73,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     CrewComponent,
     CreateCrewComponent,
      DateConverterPipe,
-    PdfViewerComponent
+    PdfViewerComponent,
+    QuoteComponent
   ]
 })
 

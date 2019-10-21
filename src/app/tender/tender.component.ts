@@ -47,5 +47,8 @@ export class TenderComponent implements OnInit {
   viewer(tender) {
     this.router.navigateByUrl('pdf-viewer/' + tender.id);
   }
+  quotes(tender){
+    this.router.navigateByUrl('/quote');
+  }
 
 }

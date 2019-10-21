@@ -1,0 +1,1320 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="card-header">
+                        <div class="card">
+                            <div class="card-header card-header-tabs card-header-danger">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+
+                                         <ul class="nav nav-tabs" data-tabs="tabs">
+                                           <li class="nav-item">
+                                             <a mat-button class="nav-link active" (click)="contractorWise()" href="#profile" data-toggle="tab">
+                                               Contractor
+                                               <div class="ripple-container"></div>
+                                             </a>
+                                             <a mat-button class="nav-link active" (click)="lineItemWise()" href="#profile" data-toggle="tab">
+                                               LINEITEM
+                                               <div class="ripple-container"></div>
+                                             </a>
+
+                                         </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <h4 class="card-title mt-0"> Tender</h4>-->
+                            <!--<p class="card-category"> Here is a subtitle for this table</p>-->
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table  class="table table-bordered" *ngIf="contractor">
+
+                                    <thead class="">
+                                    <th>
+                                        Line Item
+                                    </th>
+                                    <th>
+                                        SubContractor
+                                    </th>
+
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th>
+                                        UnitPrice
+                                    </th>
+                                    <th>
+                                        Total Price
+                                    </th>
+                                    <th>
+                                      Actions
+                                    </th>
+                                    </thead>
+                                    <tbody>
+                                     <tr class="bg-light">
+                                     <td rowspan="9">
+                                        A-1/PW.2 OPSS 442 SP
+                                     </td>
+                                     <td rowspan="3">
+                                       ROYAL CASTOR PRODUCTS LIMITED
+                                     </td>
+                                     <td>
+                                          CEMENT
+                                     </td>
+                                     <td>
+                                       100
+                                     </td>
+                                     <td>
+                                       10
+                                     </td>
+                                     <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                   </tr>
+                                     <tr class="bg-light">
+                                      <td>
+                                        CHARCOAL
+                                      </td>
+                                      <td>
+                                        100
+                                      </td>
+                                      <td>
+                                        10
+                                      </td>
+                                      <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                    </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         SAND
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <tr class="bg-light">
+
+                                       <td rowspan="3">
+                                         DONGSUH INDUSTRY CO.,LTD
+                                       </td>
+                                       <td>
+                                         BRICK
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         CEMENT
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         T-IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <tr class="bg-light">
+
+                                       <td rowspan="3">
+                                         GREEN LUBRICANT CO., LTD
+                                       </td>
+                                       <td>
+                                         cement
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         T-IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                     <!-- Table 2 -->
+                                     <tr>
+                                       <td rowspan="9">
+                                         A-2/PW.2 OPSS 442 SP
+                                       </td>
+                                       <td rowspan="3">
+                                         ROYAL CASTOR PRODUCTS LIMITED
+                                       </td>
+                                       <td>
+                                         CEMENT
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         CHARCOAL
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         SAND
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <tr>
+
+                                       <td rowspan="3">
+                                         DONGSUH INDUSTRY CO.,LTD
+                                       </td>
+                                       <td>
+                                         BRICK
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         CEMENT
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         T-IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <tr>
+
+                                       <td rowspan="3">
+                                         GREEN LUBRICANT CO., LTD
+                                       </td>
+                                       <td>
+                                         cement
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         T-IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <!-- Table 3 -->
+
+                                     <tr class="bg-light">
+                                       <td rowspan="9">
+                                         A-3/PW.2 OPSS 442 SP
+                                       </td>
+                                       <td rowspan="3">
+                                         ROYAL CASTOR PRODUCTS LIMITED
+                                       </td>
+                                       <td>
+                                         CEMENT
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         CHARCOAL
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         SAND
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <tr class="bg-light">
+
+                                       <td rowspan="3">
+                                         DONGSUH INDUSTRY CO.,LTD
+                                       </td>
+                                       <td>
+                                         BRICK
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         CEMENT
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         T-IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <tr class="bg-light">
+
+                                       <td rowspan="3">
+                                         GREEN LUBRICANT CO., LTD
+                                       </td>
+                                       <td>
+                                         cement
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         T-IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr class="bg-light">
+                                       <td>
+                                         IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <!-- Table 4 -->
+
+                                     <tr>
+                                       <td rowspan="9">
+                                         A-4/PW.2 OPSS 442 SP
+                                       </td>
+                                       <td rowspan="3">
+                                         ROYAL CASTOR PRODUCTS LIMITED
+                                       </td>
+                                       <td>
+                                         CEMENT
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         CHARCOAL
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         SAND
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <tr>
+
+                                       <td rowspan="3">
+                                         DONGSUH INDUSTRY CO.,LTD
+                                       </td>
+                                       <td>
+                                         BRICK
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         CEMENT
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         T-IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                     <tr>
+
+                                       <td rowspan="3">
+                                         GREEN LUBRICANT CO., LTD
+                                       </td>
+                                       <td>
+                                         cement
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         T-IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+                                     <tr>
+                                       <td>
+                                         IRON
+                                       </td>
+                                       <td>
+                                         100
+                                       </td>
+                                       <td>
+                                         10
+                                       </td>
+                                       <td>1000</td>
+                                       <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">edit</i>
+                                       </button>
+                                       <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                         <i class="material-icons">close</i>
+                                       </button>
+                                     </tr>
+
+                                    </tbody>
+                                </table>
+                                <table  class="table table-bordered" *ngIf="!contractor">
+
+                                <thead class="">
+                                <th>
+                                  Line Item
+                                </th>
+                                <th>
+                                  SubContractor
+                                </th>
+
+                                <th>
+                                  Name
+                                </th>
+                                <th>
+                                  Quantity
+                                </th>
+                                <th>
+                                  UnitPrice
+                                </th>
+                                <th>
+                                  Total Price
+                                </th>
+                                </thead>
+                                <tbody>
+                                <tr class="bg-light">
+                                  <td rowspan="9">
+                                    ROYAL CASTOR PRODUCTS LIMITED
+                                  </td>
+                                  <td rowspan="3">
+                                   A-1/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    CEMENT
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    CHARCOAL
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    SAND
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <tr class="bg-light">
+
+                                  <td rowspan="3">
+                                    A-2/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    BRICK
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    CEMENT
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    T-IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <tr class="bg-light">
+
+                                  <td rowspan="3">
+                                    A-3/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    cement
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    T-IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <!-- Table 2 -->
+                                <tr>
+                                  <td rowspan="9">
+                                    ROYAL CASTOR PRODUCTS LIMITED
+                                  </td>
+                                  <td rowspan="3">
+                                    B-1/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    CEMENT
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    CHARCOAL
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    SAND
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <tr>
+
+                                  <td rowspan="3">
+                                    B-2/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    BRICK
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    CEMENT
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    T-IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <tr>
+
+                                  <td rowspan="3">
+                                    B-3/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    cement
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    T-IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <!-- Table 3 -->
+
+                                <tr class="bg-light">
+                                  <td rowspan="9">
+                                    ROYAL CASTOR PRODUCTS LIMITED
+                                  </td>
+                                  <td rowspan="3">
+                                    A-1/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    CEMENT
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    CHARCOAL
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    SAND
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <tr class="bg-light">
+
+                                  <td rowspan="3">
+                                    A-2/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    BRICK
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    CEMENT
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    T-IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <tr class="bg-light">
+
+                                  <td rowspan="3">
+                                    A-3/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    cement
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    T-IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr class="bg-light">
+                                  <td>
+                                    IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <!-- Table 4 -->
+
+                                <tr>
+                                  <td rowspan="9">
+                                    ROYAL CASTOR PRODUCTS LIMITED
+                                  </td>
+                                  <td rowspan="3">
+                                    B-1/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    CEMENT
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    CHARCOAL
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    SAND
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <tr>
+
+                                  <td rowspan="3">
+                                    B-2/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    BRICK
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    CEMENT
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    T-IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                <tr>
+
+                                  <td rowspan="3">
+                                    B-3/PW.2 OPSS 442 SP
+                                  </td>
+                                  <td>
+                                    cement
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    T-IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    IRON
+                                  </td>
+                                  <td>
+                                    100
+                                  </td>
+                                  <td>
+                                    10
+                                  </td>
+                                  <td>1000</td>
+                                </tr>
+
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

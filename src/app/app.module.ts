@@ -53,6 +53,7 @@ import { CreateCrewComponent } from './create-crew/create-crew.component';
 import { DateConverterPipe } from './pipe/date-converter.pipe';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { QuoteComponent } from './quote/quote.component';
 
 
 
