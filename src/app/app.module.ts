@@ -42,6 +42,10 @@ import {TrenchModalComponent} from './modal/trench-modal/trench-modal.component'
 import {CrewModalComponent} from './modal/crew-modal/crew-modal.component';
 import { OrganizationModalComponent } from './modal/organization-modal/organization-modal.component';
 import { OrganizationComponent } from './organization/organization.component';
+
+import { UserComponent } from './user/user.component';
+import { UserModalComponent } from './modal/user-modal/user-modal.component';
+
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { AutoAdjustDirective } from './directive/auto-adjust.directive';
 import {OrganizationService} from './service/organization.service';
@@ -51,12 +55,6 @@ import {CrewItemService} from './service/crew-item.service';
 import {CrewService} from './service/crew.service';
 import { CreateCrewComponent } from './create-crew/create-crew.component';
 import { DateConverterPipe } from './pipe/date-converter.pipe';
-
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { QuoteComponent } from './quote/quote.component';
-
-
-
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -75,7 +73,7 @@ import { QuoteComponent } from './quote/quote.component';
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
-        PdfViewerModule,
+
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
         })
@@ -89,12 +87,15 @@ import { QuoteComponent } from './quote/quote.component';
         TrenchModalComponent,
         CrewModalComponent,
         OrganizationModalComponent,
-        NotifySubcontractorComponent],
+        UserModalComponent
+        , NotifySubcontractorComponent],
     providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService],
+
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
         TrenchModalComponent,
         CrewModalComponent, OrganizationModalComponent,
+        UserModalComponent,
         NotifySubcontractorComponent]
 })
 export class AppModule {

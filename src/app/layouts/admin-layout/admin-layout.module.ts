@@ -28,6 +28,10 @@ import {TenderitemComponent} from '../../tenderitem/tenderitem.component';
 import { ViewTenderComponent } from './../../view-tender/view-tender.component';
 import {EditInputComponent} from '../../edit-input/edit-input.component';
 import {OrganizationComponent} from '../../organization/organization.component';
+
+import { UserComponent } from '../../user/user.component';
+
+
 import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
 import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
 import {CrewComponent} from '../../crew/crew.component';
@@ -36,8 +40,10 @@ import {DateConverterPipe} from '../../pipe/date-converter.pipe';
 import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 import {QuoteComponent} from '../../quote/quote.component';
 import {ChartsModule} from 'ng2-charts';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -70,13 +76,18 @@ import {ChartsModule} from 'ng2-charts';
     ViewTenderComponent,
     EditInputComponent,
     OrganizationComponent,
+
+    UserComponent,
+
     CreateTenderItemComponent,
       AutoAdjustDirective,
     CrewComponent,
     CreateCrewComponent,
      DateConverterPipe,
+
     PdfViewerComponent,
-    QuoteComponent
+    QuoteComponent,
+    PdfViewerComponent
   ]
 })
 

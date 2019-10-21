@@ -1,0 +1,52 @@
+<div class="modal-body">
+    <form role="form">
+
+
+        <div class="form-group">
+            <label for="clientName"> Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder=" Name">
+        </div>
+
+        <div class="form-group">
+            <label for="tenderName">Email</label>
+            <input type="email" class="form-control" id="name" placeholder="Email" name="email">
+        </div>
+
+        <div class="form-group">
+            <label for="description">    Password</label>
+            <input type="email" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="description">      Mobile</label>
+            <input type="number" class="form-control" id="mobile" name="mobile" placeholder="Mobile">
+        </div>
+
+
+        <!-- <div class="form-group">
+            <label>Open Date</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Closed date</label>
+            <input class="form-control" placeholder="yyyy-mm-dd" name="closeDate" ngbDatepicker #d2="ngbDatepicker" [placement]="placement" (focus)="d2.toggle()">
+
+        </div>
+
+        <div class="form-group">
+            <label>Quote Start Date</label>
+            <input class="form-control" placeholder="yyyy-mm-dd" name="quoteStartDate" ngbDatepicker #d3="ngbDatepicker" [placement]="placement" (focus)="d3.toggle()">
+        </div>
+
+        <div class="form-group">
+            <label>Quote End Date</label>
+
+            <input class="form-control" placeholder="yyyy-mm-dd" name="quoteEndDate" ngbDatepicker #d4="ngbDatepicker" [placement]="placement" (focus)="d4.toggle()">
+        </div> -->
+        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
+    </form>
+</div>
