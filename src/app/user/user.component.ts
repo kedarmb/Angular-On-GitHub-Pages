@@ -14,7 +14,13 @@ import { UserModalComponent } from 'app/modal/user-modal/user-modal.component';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-
+ 	
+  user={    
+    Name: 'Alish',
+    Email:" agarg@thinfect.com",
+    Password:1234,
+    Mobile:1234567899
+  };
   tender: any;
   ngOnInit() {
     this.tenderService.getAll().subscribe((result) => {

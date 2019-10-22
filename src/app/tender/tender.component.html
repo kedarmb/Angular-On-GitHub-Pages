@@ -11,9 +11,8 @@
 
                                         <ul class="nav nav-tabs" data-tabs="tabs">
                                             <li class="nav-item">
-                                                <a mat-button class="nav-link active" (click)="open()" href="#profile"
-                                                   data-toggle="tab">
-                                                    <i class="material-icons">bug_report</i> ADD
+                                                <a mat-button class="nav-link active" (click)="open()" href="#profile" data-toggle="tab">
+                                                    <i class="material-icons">add</i> ADD
                                                     <div class="ripple-container"></div>
                                                 </a>
                                             </li>
@@ -40,87 +39,77 @@
                             <div class="table-responsive">
                                 <table id="mainTable" class="table table-hover">
                                     <thead class="">
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Client Name
-                                    </th>
-                                    <th>
-                                        Name
-                                    </th>
+                                        <th>
+                                            ID
+                                        </th>
+                                        <th>
+                                            Client Name
+                                        </th>
+                                        <th>
+                                            Name
+                                        </th>
 
-                                    <th>
-                                        Open Date
-                                    </th>
-                                    <th>
-                                        Close Date
-                                    </th>
-                                    <th>
-                                        Quote Start Date
-                                    </th>
-                                    <th>
-                                        Quote End Date
-                                    </th>
-                                    <th>
-                                        Actions
-                                    </th>
+                                        <th>
+                                            Open Date
+                                        </th>
+                                        <th>
+                                            Close Date
+                                        </th>
+                                        <th>
+                                            Quote Start Date
+                                        </th>
+                                        <th>
+                                            Quote End Date
+                                        </th>
+                                        <th>
+                                            Actions
+                                        </th>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let tender of tenders;let index=index;">
-                                        <td>
-                                            {{index + 1}}
-                                        </td>
-                                        <td>
-                                            {{tender.clientName}}
-                                        </td>
-                                        <td>
-                                            {{tender.name}}
-                                           <!-- <a class="btn btn-link" routerLink="/tender-items">
+                                        <tr *ngFor="let tender of tenders;let index=index;">
+                                            <td>
+                                                {{index + 1}}
+                                            </td>
+                                            <td>
+                                                {{tender.clientName}}
+                                            </td>
+                                            <td>
+                                                {{tender.name}}
+                                                <!-- <a class="btn btn-link" routerLink="/tender-items">
 
                                             </a>-->
-                                        </td>
+                                            </td>
 
-                                        <td>
-                                            {{tender.openDate | date: 'dd/MM/yyyy'}}
-                                        </td>
-                                        <td>
-                                            {{tender.closeDate | date: 'dd/MM/yyyy'}}
-                                        </td>
-                                        <td>
-                                            {{tender.quoteStartDate | date: 'dd/MM/yyyy'}}
-                                        </td>
-                                        <td>
-                                            {{tender.quoteEndDate | date: 'dd/MM/yyyy'}}
-                                        </td>
-                                        <td class="td-actions width-15">
-                                            <button mat-raised-button type="button" matTooltip="Edit Task"
-                                                    (click)="open(tender)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                            <td>
+                                                {{tender.openDate | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td>
+                                                {{tender.closeDate | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td>
+                                                {{tender.quoteStartDate | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td>
+                                                {{tender.quoteEndDate | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td class="td-actions width-15">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="open(tender)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">edit</i>
                                             </button>
-                                            <button mat-raised-button type="button" matTooltip="Remove"
-                                                    (click)="delete(tender)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">close</i>
                                             </button>
-                                            <button mat-raised-button type="button" matTooltip="Remove"
-                                                    (click)="viewTender(tender)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="viewTender(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">exit_to_app</i>
                                             </button>
-                                            <button mat-raised-button type="button" matTooltip="Remove"
-                                                    (click)="viewer(tender)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="viewer(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">remove_red_eye</i>
                                             </button>
-                                            <button mat-raised-button type="button" matTooltip="Remove"
-                                                    (click)="quotes(tender)" [matTooltipPosition]="'Quotes'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="quotes(tender)" [matTooltipPosition]="'Quotes'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">announcement</i>
                                             </button>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
