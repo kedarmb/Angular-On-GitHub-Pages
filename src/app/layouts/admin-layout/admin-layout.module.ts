@@ -44,6 +44,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {QuoteComponent} from '../../quote/quote.component';
  import {ChartsModule} from 'ng2-charts';
 
+import {AnalyticsComponent} from '../../analytics/analytics.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -86,6 +88,7 @@ import {QuoteComponent} from '../../quote/quote.component';
      DateConverterPipe,
 
     PdfViewerComponent,
+    AnalyticsComponent,
     QuoteComponent,
     PdfViewerComponent
   ]
