@@ -55,8 +55,9 @@ import {CrewItemService} from './service/crew-item.service';
 import {CrewService} from './service/crew.service';
 import { CreateCrewComponent } from './create-crew/create-crew.component';
 import { DateConverterPipe } from './pipe/date-converter.pipe';
-import { SpeechRecognitionComponent } from './speech-recognition/speech-recognition.component';
+
 import {SpeechRecognitionService} from './service/speech-recognition.service';
+import { AnalyticsComponent } from './analytics/analytics.component';
 @NgModule({
     imports: [
         BrowserAnimationsModule,
