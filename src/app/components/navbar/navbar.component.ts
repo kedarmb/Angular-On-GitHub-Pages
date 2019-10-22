@@ -182,7 +182,7 @@ export class NavbarComponent implements OnInit {
         } else  if (value && value.toLowerCase().indexOf('analytics') !== -1) {
             console.log('analytics');
             this.router.navigateByUrl('analytics');
-        } else  if (value && value.toLowerCase().indexOf('organisation') !== -1) {
+        } else  if (value && (value.toLowerCase().indexOf('organisation') !== -1||value.toLowerCase().indexOf('organization') !== -1)) {
             console.log('organization');
             this.router.navigateByUrl('organization');
         } else  if (value && value.toLowerCase().indexOf('user') !== -1) {
