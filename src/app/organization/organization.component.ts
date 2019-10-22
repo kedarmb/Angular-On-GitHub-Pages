@@ -46,8 +46,6 @@ export class OrganizationComponent implements OnInit {
            console.log('.>>>>>>>>>>>>>>>>>>>>>>>>>', organizations);
             this.organizations = organizations;
         });
-    }).catch(() => {
-        alert('error');
     })
 
   }
