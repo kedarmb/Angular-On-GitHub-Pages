@@ -43,6 +43,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import {QuoteComponent} from '../../quote/quote.component';
 import {ChartsModule} from 'ng2-charts';
+import {SpeechRecognitionComponent} from '../../speech-recognition/speech-recognition.component';
 
 @NgModule({
   imports: [
@@ -87,7 +88,8 @@ import {ChartsModule} from 'ng2-charts';
 
     PdfViewerComponent,
     QuoteComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    SpeechRecognitionComponent
   ]
 })
 
