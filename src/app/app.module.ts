@@ -55,6 +55,9 @@ import {CrewItemService} from './service/crew-item.service';
 import {CrewService} from './service/crew.service';
 import { CreateCrewComponent } from './create-crew/create-crew.component';
 import { DateConverterPipe } from './pipe/date-converter.pipe';
+
+import {SpeechRecognitionService} from './service/speech-recognition.service';
+import { AnalyticsComponent } from './analytics/analytics.component';
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -89,7 +92,7 @@ import { DateConverterPipe } from './pipe/date-converter.pipe';
         OrganizationModalComponent,
         UserModalComponent
         , NotifySubcontractorComponent],
-    providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService],
+    providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService, SpeechRecognitionService],
 
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,

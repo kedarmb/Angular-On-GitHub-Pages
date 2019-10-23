@@ -27,14 +27,23 @@
 
                                              </li>
                                              <li class="nav-item">
-                                                 <a mat-button class="nav-link active" (click)="contractor=3" href="#profile" data-toggle="tab">
+
+                                                 <a mat-button class="nav-link active" (click)="contractor=3;" href="#profile" data-toggle="tab">
+                                                     HORIZONTAL SCORLL
+                                                     <div class="ripple-container"></div>
+                                                 </a>
+
+                                             </li>
+
+                                             <li class="nav-item">
+                                                 <a mat-button class="nav-link active" (click)="contractor=4" href="#profile" data-toggle="tab">
                                                      BAR GRAPH
                                                      <div class="ripple-container"></div>
                                                  </a>
 
                                              </li>
                                              <li class="nav-item">
-                                                 <a mat-button class="nav-link active" (click)="contractor=4" href="#profile" data-toggle="tab">
+                                                 <a mat-button class="nav-link active" (click)="contractor=5" href="#profile" data-toggle="tab">
                                                      LINE GRAPH
                                                      <div class="ripple-container"></div>
                                                  </a>
@@ -50,7 +59,7 @@
                             <!--<p class="card-category"> Here is a subtitle for this table</p>-->
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive"  [ngSwitch]="contractor">
+                            <div [ngSwitch]="contractor">
                                 <table  class="table table-bordered" *ngSwitchCase="1">
 
                                     <thead class="">
@@ -1331,7 +1340,58 @@
 
                                 </tbody>
                               </table>
-                                <div *ngSwitchCase="3" class="bg-light graph-container">
+                                <table class="table table-bordered" *ngSwitchCase="3">
+                                    <thead>
+                                    <tr>
+                                        <th>Line Item</th>
+                                        <th>Descprition</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let item of tender.items">
+                                        <td>{{item.itemNo}}/{{item.specNo}}</td>
+                                        <td>
+                                            <div class="scrollable">
+                                                <table class="table table-borderless">
+
+                                                    <tbody>
+                                                    <tr>
+                                                        <td *ngFor="let subcontractor of item.subcontractors">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                <th colspan="5 text-center" >{{subcontractor.name}}</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>Name</td>
+                                                                    <td>Quantity</td>
+                                                                    <td>UnitPrice</td>
+                                                                    <td>Unit</td>
+                                                                    <td>Total Price</td>
+                                                                </tr>
+                                                                <tr *ngFor="let subitem of subcontractor.subitems">
+                                                                    <td>{{subitem.name}}</td>
+                                                                    <td>{{subitem.quantity}}</td>
+                                                                    <td>{{subitem.unitPrice}}</td>
+                                                                    <td>{{subitem.unit}}</td>
+                                                                    <td>{{subitem.totalPrice}}</td>
+
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngSwitchCase="4" class="bg-light graph-container">
                                     <div class="row" *ngFor="let item of tender.items">
                                         <div class="col mx-0">
                                             <canvas baseChart
@@ -1356,7 +1416,7 @@
                                     </div>
                                 </div>
 
-                                <div *ngSwitchCase="4" class="bg-light graph-container">
+                                <div *ngSwitchCase="5" class="bg-light graph-container">
                                     <div class="row" *ngFor="let item of tender.items">
                                         <div class="col mx-0">
                                             <canvas baseChart

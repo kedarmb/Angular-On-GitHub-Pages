@@ -21,6 +21,8 @@ import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 import {QuoteComponent} from '../../quote/quote.component';
 import {UserComponent} from '../../user/user.component';
 
+import {AnalyticsComponent} from '../../analytics/analytics.component';
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -68,6 +70,7 @@ export const AdminLayoutRoutes: Routes = [
         path: 'dashboard', component: DashboardComponent
     },
     {path: 'organization', component: OrganizationComponent},
+    {path: 'analytics', component: AnalyticsComponent},
     {path: 'quote', component: QuoteComponent},
     {path: 'pdf-viewer/:id', component: PdfViewerComponent},
     {path: 'crew', component: CrewComponent},

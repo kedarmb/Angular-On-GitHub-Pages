@@ -37,7 +37,8 @@ export class TenderService {
                 itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
                 labours: [],
                 equipments: [],
-                subcontractors: [{
+                subcontractors: [
+                    {
                     name: 'ROYAL CASTOR PRODUCTS LIMITED',
                     subitems: [
                         {
@@ -123,7 +124,185 @@ export class TenderService {
                                 totalPrice: 100
                             }
                         ]
-                    }],
+                    },
+                    {
+                        name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                        subitems: [
+                            {
+                                id: '0',
+                                name: 'Cement',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '1',
+                                name: 'IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '2',
+                                name: 'T-IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            }
+                        ]
+                    },
+                    {
+                        name: 'DONGSUH INDUSTRY CO.,LTD',
+                        subitems: [
+                            {
+                                id: '0',
+                                name: 'Cement',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '1',
+                                name: 'IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '2',
+                                name: 'T-IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            }
+                        ]
+                    },
+                    {
+                        name: 'GREEN LUBRICANT CO., LTD',
+                        subitems: [
+                            {
+                                id: '0',
+                                name: 'Cement',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '1',
+                                name: 'IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '2',
+                                name: 'T-IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            }
+                        ]
+                    },
+                    {
+                        name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                        subitems: [
+                            {
+                                id: '0',
+                                name: 'Cement',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '1',
+                                name: 'IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '2',
+                                name: 'T-IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            }
+                        ]
+                    },
+                    {
+                        name: 'DONGSUH INDUSTRY CO.,LTD',
+                        subitems: [
+                            {
+                                id: '0',
+                                name: 'Cement',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '1',
+                                name: 'IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '2',
+                                name: 'T-IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            }
+                        ]
+                    },
+                    {
+                        name: 'GREEN LUBRICANT CO., LTD',
+                        subitems: [
+                            {
+                                id: '0',
+                                name: 'Cement',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '1',
+                                name: 'IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            },
+                            {
+                                id: '2',
+                                name: 'T-IRON',
+                                quantity: 10,
+                                unit: 'm',
+                                unitPrice: 10,
+                                totalPrice: 100
+                            }
+                        ]
+                    }
+
+
+
+                    ],
                 subitems: [
                     {id: '1', name: 'Cement', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100},
                     {id: '2', name: 'Gloves', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100},
@@ -172,35 +351,36 @@ export class TenderService {
                         [],
                     equipments:
                         [],
-                    subcontractors: [{
-                        name: 'ROYAL CASTOR PRODUCTS LIMITED',
-                        subitems: [
-                            {
-                                id: '0',
-                                name: 'Cement',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            },
-                            {
-                                id: '1',
-                                name: 'IRON',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            },
-                            {
-                                id: '2',
-                                name: 'T-IRON',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            }
-                        ]
-                    },
+                    subcontractors: [
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
                         {
                             name: 'DONGSUH INDUSTRY CO.,LTD',
                             subitems: [
@@ -258,7 +438,185 @@ export class TenderService {
                                     totalPrice: 100
                                 }
                             ]
-                        }],
+                        },
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'DONGSUH INDUSTRY CO.,LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'GREEN LUBRICANT CO., LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'DONGSUH INDUSTRY CO.,LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'GREEN LUBRICANT CO., LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        }
+
+
+
+                    ],
                     subitems:
                         [
                             {id: '1', name: 'Cement', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100},
@@ -309,35 +667,36 @@ export class TenderService {
                         [],
                     equipments:
                         [],
-                    subcontractors: [{
-                        name: 'ROYAL CASTOR PRODUCTS LIMITED',
-                        subitems: [
-                            {
-                                id: '0',
-                                name: 'Cement',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            },
-                            {
-                                id: '1',
-                                name: 'IRON',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            },
-                            {
-                                id: '2',
-                                name: 'T-IRON',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            }
-                        ]
-                    },
+                    subcontractors: [
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
                         {
                             name: 'DONGSUH INDUSTRY CO.,LTD',
                             subitems: [
@@ -395,7 +754,185 @@ export class TenderService {
                                     totalPrice: 100
                                 }
                             ]
-                        }],
+                        },
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'DONGSUH INDUSTRY CO.,LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'GREEN LUBRICANT CO., LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'DONGSUH INDUSTRY CO.,LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'GREEN LUBRICANT CO., LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        }
+
+
+
+                    ],
                     subitems:
                         [
                             {id: '1', name: 'Cement', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100},
@@ -446,35 +983,36 @@ export class TenderService {
                         [],
                     equipments:
                         [],
-                    subcontractors: [{
-                        name: 'ROYAL CASTOR PRODUCTS LIMITED',
-                        subitems: [
-                            {
-                                id: '0',
-                                name: 'Cement',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            },
-                            {
-                                id: '1',
-                                name: 'IRON',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            },
-                            {
-                                id: '2',
-                                name: 'T-IRON',
-                                quantity: 10,
-                                unit: 'm',
-                                unitPrice: 10,
-                                totalPrice: 100
-                            }
-                        ]
-                    },
+                    subcontractors: [
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
                         {
                             name: 'DONGSUH INDUSTRY CO.,LTD',
                             subitems: [
@@ -532,7 +1070,185 @@ export class TenderService {
                                     totalPrice: 100
                                 }
                             ]
-                        }],
+                        },
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'DONGSUH INDUSTRY CO.,LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'GREEN LUBRICANT CO., LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'ROYAL CASTOR PRODUCTS LIMITED',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'DONGSUH INDUSTRY CO.,LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        },
+                        {
+                            name: 'GREEN LUBRICANT CO., LTD',
+                            subitems: [
+                                {
+                                    id: '0',
+                                    name: 'Cement',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '1',
+                                    name: 'IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                },
+                                {
+                                    id: '2',
+                                    name: 'T-IRON',
+                                    quantity: 10,
+                                    unit: 'm',
+                                    unitPrice: 10,
+                                    totalPrice: 100
+                                }
+                            ]
+                        }
+
+
+
+                    ],
                     subitems:
                         [
                             {id: '1', name: 'Cement', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100},
@@ -555,6 +1271,7 @@ export class TenderService {
         }
 
     ];
+
 
 
     constructor() {
