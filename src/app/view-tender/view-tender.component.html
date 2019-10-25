@@ -8,13 +8,14 @@
               <div class="nav-tabs-wrapper">
 
                 <ul class="nav nav-tabs" data-tabs="tabs">
+
                   <li class="nav-item">
                     <a mat-button class="nav-link" href="#profile" data-toggle="tab">
                       Name : {{tender.name}}
                       <div class="ripple-container"></div>
                     </a>
                   </li>
-                  <li class="nav-item">
+                 <!-- <li class="nav-item">
                     <a mat-button class="nav-link" href="#messages" data-toggle="tab">
                     Start Date  : {{tender.openDate| date: 'dd/MM/yyyy'}}
                       <div class="ripple-container"></div>
@@ -36,6 +37,12 @@
                     <a mat-button class="nav-link" href="#settings" data-toggle="tab">
                       Quote End Date :  {{tender.quoteStartDate| date: 'dd/MM/yyyy'}}
                       <div class="ripple-container"></div>
+                    </a>
+                  </li>-->
+                  <li class="nav-item">
+                    <a mat-button class="nav-link" href="#settings" data-toggle="tab" (click)="addSection()">
+                      <i class="material-icons">add</i>
+
                     </a>
                   </li>
                   <li class="nav-item">
@@ -62,7 +69,8 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered">
+              <table class="table table-bordered" *ngFor="let section of sections;">
+                <caption class="section"><textarea type="text" class="form-control" appAutoAdjust name="itemNo"  [(ngModel)]="section.name"></textarea></caption>
                 <thead class=" text-primary">
               <th>
                 Select
@@ -340,15 +348,21 @@
                     </td>
                   </tr>
                   </ng-container>
-
+                       <tr>
+                         <td colspan="7" class="text-right">Total</td>
+                         <td colspan="2" class="text-left">5000</td>
+                       </tr>
                 </tbody>
 
               </table>
+
             </div>
           </div>
         </div>
       </div>
 
     </div>
+
+
   </div>
 </div>

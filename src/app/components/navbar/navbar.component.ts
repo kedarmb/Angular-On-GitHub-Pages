@@ -175,7 +175,6 @@ export class NavbarComponent implements OnInit {
     }
 
     navigate(value) {
-        console.log('++++++++++++++++++++++++++++++', value);
         if (value && value.toLowerCase().indexOf('dashboard') !== -1) {
             console.log('dashboard');
             this.router.navigateByUrl('dashboard');

@@ -25,7 +25,7 @@ export class ViewTenderComponent {
     crews = {}
 
     tender: Tender = new Tender();
-
+      sections = [{name: 'WATERMAIN'}, {name: 'RESOTRATION'}];
     model: any;
     searching = false;
     searchFailed = false;
@@ -40,7 +40,7 @@ export class ViewTenderComponent {
 
     constructor(private modalService: NgbModal, private crewService: CrewService,
                 private activatedRoute: ActivatedRoute,
-                private tenderService: TenderService,private router: Router) {
+                private tenderService: TenderService, private router: Router) {
         this.activatedRoute.params.subscribe((params) => {
             this.tenderService.getTenderById(params.id).subscribe((tender) => {
                 console.log('******************************', tender);
@@ -170,5 +170,8 @@ export class ViewTenderComponent {
     }
     viewer(item) {
         this.router.navigateByUrl('/pdf-viewer/' + item.id);
+    }
+    addSection() {
+        this.sections.push({name: 'Enter Section Name'});
     }
 }
