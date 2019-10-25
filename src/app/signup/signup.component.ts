@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { PasswordValidator } from './password.validator';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +17,7 @@ export class SignupComponent implements OnInit {
     email:['', [Validators.required]],
     password:['',[Validators.required]],
     confirmPassword:['',[Validators.required]]
-  })
+  }, {validator:PasswordValidator});
   ngOnInit() {
   }
 
