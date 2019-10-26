@@ -386,7 +386,8 @@ caption { caption-side: top !important; }
     position:absolute;
     top:0;
     left:0;
-    color:#e53935
+    color:#e53935;
+    font-size: 0.8rem;
   }
 
   .top-dimension{
@@ -395,6 +396,7 @@ caption { caption-side: top !important; }
     left:50%;
     transform: translateX(-50%);
     color:#e53935;
+    font-size: 0.8rem;
 
 
   }
