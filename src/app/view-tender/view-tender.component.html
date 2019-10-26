@@ -192,57 +192,114 @@
                             <span class="title">Trench Calculation</span>
                           </ng-template>
                           <ng-template ngbPanelContent>
-                            <table class="table table-condensed">
+                            <table class="table table-condensed trench-calculation">
                               <tbody>
-                              <tr>
-                                <td>
-                                  Length
-                                </td>
-                                <td>
-                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo" (keyup)="calculateVolume(item)"  [(ngModel)]="item.trench.length"></textarea>
-                                </td>
-                                <td rowspan="3">
-                                  <div class="title">Cube Volume</div>
-                                  <div class="volume"> {{item.trench.cubeVolume}} </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  Height
-                                </td>
-                                <td>
+                             <tr>
+                               <td>
+                                 <div class="section" style="text-align:center;">
 
-                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  (keyup)="calculateVolume(item)"   [(ngModel)]="item.trench.height"></textarea>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  Width
+                                   <!-- =cube section start= -->
+                                   <div class="cube" style="margin:auto;">
+                                     <div class="front">
 
-                                </td>
-                                <td>
 
-                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  (keyup)="calculateVolume(item)"   [(ngModel)]="item.trench.width"></textarea>
-                                </td>
-                              </tr>
 
-                              <tr>
-                                <td>Diameter</td>
-                                <td>
-                                  <textarea type="text" class="form-control" appAutoAdjust name="itemNo"  (keyup)="calculateVolume(item)"   [(ngModel)]="item.trench.diameter"></textarea>
-                                </td>
-                                <td>
-                                  <div class="title">Pipe Volume</div>
-                                  <div class="volume">{{item.trench.pipeVolume}}</div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td colspan="2">Volume</td>
-                                <td>
-                                  <div class="title">Volume</div>
-                                  <div class="volume">{{item.trench.remaningVolume}}</div>
-                                </td>
-                              </tr>
+                                       <div class="lower">
+                                         <div class="left-dimension">
+                                           <p class="rotate">100m</p>
+                                         </div>
+
+                                         <div class="top-dimension">
+                                           <p>100m</p>
+                                         </div>
+                                         <div class="image-circle">
+                                           100
+                                         </div>
+                                       </div>
+
+                                       <div class="upper">
+                                         <div class="left-dimension">
+                                           <p class="rotate">100m</p>
+                                         </div>
+
+                                         <div class="top-dimension">
+                                           <p>100m</p>
+                                         </div>
+                                       </div>
+                                     </div>
+                                     <div class="back">
+                                       <div class="upper">
+                                         <div class="left-dimension">
+                                           <p class="rotate">100m</p>
+                                         </div>
+
+                                         <div class="top-dimension">
+                                           <p>100m</p>
+                                         </div>
+
+                                       </div>
+                                       <div class="lower">
+                                         <div class="left-dimension">
+                                           <p class="rotate">100m</p>
+                                         </div>
+
+                                         <div class="top-dimension">
+                                           <p>100m</p>
+                                         </div>
+                                         <div class="image-circle">
+
+                                         </div>
+                                       </div>
+
+                                     </div>
+                                     <div class="top">
+                                     </div>
+                                     <div class="bottom">
+
+                                     </div>
+                                     <div class="left">
+                                       <div class="upper">BACKFILL
+                                         <div class="left-dimension">
+                                           <p class="rotate">100m</p>
+                                         </div>
+
+                                         <div class="top-dimension">
+                                           <p>100m</p>
+                                         </div>
+                                       </div>
+                                       <div class="lower">BEDDING
+                                         <div class="left-dimension">
+                                           <p class="rotate">100m</p>
+                                         </div>
+
+                                         <div class="top-dimension">
+                                           <p>100m</p>
+                                         </div></div>
+                                     </div>
+                                     <div class="right">
+                                       <div class="upper">
+                                         <div class="left-dimension">
+                                           <p class="rotate">100m</p>
+                                         </div>
+
+                                         <div class="top-dimension">
+                                           <p>100m</p>
+                                         </div>
+                                       </div>
+                                       <div class="lower">
+                                         <div class="left-dimension">
+                                           <p class="rotate">100m</p>
+                                         </div>
+
+                                         <div class="top-dimension">
+                                           <p>100m</p>
+                                         </div>
+                                       </div>
+                                     </div>
+                                   </div>
+                                 </div>
+                               </td>
+                             </tr>
 
 
                               </tbody>
