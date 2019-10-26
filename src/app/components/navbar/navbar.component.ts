@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import {SpeechRecognitionService} from '../../service/speech-recognition.service';
+import {SearchSubscriberService} from '../../service/search-subscriber.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +24,7 @@ export class NavbarComponent implements OnInit {
     enableNavigation = false;
 
     constructor(location: Location,  private element: ElementRef,
-                private router: Router,
+                private router: Router, private searchSubscriberService: SearchSubscriberService,
                 private speechRecognitionService: SpeechRecognitionService) {
       this.location = location;
           this.sidebarVisible = false;
@@ -181,7 +182,7 @@ export class NavbarComponent implements OnInit {
         } else  if (value && value.toLowerCase().indexOf('analytics') !== -1) {
             console.log('analytics');
             this.router.navigateByUrl('analytics');
-        } else  if (value && (value.toLowerCase().indexOf('organisation') !== -1||value.toLowerCase().indexOf('organization') !== -1)) {
+        } else  if (value && (value.toLowerCase().indexOf('organisation') !== -1 || value.toLowerCase().indexOf('organization') !== -1)) {
             console.log('organization');
             this.router.navigateByUrl('organization');
         } else  if (value && value.toLowerCase().indexOf('user') !== -1) {
@@ -194,5 +195,8 @@ export class NavbarComponent implements OnInit {
             console.log('tender');
             this.router.navigateByUrl('tender');
         }
+    }
+    search() {
+        this.searchSubscriberService.set(this.speechData);
     }
 }

@@ -58,6 +58,8 @@ import { DateConverterPipe } from './pipe/date-converter.pipe';
 
 import {SpeechRecognitionService} from './service/speech-recognition.service';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { MedicalComprehendComponent } from './medical-comprehend/medical-comprehend.component';
+import {SearchSubscriberService} from './service/search-subscriber.service';
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -92,7 +94,7 @@ import { AnalyticsComponent } from './analytics/analytics.component';
         OrganizationModalComponent,
         UserModalComponent
         , NotifySubcontractorComponent],
-    providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService, SpeechRecognitionService],
+    providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService, SpeechRecognitionService,SearchSubscriberService],
 
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,

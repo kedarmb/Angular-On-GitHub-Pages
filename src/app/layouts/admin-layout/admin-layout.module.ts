@@ -45,6 +45,7 @@ import {QuoteComponent} from '../../quote/quote.component';
 import {ChartsModule} from 'ng2-charts';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
+import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
 
 @NgModule({
   imports: [
@@ -78,7 +79,7 @@ import {AnalyticsComponent} from '../../analytics/analytics.component';
     ViewTenderComponent,
     EditInputComponent,
     OrganizationComponent,
-
+    MedicalComprehendComponent,
     UserComponent,
 
     CreateTenderItemComponent,
