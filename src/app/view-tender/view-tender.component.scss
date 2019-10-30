@@ -194,19 +194,18 @@
   font-weight:700;
 }
 
-caption { caption-side: top !important; }
+caption { caption-side: top !important;text-align: center;text-align: center;font-size:1.5rem;}
 .trench-calculation{
   .section{
     perspective: 800px;
     perspective-origin: 50% 100px;
-    margin-top: 40px;
-    height:600px;
+
+    height:500px;
   }
   .cube{
     position: relative;
     width: 200px;
     transform-style: preserve-3d;
-    padding-top: 40px;
     animation: cube-spin 25s infinite linear;
   }
   .cube   .front{
@@ -320,8 +319,8 @@ caption { caption-side: top !important; }
     transform: translateZ(-100px) rotateY(180deg);
   }
   .right {
-    transform: rotateY(-270deg) translateX(100px);
-    transform-origin: top right;
+    transform: rotateY(-270deg) translateX(0px);
+  /*  transform-origin: top right;*/
   }
   .left {
     transform: rotateY(270deg) translateX(-100px);

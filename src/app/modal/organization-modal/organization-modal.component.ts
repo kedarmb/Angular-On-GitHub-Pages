@@ -26,11 +26,11 @@ export class OrganizationModalComponent implements OnInit {
   }
      save(organization) {
     if (organization.id) {
-      this.organizationService.update(organization).subscribe(() => {
+      this.organizationService.update(102, organization).subscribe(() => {
         this.activeModal.close('closed');
       })
     } else {
-      this.organizationService.add(organization).subscribe(() => {
+      this.organizationService.create(organization).subscribe(() => {
         this.activeModal.close('closed');
       })
     }

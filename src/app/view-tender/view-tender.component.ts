@@ -24,6 +24,27 @@ export class ViewTenderComponent {
 
     crews = {}
 
+    trench = {
+        beading: {
+            length: 0,
+            height: 0,
+            width: 0,
+            boxVolume: 0,
+            diameter: 0,
+            pipeVolume: 0,
+            density: 0,
+            weight: 0
+        },
+        backfill: {
+            height: 0,
+            width: 0,
+            length: 0,
+            boxVolume: 0,
+            density: 0,
+            weight: 0
+        }
+    }
+
     tender: Tender = new Tender();
       sections = [{name: 'WATERMAIN'}, {name: 'RESOTRATION'}];
     model: any;
@@ -43,7 +64,6 @@ export class ViewTenderComponent {
                 private tenderService: TenderService, private router: Router) {
         this.activatedRoute.params.subscribe((params) => {
             this.tenderService.getTenderById(params.id).subscribe((tender) => {
-                console.log('******************************', tender);
                 this.tender = JSON.parse(JSON.stringify(tender));
             })
         })
@@ -56,9 +76,9 @@ export class ViewTenderComponent {
     }
 
 
-    trench(item) {
+   /* trench(item) {
         const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
-    }
+    }*/
 
     crew(item) {
         const modalRef = this.modalService.open(CrewModalComponent, {centered: true, size: 'lg'});
@@ -149,23 +169,49 @@ export class ViewTenderComponent {
         })
     }
 
-    calculateVolume(item) {
+    calculateTrench() {
 
-        if (isNaN(item.trench.length)) {
-            item.trench.length = 0;
+        if (isNaN(this.trench.backfill.length)) {
+            this.trench.backfill.length = 0;
         }
-        if (isNaN(item.trench.height)) {
-            item.trench.length = 0;
+        if (isNaN(this.trench.backfill.height)) {
+            this.trench.backfill.height = 0;
         }
-        if (isNaN(item.trench.width)) {
-            item.trench.length = 0;
+        if (isNaN(this.trench.backfill.width)) {
+           this.trench.backfill.width = 0;
         }
-        if (isNaN(item.trench.diameter)) {
-            item.trench.length = 0;
+        if (isNaN(this.trench.backfill.density)) {
+            this.trench.backfill.density = 0;
         }
-        item.trench.cubeVolume = (item.trench.length * item.trench.height * item.trench.width).toFixed(2);
-        item.trench.pipeVolume = (3.14 * (item.trench.diameter / 2) * item.trench.height).toFixed(2);
-        item.trench.remaningVolume = (item.trench.cubeVolume - item.trench.pipeVolume).toFixed(2);
+        if (isNaN(this.trench.beading.width)) {
+            this.trench.beading.width = 0;
+        }
+
+        if (isNaN(this.trench.beading.height)) {
+            this.trench.beading.height = 0;
+        }
+        if (isNaN(this.trench.beading.length)) {
+            this.trench.beading.length = 0;
+        }
+
+        if (isNaN(this.trench.beading.density)) {
+            this.trench.beading.density = 0;
+        }
+        if (isNaN(this.trench.beading.diameter)) {
+            this.trench.beading.diameter = 0;
+        }
+
+        this.trench.backfill.boxVolume = Math.floor((this.trench.backfill.length *
+            this.trench.backfill.height *
+            this.trench.backfill.width));
+        this.trench.backfill.weight = Math.floor(this.trench.backfill.density * this.trench.backfill.boxVolume);
+        this.trench.beading.boxVolume = Math.floor((this.trench.beading.length *
+            this.trench.beading.height *
+            this.trench.beading.width));
+        this.trench.beading.pipeVolume = Math.floor((3.14 * (this.trench.beading.diameter / 2) * this.trench.beading.height));
+        const remaningVolume = this.trench.beading.boxVolume - this.trench.beading.pipeVolume;
+        this.trench.beading.weight = Math.floor(remaningVolume * this.trench.beading.density);
+
 
     }
     viewer(item) {

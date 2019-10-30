@@ -74,6 +74,6 @@
             <input class="form-control" placeholder="yyyy-mm-dd" name="quoteEndDate" [(ngModel)]="organization.quoteEndDate" ngbDatepicker #d4="ngbDatepicker" [placement]="placement" (focus)="d4.toggle()">
         </div> -->
         <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-        <button mat-raised-button type="button" [disabled]="userForm.form.invalid || topicHasError" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
+        <button mat-raised-button type="button" [disabled]="userForm.form.invalid" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
     </form>
 </div>
