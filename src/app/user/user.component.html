@@ -50,11 +50,12 @@
                                         </th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>{{user. Name}}</td>
-                                            <td>{{user. Email}}</td>
-                                            <td>{{user. Password}}</td>
-                                            <td>{{user. Mobile}}</td>
+                                        <tr *ngFor="let i of data">
+
+                                            <td>{{i.userId}}</td>
+                                            <td>{{i.id}}</td>
+                                            <td>{{i.title}}</td>
+                                            <td>{{i.completed}}</td>
                                         </tr>
                                         <!-- <tr *ngFor="let item of tender;let index=index;">
                                             <td>
