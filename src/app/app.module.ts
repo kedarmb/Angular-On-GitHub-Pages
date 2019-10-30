@@ -94,7 +94,7 @@ import {SearchSubscriberService} from './service/search-subscriber.service';
         OrganizationModalComponent,
         UserModalComponent
         , NotifySubcontractorComponent],
-    providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService, SpeechRecognitionService,SearchSubscriberService],
+    providers: [TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService, SpeechRecognitionService, SearchSubscriberService, OrganizationService],
 
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
