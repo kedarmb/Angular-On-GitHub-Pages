@@ -1,34 +1,48 @@
 <div class="modal-body">
-    <form role="form">
+    <form #userForm="ngForm" *ngIf="!submitted" novalidate role="form">
         <div class="form-group">
             <label for="name"> Name</label>
-            <input type="name" class="form-control" id="name" name="name" [(ngModel)]="organization.name" placeholder="Enter Name">
+            <span class="text-danger">*</span>
+            <input type="text" #name="ngModel" required class="form-control" [class.is-invalid]="name.invalid && name.touched" id="name" name="name" [(ngModel)]="organization.name" placeholder="Enter Name">
+            <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
         </div>
 
         <div class="form-group">
             <label for="organizationName">Street Address</label>
-            <input type="text" class="form-control" id="organizationName" placeholder="organizationName" name="organizationName" [(ngModel)]="organization.streetAddress" placeholder="Enter Street Address">
+            <span class="text-danger">*</span>
+            <input type="text" class="form-control" required [class.is-invalid]="organizationName.invalid && organizationName.touched" #organizationName="ngModel" id="organizationName" placeholder="organizationName" #organizationName="ngModel" name="organizationName" [(ngModel)]="organization.streetAddress" placeholder="Enter Street Address">
+            <small class="text-danger" [class.d-none]="organizationName.valid || organizationName.untouched">Street Address is required</small>
         </div>
 
         <div class="form-group">
             <label for="city">City</label>
-            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="organization.city" placeholder="Enter  City">
+            <span class="text-danger">*</span>
+            <input type="text" required #city="ngModel" [class.is-invalid]="city.invalid && city.touched" class="form-control" id="city" name="city" [(ngModel)]="organization.city" placeholder="Enter  City">
+            <small class="text-danger" [class.d-none]="city.valid || city.untouched">City is required</small>
         </div>
         <div class="form-group">
             <label for="province">Province</label>
-            <input type="text" class="form-control" id="province" name="province" [(ngModel)]="organization.province" placeholder="Enter  Province">
+            <span class="text-danger">*</span>
+            <input type="text" #province="ngModel" [class.is-invalid]="province.invalid && province.touched" required class="form-control" id="province" name="province" [(ngModel)]="organization.province" placeholder="Enter  Province">
+            <small class="text-danger" [class.d-none]="province.valid || province.untouched">province is required</small>
         </div>
         <div class="form-group">
             <label for="country"> Country</label>
-            <input type="text" class="form-control" id="country" name="country" [(ngModel)]="organization.country" placeholder="Enter  Country">
+            <span class="text-danger">*</span>
+            <input type="text" #country="ngModel" required [class.is-invalid]="country.invalid && country.touched" class="form-control" id="country" name="country" [(ngModel)]="organization.country" placeholder="Enter  Country">
+            <small class="text-danger" [class.d-none]="country.valid || country.untouched">Country is required</small>
         </div>
         <div class="form-group">
             <label for="serviceType">   ServiceType</label>
-            <input type="text" class="form-control" id="serviceType" name=" serviceType" [(ngModel)]="organization.serviceType" placeholder="Enter  ServiceType">
+            <span class="text-danger">*</span>
+            <input type="text" class="form-control" required [class.is-invalid]="serviceType.invalid && serviceType.touched" #serviceType="ngModel" id="serviceType" name=" serviceType" [(ngModel)]="organization.serviceType" placeholder="Enter  ServiceType">
+            <small class="text-danger" [class.d-none]="serviceType.valid || serviceType.untouched">Please enter service type</small>
         </div>
         <div class="form-group">
-            <label for="serviceArea">   ServiceArea</label>
-            <input type="text" class="form-control" id="serviceArea" name=" serviceArea" [(ngModel)]="organization.serviceArea" placeholder="Enter   ServiceArea">
+            <label for="serviceArea">ServiceArea</label>
+            <span class="text-danger">*</span>
+            <input type="text" required class="form-control" #serviceArea="ngModel" [class.is-invalid]="serviceArea.invalid && serviceArea.touched" id="serviceArea" name=" serviceArea" [(ngModel)]="organization.serviceArea" placeholder="Enter   ServiceArea">
+            <small class="text-danger" [class.d-none]="serviceArea.valid || serviceArea.untouched">Please enter service area</small>
         </div>
         <!-- <div class="form-group"> -->
 
@@ -60,6 +74,6 @@
             <input class="form-control" placeholder="yyyy-mm-dd" name="quoteEndDate" [(ngModel)]="organization.quoteEndDate" ngbDatepicker #d4="ngbDatepicker" [placement]="placement" (focus)="d4.toggle()">
         </div> -->
         <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-        <button mat-raised-button type="button" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
+        <button mat-raised-button type="button" [disabled]="userForm.form.invalid || topicHasError" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
     </form>
 </div>

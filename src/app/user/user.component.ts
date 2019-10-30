@@ -6,7 +6,8 @@ import {TenderService} from '../service/tender.service';
 import {Tender} from '../model/tender.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import { UserModalComponent } from 'app/modal/user-modal/user-modal.component';
-
+import{ UserServiceService} from '../services/user-service.service';
+import{User} from '../user.model';
 
 @Component({
   selector: 'app-user',
@@ -14,27 +15,47 @@ import { UserModalComponent } from 'app/modal/user-modal/user-modal.component';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  data:any={};
 
-  tender: any;
-  ngOnInit() {
-    this.tenderService.getAll().subscribe((result) => {
-      this.tender = result;
-    })
-  }
+   tender: any;
+   constructor(private userserv:UserServiceService)
+   {
 
-  onDelete(index) {
-     this.tender.splice(index, 1);
-  }
-  constructor(private modalService: NgbModal, private tenderService: TenderService, private router: Router) {}
+   }
+  // user={    
+  //   Name: 'Alish',
+  //   Email:" agarg@thinfect.com",
+  //   Password:1234,
+  //   Mobile:1234567899
+  // };
 
-  open(item?) {
-    const modalRef = this.modalService.open(UserModalComponent, {centered: true});
-    // modalRef.componentInstance.tender = item || new Tender();
-
-  }
-  viewTender() {
-    this.router.navigateByUrl('view-tender');
-  }
-
+  ngOnInit(){
+    return this.userserv.getusers().subscribe(data=>{ this.data=data;
+      console.log(data)});
+    
+ 
 }
+    
+  }
+  // ngOnInit() {
+  //   this.tenderService.getAll().subscribe((result) => {
+  //     this.tender = result;
+  //   })
+  // }
+
+  // onDelete(index) {
+  //    this.tender.splice(index, 1);
+  // }
+  // constructor(private modalService: NgbModal, private tenderService: TenderService, private router: Router) {}
+
+  // open(item?) {
+  //   const modalRef = this.modalService.open(UserModalComponent, {centered: true});
+  //   // modalRef.componentInstance.tender = item || new Tender();
+
+  // }
+  // viewTender() {
+  //   this.router.navigateByUrl('view-tender');
+  // }
+
+
 

@@ -42,7 +42,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import {QuoteComponent} from '../../quote/quote.component';
-import {ChartsModule} from 'ng2-charts';
+ import {ChartsModule} from 'ng2-charts';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
@@ -63,7 +63,7 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
     MatExpansionModule,
     PdfViewerModule,
     FileUploadModule,
-    ChartsModule
+     ChartsModule
   ],
   declarations: [
     DashboardComponent,

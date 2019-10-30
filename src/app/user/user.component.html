@@ -50,6 +50,13 @@
                                         </th>
                                     </thead>
                                     <tbody>
+                                        <tr *ngFor="let i of data">
+
+                                            <td>{{i.userId}}</td>
+                                            <td>{{i.id}}</td>
+                                            <td>{{i.title}}</td>
+                                            <td>{{i.completed}}</td>
+                                        </tr>
                                         <!-- <tr *ngFor="let item of tender;let index=index;">
                                             <td>
                                                 {{index + 1}}
