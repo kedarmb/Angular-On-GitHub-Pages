@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {LoginFormControl} from './login.validator';
+import {LoginFormGroup} from './login.validator';
+import {Router} from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,12 +11,23 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
-  loginForm= this.fb.group({
-    userName:['', [Validators.required]],
-    password:['',[Validators.required]]
-  })
+  form:LoginFormGroup=new LoginFormGroup();
+  formSubmitted: boolean = false;
+  constructor(private router:Router) { }
+
   ngOnInit() {
   }
 
+   submit(form){
+     this.formSubmitted = true;
+     if (form.valid) {
+      console.log('**********************Form is valid');
+       form.reset();
+       this.formSubmitted = false;
+       this.router.navigateByUrl('/dashboard');
+     }else{
+       console.log('***************************From is invalid');
+     }
+
+   }
 }
