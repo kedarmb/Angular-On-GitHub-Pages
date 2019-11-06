@@ -16,9 +16,10 @@ import{User} from '../user.model';
 })
 export class UserComponent implements OnInit {
   data:any={};
-
+ 
+public employee:any=[];
    tender: any;
-   constructor(private userserv:UserServiceService)
+   constructor(private userserv:UserServiceService,)
    {
 
    }
@@ -30,12 +31,13 @@ export class UserComponent implements OnInit {
   // };
 
   ngOnInit(){
-    return this.userserv.getusers().subscribe(data=>{ this.data=data;
-      console.log(data)});
+    // return this.employee = this.userserv.getemployee();
+     return this.userserv.getusers().subscribe(data=>{ this.data=data;
+       console.log(data)});
     
  
 }
-    
+
   }
   // ngOnInit() {
   //   this.tenderService.getAll().subscribe((result) => {
