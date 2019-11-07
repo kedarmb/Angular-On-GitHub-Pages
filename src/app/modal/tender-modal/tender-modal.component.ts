@@ -33,16 +33,17 @@ export class TenderModalComponent implements OnInit {
     save(tenderForm) {
         this.formSubmitted = true;
         console.log(tenderForm);
-        /* this.convertToDate();
+        this.convertToDate();
         if (this.tender.id) {
-            this.tenderService.update(this.tender).subscribe(() => {
+            this.tenderService.update(this.tender).subscribe((data) => {
+                console.log('data is.. ',data);
                 this.activeModal.close('');
             })
         } else {
             this.tenderService.add(this.tender).subscribe(() => {
                 this.activeModal.close('');
             })
-        } */
+        }
 
     }
 

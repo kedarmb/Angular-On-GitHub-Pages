@@ -19,8 +19,9 @@ export class TenderModalFormControl extends FormControl {
     }
 
     getValidationMessages() {
-        let messages: string[] = [];
+        let messages: string[] = [];        
         if (this.errors) {
+            //console.log(this.errors);
             for (let errorName in this.errors) {
                 switch (errorName) {
                     case 'required':
@@ -50,12 +51,12 @@ export class TenderModalFormGroup extends FormGroup {
             // client name: min 5, max 30, pattern all chars including special chars BUT not start & end with spcl chars.
             clientName: new TenderModalFormControl('client name', 'clientname', '',
                 Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30),
-                Validators.pattern(/^[a-z0-9](?!.*?[^\na-z0-9]{2}).*?[a-z0-9]$/gmi)])),
+                Validators.pattern(/^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/)])),
             //
             // tender name is same as clent name
             tenderName: new TenderModalFormControl('tender name', 'tender name', '',
                 Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30),
-                Validators.pattern(/^[a-z0-9](?!.*?[^\na-z0-9]{2}).*?[a-z0-9]$/gmi)])),
+                Validators.pattern(/^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/)])),
             // 
             // Dates should not be blank 
             openDate: new TenderModalFormControl('open date', 'open date', '', Validators.required),
