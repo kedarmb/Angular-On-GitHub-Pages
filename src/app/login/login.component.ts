@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import {LoginFormControl} from './login.validator';
-import {LoginFormGroup} from './login.validator';
-import {Router} from '@angular/router';
+//import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+//import { LoginFormControl } from './login.validator';
+import { LoginFormGroup } from './login.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,23 +11,24 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  form:LoginFormGroup=new LoginFormGroup();
+  form: LoginFormGroup = new LoginFormGroup();
   formSubmitted: boolean = false;
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-   submit(form){
-     this.formSubmitted = true;
-     if (form.valid) {
+  submit(form) {
+    console.log(form);
+    this.formSubmitted = true;
+    if (form.valid) {
       console.log('**********************Form is valid');
-       form.reset();
-       this.formSubmitted = false;
-       this.router.navigateByUrl('/dashboard');
-     }else{
-       console.log('***************************From is invalid');
-     }
+      form.reset();
+      this.formSubmitted = false;
+      this.router.navigateByUrl('/dashboard');
+    } else {
+      console.log('***************************From is invalid');
+    }
 
-   }
+  }
 }

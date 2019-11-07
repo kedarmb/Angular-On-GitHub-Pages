@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import {TenderModalComponent} from '../modal/tender-modal/tender-modal.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {TenderService} from '../service/tender.service';
-import {Tender} from '../model/tender.model';
-import {ActivatedRoute, Router} from '@angular/router';
+import { TenderModalComponent } from '../modal/tender-modal/tender-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TenderService } from '../service/tender.service';
+import { Tender } from '../model/tender.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tender',
@@ -14,7 +14,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class TenderComponent implements OnInit {
 
 
-   tenders: any;
+  tenders: any;
   ngOnInit() {
     this.tenderService.getAll().subscribe((result) => {
       this.tenders = result;
@@ -22,20 +22,26 @@ export class TenderComponent implements OnInit {
   }
 
   delete(tender) {
-     this.tenderService.delete(tender).subscribe(() => {
-       this.tenderService.getAll().subscribe((tenders) => {
-         this.tenders = tenders;
-       })
-     })
+    this.tenderService.delete(tender).subscribe(() => {
+      this.tenderService.getAll().subscribe((tenders) => {
+        this.tenders = tenders;
+      })
+    })
   }
-  constructor(private modalService: NgbModal, private tenderService: TenderService, private router: Router) {}
+  constructor(private modalService: NgbModal,
+    private tenderService: TenderService,
+    private router: Router) {
+
+  }
 
   open(item?) {
-    const modalRef = this.modalService.open(TenderModalComponent, {centered: true});
+    const modalRef = this.modalService.open(TenderModalComponent, { centered: true });
     modalRef.result.then(() => {
       this.tenderService.getAll().subscribe((tenders) => {
         this.tenders = tenders;
       })
+    }).catch(err =>{
+      console.log('modal cancelled ',err);
     })
     modalRef.componentInstance.tender = JSON.parse(JSON.stringify(item || new Tender()));
 
@@ -47,7 +53,7 @@ export class TenderComponent implements OnInit {
   viewer(tender) {
     this.router.navigateByUrl('pdf-viewer/' + tender.id);
   }
-  quotes(tender){
+  quotes(tender) {
     this.router.navigateByUrl('/quote');
   }
 

@@ -1,4 +1,4 @@
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export class LoginFormControl extends FormControl {
     modelProperty: string;
@@ -38,7 +38,9 @@ export class LoginFormGroup extends FormGroup {
 
     constructor() {
         super({
-            username: new LoginFormControl('username', 'username', '', Validators.compose([Validators.required,Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)])),
+            // LoginFormControl(label: string, modelProperty: string, value: any, validator: any): 
+            username: new LoginFormControl('username', 'username', '', Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)])),
+            //password: new LoginFormControl('password', 'password', '', Validators.required)
             password: new LoginFormControl('password', 'password', '', Validators.required)
         })
     }

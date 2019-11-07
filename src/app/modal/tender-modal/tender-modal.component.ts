@@ -1,8 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Tender} from '../../model/tender.model';
-import {OrganizationService} from '../../service/organization.service';
-import {TenderService} from '../../service/tender.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Tender } from '../../model/tender.model';
+import { OrganizationService } from '../../service/organization.service';
+import { TenderService } from '../../service/tender.service';
+
+// import form validator
+import { TenderModalFormControl } from './tender-modal-validator'
+import { TenderModalFormGroup } from './tender-modal-validator';
+
 
 @Component({
     selector: 'app-tender-modal',
@@ -11,9 +16,12 @@ import {TenderService} from '../../service/tender.service';
 })
 export class TenderModalComponent implements OnInit {
 
-    @Input('tender')
+    //@Input('tender')
     tender: Tender;
     placement = 'bottom';
+
+    tenderForm: TenderModalFormGroup = new TenderModalFormGroup();
+    formSubmitted: boolean = false;
 
     constructor(public activeModal: NgbActiveModal, private tenderService: TenderService) {
     }
@@ -22,8 +30,10 @@ export class TenderModalComponent implements OnInit {
         this.convertToNgbDate();
     }
 
-    save() {
-       this.convertToDate();
+    save(tenderForm) {
+        this.formSubmitted = true;
+        console.log(tenderForm);
+        /* this.convertToDate();
         if (this.tender.id) {
             this.tenderService.update(this.tender).subscribe(() => {
                 this.activeModal.close('');
@@ -32,7 +42,7 @@ export class TenderModalComponent implements OnInit {
             this.tenderService.add(this.tender).subscribe(() => {
                 this.activeModal.close('');
             })
-        }
+        } */
 
     }
 
@@ -41,6 +51,7 @@ export class TenderModalComponent implements OnInit {
     }
 
     convertToNgbDate() {
+
         this.tender.openDate = new Date(this.tender.openDate);
         this.tender.closeDate = new Date(this.tender.closeDate);
         this.tender.quoteStartDate = new Date(this.tender.quoteEndDate);

@@ -1,46 +1,101 @@
 <div class="modal-body">
-  <form role="form">
+  <!-- <form [formGroup]="tenderForm" novalidate (ngSubmit)="save(tenderForm)">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <input formControlName="clientName" matInput placeholder="Client name" type="text">
+        </mat-form-field>
+
+        <ul class="text-danger list-unstyled"
+          *ngIf="(formSubmitted || tenderForm.controls['clientName'].dirty) && tenderForm.controls['clientName'].invalid">
+          <li *ngFor="let error of tenderForm.controls['clientName'].getValidationMessages()">
+            {{error}}
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </form> -->
+
+
+
+  <form role="form" [formGroup]="tenderForm" novalidate (ngSubmit)="save(tenderForm)">
     <div class="form-group">
       <label for="clientName">Client Name</label>
-      <input type="email" class="form-control" id="clientName" name="clientName" [(ngModel)]="tender.clientName" placeholder="Client Name">
+      <input type="email" class="form-control" formControlName="clientName" type="text" placeholder="Client Name">
+      <ul class="text-danger list-unstyled"
+        *ngIf="(formSubmitted || tenderForm.controls['clientName'].dirty) && tenderForm.controls['clientName'].invalid">
+        <li *ngFor="let error of tenderForm.controls['clientName'].getValidationMessages()">
+          {{error}}
+        </li>
+      </ul>
     </div>
 
+
+
     <div class="form-group">
-      <label for="tenderName">Name</label>
-      <input type="email" class="form-control" id="tenderName" placeholder="tenderName" name="tenderName" [(ngModel)]="tender.name" placeholder="tender Name">
+      <label for="tenderName">Tendert name</label>
+      <input type="email" class="form-control" formControlName="tenderName" placeholder="Tender name">
+      <ul class="text-danger list-unstyled"
+        *ngIf="(formSubmitted || tenderForm.controls['tenderName'].dirty) && tenderForm.controls['tenderName'].invalid">
+        <li *ngFor="let error of tenderForm.controls['tenderName'].getValidationMessages()">
+          {{error}}
+        </li>
+      </ul>
     </div>
 
 
 
     <div class="form-group">
       <label>Open Date</label>
-      <div class="input-group">
-        <input class="form-control" placeholder="yyyy-mm-dd"
-               name="openDate" [(ngModel)]="tender.openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
-
-      </div>
+      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="openDate" ngbDatepicker #d1="ngbDatepicker"
+        (focus)="d1.toggle()">
+      <ul class="text-danger list-unstyled"
+        *ngIf="(formSubmitted || tenderForm.controls['openDate'].dirty) && tenderForm.controls['openDate'].invalid">
+        <li *ngFor="let error of tenderForm.controls['openDate'].getValidationMessages()">
+          {{error}}
+        </li>
+      </ul>
     </div>
 
     <div class="form-group">
-      <label >Closed date</label>
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="closeDate" [(ngModel)]="tender.closeDate" ngbDatepicker #d2="ngbDatepicker"  [placement]="placement" (focus)="d2.toggle()">
-
+      <label>Close date</label>
+      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="closeDate" ngbDatepicker #d2="ngbDatepicker"
+        (focus)="d2.toggle()">
+      <ul class="text-danger list-unstyled"
+        *ngIf="(formSubmitted || tenderForm.controls['closeDate'].dirty) && tenderForm.controls['closeDate'].invalid">
+        <li *ngFor="let error of tenderForm.controls['closeDate'].getValidationMessages()">
+          {{error}}
+        </li>
+      </ul>
     </div>
 
     <div class="form-group">
       <label>Quote Start Date</label>
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="quoteStartDate" [(ngModel)]="tender.quoteStartDate" ngbDatepicker #d3="ngbDatepicker" [placement]="placement" (focus)="d3.toggle()">
+      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteStartDate" ngbDatepicker
+        #d3="ngbDatepicker" (focus)="d3.toggle()">
+      <ul class="text-danger list-unstyled"
+        *ngIf="(formSubmitted || tenderForm.controls['quoteStartDate'].dirty) && tenderForm.controls['quoteStartDate'].invalid">
+        <li *ngFor="let error of tenderForm.controls['quoteStartDate'].getValidationMessages()">
+          {{error}}
+        </li>
+      </ul>
     </div>
 
     <div class="form-group">
       <label>Quote End Date</label>
 
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="quoteEndDate" [(ngModel)]="tender.quoteEndDate" ngbDatepicker #d4="ngbDatepicker"  [placement]="placement"(focus)="d4.toggle()">
+      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteEndDate" ngbDatepicker
+        #d4="ngbDatepicker" (focus)="d4.toggle()">
+      <ul class="text-danger list-unstyled"
+        *ngIf="(formSubmitted || tenderForm.controls['quoteEndDate'].dirty) && tenderForm.controls['quoteEndDate'].invalid">
+        <li *ngFor="let error of tenderForm.controls['quoteEndDate'].getValidationMessages()">
+          {{error}}
+        </li>
+      </ul>
     </div>
+    <!---->
     <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-    <button mat-raised-button type="submit" (click)="save()" class="btn btn-danger pull-right">Save</button>
+    <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
   </form>
 </div>
