@@ -9,13 +9,13 @@
                         <h4 class="card-title">Sign Up</h4>
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="registrationForm">
+                        <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
                                         <input [class.is-invalid]="registrationForm.get('orgName').invalid && registrationForm.get('orgName').touched" formControlName="orgName" matInput placeholder=" Organization Name*" type="text">
                                     </mat-form-field>
-                                    <div  *ngIf="registrationForm.get('orgName').invalid && registrationForm.get('orgName').touched">
+                                    <div *ngIf="registrationForm.get('orgName').invalid && registrationForm.get('orgName').touched">
                                         <small class="text-danger" *ngIf="registrationForm.get('orgName').errors?.required">Please Provide Organization name</small>
                                     </div>
                                 </div>
@@ -23,32 +23,30 @@
                                     <mat-form-field class="example-full-width">
                                         <input [class.is-invalid]="registrationForm.get('name').invalid && registrationForm.get('name').touched" formControlName="name" matInput placeholder="Name*">
                                     </mat-form-field>
-                                    <div  *ngIf="registrationForm.get('name').invalid && registrationForm.get('name').touched">
+                                    <div *ngIf="registrationForm.get('name').invalid && registrationForm.get('name').touched">
                                         <small class="text-danger" *ngIf="registrationForm.get('name').errors?.required">Please enter name</small>
+
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Email address" type="email">
-                                    </mat-form-field>
-                                </div> -->
+
                             </div>
                             <div class="row">
 
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <!-- <span class="text-danger">*</span> -->
-                                        <input  [class.is-invalid]="registrationForm.get('email').invalid && registrationForm.get('email').touched" formControlName="email"  matInput placeholder="Email*" type="text">
+
+                                        <input [class.is-invalid]="registrationForm.get('email').invalid && registrationForm.get('email').touched" formControlName="email" matInput placeholder="Email*" type="text">
                                     </mat-form-field>
-                                    <div  *ngIf="registrationForm.get('email').invalid && registrationForm.get('email').touched">
+                                    <div *ngIf="registrationForm.get('email').invalid && registrationForm.get('email').touched">
                                         <small class="text-danger" *ngIf="registrationForm.get('email').errors?.required">Please enter email address</small>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput  [class.is-invalid]="registrationForm.get('password').invalid && registrationForm.get('password').touched" formControlName="password" placeholder="Password*" type="password">
+                                        <input matInput [class.is-invalid]="registrationForm.get('password').invalid && registrationForm.get('password').touched" formControlName="password" placeholder="Password*" type="password">
                                     </mat-form-field>
                                     <div *ngIf="registrationForm.get('password').invalid && registrationForm.get('password').touched">
                                         <small class="text-danger" *ngIf="registrationForm.get('password').errors?.required">
@@ -57,19 +55,16 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput  [class.is-invalid]="registrationForm.get('confirmPassword').invalid && registrationForm.get('confirmPassword').touched || registrationForm.errors?.mismatch" type="password" formControlName="confirmPassword" placeholder="Confirm Password*">
+                                        <input matInput [class.is-invalid]="registrationForm.get('confirmPassword').invalid && registrationForm.get('confirmPassword').touched || registrationForm.errors?.mismatch" type="password" formControlName="confirmPassword" placeholder="Confirm Password*">
                                     </mat-form-field>
                                     <small class="text-danger" *ngIf="registrationForm.get('confirmPassword').invalid && registrationForm.get('confirmPassword').touched || registrationForm.errors?.mismatch">
                                         Passwords do not match
                                     </small>
-                                    <!-- <div *ngIf="registrationForm.get('confirmPassword').invalid && registrationForm.get('confirmPassword').touched">
-                                        <small class="text-danger" *ngIf="registrationForm.get('confirmPassword').errors?.required">
-                                            Please enter confirm password
-                                        </small>
-                                    </div> -->
+
                                 </div>
                             </div>
                             <mat-form-field>
@@ -86,7 +81,7 @@
                                     <p>Already have an Account?<a routerLink="/login">LOGIN</a></p>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" [disabled]="!registrationForm.valid" class="btn btn-danger pull-right" routerLink="/dashboard">Update Profile</button>
+                            <button mat-raised-button type="submit" [disabled]="!registrationForm.valid" class="btn btn-danger pull-right">Update Profile</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

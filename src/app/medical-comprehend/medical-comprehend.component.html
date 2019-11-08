@@ -1,0 +1,81 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-12">
+        <div class="card card-plain">
+          <div class="card-header">
+            <div class="card">
+              <div class="card-header card-header-tabs card-header-danger">
+                <div class="nav-tabs-navigation">
+                  <div class="nav-tabs-wrapper">
+
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                      <li class="nav-item">
+                        <a mat-button class="nav-link active" (click)="submit()" href="#profile" data-toggle="tab">
+                          <i class="material-icons">
+                            add
+                          </i> ADD
+                          <div class="ripple-container"></div>
+                        </a>
+                      </li>
+                      <!-- <li class="nav-item">
+                       <a mat-button class="nav-link" href="#messages" data-toggle="tab">
+                         <i class="material-icons">code</i> Website
+                         <div class="ripple-container"></div>
+                       </a>
+                     </li>
+                     <li class="nav-item">
+                       <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                         <i class="material-icons">cloud</i> Server
+                         <div class="ripple-container"></div>
+                       </a>
+                     </li>-->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- <h4 class="card-title mt-0"> Tender</h4>-->
+              <!--<p class="card-category"> Here is a subtitle for this table</p>-->
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="mainTable" class="table table-hover">
+
+                  <thead class="">
+                  <th>
+                 CATEGORY
+                  </th>
+                  <th>
+                    TYPE
+                  </th>
+
+                  <th>
+                    TEXT
+                  </th>
+
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let result of results;let index=index;">
+
+                    <td>
+                      {{result.Category}}
+                    </td>
+                    <td>
+                      {{result.Type}}
+                    </td>
+                    <td>
+                      {{result.Text}}
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

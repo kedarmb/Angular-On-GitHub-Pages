@@ -15,9 +15,9 @@ export class NotifySubcontractorComponent implements OnInit {
   constructor(private activeModal: NgbActiveModal, private organizationService: OrganizationService) { }
 
   ngOnInit() {
-    this.organizationService.getAll().subscribe((organizations) => {
+   /* this.organizationService.getAll().subscribe((organizations) => {
       this.organizations = organizations;
-    })
+    })*/
   }
    close() {
     this.activeModal.close('close');

@@ -40,25 +40,33 @@ import {TenderitemService} from './service/tenderitem.service';
 
 import {TrenchModalComponent} from './modal/trench-modal/trench-modal.component';
 import {CrewModalComponent} from './modal/crew-modal/crew-modal.component';
-import { OrganizationModalComponent } from './modal/organization-modal/organization-modal.component';
-import { OrganizationComponent } from './organization/organization.component';
+import {OrganizationModalComponent} from './modal/organization-modal/organization-modal.component';
+import {OrganizationComponent} from './organization/organization.component';
 
-import { UserComponent } from './user/user.component';
-import { UserModalComponent } from './modal/user-modal/user-modal.component';
+import {UserComponent} from './user/user.component';
+import {UserModalComponent} from './modal/user-modal/user-modal.component';
 
-import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
-import { AutoAdjustDirective } from './directive/auto-adjust.directive';
+import {CreateTenderItemComponent} from './create-tender-item/create-tender-item.component';
+import {AutoAdjustDirective} from './directive/auto-adjust.directive';
 import {OrganizationService} from './service/organization.service';
-import { NotifySubcontractorComponent } from './modal/notify-subcontractor/notify-subcontractor.component';
-import { CrewComponent } from './crew/crew.component';
+import {NotifySubcontractorComponent} from './modal/notify-subcontractor/notify-subcontractor.component';
+import {CrewComponent} from './crew/crew.component';
 import {CrewItemService} from './service/crew-item.service';
 import {CrewService} from './service/crew.service';
-import { CreateCrewComponent } from './create-crew/create-crew.component';
-import { DateConverterPipe } from './pipe/date-converter.pipe';
+import {CreateCrewComponent} from './create-crew/create-crew.component';
+import {DateConverterPipe} from './pipe/date-converter.pipe';
 
 import {SpeechRecognitionService} from './service/speech-recognition.service';
-import { AnalyticsComponent } from './analytics/analytics.component';
-import {UserServiceService} from "./services/user-service.service";
+import {AnalyticsComponent} from './analytics/analytics.component';
+
+import {MedicalComprehendComponent} from './medical-comprehend/medical-comprehend.component';
+import {SearchSubscriberService} from './service/search-subscriber.service';
+
+import {UserServiceService} from './services/user-service.service';
+import{LoginService} from './service/login.service';
+
+import{SignupService} from './service/signup.service';
+
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -77,6 +85,7 @@ import {UserServiceService} from "./services/user-service.service";
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
+      
 
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
@@ -93,7 +102,11 @@ import {UserServiceService} from "./services/user-service.service";
         OrganizationModalComponent,
         UserModalComponent
         , NotifySubcontractorComponent],
-    providers: [UserServiceService,TenderService, TenderitemService, OrganizationService, CrewItemService, CrewService, SpeechRecognitionService],
+
+    providers: [TenderService, TenderitemService, OrganizationService,
+        CrewItemService, CrewService, SpeechRecognitionService,
+        SearchSubscriberService, OrganizationService,LoginService,SignupService],
+
 
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,

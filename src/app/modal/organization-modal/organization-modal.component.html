@@ -1,5 +1,6 @@
 <div class="modal-body">
-    <form #userForm="ngForm" *ngIf="!submitted" novalidate role="form">
+    <!-- <form #userForm="ngForm" *ngIf="!submitted" novalidate role="form"> -->
+    <form #userForm="ngForm" novalidate role="form">
         <div class="form-group">
             <label for="name"> Name</label>
             <span class="text-danger">*</span>
@@ -10,7 +11,8 @@
         <div class="form-group">
             <label for="organizationName">Street Address</label>
             <span class="text-danger">*</span>
-            <input type="text" class="form-control" required [class.is-invalid]="organizationName.invalid && organizationName.touched" #organizationName="ngModel" id="organizationName" placeholder="organizationName" #organizationName="ngModel" name="organizationName" [(ngModel)]="organization.streetAddress" placeholder="Enter Street Address">
+            <input type="text" class="form-control" required [class.is-invalid]="organizationName.invalid && organizationName.touched" #organizationName="ngModel" id="organizationName" placeholder="organizationName" #organizationName="ngModel" name="organizationName"
+                [(ngModel)]="organization.streetAddress" placeholder="Enter Street Address">
             <small class="text-danger" [class.d-none]="organizationName.valid || organizationName.untouched">Street Address is required</small>
         </div>
 
@@ -74,6 +76,6 @@
             <input class="form-control" placeholder="yyyy-mm-dd" name="quoteEndDate" [(ngModel)]="organization.quoteEndDate" ngbDatepicker #d4="ngbDatepicker" [placement]="placement" (focus)="d4.toggle()">
         </div> -->
         <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-        <button mat-raised-button type="button" [disabled]="userForm.form.invalid || topicHasError" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
+        <button mat-raised-button type="button" [disabled]="userForm.form.invalid" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
     </form>
 </div>

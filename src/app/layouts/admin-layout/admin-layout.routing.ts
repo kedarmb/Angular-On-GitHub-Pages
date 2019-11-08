@@ -22,6 +22,7 @@ import {QuoteComponent} from '../../quote/quote.component';
 import {UserComponent} from '../../user/user.component';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
+import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -71,6 +72,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {path: 'organization', component: OrganizationComponent},
     {path: 'analytics', component: AnalyticsComponent},
+    {path: 'comprehend', component: MedicalComprehendComponent},
     {path: 'quote', component: QuoteComponent},
     {path: 'pdf-viewer/:id', component: PdfViewerComponent},
     {path: 'crew', component: CrewComponent},
