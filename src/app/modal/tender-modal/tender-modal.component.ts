@@ -8,6 +8,9 @@ import { TenderService } from '../../service/tender.service';
 import { TenderModalFormControl } from './tender-modal-validator'
 import { TenderModalFormGroup } from './tender-modal-validator';
 
+//
+
+
 
 @Component({
     selector: 'app-tender-modal',
@@ -16,7 +19,7 @@ import { TenderModalFormGroup } from './tender-modal-validator';
 })
 export class TenderModalComponent implements OnInit {
 
-    //@Input('tender')
+    @Input('tender')
     tender: Tender;
     placement = 'bottom';
 
@@ -30,16 +33,28 @@ export class TenderModalComponent implements OnInit {
         this.convertToNgbDate();
     }
 
+    dateChanged(control){
+        console.log(control);
+    }
+
+
     save(tenderForm) {
         this.formSubmitted = true;
-        console.log(tenderForm);
+        //console.log('open date is ',this.tenderForm.controls.openDate.value.year);
+        // 
         this.convertToDate();
+        //
+        console.log(this.tender.id)
         if (this.tender.id) {
             this.tenderService.update(this.tender).subscribe((data) => {
                 console.log('data is.. ',data);
                 this.activeModal.close('');
             })
         } else {
+            console.log('else block');
+            this.tender.clientName = this.tenderForm.controls.clientName.value;
+            this.tender.name = this.tenderForm.controls.tenderName.value;
+            //
             this.tenderService.add(this.tender).subscribe(() => {
                 this.activeModal.close('');
             })
@@ -80,7 +95,31 @@ export class TenderModalComponent implements OnInit {
 
     }
 
+
+    /**
+     * Function modified by Arup 8-11-2019
+     * 
+     */
     convertToDate() {
+        // Tender object populated from FormControls:
+        this.tender.openDate = new Date(this.tenderForm.controls.openDate.value.year,
+            this.tenderForm.controls.openDate.value.month, 
+            this.tenderForm.controls.openDate.value.day);
+        //
+        this.tender.closeDate = new Date(this.tenderForm.controls.closeDate.value.year, 
+            this.tenderForm.controls.closeDate.value.month, 
+            this.tenderForm.controls.closeDate.value.day);
+        //
+        this.tender.quoteStartDate = new Date(this.tenderForm.controls.quoteStartDate.value.year,
+            this.tenderForm.controls.quoteStartDate.value.month, 
+            this.tenderForm.controls.quoteStartDate.value.day);
+        //
+        this.tender.quoteEndDate = new Date(this.tenderForm.controls.quoteEndDate.value.year,
+            this.tenderForm.controls.quoteEndDate.value.month, 
+            this.tenderForm.controls.quoteEndDate.value.day);
+    }
+
+    /* convertToDate() {
         this.tender.openDate = new Date(this.tender.openDate.year,
             this.tender.openDate.month, this.tender.openDate.day);
         this.tender.closeDate = new Date(this.tender.closeDate.year, this.tender.closeDate.month,
@@ -89,6 +128,6 @@ export class TenderModalComponent implements OnInit {
             this.tender.quoteStartDate.month, this.tender.quoteStartDate.day);
         this.tender.quoteEndDate = new Date(this.tender.quoteEndDate.year,
             this.tender.quoteEndDate.month, this.tender.quoteEndDate.day);
-    }
+    } */
 
 }

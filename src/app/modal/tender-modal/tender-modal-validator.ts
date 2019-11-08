@@ -59,13 +59,13 @@ export class TenderModalFormGroup extends FormGroup {
                 Validators.pattern(/^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/)])),
             // 
             // Dates should not be blank 
-            openDate: new TenderModalFormControl('open date', 'open date', '', Validators.required),
+            openDate: new TenderModalFormControl('open date', 'open date', null, Validators.required),
 
-            closeDate: new TenderModalFormControl('close date', 'close date', '', Validators.required),
+            closeDate: new TenderModalFormControl('close date', 'close date', null, Validators.required),
 
-            quoteStartDate: new TenderModalFormControl('quote start date', 'quote start date', '', Validators.required),
+            quoteStartDate: new TenderModalFormControl('quote start date', 'quote start date', null, Validators.required),
 
-            quoteEndDate: new TenderModalFormControl('quote end date', 'quote end date', '', Validators.required)
+            quoteEndDate: new TenderModalFormControl('quote end date', 'quote end date', null, Validators.required)
             /**/
         })
     }

@@ -64,6 +64,8 @@ import {SearchSubscriberService} from './service/search-subscriber.service';
 
 import {UserServiceService} from './services/user-service.service';
 
+// prime ng imports
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
     imports: [
@@ -83,6 +85,7 @@ import {UserServiceService} from './services/user-service.service';
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
+        CalendarModule,
 
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
