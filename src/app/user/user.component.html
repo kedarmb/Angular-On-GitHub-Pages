@@ -58,8 +58,10 @@
                                             <td>{{i.id}}</td>
                                             <td>{{i.title}}</td>
                                             <td>{{i.completed}}</td>
+                                            <td><button type="button" class="btn btn-primary" (click)="del(i.id)">delete</button> </td>
+                                            <!-- <td><button type="button" class="btn btn-primary">delete</td> -->
                                         </tr>
-                                        <!-- <tr *ngFor="let item of tender;let index=index;">
+                                        <!-- <tr *ngFor=" let item of tender;let index=index; ">
                                             <td>
                                                 {{index + 1}}
                                             </td>
@@ -67,7 +69,7 @@
                                                 {{item.clientName}}
                                             </td>
                                             <td>
-                                                <a class="btn btn-link" routerLink="/tender-items">
+                                                <a class="btn btn-link " routerLink="/tender-items ">
                                               {{item.tenderName}}
                                           </a>
                                             </td>
@@ -86,14 +88,14 @@
                                             <td>
                                                 {{item.quoteEndDate | date: 'dd/MM/yyyy'}}
                                             </td>
-                                            <td class="td-actions">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="open(item)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                              <i class="material-icons">edit</i>
+                                            <td class="td-actions ">
+                                                <button mat-raised-button type="button " matTooltip="Edit Task " (click)="open(item) " [matTooltipPosition]=" 'above' " class="btn btn-primary btn-link btn-sm btn-just-icon ">
+                                              <i class="material-icons ">edit</i>
                                           </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="onDelete(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                              <i class="material-icons">close</i>
+                                                <button mat-raised-button type="button " matTooltip="Remove " (click)="onDelete(index) " [matTooltipPosition]=" 'above' " class="btn btn-danger btn-link btn-sm btn-just-icon ">
+                                              <i class="material-icons ">close</i>
                                           </button>
-                                               
+
                                             </td>
                                         </tr> -->
 
@@ -108,7 +110,7 @@
         </div>
     </div>
 </div>
-<!-- <div *ngFor="let x of employee">
+<!-- <div *ngFor="let x of employee ">
     <p>{{x.id}}</p>
-    console.log("x");
+    console.log("x ");
 </div> -->

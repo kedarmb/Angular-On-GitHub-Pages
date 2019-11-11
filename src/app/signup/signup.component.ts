@@ -38,7 +38,7 @@ submit(registrationForm){
 
     this.data=data
     console.log(data);
-    this.router.navigateByUrl('/dashboard')
+    this.router.navigateByUrl('/login')
   })
 }
 

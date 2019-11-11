@@ -105,7 +105,7 @@ import{SignupService} from './service/signup.service';
 
     providers: [TenderService, TenderitemService, OrganizationService,
         CrewItemService, CrewService, SpeechRecognitionService,
-        SearchSubscriberService, OrganizationService,LoginService,SignupService],
+        SearchSubscriberService, OrganizationService,LoginService,SignupService,UserServiceService],
 
 
     bootstrap: [AppComponent],
