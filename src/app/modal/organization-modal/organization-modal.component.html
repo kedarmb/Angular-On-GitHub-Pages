@@ -1,5 +1,6 @@
 <div class="modal-body">
-    <form #userForm="ngForm" *ngIf="!submitted" novalidate role="form">
+    <!-- <form #userForm="ngForm" *ngIf="!submitted" novalidate role="form"> -->
+    <form #userForm="ngForm" novalidate role="form">
         <div class="form-group">
             <label for="name"> Name</label>
             <span class="text-danger">*</span>
@@ -10,7 +11,8 @@
         <div class="form-group">
             <label for="organizationName">Street Address</label>
             <span class="text-danger">*</span>
-            <input type="text" class="form-control" required [class.is-invalid]="organizationName.invalid && organizationName.touched" #organizationName="ngModel" id="organizationName" placeholder="organizationName" #organizationName="ngModel" name="organizationName" [(ngModel)]="organization.streetAddress" placeholder="Enter Street Address">
+            <input type="text" class="form-control" required [class.is-invalid]="organizationName.invalid && organizationName.touched" #organizationName="ngModel" id="organizationName" placeholder="organizationName" #organizationName="ngModel" name="organizationName"
+                [(ngModel)]="organization.streetAddress" placeholder="Enter Street Address">
             <small class="text-danger" [class.d-none]="organizationName.valid || organizationName.untouched">Street Address is required</small>
         </div>
 

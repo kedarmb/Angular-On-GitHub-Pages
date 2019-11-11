@@ -6,7 +6,7 @@ import {TenderService} from '../service/tender.service';
 import {Tender} from '../model/tender.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import { UserModalComponent } from 'app/modal/user-modal/user-modal.component';
-import{ UserServiceService} from '../services/user-service.service';
+import{ UserServiceService} from '../service/user-service.service';
 import{User} from '../user.model';
 
 @Component({
@@ -16,7 +16,9 @@ import{User} from '../user.model';
 })
 export class UserComponent implements OnInit {
   data:any={};
-
+  user: User =new User();
+  
+public employee:any=[];
    tender: any;
    constructor(private userserv:UserServiceService)
    {
@@ -30,13 +32,21 @@ export class UserComponent implements OnInit {
   // };
 
   ngOnInit(){
-    return this.userserv.getusers().subscribe(data=>{ this.data=data;
-      console.log(data)});
+    // return this.employee = this.userserv.getemployee();
+     return this.userserv.getusers().subscribe(data=>{ this.data=data;
+       console.log(data)});
     
  
 }
-    
+del(id):any{
+  return this.userserv.del(id).subscribe(data=>{ this.data=data;
+    console.log(data);
+  });
+
+
   }
+}
+
   // ngOnInit() {
   //   this.tenderService.getAll().subscribe((result) => {
   //     this.tender = result;

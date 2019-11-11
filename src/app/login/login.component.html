@@ -16,12 +16,11 @@
                                         <input formControlName="username" matInput placeholder="username" type="text">
 
                                     </mat-form-field>
-                                  <ul class="text-danger list-unstyled"
-                                      *ngIf="(formSubmitted || form.controls['username'].dirty) && form.controls['username'].invalid">
-                                    <li *ngFor="let error of form.controls['username'].getValidationMessages()">
-                                      {{error}}
-                                    </li>
-                                  </ul>
+                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || form.controls['username'].dirty) && form.controls['username'].invalid">
+                                        <li *ngFor="let error of form.controls['username'].getValidationMessages()">
+                                            {{error}}
+                                        </li>
+                                    </ul>
 
                                 </div>
                             </div>
@@ -31,12 +30,11 @@
                                         <input matInput formControlName="password" type="text" placeholder="password">
 
                                     </mat-form-field>
-                                  <ul class="text-danger list-unstyled"
-                                      *ngIf="(formSubmitted || form.controls['password'].dirty) && form.controls['password'].invalid">
-                                    <li *ngFor="let error of form.controls['password'].getValidationMessages()">
-                                      {{error}}
-                                    </li>
-                                  </ul>
+                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || form.controls['password'].dirty) && form.controls['password'].invalid">
+                                        <li *ngFor="let error of form.controls['password'].getValidationMessages()">
+                                            {{error}}
+                                        </li>
+                                    </ul>
 
                                 </div>
                             </div>

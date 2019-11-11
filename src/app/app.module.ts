@@ -63,7 +63,9 @@ import {MedicalComprehendComponent} from './medical-comprehend/medical-comprehen
 import {SearchSubscriberService} from './service/search-subscriber.service';
 
 import {UserServiceService} from './services/user-service.service';
+import{LoginService} from './service/login.service';
 
+import{SignupService} from './service/signup.service';
 
 @NgModule({
     imports: [
@@ -83,6 +85,7 @@ import {UserServiceService} from './services/user-service.service';
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
+      
 
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
@@ -102,7 +105,7 @@ import {UserServiceService} from './services/user-service.service';
 
     providers: [TenderService, TenderitemService, OrganizationService,
         CrewItemService, CrewService, SpeechRecognitionService,
-        SearchSubscriberService, OrganizationService],
+        SearchSubscriberService, OrganizationService,LoginService,SignupService,UserServiceService],
 
 
     bootstrap: [AppComponent],

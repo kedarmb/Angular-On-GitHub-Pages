@@ -9,7 +9,7 @@
                         <h4 class="card-title">Sign Up</h4>
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="registrationForm">
+                        <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
@@ -53,6 +53,7 @@
                                    
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
@@ -67,6 +68,7 @@
                                    
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
@@ -97,7 +99,7 @@
                                     <p>Already have an Account?<a routerLink="/login">LOGIN</a></p>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" [disabled]="!registrationForm.valid" class="btn btn-danger pull-right" routerLink="/dashboard">Update Profile</button>
+                            <button mat-raised-button type="submit" [disabled]="!registrationForm.valid" class="btn btn-danger pull-right">Update Profile</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
