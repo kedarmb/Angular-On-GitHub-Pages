@@ -1,4 +1,4 @@
-<div class="main-content">
+<!-- <div class="main-content">
     <div class="container-fluid">
         <div class="row">
 
@@ -13,7 +13,7 @@
 
                                         <ul class="nav nav-tabs" data-tabs="tabs">
                                             <li class="nav-item">
-                                                <!-- <a mat-button class="nav-link active" (click)="open()" href="#profile" data-toggle="tab"> -->
+                                             
                                                 <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
                                                     <i class="material-icons">
                                                       add
@@ -26,8 +26,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <h4 class="card-title mt-0"> Tender</h4>-->
-                            <!--<p class="card-category"> Here is a subtitle for this table</p>-->
+                          
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -59,45 +58,9 @@
                                             <td>{{i.title}}</td>
                                             <td>{{i.completed}}</td>
                                             <td><button type="button" class="btn btn-primary" (click)="del(i.id)">delete</button> </td>
-                                            <!-- <td><button type="button" class="btn btn-primary">delete</td> -->
+                                           
                                         </tr>
-                                        <!-- <tr *ngFor=" let item of tender;let index=index; ">
-                                          <td>
-                                              {{index + 1}}
-                                          </td>
-                                          <td>
-                                              {{item.clientName}}
-                                          </td>
-                                          <td>
-                                              <a class="btn btn-link " routerLink="/tender-items ">
-                                            {{item.tenderName}}
-                                        </a>
-                                          </td>
-                                          <td>
-                                              {{item.tenderDescription}}
-                                          </td>
-                                          <td>
-                                              {{item.openDate | date: 'dd/MM/yyyy'}}
-                                          </td>
-                                          <td>
-                                              {{item.closeDate | date: 'dd/MM/yyyy'}}
-                                          </td>
-                                          <td>
-                                              {{item.quoteStartDate | date: 'dd/MM/yyyy'}}
-                                          </td>
-                                          <td>
-                                              {{item.quoteEndDate | date: 'dd/MM/yyyy'}}
-                                          </td>
-                                          <td class="td-actions ">
-                                              <button mat-raised-button type="button " matTooltip="Edit Task " (click)="open(item) " [matTooltipPosition]=" 'above' " class="btn btn-primary btn-link btn-sm btn-just-icon ">
-                                            <i class="material-icons ">edit</i>
-                                        </button>
-                                              <button mat-raised-button type="button " matTooltip="Remove " (click)="onDelete(index) " [matTooltipPosition]=" 'above' " class="btn btn-danger btn-link btn-sm btn-just-icon ">
-                                            <i class="material-icons ">close</i>
-                                        </button>
-
-                                          </td>
-                                      </tr> -->
+                                       
 
                                     </tbody>
                                 </table>
@@ -109,8 +72,4 @@
             </div>
         </div>
     </div>
-</div>
-<!-- <div *ngFor="let x of employee ">
-  <p>{{x.id}}</p>
-  console.log("x ");
 </div> -->
