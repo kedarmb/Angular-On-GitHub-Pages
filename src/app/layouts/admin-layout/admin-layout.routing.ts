@@ -23,6 +23,8 @@ import {UserComponent} from '../../user/user.component';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
+import { LabourAndEquipmentsComponent } from '../../components/labour-and-equipments/labour-and-equipments.component';
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -90,4 +92,5 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'notifications', component: NotificationsComponent},
     {path: 'upgrade', component: UpgradeComponent},
     {path: 'user', component: UserComponent},
+    {path:'labourandequipments', component:LabourAndEquipmentsComponent}
 ];

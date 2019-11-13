@@ -23,16 +23,19 @@ export class LoginComponent implements OnInit {
    submit(form){
      this.formSubmitted = true;
      if (form.valid) {
-      console.log(form.controls.username.value);
+      console.log(form.controls.email.value);
       console.log(form.controls.password.value);
-      this.loginObj.username = form.controls.username.value;
+      this.loginObj.email = form.controls.email.value;
       this.loginObj.password = form.controls.password.value;
       //
 
       this.loginService.login(this.loginObj).subscribe(data=>
         {
+          console.log(this.loginObj)
+          console.log(data);
+          
           this.formSubmitted = false;
-          // this.router.navigateByUrl('/dashboard');
+           this.router.navigateByUrl('/dashboard');
         })
       
       
