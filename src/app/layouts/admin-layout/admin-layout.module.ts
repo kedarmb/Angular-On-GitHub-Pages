@@ -30,7 +30,7 @@ import {EditInputComponent} from '../../edit-input/edit-input.component';
 import {OrganizationComponent} from '../../organization/organization.component';
 
 import { UserComponent } from '../../user/user.component';
-
+import { LabourComponent } from '../../components/labour/labour.component';
 
 import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
 import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
@@ -41,12 +41,14 @@ import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-import {QuoteComponent} from '../../quote/quote.component';
+import {QuoteComponent} from '../../components/quote/quote.component';
  import {ChartsModule} from 'ng2-charts';
 
+ import{CalculationComponent} from  '../../components/calculation/calculation.component';
+ import{SettingsComponent} from '../../components/settings/settings.component';
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
-import { LabourAndEquipmentsComponent } from '../../components/labour-and-equipments/labour-and-equipments.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -92,7 +94,11 @@ import { LabourAndEquipmentsComponent } from '../../components/labour-and-equipm
     AnalyticsComponent,
     QuoteComponent,
     PdfViewerComponent,
-    LabourAndEquipmentsComponent
+    LabourComponent,
+    CalculationComponent,
+    SettingsComponent
+   
+    
   ]
 })
 

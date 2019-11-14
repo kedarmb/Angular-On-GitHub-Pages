@@ -46,6 +46,8 @@ import {OrganizationComponent} from './organization/organization.component';
 import {UserComponent} from './user/user.component';
 import {UserModalComponent} from './modal/user-modal/user-modal.component';
 
+
+
 import {CreateTenderItemComponent} from './create-tender-item/create-tender-item.component';
 import {AutoAdjustDirective} from './directive/auto-adjust.directive';
 import {OrganizationService} from './service/organization.service';
@@ -66,6 +68,9 @@ import {UserServiceService} from './services/user-service.service';
 import{LoginService} from './service/login.service';
 
 import{SignupService} from './service/signup.service';
+import{LabourService} from './service/labour.service';
+import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
+
 
 @NgModule({
     imports: [
@@ -101,11 +106,11 @@ import{SignupService} from './service/signup.service';
         CrewModalComponent,
         OrganizationModalComponent,
         UserModalComponent
-        , NotifySubcontractorComponent],
+        , NotifySubcontractorComponent, LobourModalComponent],
 
     providers: [TenderService, TenderitemService, OrganizationService,
         CrewItemService, CrewService, SpeechRecognitionService,
-        SearchSubscriberService, OrganizationService,LoginService,SignupService,UserServiceService],
+        SearchSubscriberService, OrganizationService,LoginService,SignupService,UserServiceService,LabourService],
 
 
     bootstrap: [AppComponent],
@@ -113,7 +118,7 @@ import{SignupService} from './service/signup.service';
         TrenchModalComponent,
         CrewModalComponent, OrganizationModalComponent,
         UserModalComponent,
-        NotifySubcontractorComponent]
+        NotifySubcontractorComponent,LobourModalComponent]
 })
 export class AppModule {
 }
