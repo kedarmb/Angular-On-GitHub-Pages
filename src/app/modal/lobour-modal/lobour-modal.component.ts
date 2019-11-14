@@ -9,7 +9,7 @@ import{LabourService} from '../../service/labour.service';
 })
 export class LobourModalComponent implements OnInit {
   data:any={};
-  labour: Labour =new Labour();
+  // labour: Labour =new Labour();
   constructor(public activeModal: NgbActiveModal,private labourserv:LabourService) { }
 
   ngOnInit() {

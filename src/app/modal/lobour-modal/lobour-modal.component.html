@@ -1,5 +1,5 @@
 <div class="modal-body">
-    <form role="form">
+    <form role="form" (ngSubmit)="submit(labourForm)">
 
 
         <div class="form-group">
@@ -9,12 +9,12 @@
 
         <div class="form-group">
             <label for="tenderName">Rate</label>
-            <input type="text" class="form-control"  ([ngModel])="labour.rate" placeholder="rate" name="email">
+            <input type="text" class="form-control" ([ngModel])="labour.rate" placeholder="rate" name="email">
         </div>
 
         <div class="form-group">
             <label for="description">Description</label>
-            <input type="text" class="form-control" id="description" ([ngModel])="labour.description"  placeholder="description">
+            <input type="text" class="form-control" id="description" ([ngModel])="labour.description" placeholder="description">
         </div>
         <div class="form-group">
             <label for="description">Type</label>
@@ -27,3 +27,31 @@
         <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
     </form>
 </div>
+<!--
+<div class="modal-body">
+    <form #userForm="ngForm" *ngIf="!submitted" novalidate role="form">
+        <div class="form-group">
+            <label for="name"> Name</label>
+            <span class="text-danger">*</span>
+            <input type="text" #name="ngModel" required class="form-control" [class.is-invalid]="name.invalid && name.touched" id="name" name="name" [(ngModel)]="equipments.name" placeholder="Enter Name">
+            <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
+        </div>
+
+        <div class="form-group">
+            <label for="rate">Rate</label>
+            <span class="text-danger">*</span>
+            <input type="text" required #rate="ngModel" [class.is-invalid]="rate.invalid && rate.touched" class="form-control" id="rate" name="rate" [(ngModel)]="equipments.rate" placeholder="Enter Rate">
+            <small class="text-danger" [class.d-none]="rate.valid || rate.untouched">Rate is required</small>
+        </div>
+
+        <div class="form-group">
+            <label for="equipmentsDesc">Description</label>
+            <span class="text-danger">*</span>
+            <input type="text" class="form-control" required [class.is-invalid]="equipmentsDesc.invalid && equipmentsDesc.touched" #equipmentsDesc="ngModel" id="equipmentsDesc" placeholder="Equipments Description" #equipmentsDesc="ngModel" name="equipmentsDesc" [(ngModel)]="equipments.description"
+                placeholder="Enter Description">
+            <small class="text-danger" [class.d-none]="equipmentsDesc.valid || equipmentsDesc.untouched">Equipments Description is required</small>
+        </div>
+        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+        <button mat-raised-button type="submit" (click)="submit()" class="btn btn-danger pull-right">Save</button>
+    </form>
+</div>-->

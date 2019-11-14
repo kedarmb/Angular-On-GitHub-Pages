@@ -20,12 +20,15 @@ import Labour from '../../model/labour.model';
 })
 export class LabourComponent implements OnInit {
   labour:any={};
+  data:any;
+  lab:Labour=new Labour();
 
   constructor(private labourserv:LabourService,private modalService: NgbModal,private router: Router) { }
-
+  
   ngOnInit(){
 
   }
+  
   open(item?) {
     const modalRef = this.modalService.open(LobourModalComponent, {centered: true});
     const obj = {};
@@ -38,6 +41,19 @@ export class LabourComponent implements OnInit {
     })
 
 }
+
+submit(labourForm){
+  for(let i in labourForm.controls){
+    this.lab[i]=labourForm.controls[i].value;
+  }
+  console.log(this.lab)
+  this.labourserv.create(this.lab).subscribe(data=>{
+
+    this.data=data
+    console.log(data);
+  });
+}
+
 
 }
 
