@@ -46,7 +46,7 @@ import {QuoteComponent} from '../../quote/quote.component';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
-
+import { LabourAndEquipmentsComponent } from '../../components/labour-and-equipments/labour-and-equipments.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -91,7 +91,8 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
     PdfViewerComponent,
     AnalyticsComponent,
     QuoteComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    LabourAndEquipmentsComponent
   ]
 })
 
