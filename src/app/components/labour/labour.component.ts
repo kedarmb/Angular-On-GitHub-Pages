@@ -24,9 +24,7 @@ export class LabourComponent implements OnInit {
   constructor(private labourserv:LabourService,private modalService: NgbModal,private router: Router) { }
 
   ngOnInit(){
-    this.labourserv.create(this.labour).subscribe((data) => {
-      this.labour = data;
-  })
+
   }
   open(item?) {
     const modalRef = this.modalService.open(LobourModalComponent, {centered: true});
@@ -36,10 +34,7 @@ export class LabourComponent implements OnInit {
     }
     modalRef.componentInstance.labour = obj || new Labour();
     modalRef.result.then(() => {
-        this.labourserv.create(this.labour).subscribe((labour) => {
-            console.log('.>>>>>>>>>>>>>>>>>>>>>>>>>', labour);
-            this.labour = labour;LabourService
-        });
+
     })
 
 }
