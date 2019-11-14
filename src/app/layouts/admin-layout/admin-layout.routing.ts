@@ -18,14 +18,14 @@ import {CrewComponent} from '../../crew/crew.component';
 import {CreateCrewComponent} from '../../create-crew/create-crew.component';
 import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 
-import {QuoteComponent} from '../../quote/quote.component';
+import{CalculationComponent} from  '../../components/calculation/calculation.component';
 import {UserComponent} from '../../user/user.component';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
-import { LabourAndEquipmentsComponent } from '../../components/labour-and-equipments/labour-and-equipments.component';
-
-
+import {LabourComponent } from '../../components/labour/labour.component';
+import{SettingsComponent} from '../../components/settings/settings.component';
+import {QuoteComponent} from '../../components/quote/quote.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -92,5 +92,8 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'notifications', component: NotificationsComponent},
     {path: 'upgrade', component: UpgradeComponent},
     {path: 'user', component: UserComponent},
-    {path:'calculation', component:LabourAndEquipmentsComponent}
+    {path:'calculation', component:CalculationComponent},
+    {path:'settings', component:SettingsComponent},
+    {path:'labour', component:LabourComponent},
+       {path:'quote', component:QuoteComponent},
 ];

@@ -1,0 +1,124 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="card card-plain">
+                    <div class="card-header">
+                        <div class="card">
+                            <div class="card-header card-header-tabs card-header-danger">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="nav-item">
+
+                                                <a mat-button class="nav-link active" (click)="open()" href="#profile" data-toggle="tab">
+                                                    <i class="material-icons">
+                                                        add
+                                                        </i> ADD
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="mainTable" class="table table-hover">
+
+                                    <thead class="">
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Rate
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Type
+                                        </th>
+
+                                        <th>
+                                            Actions
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+
+                                            <td>{{i.name}}</td>
+                                            <td>{{i.rate}}</td>
+                                            <td>{{i.description}}</td>
+                                            <td></td>
+                                            <td class="td-actions">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="edit(labour)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(labour)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                                <!-- <button mat-raised-button type="button" matTooltip="Remove" (click)="viewTender()" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                              <i class="material-icons">exit_to_app</i>
+                                          </button> -->
+                                            </td>
+                                            <!-- <td><button type="button" class="btn btn-primary" (click)="del(i.id)">delete</button> </td> -->
+                                            <!-- <td><button type="button" class="btn btn-primary">delete</td> -->
+                                        </tr>
+                                        <!-- <tr *ngFor=" let item of tender;let index=index; ">
+                                            <td>
+                                                {{index + 1}}
+                                            </td>
+                                            <td>
+                                                {{item.clientName}}
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-link " routerLink="/tender-items ">
+                                              {{item.tenderName}}
+                                          </a>
+                                            </td>
+                                            <td>
+                                                {{item.tenderDescription}}
+                                            </td>
+                                            <td>
+                                                {{item.openDate | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td>
+                                                {{item.closeDate | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td>
+                                                {{item.quoteStartDate | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td>
+                                                {{item.quoteEndDate | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td class="td-actions ">
+                                                <button mat-raised-button type="button " matTooltip="Edit Task " (click)="open(item) " [matTooltipPosition]=" 'above' " class="btn btn-primary btn-link btn-sm btn-just-icon ">
+                                              <i class="material-icons ">edit</i>
+                                          </button>
+                                                <button mat-raised-button type="button " matTooltip="Remove " (click)="onDelete(index) " [matTooltipPosition]=" 'above' " class="btn btn-danger btn-link btn-sm btn-just-icon ">
+                                              <i class="material-icons ">close</i>
+                                          </button>
+
+                                            </td>
+                                        </tr> -->
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

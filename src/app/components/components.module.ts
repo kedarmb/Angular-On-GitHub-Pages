@@ -6,6 +6,9 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+// import { CalculationComponent } from './calculation/calculation.component';
+// import { SettingsComponent } from './settings/settings.component';
+// import { QuoteComponent } from './quote/quote.component';
 //  import { LabourAndEquipmentsComponent } from './labour-and-equipments/labour-and-equipments.component';
 
 
@@ -20,6 +23,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
+    
+    // SettingsComponent,
+    // QuoteComponent,
     //  LabourAndEquipmentsComponent
   ],
   exports: [
