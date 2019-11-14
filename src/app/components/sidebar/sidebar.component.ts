@@ -20,11 +20,10 @@ export const ROUTES: RouteInfo[] = [
 
     { path: '/tender', title: 'Tender',  icon: 'dashboard', class: '' },
     { path: '/calculation', title: 'Calculation',  icon: 'dashboard', class: '' },
-    { path: '/comprehend', title: 'Comprehend',  icon: 'dashboard', class: '' },
     { path: '/labour', title: 'Labour',  icon: 'dashboard', class: '' },
     { path: '/settings', title: 'Settings',  icon: 'dashboard', class: '' },
     { path: '/quote', title: 'Quote',  icon: 'dashboard', class: '' }
-    
+
 
 ];
 

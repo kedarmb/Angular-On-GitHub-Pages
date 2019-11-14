@@ -164,7 +164,7 @@ export class NavbarComponent implements OnInit {
                     console.log(err);
                     if (err.error == 'no-speech') {
                         console.log('--restatring service--');
-                        this.activateSpeechSearchMovie();
+                        //this.activateSpeechSearchMovie();
                     }
                 },
                 // completion
