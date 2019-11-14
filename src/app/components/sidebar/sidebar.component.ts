@@ -19,7 +19,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/crew', title: 'Crew',  icon: 'dashboard', class: '' },
 
     { path: '/tender', title: 'Tender',  icon: 'dashboard', class: '' },
-    { path: '/comprehend', title: 'Comprehend',  icon: 'dashboard', class: '' }
+    { path: '/comprehend', title: 'Comprehend',  icon: 'dashboard', class: '' },
+    { path: '/calculation', title: 'Calculation',  icon: 'dashboard', class: '' }
     /*{ path: '/user-profile', title: 'User Profile',  icon: 'person', class: '' },
     { path: '/table-list', title: 'Table List',  icon: 'content_paste', class: '' },
     { path: '/typography', title: 'Typography',  icon: 'library_books', class: '' },

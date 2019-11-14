@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
-
+import {MatSelectModule} from '@angular/material/select';
 import {AppRoutingModule} from './app.routing';
 import {ComponentsModule} from './components/components.module';
 
@@ -29,8 +29,7 @@ import {
     MatInputModule,
     MatRippleModule,
     MatFormFieldModule,
-    MatTooltipModule,
-    MatSelectModule
+    MatTooltipModule
 } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TenderModalComponent} from './modal/tender-modal/tender-modal.component';
@@ -63,7 +62,9 @@ import {MedicalComprehendComponent} from './medical-comprehend/medical-comprehen
 import {SearchSubscriberService} from './service/search-subscriber.service';
 
 import {UserServiceService} from './services/user-service.service';
+import{LoginService} from './service/login.service';
 
+import{SignupService} from './service/signup.service';
 
 @NgModule({
     imports: [
@@ -83,6 +84,7 @@ import {UserServiceService} from './services/user-service.service';
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
+      
 
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
@@ -102,7 +104,7 @@ import {UserServiceService} from './services/user-service.service';
 
     providers: [TenderService, TenderitemService, OrganizationService,
         CrewItemService, CrewService, SpeechRecognitionService,
-        SearchSubscriberService, OrganizationService],
+        SearchSubscriberService, OrganizationService,LoginService,SignupService,UserServiceService],
 
 
     bootstrap: [AppComponent],
