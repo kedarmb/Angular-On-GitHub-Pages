@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
-
+import {MatSelectModule} from '@angular/material/select';
 import {AppRoutingModule} from './app.routing';
 import {ComponentsModule} from './components/components.module';
 
@@ -29,8 +29,7 @@ import {
     MatInputModule,
     MatRippleModule,
     MatFormFieldModule,
-    MatTooltipModule,
-    MatSelectModule
+    MatTooltipModule
 } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TenderModalComponent} from './modal/tender-modal/tender-modal.component';

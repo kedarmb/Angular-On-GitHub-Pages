@@ -16,6 +16,9 @@ export class SignupFormControl extends FormControl {
         if (this.errors) {
             for (let errorName in this.errors) {
                 switch (errorName) {
+                    case 'label==password':
+                        messages.push("hello world");
+                        break;
                     case 'required':
                         messages.push(`You must enter a ${this.label}`);
                         break;
@@ -38,11 +41,11 @@ export class SignupFormControl extends FormControl {
 export class SignupFormGroup extends FormGroup {
     constructor() {
         super({
-            orgName: new SignupFormControl('orgName', 'orgName', '', Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(30)])),
-            name: new SignupFormControl('name','name','', Validators.compose([Validators.required])),
-            email: new SignupFormControl('email', 'email', '', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])),
-            password:new SignupFormControl('password','password','', Validators.compose([Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}'),Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')])),
-            confirmPassword:new SignupFormControl('confirmPassword','confirmPassword','', Validators.compose([Validators.required]))
+            orgName: new SignupFormControl('Organization Name', 'orgName', '', Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(30)])),
+            name: new SignupFormControl('Name','name','', Validators.compose([Validators.required])),
+            email: new SignupFormControl('Email', 'email', '', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])),
+            password:new SignupFormControl('Password','password','', Validators.compose([Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}'),Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')])),
+            confirmPassword:new SignupFormControl('Confirm Password','confirmPassword','', Validators.compose([Validators.required]))
         })
     }
 
