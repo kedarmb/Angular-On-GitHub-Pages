@@ -72,6 +72,7 @@ import{LoginService} from './service/login.service';
 import{SignupService} from './service/signup.service';
 import{LabourService} from './service/labour.service';
 import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
+import { QuoteComponent } from './quote/quote.component';
 
 
 @NgModule({
@@ -92,12 +93,13 @@ import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.componen
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
+        QuoteComponent,
         // MatBadgeModule,
         // MatIconModule,
       
 
         AgmCoreModule.forRoot({
-            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
         })
     ],
     declarations: [
