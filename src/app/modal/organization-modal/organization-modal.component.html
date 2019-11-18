@@ -27,41 +27,14 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput  formControlName="city" placeholder="City*" type="text">
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['city'].touched) && organizationModalFormGroup.controls['city'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['city'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
->>>>>>> 2500e1732a84e01db5d09f1938dd6631538a0c6d
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput  formControlName="province" placeholder="Province*" type="text">
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['province'].touched) && organizationModalFormGroup.controls['province'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['province'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
+                            </div>                           
+                           
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
                                             <mat-label>Country</mat-label>
-                                            <select formControlName="country" matNativeControl required>
-                                                <option value=""></option>
-                                                <option value="" *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
+                                            <select formControlName="country" matNativeControl (change)="onChangeCountry($event.target.value)" required>
+                                                <option *ngFor="let country of countryInfo; let i = index" value="{{i}}">{{country.CountryName}}</option>
                                             </select>
                                     </mat-form-field>
                                     <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['country'].touched) && organizationModalFormGroup.controls['country'].invalid">
@@ -75,11 +48,47 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
+                                        <!-- <input matInput  formControlName="province" placeholder="Province*" type="text"> -->
+                                        <mat-label>Province</mat-label>
+                                        <select formControlName="country" matNativeControl (change)="onChangeState($event.target.value)" required>
+                                            <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">{{state.StateName}}</option>
+                                        </select>
+                                        
+                                    </mat-form-field>
+                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['province'].touched) && organizationModalFormGroup.controls['province'].invalid">
+                                        <li *ngFor="let error of organizationModalFormGroup.controls['province'].getValidationMessages()">
+                                            {{error}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                            <mat-label>City</mat-label>
+                                            <select formControlName="country" matNativeControl required>
+                                                <option *ngFor="let city of cityInfo; let k = index" value="{{k}}">{{city}}</option>
+                                            </select>
+                                        <!-- <input matInput  formControlName="city" placeholder="City*" type="text"> -->
+                                    </mat-form-field>
+                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['city'].touched) && organizationModalFormGroup.controls['city'].invalid">
+                                        <li *ngFor="let error of organizationModalFormGroup.controls['city'].getValidationMessages()">
+                                            {{error}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
                                             <mat-label>Service Type</mat-label>
                                             <select formControlName="serviceType" matNativeControl required>
                                                     <option value=""></option>
                                                 <option value="a1">Type 1</option>
-                                                <option value="a2">Type 2</option>
+                                                <option value="a2">Type 2</option>                                 
                                             </select>
                                         <!-- <input matInput  formControlName="serviceType" placeholder="ServiceType*" type="text"> -->
                                     </mat-form-field>
@@ -98,16 +107,16 @@
                                             <select formControlName="serviceArea" matNativeControl required>
                                                 <option value=""></option>
                                                 <option value="t1">Area 1</option>
-                                                <option value="t2">Area 2</option>
+                                                <option value="t2">Area 2</option>                                 
                                             </select>
                                     </mat-form-field>
                                     <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['serviceArea'].touched) && organizationModalFormGroup.controls['serviceArea'].invalid">
                                         <li *ngFor="let error of organizationModalFormGroup.controls['serviceArea'].getValidationMessages()">
                                             {{error}}
                                         </li>
-                                    </ul>
+                                    </ul>                                                                   
                                 </div>
-                            </div>
+                            </div>                            
                             <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
                             <button mat-raised-button type="button" [disabled]="!organizationModalFormGroup.valid" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
                         </form>
