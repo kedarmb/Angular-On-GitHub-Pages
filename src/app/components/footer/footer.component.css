@@ -1,0 +1,23 @@
+footer {
+    /*  */
+    background-color: #f4f4f4;
+    font-family: "Microsoft JhengHei !important";
+    font-family: 'Duru Sans', sans-serif;
+    padding: 6px 15px;
+}
+
+.ft-tab {
+    padding: 0px 15px;
+}
+
+footer p {
+    text-align: center;
+    padding: 10px 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    footer {
+        margin-left: 160px;
+        text-align: center;
+    }
+}

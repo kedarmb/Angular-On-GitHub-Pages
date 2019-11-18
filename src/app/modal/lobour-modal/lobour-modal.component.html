@@ -1,57 +1,98 @@
-<div class="modal-body">
+<!-- <div class="modal-body">
     <form role="form" (ngSubmit)="submit(labourForm)">
+      
 
-
-        <div class="form-group">
-            <label for="clientName"> Name</label>
-            <input type="text" class="form-control" id="name" ([ngModel])="labour.name" placeholder=" Name">
-        </div>
-
-        <div class="form-group">
-            <label for="tenderName">Rate</label>
-            <input type="text" class="form-control" ([ngModel])="labour.rate" placeholder="rate" name="email">
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description</label>
-            <input type="text" class="form-control" id="description" ([ngModel])="labour.description" placeholder="description">
-        </div>
-        <div class="form-group">
-            <label for="description">Type</label>
-            <input type="text" class="form-control" id="type" ([ngModel])="labour.type" placeholder="Type">
-        </div>
-
-
-
-        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
-    </form>
+<div class="form-group">
+    <label for="clientName"> Name</label>
+    <input type="text" class="form-control" id="name" ([ngModel])="labour.name" placeholder=" Name">
 </div>
-<!--
+
+<div class="form-group">
+    <label for="tenderName">Rate</label>
+    <input type="text" class="form-control" ([ngModel])="labour.rate" placeholder="rate" name="email">
+</div>
+
+<div class="form-group">
+    <label for="description">Description</label>
+    <input type="text" class="form-control" id="description" ([ngModel])="labour.description" placeholder="description">
+</div>
+<div class="form-group">
+    <label for="description">Type</label>
+    <input type="text" class="form-control" id="type" ([ngModel])="labour.type" placeholder="Type">
+</div>
+
+
+
+<button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+<button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
+</form>
+</div> -->
 <div class="modal-body">
-    <form #userForm="ngForm" *ngIf="!submitted" novalidate role="form">
-        <div class="form-group">
-            <label for="name"> Name</label>
-            <span class="text-danger">*</span>
-            <input type="text" #name="ngModel" required class="form-control" [class.is-invalid]="name.invalid && name.touched" id="name" name="name" [(ngModel)]="equipments.name" placeholder="Enter Name">
-            <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
+    <form [formGroup]="labourForm" novalidate (ngSubmit)="submit(labourForm)">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field class="example-full-width">
+                    <input formControlName="name" matInput placeholder="name" type="text">
+
+                </mat-form-field>
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || form.controls['name'].dirty) && form.controls['name'].invalid">
+                    <li *ngFor="let error of form.controls['name'].getValidationMessages()">
+                        {{error}}
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field class="example-full-width">
+                    <input formControlName="description" matInput placeholder="description" type="text">
+
+                </mat-form-field>
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || form.controls['description'].dirty) && form.controls['description'].invalid">
+                    <li *ngFor="let error of form.controls['description'].getValidationMessages()">
+                        {{error}}
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="rate" type="text" placeholder="rate">
+
+                </mat-form-field>
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || form.controls['rate'].dirty) && form.controls['rate'].invalid">
+                    <li *ngFor="let error of form.controls['rate'].getValidationMessages()">
+                        {{error}}
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="type" type="text" placeholder="type">
+
+                </mat-form-field>
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || form.controls['type'].dirty) && form.controls['type'].invalid">
+                    <li *ngFor="let error of form.controls['type'].getValidationMessages()">
+                        {{error}}
+                    </li>
+                </ul>
+
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="rate">Rate</label>
-            <span class="text-danger">*</span>
-            <input type="text" required #rate="ngModel" [class.is-invalid]="rate.invalid && rate.touched" class="form-control" id="rate" name="rate" [(ngModel)]="equipments.rate" placeholder="Enter Rate">
-            <small class="text-danger" [class.d-none]="rate.valid || rate.untouched">Rate is required</small>
-        </div>
 
-        <div class="form-group">
-            <label for="equipmentsDesc">Description</label>
-            <span class="text-danger">*</span>
-            <input type="text" class="form-control" required [class.is-invalid]="equipmentsDesc.invalid && equipmentsDesc.touched" #equipmentsDesc="ngModel" id="equipmentsDesc" placeholder="Equipments Description" #equipmentsDesc="ngModel" name="equipmentsDesc" [(ngModel)]="equipments.description"
-                placeholder="Enter Description">
-            <small class="text-danger" [class.d-none]="equipmentsDesc.valid || equipmentsDesc.untouched">Equipments Description is required</small>
-        </div>
         <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-        <button mat-raised-button type="submit" (click)="submit()" class="btn btn-danger pull-right">Save</button>
+        <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
+        <!-- <button mat-raised-button type="submit" [disabled]="formSubmitted && form.invalid" class="btn btn-danger pull-right">login
+    </button>
+        <div class="clearfix"></div> -->
     </form>
-</div>-->
+</div>l

@@ -43,6 +43,9 @@ export class LabourComponent implements OnInit {
 }
 
 submit(labourForm){
+
+  console.log('hi alish')
+  return;
   for(let i in labourForm.controls){
     this.lab[i]=labourForm.controls[i].value;
   }
