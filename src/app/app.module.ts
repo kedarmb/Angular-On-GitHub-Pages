@@ -93,7 +93,7 @@ import { QuoteComponent } from './quote/quote.component';
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
-        QuoteComponent,
+     
         // MatBadgeModule,
         // MatIconModule,
       
@@ -107,6 +107,7 @@ import { QuoteComponent } from './quote/quote.component';
         AdminLayoutComponent,
         LoginComponent,
         SignupComponent,
+        QuoteComponent,
         TenderModalComponent,
         TrenchModalComponent,
         CrewModalComponent,

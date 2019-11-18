@@ -25,7 +25,7 @@ import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
 import {LabourComponent } from '../../components/labour/labour.component';
 import{SettingsComponent} from '../../components/settings/settings.component';
-// import {QuoteComponent} from '../../components/quote/quote.component';
+ import {QuoteComponent} from '../../components/quote/quote.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -95,5 +95,5 @@ export const AdminLayoutRoutes: Routes = [
     {path:'calculation', component:CalculationComponent},
     {path:'settings', component:SettingsComponent},
     {path:'labour', component:LabourComponent},
-    //    {path:'quote', component:QuoteComponent},
+      {path:'quote', component:QuoteComponent},
 ];
