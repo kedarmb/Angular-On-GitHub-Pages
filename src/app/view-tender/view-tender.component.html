@@ -173,7 +173,11 @@
                                                 <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
                                                     <ngb-panel>
                                                         <ng-template ngbPanelTitle>
-                                                            <span class="title">SubLine Items</span>
+                                                            <!-- <p><span matBadge="4" matBadgeOverlap="false">Mail</span></p> -->
+
+                                                            <p> <span class="title">SubLine Items</span>
+                                                                <span matBadge="10" matBadgeOverlap="false" class="notification">3</span></p>
+
                                                         </ng-template>
                                                         <ng-template ngbPanelContent>
                                                             <table class="table table-condensed">
@@ -190,6 +194,7 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr *ngFor="let subitem of item.subitems">
+
                                                                         <td>
                                                                             <textarea type="text" class="form-control" appAutoAdjust name="itemNo" [(ngModel)]="subitem.name"></textarea>
                                                                         </td>
