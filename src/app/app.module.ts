@@ -1,6 +1,6 @@
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
-import {MatBadgeModule, MatIconModule} from '@angular/material'
+// import {MatBadgeModule, MatIconModule} from '@angular/material'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
@@ -92,8 +92,8 @@ import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.componen
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
-        MatBadgeModule,
-        MatIconModule,
+        // MatBadgeModule,
+        // MatIconModule,
       
 
         AgmCoreModule.forRoot({
