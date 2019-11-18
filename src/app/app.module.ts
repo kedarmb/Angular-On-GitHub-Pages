@@ -72,7 +72,7 @@ import{LoginService} from './service/login.service';
 import{SignupService} from './service/signup.service';
 import{LabourService} from './service/labour.service';
 import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
-import { QuoteComponent } from './quote/quote.component';
+// import { QuoteComponent } from './quote/quote.component';
 
 
 @NgModule({
@@ -93,7 +93,7 @@ import { QuoteComponent } from './quote/quote.component';
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
-        QuoteComponent,
+     
         // MatBadgeModule,
         // MatIconModule,
       

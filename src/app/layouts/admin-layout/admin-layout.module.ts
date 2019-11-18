@@ -41,7 +41,7 @@ import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-// import {QuoteComponent} from '../../components/quote/quote.component';
+ import {QuoteComponent} from '../../components/quote/quote.component';
  import {ChartsModule} from 'ng2-charts';
 
  import{CalculationComponent} from  '../../components/calculation/calculation.component';
@@ -92,7 +92,7 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
 
     PdfViewerComponent,
     AnalyticsComponent,
-  // QuoteComponent,
+  QuoteComponent,
     PdfViewerComponent,
     LabourComponent,
     CalculationComponent,

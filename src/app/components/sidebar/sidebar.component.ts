@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/calculation', title: 'Calculation',  icon: 'dashboard', class: '' },
     { path: '/labour', title: 'Labour',  icon: 'dashboard', class: '' },
     { path: '/settings', title: 'Settings',  icon: 'dashboard', class: '' },
-    // { path: '/quote', title: 'Quote',  icon: 'dashboard', class: '' }
+     { path: '/quote', title: 'Quote',  icon: 'dashboard', class: '' }
 
 
 ];
