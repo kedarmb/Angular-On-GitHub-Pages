@@ -107,6 +107,7 @@ import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.componen
         AdminLayoutComponent,
         LoginComponent,
         SignupComponent,
+        QuoteComponent,
         TenderModalComponent,
         TrenchModalComponent,
         CrewModalComponent,
