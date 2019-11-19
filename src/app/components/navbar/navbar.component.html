@@ -1,3 +1,13 @@
+<!-- <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field> -->
+<!-- <div class="form-group">
+    <label>Quote Start Date</label>
+    <input class="form-control" placeholder="yyyy-mm-dd" name="quoteStartDate" [(ngModel)]="quoteStartDate" ngbDatepicker #d3="ngbDatepicker" (focus)="d3.toggle()">
+</div> -->
+
 <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
     <div class="container-fluid">
         <div class="navbar-wrapper">
@@ -9,19 +19,24 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <form class="navbar-form">
+
                 <div class="input-group no-border">
-                    <input type="text" value="" class="form-control" name="search" [(ngModel)]="speechData" (keyup)="search()" placeholder="Search...">
-                    <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
-                        <i class="material-icons">search</i>
-                        <div class="ripple-container">
-                                <!-- <div class="md-form">
-                                        <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">
-                                        <label for="date-picker-example">Try me...</label>
-                                      </div> -->
-                        </div>
-                    </button>
+
+                    <!-- <input type="text" value="" class="form-control" name="search" [(ngModel)]="speechData" (keyup)="search()" placeholder="Search...">
+                    <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon"> -->
+                    <!-- </button> -->
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container">
+                        <!-- <mat-form-field>
+                            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field> -->
+                    </div>
+
                 </div>
             </form>
             <ul class="navbar-nav">
