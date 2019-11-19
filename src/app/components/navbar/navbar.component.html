@@ -1,12 +1,4 @@
-<!-- <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-</mat-form-field> -->
-<!-- <div class="form-group">
-    <label>Quote Start Date</label>
-    <input class="form-control" placeholder="yyyy-mm-dd" name="quoteStartDate" [(ngModel)]="quoteStartDate" ngbDatepicker #d3="ngbDatepicker" (focus)="d3.toggle()">
-</div> -->
+
 
 <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
     <div class="container-fluid">
@@ -24,7 +16,8 @@
             <form class="navbar-form">
 
                 <div class="input-group no-border">
-
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="search" ngbDatepicker #d2="ngbDatepicker"
+                           (focus)="d2.toggle()"/>
                     <!-- <input type="text" value="" class="form-control" name="search" [(ngModel)]="speechData" (keyup)="search()" placeholder="Search...">
                     <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon"> -->
                     <!-- </button> -->

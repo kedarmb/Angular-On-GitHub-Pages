@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+
 @font-face {
-    font-family: "feather";
-    src: url("./assets/fonts/feather-webfont.eot");
-    src: url("./assets/fonts/feather-webfont.ttf");
-    src: url("./assets/fonts/feather-webfont.svg");
+    font-family: 'feather';
+    src: url('/assets/fonts/feather-webfont.eot'); /* IE9 Compat Modes */
+    src: url('/assets/fonts/feather-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('./assets/fonts/feather-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('./assets/fonts/feather-webfont.svg') format('svg'); /* Legacy iOS */
 }
 
 body,
@@ -15,7 +17,7 @@ html {
     width: 100%;
     position: relative;
     height: 100%;
-    font-family: "feather";
+    font-family: feather !important;
 }
 
 .main-content {
