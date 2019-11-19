@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import Labour from '../../model/labour.model';
+import {LabourFormGroup, LabourFormControl} from './labour.validator'
 import{LabourService} from '../../service/labour.service';
 @Component({
   selector: 'app-lobour-modal',
@@ -8,10 +9,12 @@ import{LabourService} from '../../service/labour.service';
   styleUrls: ['./lobour-modal.component.scss']
 })
 export class LobourModalComponent implements OnInit {
+  labourForm:LabourFormGroup= new LabourFormGroup();
   data:any={};
-  // labour: Labour =new Labour();
-  constructor(public activeModal: NgbActiveModal,private labourserv:LabourService) { }
+  
 
+  constructor(public activeModal: NgbActiveModal,private labourserv:LabourService) { }
+  labour:Labour;
   ngOnInit() {
 
   }
