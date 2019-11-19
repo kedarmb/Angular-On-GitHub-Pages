@@ -12,7 +12,7 @@ import {LoginService} from '../service/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  form:LoginFormGroup=new LoginFormGroup();
+  form: LoginFormGroup = new LoginFormGroup();
   formSubmitted: boolean = false;
   loginObj:Login= new Login();
   constructor(private router:Router , private loginService: LoginService) { }
@@ -43,5 +43,5 @@ export class LoginComponent implements OnInit {
        console.log('***************************Form is invalid');
      }
 
-   }
+  }
 }

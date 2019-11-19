@@ -74,6 +74,8 @@ import{LabourService} from './service/labour.service';
 import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
 // import { QuoteComponent } from './quote/quote.component';
 
+// prime ng imports
+//import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
     imports: [
