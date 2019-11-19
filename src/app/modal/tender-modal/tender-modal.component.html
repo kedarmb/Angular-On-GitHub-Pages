@@ -2,7 +2,7 @@
   <form role="form" [formGroup]="tenderForm" novalidate (ngSubmit)="save(tenderForm)">
     <div class="form-group">
       <label for="clientName">Client Name</label>
-      <input type="email" class="form-control" formControlName="clientName" type="text" placeholder="Client Name">
+      <input type="text" class="form-control" formControlName="clientName" placeholder="Client Name">
       <ul class="text-danger list-unstyled"
         *ngIf="(formSubmitted || tenderForm.controls['clientName'].dirty) && tenderForm.controls['clientName'].invalid">
         <li *ngFor="let error of tenderForm.controls['clientName'].getValidationMessages()">
@@ -14,8 +14,8 @@
 
 
     <div class="form-group">
-      <label for="tenderName">Tendert name</label>
-      <input type="email" class="form-control" formControlName="tenderName" placeholder="Tender name">
+      <label for="tenderName">Tender name</label>
+      <input type="text" class="form-control" formControlName="tenderName" placeholder="Tender name">
       <ul class="text-danger list-unstyled"
         *ngIf="(formSubmitted || tenderForm.controls['tenderName'].dirty) && tenderForm.controls['tenderName'].invalid">
         <li *ngFor="let error of tenderForm.controls['tenderName'].getValidationMessages()">
@@ -32,7 +32,7 @@
       <!-- ngModelOptions="{standalone: true}" 
       [(ngModel)]="tender.openDate" -->
       <input class="form-control" placeholder="yyyy-mm-dd" formControlName="openDate" ngbDatepicker 
-      #d1="ngbDatepicker" (focus)="d1.toggle()" >
+      #d1="ngbDatepicker" (focus)="d1.toggle()" (dateSelect)="setQuoteOpenDate()">
       <ul class="text-danger list-unstyled"
         *ngIf="(formSubmitted || tenderForm.controls['openDate'].dirty) && tenderForm.controls['openDate'].invalid">
         <li *ngFor="let error of tenderForm.controls['openDate'].getValidationMessages()">
@@ -44,7 +44,7 @@
     <div class="form-group">
       <label>Close date</label>
       <input class="form-control" placeholder="yyyy-mm-dd" formControlName="closeDate" ngbDatepicker #d2="ngbDatepicker"
-        (focus)="d2.toggle()">
+        (focus)="d2.toggle()" (dateSelect)="setQuoteCloseDate()">
       <ul class="text-danger list-unstyled"
         *ngIf="(formSubmitted || tenderForm.controls['closeDate'].dirty) && tenderForm.controls['closeDate'].invalid">
         <li *ngFor="let error of tenderForm.controls['closeDate'].getValidationMessages()">
@@ -56,7 +56,7 @@
     <div class="form-group">
       <label>Quote Start Date</label>
       <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteStartDate" ngbDatepicker
-        #d3="ngbDatepicker" (focus)="d3.toggle()">
+        #d3="ngbDatepicker" [minDate]="quoteOpenMinDate" [maxDate]="quoteOpenMaxDate" (focus)="d3.toggle()">
       <ul class="text-danger list-unstyled"
         *ngIf="(formSubmitted || tenderForm.controls['quoteStartDate'].dirty) && tenderForm.controls['quoteStartDate'].invalid">
         <li *ngFor="let error of tenderForm.controls['quoteStartDate'].getValidationMessages()">
@@ -69,7 +69,7 @@
       <label>Quote End Date</label>
 
       <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteEndDate" ngbDatepicker
-        #d4="ngbDatepicker" (focus)="d4.toggle()">
+        #d4="ngbDatepicker" [minDate]="quoteCloseMinDate" [maxDate]="quoteCloseMaxDate" (focus)="d4.toggle()">
       <ul class="text-danger list-unstyled"
         *ngIf="(formSubmitted || tenderForm.controls['quoteEndDate'].dirty) && tenderForm.controls['quoteEndDate'].invalid">
         <li *ngFor="let error of tenderForm.controls['quoteEndDate'].getValidationMessages()">

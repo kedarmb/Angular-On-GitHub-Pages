@@ -35,6 +35,7 @@ export class TenderComponent implements OnInit {
   }
 
   open(item?) {
+    //console.log(item);
     const modalRef = this.modalService.open(TenderModalComponent, { centered: true });
     modalRef.result.then(() => {
       this.tenderService.getAll().subscribe((tenders) => {
