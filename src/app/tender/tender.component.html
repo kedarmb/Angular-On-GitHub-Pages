@@ -99,13 +99,15 @@
                                                 <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">close</i>
                                             </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="viewTender(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Edit Tender Quotes" (click)="viewTender(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">exit_to_app</i>
                                             </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="viewer(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                <i class="material-icons">remove_red_eye</i>
+                                                <button mat-raised-button type="button" matTooltip="Upload Tender" (click)="viewer(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">
+                                                        cloud_upload
+                                                        </i>
                                             </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="quotes(tender)" [matTooltipPosition]="'Quotes'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Final Pricing of Tender" (click)="quotes(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">announcement</i>
                                             </button>
                                             </td>

@@ -3,23 +3,55 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Tender} from '../../model/tender.model';
 import Organization from '../../model/organization.model';
 import {OrganizationService} from '../../service/organization.service';
+
+import { OrganizationModalFormGroup } from './organization-modal.validator';
+import {OrganizationModalFormControl} from './organization-modal.validator';
+import {OrganizationModal} from '../../model/organization-modal.model';
 import {Router} from '@angular/router';
+import { from } from 'rxjs';
+import { CountriesService } from 'app/service/countries.service';
 @Component({
   selector: 'app-organization-modal',
   templateUrl: './organization-modal.component.html',
   styleUrls: ['./organization-modal.component.scss']
 })
 export class OrganizationModalComponent implements OnInit {
+  organizationModalFormGroup:OrganizationModalFormGroup=new OrganizationModalFormGroup();
+  formSubmitted: boolean = false;
 
   @Input('organization')
   organization: Organization ;
   placement = 'bottom';
-  constructor(public activeModal: NgbActiveModal, private organizationService: OrganizationService) {}
+  constructor(public activeModal: NgbActiveModal, private organizationService: OrganizationService, private country:CountriesService) {}
 
+  countryInfo: any[] = [];
+  stateInfo:any[] = [];
+  cityInfo:any[] = [];
   ngOnInit() {
-
+    this.getCountries();
   }
 
+getCountries(){
+  this.country.allCountries().
+  subscribe(
+    data2 => {
+      this.countryInfo=data2.Countries;
+      //console.log('Data:', this.countryInfo);
+    },
+    err => console.log(err),
+    // () => console.log('complete')
+  )
+}
+
+onChangeCountry(countryValue) {
+  this.stateInfo=this.countryInfo[countryValue].States;
+  this.cityInfo=this.stateInfo[0].Cities;
+  console.log(this.cityInfo);
+}
+onChangeState(stateValue) {
+  this.cityInfo=this.stateInfo[stateValue].Cities;
+  //console.log(this.cityInfo);
+}
 
   close() {
     this.activeModal.close('closed');

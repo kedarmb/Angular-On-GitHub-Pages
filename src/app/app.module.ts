@@ -1,10 +1,11 @@
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
+// import {MatBadgeModule, MatIconModule} from '@angular/material'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
-
+import {MatSelectModule} from '@angular/material/select';
 import {AppRoutingModule} from './app.routing';
 import {ComponentsModule} from './components/components.module';
 
@@ -28,9 +29,10 @@ import {
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
+  
+    
     MatFormFieldModule,
-    MatTooltipModule,
-    MatSelectModule
+    MatTooltipModule
 } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TenderModalComponent} from './modal/tender-modal/tender-modal.component';
@@ -45,6 +47,8 @@ import {OrganizationComponent} from './organization/organization.component';
 
 import {UserComponent} from './user/user.component';
 import {UserModalComponent} from './modal/user-modal/user-modal.component';
+
+
 
 import {CreateTenderItemComponent} from './create-tender-item/create-tender-item.component';
 import {AutoAdjustDirective} from './directive/auto-adjust.directive';
@@ -63,6 +67,11 @@ import {MedicalComprehendComponent} from './medical-comprehend/medical-comprehen
 import {SearchSubscriberService} from './service/search-subscriber.service';
 
 import {UserServiceService} from './services/user-service.service';
+import{LoginService} from './service/login.service';
+
+import{SignupService} from './service/signup.service';
+//import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
+// import { QuoteComponent } from './quote/quote.component';
 
 import {EquipmentsService} from './service/equipments.service';
 import {LabourService} from './service/labour.service';
@@ -90,9 +99,13 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
+     
+        // MatBadgeModule,
+        // MatIconModule,
+      
 
         AgmCoreModule.forRoot({
-            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
         })
     ],
     declarations: [
@@ -100,6 +113,7 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         AdminLayoutComponent,
         LoginComponent,
         SignupComponent,
+        // QuoteComponent,
         TenderModalComponent,
         TrenchModalComponent,
         CrewModalComponent,
@@ -122,7 +136,9 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         EquipmentsModalComponent,
         LabourModalComponent,
         UserModalComponent,
-        NotifySubcontractorComponent]
+        NotifySubcontractorComponent,
+        //LobourModalComponent
+    ]
 })
 export class AppModule {
 }

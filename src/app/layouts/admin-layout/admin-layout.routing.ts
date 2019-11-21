@@ -18,14 +18,14 @@ import {CrewComponent} from '../../crew/crew.component';
 import {CreateCrewComponent} from '../../create-crew/create-crew.component';
 import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 
-import {QuoteComponent} from '../../quote/quote.component';
+import{CalculationComponent} from  '../../components/calculation/calculation.component';
 import {UserComponent} from '../../user/user.component';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
 import { EquipmentsComponent } from 'app/equipments/equipments.component';
 import { LabourComponent } from 'app/labour/labour.component';
-
+import{SettingsComponent} from '../../components/settings/settings.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -75,7 +75,7 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'organization', component: OrganizationComponent},
     {path: 'analytics', component: AnalyticsComponent},
     {path: 'comprehend', component: MedicalComprehendComponent},
-    {path: 'quote', component: QuoteComponent},
+    //  {path: 'quote', component: QuoteComponent},
     {path: 'pdf-viewer/:id', component: PdfViewerComponent},
     {path: 'crew', component: CrewComponent},
     {path: 'equipments', component: EquipmentsComponent},
@@ -94,4 +94,10 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'notifications', component: NotificationsComponent},
     {path: 'upgrade', component: UpgradeComponent},
     {path: 'user', component: UserComponent},
+    {path:'calculation', component:CalculationComponent},
+    {path:'settings', component:SettingsComponent},
+    {path:'labour', component:LabourComponent},
+    // {path:'datepicker', component:DatepickerComponent},
+      
+      
 ];
