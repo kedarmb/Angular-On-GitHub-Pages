@@ -12,7 +12,6 @@ import {Tender} from '../model/tender.model';
 import {TenderItem} from '../model/tender-item.model';
 import * as uuid from 'uuid';
 
-
 @Component({
     selector: 'app-view-tender',
     templateUrl: './view-tender.component.html',
@@ -95,7 +94,6 @@ export class ViewTenderComponent {
             } else {
                 return true;
             }
-
         })
     }
 

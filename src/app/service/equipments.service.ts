@@ -6,31 +6,29 @@ import * as Constant from './../constant';
 @Injectable({
   providedIn: 'root'
 })
-export class LabourService {
-
+export class EquipmentsService {
   constructor(private httpClient: HttpClient) { }
 
   public create(body) {
-      return this.httpClient.post(Constant.API_URL + '/labour', body);
+      return this.httpClient.post(Constant.API_URL + '/equipment', body);
   }
 
   public update(id, body) {
 
-   return this.httpClient.put(Constant.API_URL + '/labour/' + id, body);
+   return this.httpClient.put(Constant.API_URL + '/equipment/' + id, body);
   }
 
   public delete(id) {
 
-     return this.httpClient.delete(Constant.API_URL + '/labour/' + id);
+     return this.httpClient.delete(Constant.API_URL + '/equipment/' + id);
   }
 
   public getAll() {
-    return this.httpClient.get(Constant.API_URL + '/labour');
+    return this.httpClient.get(Constant.API_URL + '/equipment');
   }
 
   public getById(id) {
-      return this.httpClient.get(Constant.API_URL + '/labour/' + id);
+      return this.httpClient.get(Constant.API_URL + '/equipment/' + id);
   }
 
 }
-

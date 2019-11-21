@@ -33,11 +33,11 @@ import {EditInputComponent} from '../../edit-input/edit-input.component';
 import {OrganizationComponent} from '../../organization/organization.component';
 
 import { UserComponent } from '../../user/user.component';
-import { LabourComponent } from '../../components/labour/labour.component';
-
 import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
 import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
 import {CrewComponent} from '../../crew/crew.component';
+import {EquipmentsComponent} from '../../equipments/equipments.component';
+import {LabourComponent} from '../../labour/labour.component';
 import {CreateCrewComponent} from '../../create-crew/create-crew.component';
 import {DateConverterPipe} from '../../pipe/date-converter.pipe';
 import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
@@ -92,6 +92,8 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
     CreateTenderItemComponent,
       AutoAdjustDirective,
     CrewComponent,
+    EquipmentsComponent,
+    LabourComponent,
     CreateCrewComponent,
      DateConverterPipe,
 

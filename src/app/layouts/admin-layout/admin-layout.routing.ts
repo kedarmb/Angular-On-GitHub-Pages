@@ -27,6 +27,9 @@ import {LabourComponent } from '../../components/labour/labour.component';
 import{SettingsComponent} from '../../components/settings/settings.component';
   // import {QuoteComponent} from '../../components/quote/quote.component';
   // import {DatepickerComponent} from '../../components/datepicker/datepicker.component';
+import { EquipmentsComponent } from 'app/equipments/equipments.component';
+
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -79,6 +82,8 @@ export const AdminLayoutRoutes: Routes = [
     //  {path: 'quote', component: QuoteComponent},
     {path: 'pdf-viewer/:id', component: PdfViewerComponent},
     {path: 'crew', component: CrewComponent},
+    {path: 'equipments', component: EquipmentsComponent},
+    {path: 'labour', component: LabourComponent},
     {path: 'create-crew', component: CreateCrewComponent},
     {path: 'create-crew/:id', component: CreateCrewComponent},
     {path: 'create-tenderitem', component: CreateTenderItemComponent},

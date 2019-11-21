@@ -69,12 +69,18 @@ import { UserServiceService } from './services/user-service.service';
 import { LoginService } from './service/login.service';
 
 import { SignupService } from './service/signup.service';
-import { LabourService } from './service/labour.service';
 import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
 //import { QuoteComponent } from './quote/quote.component';
 
 // prime ng imports
 //import {CalendarModule} from 'primeng/calendar';
+import {EquipmentsService} from './service/equipments.service';
+import {LabourService} from './service/labour.service';
+import { EquipmentsModalComponent } from './modal/equipments-modal/equipments-modal.component';
+import { LabourModalComponent } from './modal/labour-modal/labour-modal.component';
+//import { LabourComponent } from './labour/labour.component';
+//import { EquipmentsComponent } from './equipments/equipments.component';
+
 
 @NgModule({
     imports: [
@@ -113,18 +119,23 @@ import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.componen
         TrenchModalComponent,
         CrewModalComponent,
         OrganizationModalComponent,
-        UserModalComponent,
-        NotifySubcontractorComponent, LobourModalComponent],
+        UserModalComponent, 
+        NotifySubcontractorComponent, 
+        EquipmentsModalComponent, 
+        LabourModalComponent,
+    ],
 
     providers: [TenderService, TenderitemService, OrganizationService,
         CrewItemService, CrewService, SpeechRecognitionService,
-        SearchSubscriberService, OrganizationService, LoginService, SignupService, UserServiceService, LabourService],
+        SearchSubscriberService, OrganizationService, EquipmentsService, LabourService],
 
 
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
         TrenchModalComponent,
         CrewModalComponent, OrganizationModalComponent,
+        EquipmentsModalComponent,
+        LabourModalComponent,
         UserModalComponent,
         NotifySubcontractorComponent, LobourModalComponent]
 })
