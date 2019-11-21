@@ -23,7 +23,7 @@ export class OrganizationService  {
   public delete(id) {
 
      return this.httpClient.delete(Constant.API_URL + '/organization/' + id);
-  }
+  } 
 
   public getAll() {
     return this.httpClient.get(Constant.API_URL + '/organization');

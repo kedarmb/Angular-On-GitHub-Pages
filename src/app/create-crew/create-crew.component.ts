@@ -5,6 +5,8 @@ import {CrewItemService} from '../service/crew-item.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Crew} from '../model/crew.model';
 import {CrewService} from '../service/crew.service';
+import {CrewFormGroup} from './create-crew.validator';
+import {CrewFormControl} from './create-crew.validator';
 
 @Component({
   selector: 'app-create-crew',
@@ -13,6 +15,8 @@ import {CrewService} from '../service/crew.service';
 })
 export class CreateCrewComponent implements OnInit {
 
+  form:CrewFormGroup=new CrewFormGroup();
+  formSubmitted: boolean = false;
   labours: CrewItem[];
   equipments: CrewItem[];
   crew: Crew;

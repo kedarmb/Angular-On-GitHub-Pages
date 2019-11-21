@@ -23,6 +23,8 @@ import {UserComponent} from '../../user/user.component';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
+import { EquipmentsComponent } from 'app/equipments/equipments.component';
+import { LabourComponent } from 'app/labour/labour.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -76,6 +78,8 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'quote', component: QuoteComponent},
     {path: 'pdf-viewer/:id', component: PdfViewerComponent},
     {path: 'crew', component: CrewComponent},
+    {path: 'equipments', component: EquipmentsComponent},
+    {path: 'labour', component: LabourComponent},
     {path: 'create-crew', component: CreateCrewComponent},
     {path: 'create-crew/:id', component: CreateCrewComponent},
     {path: 'create-tenderitem', component: CreateTenderItemComponent},

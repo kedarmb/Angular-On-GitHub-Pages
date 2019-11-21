@@ -64,6 +64,13 @@ import {SearchSubscriberService} from './service/search-subscriber.service';
 
 import {UserServiceService} from './services/user-service.service';
 
+import {EquipmentsService} from './service/equipments.service';
+import {LabourService} from './service/labour.service';
+import { EquipmentsModalComponent } from './modal/equipments-modal/equipments-modal.component';
+import { LabourModalComponent } from './modal/labour-modal/labour-modal.component';
+//import { LabourComponent } from './labour/labour.component';
+//import { EquipmentsComponent } from './equipments/equipments.component';
+
 
 @NgModule({
     imports: [
@@ -97,18 +104,23 @@ import {UserServiceService} from './services/user-service.service';
         TrenchModalComponent,
         CrewModalComponent,
         OrganizationModalComponent,
-        UserModalComponent
-        , NotifySubcontractorComponent],
+        UserModalComponent, 
+        NotifySubcontractorComponent, 
+        EquipmentsModalComponent, 
+        LabourModalComponent,
+    ],
 
     providers: [TenderService, TenderitemService, OrganizationService,
         CrewItemService, CrewService, SpeechRecognitionService,
-        SearchSubscriberService, OrganizationService],
+        SearchSubscriberService, OrganizationService, EquipmentsService, LabourService],
 
 
     bootstrap: [AppComponent],
     entryComponents: [TenderModalComponent,
         TrenchModalComponent,
         CrewModalComponent, OrganizationModalComponent,
+        EquipmentsModalComponent,
+        LabourModalComponent,
         UserModalComponent,
         NotifySubcontractorComponent]
 })

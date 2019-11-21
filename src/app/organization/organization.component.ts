@@ -19,7 +19,8 @@ export class OrganizationComponent implements OnInit {
 
     ngOnInit() {
         this.organizationService.getAll().subscribe((data) => {
-            this.organizations = data;
+            this.organizations = data['data'];
+            console.log(data);
         })
     }
 

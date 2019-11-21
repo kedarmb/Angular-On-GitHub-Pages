@@ -1,6 +1,6 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-export class LoginFormControl extends FormControl {
+export class CrewFormControl extends FormControl {
     modelProperty: string;
     label: string;
 
@@ -34,18 +34,18 @@ export class LoginFormControl extends FormControl {
     }
 }
 
-export class LoginFormGroup extends FormGroup {
+export class CrewFormGroup extends FormGroup {
 
     constructor() {
         super({
-            username: new LoginFormControl('username', 'username', '', Validators.compose([Validators.required,Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)])),
-            password: new LoginFormControl('password', 'password', '', Validators.required)
+            crewname: new CrewFormControl('crewname', 'crewname', '', Validators.required),
+            crewdescription: new CrewFormControl('crewdescription', 'crewdescription', '', Validators.required),
+            equipment: new CrewFormControl('equipment', 'equipment', '', Validators.required)
         })
     }
 
-    get parentalControls(): LoginFormControl[] {
-
-        return Object.keys(this.controls).map((k) => this.controls[k] as LoginFormControl);
+    get parentalControls(): CrewFormControl[] {
+        return Object.keys(this.controls).map((k) => this.controls[k] as CrewFormControl);
     }
 
     getFormValidationMessages(): string[] {
@@ -53,5 +53,4 @@ export class LoginFormGroup extends FormGroup {
         this.parentalControls.forEach(c => c.getValidationMessages().forEach(m => messages.push(m)));
         return messages;
     }
-
 }

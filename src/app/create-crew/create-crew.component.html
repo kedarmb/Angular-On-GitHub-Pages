@@ -8,23 +8,34 @@
 
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form [formGroup]="form" novalidate (ngSubmit)="submit(CrewFormGroup)" role="form">
                             <div class="row">
                                 <div class="col-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="name" name="name" [(ngModel)]="crew.name"
+                                        <input matInput formControlName="crewname" placeholder="Crew name" name="crewname" [(ngModel)]="crew.name"
                                                type="text">
                                     </mat-form-field>
+                                      <ul class="text-danger list-unstyled"
+                                          *ngIf="(formSubmitted || form.controls['crewname'].dirty) && form.controls['crewname'].invalid">
+                                        <li *ngFor="let error of form.controls['crewname'].getValidationMessages()">
+                                          {{error}}
+                                        </li>
+                                      </ul>
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="col-4">
                                     <label>Description</label>
                                     <mat-form-field class="example-full-width">
-                                        <textarea matInput placeholder="Enter Description" name="description"
+                                        <textarea matInput formControlName="crewdescription" placeholder="Enter Description" name="crewdescription"
                                                   [(ngModel)]="crew.description"></textarea>
                                     </mat-form-field>
+                                    <ul class="text-danger list-unstyled"
+                                          *ngIf="(formSubmitted || form.controls['crewdescription'].dirty) && form.controls['crewdescription'].invalid">
+                                        <li *ngFor="let error of form.controls['crewdescription'].getValidationMessages()">
+                                          {{error}}
+                                        </li>
+                                    </ul>
                                     <!-- <div class="form-group">
 
                                       <div class="form-group">
@@ -49,14 +60,20 @@
                                                             <td>
                                                                 <div class="form-check">
                                                                     <label class="form-check-label">
-                                                                        <input class="form-check-input" type="checkbox"
+                                                                        <input class="form-check-input" formControlName="equipment" name="equipment" type="checkbox"
                                                                                value="" (click)="clickEquipment($event,equipment)"
-                                                                               [checked]="isEquipmentChecked(equipment)">
+                                                                               [checked]="isEquipmentChecked(equipment)" required>
                                                                         <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
+                                                                            <span class="check"></span>
+                                                                        </span>
                                                                     </label>
                                                                 </div>
+                                                                <ul class="text-danger list-unstyled"
+                                                                    *ngIf="(formSubmitted || form.controls['equipment'].dirty) && form.controls['equipment'].invalid">
+                                                                    <li *ngFor="let error of form.controls['equipment'].getValidationMessages()">
+                                                                    {{error}}
+                                                                    </li>
+                                                                </ul>
                                                             </td>
                                                             <td>{{equipment.name}}</td>
                                                             <td>
@@ -93,7 +110,7 @@
                                                                         <input class="form-check-input" type="checkbox"
                                                                                (click)="clickLabour($event,labour)"
                                                                                value=""
-                                                                               [checked]="isLabourChecked(labour)">
+                                                                               [checked]="isLabourChecked(labour)" required>
                                                                         <span class="form-check-sign">
                                                           <span class="check"></span>
                                                       </span>
@@ -117,7 +134,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="save()">
+                            <button mat-raised-button type="submit" [disabled]="formSubmitted && form.invalid" class="btn btn-danger pull-right" (click)="save(crew)">
                                 Save
                             </button>
                             <button mat-raised-button type="button" class="btn btn-danger pull-right"

@@ -1,0 +1,116 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+
+          <div class="col-md-12">
+              <div class="card card-plain">
+                  <div class="card-header">
+                      <div class="card">
+                          <div class="card-header card-header-tabs card-header-danger">
+                              <div class="nav-tabs-navigation">
+                                  <div class="nav-tabs-wrapper">
+
+                                      <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="nav-item">
+                                            <a mat-button class="nav-link active" (click)="open()" href="#labour" data-toggle="tab">
+                                                <i class="material-icons">
+                                                    add
+                                                    </i> ADD
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                          <!-- <li class="nav-item">
+                                           <a mat-button class="nav-link" href="#messages" data-toggle="tab">
+                                             <i class="material-icons">code</i> Website
+                                             <div class="ripple-container"></div>
+                                           </a>
+                                         </li>
+                                         <li class="nav-item">
+                                           <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                                             <i class="material-icons">cloud</i> Server
+                                             <div class="ripple-container"></div>
+                                           </a>
+                                         </li>-->
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- <h4 class="card-title mt-0"> Tender</h4>-->
+                          <!--<p class="card-category"> Here is a subtitle for this table</p>-->
+                      </div>
+                      <div class="card-body">
+                          <div class="table-responsive">
+                              <table id="mainTable" class="table table-hover">
+
+                                  <thead class="">
+                                <th>
+                                    Name
+                                </th>
+                                  <th>
+                                      Rate
+                                  </th>
+                                  <th>
+                                      Description
+                                  </th>
+                                  <th>
+                                      Type
+                                  </th>
+                                  <th>
+                                      Actions
+                                  </th>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let ii of labour;let index=index;">
+
+                                    <td>
+                                        {{ii.name}}
+                                    </td>
+                                      <td>
+                                          {{ii.description}}
+                                      </td>
+                                      <td>
+                                          {{ii.rate}}
+                                      </td>
+                                      <td>
+                                          {{ii.type}}
+                                      </td>
+                                      <td class="td-actions">
+                                          <!---  
+                                            <button mat-raised-button type="button" matTooltip="Edit Task"
+                                                  (click)="edit(labour)" [matTooltipPosition]="'above'"
+                                                  class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                              <i class="material-icons">edit</i>
+                                          </button>
+                                            <button mat-raised-button type="button" matTooltip="Remove"
+                                                  (click)="delete(labour)" [matTooltipPosition]="'above'"
+                                                  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                              <i class="material-icons">close</i>
+                                          </button>
+                                            --->
+                                        <button mat-raised-button type="button" matTooltip="Edit Task" 
+                                            (click)="open(labour)" [matTooltipPosition]="'above'" 
+                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button mat-raised-button type="button" matTooltip="Remove" 
+                                            (click)="delete(labour)" [matTooltipPosition]="'above'" 
+                                            class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                          
+                                          <!-- <button mat-raised-button type="button" matTooltip="Remove" (click)="viewTender()" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                        <i class="material-icons">exit_to_app</i>
+                                    </button> -->
+                                      </td>
+                                  </tr>
+
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

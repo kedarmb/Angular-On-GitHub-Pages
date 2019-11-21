@@ -3,6 +3,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {CrewItemService} from '../../service/crew-item.service';
 import {CrewItem} from '../../model/crew-item.model';
 
+
 @Component({
   selector: 'app-crew-modal',
   templateUrl: './crew-modal.component.html',
@@ -10,6 +11,7 @@ import {CrewItem} from '../../model/crew-item.model';
 })
 export class CrewModalComponent implements OnInit {
 
+  
    labours: CrewItem[];
    equipments: CrewItem[];
   constructor(private activeModal: NgbActiveModal, private crewItemService: CrewItemService) { }
