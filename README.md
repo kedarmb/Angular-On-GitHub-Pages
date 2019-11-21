@@ -1,3 +1,5 @@
+#All Dependencies
+
 {
   "name": "material-dashboard-angular",
   "version": "2.3.0",
