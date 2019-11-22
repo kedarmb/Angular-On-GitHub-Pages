@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import Login from 'app/model/login.model';
 import { LoginService } from '../service/login.service';
-import {errorMsg, regex} from './../constant/index'
+import { errorMsg, regex } from './../constant/index'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,18 +17,18 @@ import {errorMsg, regex} from './../constant/index'
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  formSubmitted: boolean = false;
+  formSubmitted = false;
   loginObj: Login = new Login();
   constructor(private router: Router,
     private formBuider: FormBuilder,
-    private loginService: LoginService, 
-    private helperService: HelperService){ 
-    }
-    
-    ngOnInit() {
-      // console.log(this.emailRegex)
+    private loginService: LoginService,
+    private helperService: HelperService) {
+  }
+
+  ngOnInit() {
+    // console.log(this.emailRegex)
     this.form = this.formBuider.group({
-      email: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg , msg:errorMsg.email})]],
+      email: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg, msg: errorMsg.email })]],
       password: ['', Validators.required]
     })
   }
@@ -36,13 +36,13 @@ export class LoginComponent implements OnInit {
   submit() {
     console.log(this.form.value);
     this.loginService.login(this.form.value)
-    .subscribe((response: any) => {
-      console.log(response);
-      if (response.status === 200) {
-        this.router.navigateByUrl('/dashboard');
-      }
-    }, error => {
-      console.log(error);
-    });
+      .subscribe((response: any) => {
+        console.log(response);
+        if (response.status === 200) {
+          this.router.navigateByUrl('/dashboard');
+        }
+      }, error => {
+        console.log(error);
+      });
   }
 }
