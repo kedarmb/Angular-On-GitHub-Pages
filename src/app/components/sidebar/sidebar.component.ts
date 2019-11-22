@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
    
   
     // { path: '/labour', title: 'Labour',  icon: 'dashboard', class: '' },
-    // { path: '/settings', title: 'Settings',  icon: 'dashboard', class: 'blue' },
+    { path: '/settings', title: 'Settings',  icon: 'dashboard', class: 'blue' },
     //  { path: '/quote', title: 'Quote',  icon: 'dashboard', class: '' }
 
 
