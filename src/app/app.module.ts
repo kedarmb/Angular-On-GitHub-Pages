@@ -99,6 +99,7 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
+       
      
         // MatBadgeModule,
         // MatIconModule,

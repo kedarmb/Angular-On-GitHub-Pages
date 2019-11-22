@@ -8,6 +8,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 // import { CalculationComponent } from './calculation/calculation.component';
 // import { SettingsComponent } from './settings/settings.component';
 // import { QuoteComponent } from './quote/quote.component';
@@ -27,6 +28,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent,
     SidebarComponent,
     DatepickerComponent,
+   
 
     // SettingsComponent,
     // QuoteComponent,

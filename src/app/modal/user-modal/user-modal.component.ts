@@ -8,7 +8,8 @@ import {Tender} from '../../model/tender.model';
   styleUrls: ['./user-modal.component.scss']
 })
 export class UserModalComponent implements OnInit {
-
+  
+  formSubmitted: boolean = false;
 
   placement = 'bottom';
   constructor(public activeModal: NgbActiveModal) {}
@@ -21,4 +22,10 @@ export class UserModalComponent implements OnInit {
   close() {
     this.activeModal.close('closed');
   }
+  save(userForm) {
+    this.formSubmitted = true;
+    console.log("alish");
+  }
 }
+ 
+    

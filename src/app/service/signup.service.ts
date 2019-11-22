@@ -11,6 +11,7 @@ export class SignupService {
 
   constructor(private httpClient: HttpClient) { }
   public signup(body) {
+    console.log(body);
     return this.httpClient.post(Constant.API_URL + '/signup', body);
 }
 
