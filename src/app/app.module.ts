@@ -122,7 +122,7 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         UserModalComponent, 
         NotifySubcontractorComponent, 
         EquipmentsModalComponent, 
-        LabourModalComponent,
+         LabourModalComponent,
     ],
 
     providers: [TenderService, TenderitemService, OrganizationService,
@@ -135,7 +135,7 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         TrenchModalComponent,
         CrewModalComponent, OrganizationModalComponent,
         EquipmentsModalComponent,
-        LabourModalComponent,
+        // LabourModalComponent,
         UserModalComponent,
         NotifySubcontractorComponent,
         //LobourModalComponent
