@@ -1,14 +1,14 @@
 <div class="modal-body">
-    <form role="form">
+    <!-- <form role="form">
 
 
         <div class="form-group">
-            <label for="clientName"> Name</label>
+            <label for="name"> Name</label>
             <input type="text" class="form-control" id="name" name="name" placeholder=" Name">
         </div>
 
         <div class="form-group">
-            <label for="tenderName">Email</label>
+            <label for="email">Email</label>
             <input type="email" class="form-control" id="name" placeholder="Email" name="email">
         </div>
 
@@ -19,10 +19,10 @@
         <div class="form-group">
             <label for="description">      Mobile</label>
             <input type="number" class="form-control" id="mobile" name="mobile" placeholder="Mobile">
-        </div>
+        </div> -->
 
 
-        <!-- <div class="form-group">
+    <!-- <div class="form-group">
             <label>Open Date</label>
             <div class="input-group">
                 <input class="form-control" placeholder="yyyy-mm-dd" name="openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
@@ -46,7 +46,63 @@
 
             <input class="form-control" placeholder="yyyy-mm-dd" name="quoteEndDate" ngbDatepicker #d4="ngbDatepicker" [placement]="placement" (focus)="d4.toggle()">
         </div> -->
-        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+    <!-- <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
         <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
+    </form> -->
+
+
+    <form role="form" [formGroup]="userForm" novalidate (ngSubmit)="save(userForm)">
+        <div class="form-group">
+            <label for="name">User's Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Username">
+            <ul class="text-danger list-unstyled"
+                *ngIf="(formSubmitted || userForm.controls['name'].dirty) && userForm.controls['name'].invalid">
+                <li *ngFor="let error of userForm.controls['name'].getValidationMessages()">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="email">User's Email</label>
+            <input type="text" class="form-control" formControlName="email" placeholder="Enter Email">
+            <ul class="text-danger list-unstyled"
+                *ngIf="(formSubmitted || userForm.controls['email'].dirty) && userForm.controls['email'].invalid">
+                <li *ngFor="let error of userForm.controls['email'].getValidationMessages()">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" formControlName="password" placeholder="Password">
+            <ul class="text-danger list-unstyled"
+                *ngIf="(formSubmitted || userForm.controls['password'].dirty) && userForm.controls['password'].invalid">
+                <li *ngFor="let error of userForm.controls['password'].getValidationMessages()">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label for="moilenum">Mobile Num</label>
+            <input type="number" class="form-control" formControlName="moilenum" placeholder="Mobile number">
+            <ul class="text-danger list-unstyled"
+                *ngIf="(formSubmitted || userForm.controls['moilenum'].dirty) && userForm.controls['moilenum'].invalid">
+                <li *ngFor="let error of userForm.controls['moilenum'].getValidationMessages()">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+
+
+
+
+        <!---->
+        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+        <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
     </form>
 </div>

@@ -1,14 +1,14 @@
 /**
- * Created by Arup as on 05-10-2019
- * Modified as on 07-11-2019
+ * Created by Arup as on 21-11-2019
+ * Modified as on 
  * 
- * This file is to hold Reactive Form validation for Tender Header Creation
+ * This file is to hold Reactive Form validation for User Creation
  * 
  */
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-export class TenderModalFormControl extends FormControl {
+export class UserModalFormControl extends FormControl {
     modelProperty: string;
     label: string;
 
@@ -19,7 +19,7 @@ export class TenderModalFormControl extends FormControl {
     }
 
     getValidationMessages() {
-        let messages: string[] = [];        
+        let messages: string[] = [];
         if (this.errors) {
             //console.log(this.errors);
             for (let errorName in this.errors) {
@@ -44,38 +44,33 @@ export class TenderModalFormControl extends FormControl {
 
 }
 
-export class TenderModalFormGroup extends FormGroup {
-    // TenderModalFormControl(label: string, modelProperty: string, value: any, validator: any): 
+export class UserModalFormGroup extends FormGroup {
+    // UserModalFormControl(label: string, modelProperty: string, value: any, validator: any): 
     constructor() {
         super({
             // client name: min 5, max 30, pattern all chars including special chars BUT not start & end with spcl chars.
-            clientName: new TenderModalFormControl('client name', 'clientname', '',
+            name: new UserModalFormControl('user name', 'username', '',
                 Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30),
                 Validators.pattern(/^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/)])),
             //
             // tender name is same as clent name
-            tenderName: new TenderModalFormControl('tender name', 'tender name', '',
+            email: new UserModalFormControl('email', 'email', '',
                 Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(30),
                 Validators.pattern(/^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/)])),
             // 
             // Dates should not be blank 
-            openDate: new TenderModalFormControl('open date', 'open date', null, Validators.required),
+            password: new UserModalFormControl('password', 'password', null, Validators.required),
 
-            closeDate: new TenderModalFormControl('close date', 'close date', null, Validators.required),
+            moilenum: new UserModalFormControl('mobilenum', 'mobilenum', null, Validators.required),
 
-            quoteStartDate: new TenderModalFormControl('quote start date', 'quote start date', null, Validators.required),
-
-            quoteEndDate: new TenderModalFormControl('quote end date', 'quote end date', null, Validators.required)
             /**/
         })
     }
 
 
-    /**
-     * Some comments goes here
-     */
-    get parentalControls(): TenderModalFormControl[] {        
-        return Object.keys(this.controls).map((k) => this.controls[k] as TenderModalFormControl);
+    
+    get parentalControls(): UserModalFormControl[] {
+        return Object.keys(this.controls).map((k) => this.controls[k] as UserModalFormControl);
     }
 
     getFormValidationMessages(): string[] {
