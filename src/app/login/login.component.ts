@@ -16,7 +16,7 @@ import { errorMsg, regex } from './../constant/index'
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
+  loginForm: FormGroup;
   formSubmitted = false;
   loginObj: Login = new Login();
   constructor(private router: Router,
@@ -27,15 +27,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.emailRegex)
-    this.form = this.formBuider.group({
+    this.loginForm = this.formBuider.group({
       email: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg, msg: errorMsg.email })]],
       password: ['', Validators.required]
     })
   }
 
   submit() {
-    console.log(this.form.value);
-    this.loginService.login(this.form.value)
+    console.log(this.loginForm.value);
+    this.loginService.login(this.loginForm.value)
       .subscribe((response: any) => {
         console.log(response);
         if (response.status === 200) {
