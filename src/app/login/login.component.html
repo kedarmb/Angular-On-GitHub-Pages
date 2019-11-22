@@ -8,34 +8,38 @@
                     </div>
                     <div class="card-body">
                         <form [formGroup]="form" novalidate (ngSubmit)="submit(form)">
-
-                            
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input formControlName="email" matInput placeholder="email" type="email">
-
+                                        <input formControlName="email" matInput placeholder="email" type="text">
+                                        <div *ngIf="!form.controls.email.valid && form.controls.email.touched" class="error">
+                                            <div *ngIf="form.controls.email.errors.invalidMsg">
+                                                {{form.controls.email.errors.invalidMsg}}
+                                            </div>
+                                        </div>
                                     </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || form.controls['email'].dirty) && form.controls['email'].invalid">
-                                        <li *ngFor="let error of form.controls['email'].getValidationMessages()">
-                                            {{error}}
+                                    <!-- <ul class="text-danger list-unstyled"
+                                        *ngIf="(formSubmitted || form.controls['email'].dirty) && form.controls['email'].invalid">
+                                        <li >
+                                            {{form.controls.email.errors.invalidMsg}}
+
                                         </li>
-                                    </ul>
-
-
+                                    </ul> -->
+                                   
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput formControlName="password" type="password" placeholder="password">
+                                        <input matInput formControlName="password" type="password"
+                                            placeholder="password">
 
                                     </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || form.controls['password'].dirty) && form.controls['password'].invalid">
-                                        <li *ngFor="let error of form.controls['password'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
+                                    <div *ngIf="!form.controls.password.valid && form.controls.password.touched" class="error">
+                                        <div *ngIf="form.controls.password.errors.invalidMsg">
+                                            {{form.controls.email.errors.invalidMsg}}
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -56,7 +60,7 @@
                             <mat-form-field>
                                 <mat-label>Role</mat-label>
                                 <select matNativeControl required>
-                                  <!-- <option value="volvo">Admin</option>
+                                    <!-- <option value="volvo">Admin</option>
                                   <option value="saab">User</option>
                                   -->
                                 </select>
@@ -68,7 +72,8 @@
 
                             </div>
 
-                            <button mat-raised-button type="submit" [disabled]="formSubmitted && form.invalid" class="btn btn-danger pull-right">login
+                            <button mat-raised-button type="submit" [disabled]="!form.valid"
+                                class="btn btn-danger pull-right">login
                             </button>
                             <div class="clearfix"></div>
                         </form>
