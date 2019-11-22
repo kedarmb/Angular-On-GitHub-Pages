@@ -23,13 +23,9 @@ import {UserComponent} from '../../user/user.component';
 
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
-import {LabourComponent } from '../../components/labour/labour.component';
-import{SettingsComponent} from '../../components/settings/settings.component';
-  // import {QuoteComponent} from '../../components/quote/quote.component';
-  // import {DatepickerComponent} from '../../components/datepicker/datepicker.component';
 import { EquipmentsComponent } from 'app/equipments/equipments.component';
-
-
+import { LabourComponent } from 'app/labour/labour.component';
+import{SettingsComponent} from '../../components/settings/settings.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',

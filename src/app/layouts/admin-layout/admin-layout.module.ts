@@ -33,6 +33,8 @@ import {EditInputComponent} from '../../edit-input/edit-input.component';
 import {OrganizationComponent} from '../../organization/organization.component';
 
 import { UserComponent } from '../../user/user.component';
+//import { LabourComponent } from '../../components/labour/labour.component';
+
 import {CreateTenderItemComponent} from '../../create-tender-item/create-tender-item.component';
 import {AutoAdjustDirective} from '../../directive/auto-adjust.directive';
 import {CrewComponent} from '../../crew/crew.component';
@@ -101,7 +103,6 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
     AnalyticsComponent,
   // QuoteComponent,
     PdfViewerComponent,
-    LabourComponent,
     CalculationComponent,
     SettingsComponent
    

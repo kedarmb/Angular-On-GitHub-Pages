@@ -68,12 +68,10 @@ import { SearchSubscriberService } from './service/search-subscriber.service';
 import { UserServiceService } from './services/user-service.service';
 import { LoginService } from './service/login.service';
 
-import { SignupService } from './service/signup.service';
-import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
-//import { QuoteComponent } from './quote/quote.component';
+import{SignupService} from './service/signup.service';
+//import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
+// import { QuoteComponent } from './quote/quote.component';
 
-// prime ng imports
-//import {CalendarModule} from 'primeng/calendar';
 import {EquipmentsService} from './service/equipments.service';
 import {LabourService} from './service/labour.service';
 import { EquipmentsModalComponent } from './modal/equipments-modal/equipments-modal.component';
@@ -137,7 +135,9 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         EquipmentsModalComponent,
         LabourModalComponent,
         UserModalComponent,
-        NotifySubcontractorComponent, LobourModalComponent]
+        NotifySubcontractorComponent,
+        //LobourModalComponent
+    ]
 })
 export class AppModule {
 }
