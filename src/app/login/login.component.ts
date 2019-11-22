@@ -33,15 +33,16 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  submit(form) {
-    console.log(this.form);
-    // this.loginService.login(this.form).subscribe((response: any) => {
-    //   if (response.status === 200) {
-    //     console.log(response);
-    //     this.router.navigateByUrl('/dashboard');
-    //   }
-    // }, error => {
-    //   console.log(error);
-    // });
+  submit() {
+    console.log(this.form.value);
+    this.loginService.login(this.form.value)
+    .subscribe((response: any) => {
+      console.log(response);
+      if (response.status === 200) {
+        this.router.navigateByUrl('/dashboard');
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 }
