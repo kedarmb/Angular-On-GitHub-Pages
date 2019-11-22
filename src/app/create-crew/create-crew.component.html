@@ -8,7 +8,7 @@
 
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="form" novalidate (ngSubmit)="submit(CrewFormGroup)" role="form">
+                        <form [formGroup]="form" novalidate role="form">
                             <div class="row">
                                 <div class="col-4">
                                     <mat-form-field class="example-full-width">
@@ -134,7 +134,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" [disabled]="formSubmitted && form.invalid" class="btn btn-danger pull-right" (click)="save(crew)">
+                            <button mat-raised-button type="submit" [disabled]="formSubmitted && form.invalid" class="btn btn-danger pull-right">
                                 Save
                             </button>
                             <button mat-raised-button type="button" class="btn btn-danger pull-right"

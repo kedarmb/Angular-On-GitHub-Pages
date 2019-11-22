@@ -97,7 +97,7 @@ export class CreateCrewComponent implements OnInit {
          }
        })
      }
-     console.log('********************************',this.crew.equipments);
+     console.log('********************************', this.crew.equipments);
 
    }
 
