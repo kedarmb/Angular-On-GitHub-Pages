@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LabourService } from 'app/service/labour.service';
 import { Router } from '@angular/router';
-import { LabourModalComponent } from 'app/modal/labour-modal/labour-modal.component';
+
 import Labour from 'app/model/labour.model';
 
 @Component({
@@ -13,7 +13,7 @@ import Labour from 'app/model/labour.model';
 export class LabourComponent implements OnInit {
   data:any={};
   labour:Array<any>;
-  
+
     constructor(private modalService: NgbModal, private labourService: LabourService, private router: Router) {
     }
 
@@ -30,10 +30,10 @@ export class LabourComponent implements OnInit {
             })
         })
     }
-    
+
 
     open(item?) {
-        const modalRef = this.modalService.open(LabourModalComponent, {centered: true});
+        const modalRef = this.modalService.open('', {centered: true});
         const obj = {};
         for (const i in item) {
             obj[i] = item[i];
