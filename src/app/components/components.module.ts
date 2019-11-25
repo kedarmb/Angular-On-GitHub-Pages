@@ -5,10 +5,9 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatepickerComponent } from './datepicker/datepicker.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { CalculationComponent } from './calculation/calculation.component';
 // import { SettingsComponent } from './settings/settings.component';
 // import { QuoteComponent } from './quote/quote.component';
@@ -19,25 +18,20 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     RouterModule,
-      FormsModule,
-      ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    DatepickerComponent,
-   
-
-    // SettingsComponent,
-    // QuoteComponent,
-    //  LabourAndEquipmentsComponent
+    DatepickerComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
   ]
 })
 export class ComponentsModule { }
