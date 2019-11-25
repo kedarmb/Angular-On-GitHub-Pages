@@ -26,6 +26,7 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
 import { EquipmentsComponent } from 'app/equipments/equipments.component';
 import { LabourComponent } from 'app/labour/labour.component';
 import{SettingsComponent} from '../../components/settings/settings.component';
+import{FullcalenderComponent} from '../../components/fullcalender/fullcalender.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -96,7 +97,8 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'user', component: UserComponent},
     {path:'calculation', component:CalculationComponent},
     {path:'settings', component:SettingsComponent},
-    {path:'labour', component:LabourComponent},
+    {path:'fullcalender', component:FullcalenderComponent},
+    // {path:'labour', component:LabourComponent},
     // {path:'datepicker', component:DatepickerComponent},
       
       

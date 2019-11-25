@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LobourModalComponent } from './lobour-modal.component';
+import { FullcalenderComponent } from './fullcalender.component';
 
-describe('LobourModalComponent', () => {
-  let component: LobourModalComponent;
-  let fixture: ComponentFixture<LobourModalComponent>;
+describe('FullcalenderComponent', () => {
+  let component: FullcalenderComponent;
+  let fixture: ComponentFixture<FullcalenderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LobourModalComponent ]
+      declarations: [ FullcalenderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LobourModalComponent);
+    fixture = TestBed.createComponent(FullcalenderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
 @font-face {
     font-family: 'feather';
     src: url('/assets/fonts/feather-webfont.eot');
@@ -19,6 +21,13 @@ html {
     position: relative;
     height: 100%;
     font-family: feather !important;
+    font-size: 20px;
+}
+
+.sidebar .nav p {
+    margin: 0;
+    line-height: 30px;
+    font-size: 18px;
 }
 
 .main-content {
@@ -26,5 +35,5 @@ html {
 }
 
 .ngb-dp-month {
-    background: red;
+    background: darkgray;
 }

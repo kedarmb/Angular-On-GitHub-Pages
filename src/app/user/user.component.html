@@ -32,34 +32,34 @@
                                 <table id="mainTable" class="table table-hover">
 
                                     <thead class="">
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Password
-                                    </th>
-                                    <th>
-                                        Mobile
-                                    </th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Password
+                                        </th>
+                                        <th>
+                                            Mobile
+                                        </th>
 
-                                    <th>
-                                        Actions
-                                    </th>
+                                        <th>
+                                            Actions
+                                        </th>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let i of data">
+                                        <tr *ngFor="let i of data">
 
-                                        <td>{{i.userId}}</td>
-                                        <td>{{i.id}}</td>
-                                        <td>{{i.title}}</td>
-                                        <td>{{i.completed}}</td>
-                                        <td><button type="button" class="btn btn-primary" (click)="del(i.id)">delete</button> </td>
-                                        <!-- <td><button type="button" class="btn btn-primary">delete</td> -->
-                                    </tr>
-                                    <!-- <tr *ngFor=" let item of tender;let index=index; ">
+                                            <td>{{i.userId}}</td>
+                                            <td>{{i.id}}</td>
+                                            <td>{{i.title}}</td>
+                                            <td>{{i.completed}}</td>
+                                            <td><button type="button" class="btn btn-primary" (click)="del(i.id)">delete</button> </td>
+                                            <!-- <td><button type="button" class="btn btn-primary">delete</td> -->
+                                        </tr>
+                                        <!-- <tr *ngFor=" let item of tender;let index=index; ">
                                         <td>
                                             {{index + 1}}
                                         </td>
@@ -108,7 +108,3 @@
         </div>
     </div>
 </div>
-<!-- <div *ngFor="let x of employee ">
-    <p>{{x.id}}</p>
-    console.log("x ");
-</div> -->

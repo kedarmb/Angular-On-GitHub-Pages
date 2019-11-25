@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -53,6 +53,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
  import{SettingsComponent} from '../../components/settings/settings.component';
 import {AnalyticsComponent} from '../../analytics/analytics.component';
 import {MedicalComprehendComponent} from '../../medical-comprehend/medical-comprehend.component';
+ import{FullcalenderComponent} from '../../components/fullcalender/fullcalender.component';
+
 
 @NgModule({
   imports: [
@@ -72,6 +74,8 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
     PdfViewerModule,
     FileUploadModule,
      ChartsModule,
+     FullCalendarModule,
+   
    
   ],
   declarations: [
@@ -101,6 +105,7 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
 
     PdfViewerComponent,
     AnalyticsComponent,
+    FullcalenderComponent,
   // QuoteComponent,
     PdfViewerComponent,
     CalculationComponent,

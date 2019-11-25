@@ -10,7 +10,7 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { CalculationComponent } from './calculation/calculation.component';
 // import { SettingsComponent } from './settings/settings.component';
-import { QuoteComponent } from './quote/quote.component';
+// import { QuoteComponent } from './quote/quote.component';
 //  import { LabourAndEquipmentsComponent } from './labour-and-equipments/labour-and-equipments.component';
 
 
@@ -26,17 +26,12 @@ import { QuoteComponent } from './quote/quote.component';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    DatepickerComponent,
-
-    // SettingsComponent,
-    QuoteComponent,
-    //  LabourAndEquipmentsComponent
+    DatepickerComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    //QuoteComponent
   ]
 })
 export class ComponentsModule { }

@@ -29,6 +29,8 @@ import {
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
+
+
     MatFormFieldModule,
     MatTooltipModule
 } from '@angular/material';
@@ -75,7 +77,7 @@ import{SignupService} from './service/signup.service';
 import {EquipmentsService} from './service/equipments.service';
 import {LabourService} from './service/labour.service';
 import { EquipmentsModalComponent } from './modal/equipments-modal/equipments-modal.component';
-import { LabourModalComponent } from './modal/labour-modal/labour-modal.component';
+
 //import { LabourComponent } from './labour/labour.component';
 //import { EquipmentsComponent } from './equipments/equipments.component';
 
@@ -98,11 +100,6 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         MatSelectModule,
         MatTooltipModule,
         NgbModule,
-
-        // MatBadgeModule,
-        // MatIconModule,
-
-
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
         })
@@ -112,15 +109,13 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         AdminLayoutComponent,
         LoginComponent,
         SignupComponent,
-        //QuoteComponent,
         TenderModalComponent,
         TrenchModalComponent,
         CrewModalComponent,
         OrganizationModalComponent,
-        UserModalComponent, 
-        NotifySubcontractorComponent, 
-        EquipmentsModalComponent, 
-        LabourModalComponent,
+        UserModalComponent,
+        NotifySubcontractorComponent,
+        EquipmentsModalComponent
     ],
 
     providers: [TenderService, TenderitemService, OrganizationService,
@@ -133,10 +128,9 @@ import { LabourModalComponent } from './modal/labour-modal/labour-modal.componen
         TrenchModalComponent,
         CrewModalComponent, OrganizationModalComponent,
         EquipmentsModalComponent,
-        LabourModalComponent,
         UserModalComponent,
         NotifySubcontractorComponent,
-        //LobourModalComponent
+
     ]
 })
 export class AppModule {

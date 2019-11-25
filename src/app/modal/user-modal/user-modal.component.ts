@@ -14,7 +14,8 @@ import {UserModalFormGroup} from './user-modal-validator';
   styleUrls: ['./user-modal.component.scss']
 })
 export class UserModalComponent implements OnInit {
-
+  
+  formSubmitted: boolean = false;
 
   placement = 'bottom';
   userForm: UserModalFormGroup = new UserModalFormGroup();
@@ -33,4 +34,10 @@ export class UserModalComponent implements OnInit {
   close() {
     this.activeModal.close('closed');
   }
+  save(userForm) {
+    this.formSubmitted = true;
+    console.log("alish");
+  }
 }
+ 
+    
