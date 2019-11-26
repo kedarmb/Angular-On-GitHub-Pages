@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 // import {MatBadgeModule, MatIconModule} from '@angular/material'
@@ -44,6 +45,13 @@ import { SpeechRecognitionService } from './service/speech-recognition.service';
 import { SearchSubscriberService } from './service/search-subscriber.service';
 import { EquipmentsService } from './service/equipments.service';
 import { LabourService } from './service/labour.service';
+import { TenderModalComponent } from './shared/components/tender-modal/tender-modal.component';
+import { TrenchModalComponent } from './shared/components/trench-modal/trench-modal.component';
+import { CrewModalComponent } from './shared/components/crew-modal/crew-modal.component';
+import { OrganizationModalComponent } from './shared/components/organization-modal/organization-modal.component';
+import { EquipmentsModalComponent } from './shared/components/equipments-modal/equipments-modal.component';
+import { UserModalComponent } from './shared/components/user-modal/user-modal.component';
+import { NotifySubcontractorComponent } from './shared/components/notify-subcontractor/notify-subcontractor.component';
 
 
 @NgModule({
@@ -55,15 +63,8 @@ import { LabourService } from './service/labour.service';
         ComponentsModule,
         RouterModule,
         AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatRippleModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatTooltipModule,
         NgbModule,
+        SharedModule,
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
         })
@@ -73,15 +74,20 @@ import { LabourService } from './service/labour.service';
         AdminLayoutComponent
     ],
 
-    providers: [TenderService, TenderitemService, OrganizationService,
-        CrewItemService, CrewService, SpeechRecognitionService,
-        SearchSubscriberService, OrganizationService, EquipmentsService, LabourService],
+    providers: [TenderService, 
+        TenderitemService,
+        OrganizationService,
+        CrewItemService, 
+        CrewService,
+        SpeechRecognitionService,
+        SearchSubscriberService, 
+        OrganizationService, 
+        EquipmentsService, 
+        LabourService],
 
 
     bootstrap: [AppComponent],
-    entryComponents: [
-
-    ]
+    
 })
 export class AppModule {
 }

@@ -20,33 +20,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     TenderModalComponent,
     TrenchModalComponent,
-    CrewModalComponent, OrganizationModalComponent,
-    EquipmentsModalComponent,
-    UserModalComponent,
-    NotifySubcontractorComponent,
-    TenderModalComponent,
-    TrenchModalComponent,
     CrewModalComponent,
     OrganizationModalComponent,
+    EquipmentsModalComponent,
     UserModalComponent,
-    NotifySubcontractorComponent,
-    EquipmentsModalComponent
+    NotifySubcontractorComponent
   ],
   exports: [
-    TenderModalComponent,
-    TrenchModalComponent,
-    CrewModalComponent, 
-    OrganizationModalComponent,
-    EquipmentsModalComponent,
-    UserModalComponent,
-    NotifySubcontractorComponent,
-    TenderModalComponent,
-    TrenchModalComponent,
-    CrewModalComponent,
-    OrganizationModalComponent,
-    UserModalComponent,
-    NotifySubcontractorComponent,
-    EquipmentsModalComponent
   ],
   imports: [
     CommonModule,
@@ -66,6 +46,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatSelectModule,
     MatTooltipModule,
     NgbModule
+  ],
+  entryComponents: [
+    TenderModalComponent,
+    TrenchModalComponent,
+    CrewModalComponent,
+    OrganizationModalComponent,
+    EquipmentsModalComponent,
+    UserModalComponent,
+    NotifySubcontractorComponent
   ]
 })
 export class SharedModule { }

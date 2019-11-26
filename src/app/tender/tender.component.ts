@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TenderService } from '../service/tender.service';
 import { Tender } from '../model/tender.model';
@@ -35,7 +34,6 @@ export class TenderComponent implements OnInit {
   }
 
   open(item?) {
-    //console.log(item);
     const modalRef = this.modalService.open(TenderModalComponent, { centered: true });
     modalRef.result.then(() => {
       this.tenderService.getAll().subscribe((tenders) => {
@@ -45,7 +43,6 @@ export class TenderComponent implements OnInit {
       console.log('modal cancelled ',err);
     })
     modalRef.componentInstance.tender = JSON.parse(JSON.stringify(item || new Tender()));
-
   }
 
   viewTender(tender) {

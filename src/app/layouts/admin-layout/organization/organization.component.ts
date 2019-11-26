@@ -1,11 +1,7 @@
+import { OrganizationModalComponent } from '../../../shared/components/organization-modal/organization-modal.component';
 import {Component, OnInit} from '@angular/core';
-
-import {TenderModalComponent} from '../../../modal/tender-modal/tender-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {TenderService} from '../../../service/tender.service';
-import {Tender} from '../../../model/tender.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {OrganizationModalComponent} from '../../../modal/organization-modal/organization-modal.component';
 import Organization from '../../../model/organization.model';
 import {OrganizationService} from '../../../service/organization.service';
 

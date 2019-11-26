@@ -30,14 +30,9 @@ export class UserModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.userForm = this.formBuider.group({
-
     });
-
   }
-
-
 
   close() {
     this.activeModal.close('closed');

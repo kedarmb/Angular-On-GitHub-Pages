@@ -9,7 +9,7 @@ export class HelperService {
   constructor() { }
   customPatternValid(patternParam: any): ValidatorFn {
     return (control: FormControl) => {
-      let regexp: RegExp = patternParam.pattern;
+      const regexp: RegExp = patternParam.pattern;
       if (control.value && !control.value.match(regexp)) {
         return {
           invalidMsg: patternParam.msg
