@@ -1,10 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Tender } from '../../model/tender.model';
-import { User } from '../../user.model';
+//import { Tender } from '../../model/tender.model';
 //
-import {UserModalFormControl} from './user-modal-validator';
-import {UserModalFormGroup} from './user-modal-validator';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { errorMsg, regex } from '../../constant/index';
+import { HelperService } from '../../service/helper.service';
+//import { User } from '../../user.model';
+//
+//import {UserModalFormControl} from './user-modal-validator';
+//import {UserModalFormGroup} from './user-modal-validator';
 
 
 
@@ -14,22 +18,25 @@ import {UserModalFormGroup} from './user-modal-validator';
   styleUrls: ['./user-modal.component.scss']
 })
 export class UserModalComponent implements OnInit {
-  
+
   formSubmitted: boolean = false;
+  userForm: FormGroup;
 
   placement = 'bottom';
-  userForm: UserModalFormGroup = new UserModalFormGroup();
-  formSubmitted: boolean = false;
-  //
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal,
+    private formBuider: FormBuilder,
+    private helperService: HelperService
+  ) { }
 
   ngOnInit() {
 
+    this.userForm = this.formBuider.group({
+      
+    });
+
   }
 
-  save(userForm){
-    this.formSubmitted = true;
-  }
+  
 
   close() {
     this.activeModal.close('closed');
@@ -39,5 +46,4 @@ export class UserModalComponent implements OnInit {
     console.log("alish");
   }
 }
- 
-    
+
