@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {CrewItemService} from '../../../service/crew-item.service';
-import {CrewItem} from '../../../model/crew-item.model';
+import {CrewItemService} from '../../core/service/crew-item.service';
+import {CrewItem} from '../../core/model/crew-item.model';
 
 
 @Component({

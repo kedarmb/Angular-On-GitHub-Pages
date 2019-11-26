@@ -5,8 +5,8 @@ import { SignupFormControl } from './signup.validator';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { from } from 'rxjs';
 
-import { SignupService } from '../../service/signup.service'
-import Signup from 'app/model/signup.model';
+import { SignupService } from '../../shared/core/service/signup.service'
+import Signup from 'app/shared/core/model/signup.model';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',

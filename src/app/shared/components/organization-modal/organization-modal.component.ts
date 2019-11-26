@@ -5,9 +5,9 @@ import { OrganizationModalFormGroup } from './organization-modal.validator';
 import { OrganizationModalFormControl } from './organization-modal.validator';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
-import { CountriesService } from 'app/service/countries.service';
-import Organization from 'app/model/organization.model';
-import { OrganizationService } from 'app/service/organization.service';
+import { CountriesService } from 'app/shared/core/service/countries.service';
+import Organization from 'app/shared/core/model/organization.model';
+import { OrganizationService } from 'app/shared/core/service/organization.service';
 @Component({
   selector: 'app-organization-modal',
   templateUrl: './organization-modal.component.html',

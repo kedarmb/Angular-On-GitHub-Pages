@@ -4,8 +4,8 @@ import { UserModalFormGroup } from './user-modal-validator';
 //import { Tender } from '../../model/tender.model';
 //
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { errorMsg, regex } from '../../../constant/index';
-import { HelperService } from '../../../service/helper.service';
+import { errorMsg, regex } from '../../core/constant/index';
+import { HelperService } from '../../core/service/helper.service';
 // import { User } from '../../user.model';
 //
 //  import {UserModalFormControl} from './user-modal-validator';
@@ -20,7 +20,7 @@ import { HelperService } from '../../../service/helper.service';
 })
 export class UserModalComponent implements OnInit {
 
-  formSubmitted: boolean = false;
+  formSubmitted = false;
   userForm: FormGroup;
 
   placement = 'bottom';
@@ -31,6 +31,7 @@ export class UserModalComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = this.formBuider.group({
+      
     });
   }
 
