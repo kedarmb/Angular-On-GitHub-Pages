@@ -1,12 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TenderModalFormGroup } from './tender-modal-validator';
-import { Tender } from 'app/model/tender.model';
+import { Tender } from 'app/shared/core/model/tender.model';
 // import { TenderService } from 'app/service/tender.service';
 // import { Tender } from '../../model/tender.model';
-import { OrganizationService } from '../../../service/organization.service';
-import { TenderService } from '../../../service/tender.service';
-import { HelperService } from '../../../service/helper.service';
+import { TenderService } from '../../core/service/tender.service';
+import { HelperService } from '../../core/service/helper.service';
 
 // import form validator
 /* import { TenderModalFormControl } from './tender-modal-validator'
@@ -14,7 +12,7 @@ import { TenderModalFormGroup } from './tender-modal-validator'; */
 //
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { errorMsg, regex } from '../../../constant/index';
+import { errorMsg, regex } from '../../core/constant/index';
 
 //
 

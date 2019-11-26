@@ -1,3 +1,6 @@
+// import { AppRoutingModule } from 'app/app.routing';
+
+import { LayoutModule } from '../layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,9 +13,7 @@ import { UserModalComponent } from './components/user-modal/user-modal.component
 import { NotifySubcontractorComponent } from './components/notify-subcontractor/notify-subcontractor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentsModule } from 'app/components/components.module';
 import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from 'app/app.routing';
 import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,33 +21,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     TenderModalComponent,
     TrenchModalComponent,
-    CrewModalComponent, OrganizationModalComponent,
-    EquipmentsModalComponent,
-    UserModalComponent,
-    NotifySubcontractorComponent,
-    TenderModalComponent,
-    TrenchModalComponent,
     CrewModalComponent,
     OrganizationModalComponent,
+    EquipmentsModalComponent,
     UserModalComponent,
-    NotifySubcontractorComponent,
-    EquipmentsModalComponent
+    NotifySubcontractorComponent
   ],
   exports: [
     TenderModalComponent,
     TrenchModalComponent,
-    CrewModalComponent, 
+    CrewModalComponent,
     OrganizationModalComponent,
     EquipmentsModalComponent,
     UserModalComponent,
-    NotifySubcontractorComponent,
-    TenderModalComponent,
-    TrenchModalComponent,
-    CrewModalComponent,
-    OrganizationModalComponent,
-    UserModalComponent,
-    NotifySubcontractorComponent,
-    EquipmentsModalComponent
+    NotifySubcontractorComponent
   ],
   imports: [
     CommonModule,
@@ -54,9 +42,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ComponentsModule,
+    LayoutModule,
     RouterModule,
-    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -66,6 +53,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatSelectModule,
     MatTooltipModule,
     NgbModule
+  ],
+  entryComponents: [
+    TenderModalComponent,
+    TrenchModalComponent,
+    CrewModalComponent,
+    OrganizationModalComponent,
+    EquipmentsModalComponent,
+    UserModalComponent,
+    NotifySubcontractorComponent
   ]
 })
+
 export class SharedModule { }

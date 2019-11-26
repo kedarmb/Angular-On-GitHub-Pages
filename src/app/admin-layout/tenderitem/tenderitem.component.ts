@@ -1,0 +1,40 @@
+import { Component, OnInit } from '@angular/core';
+import {TenderitemService} from '../../shared/core/service/tenderitem.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
+import {TenderSubitem} from '../../shared/core/model/tender-subitem.model';
+import {TenderItem} from '../../shared/core/model/tender-item.model';
+import {Router} from '@angular/router';
+
+@Component({
+  selector: 'app-tenderitem',
+  templateUrl: './tenderitem.component.html',
+  styleUrls: ['./tenderitem.component.scss']
+})
+export class TenderitemComponent implements OnInit {
+
+  tenderItems: any = [];
+  isCollapsed = false;
+  accordion = {};
+  constructor(private tenderItemService:
+                  TenderitemService, private modalService: NgbModal, private router: Router) { }
+
+  ngOnInit() {
+    this.tenderItemService.getTendersItems().subscribe((result) => {
+      this.tenderItems = result
+    })
+  }
+  openItem(item?) {
+
+  }
+  openSubitem(item?) {
+
+  }
+  toggleCollapse(index) {
+    this.accordion[index] = !this.accordion[index]
+  }
+  navigate() {
+    this.router.navigateByUrl('/create-tenderitem');
+  }
+
+}

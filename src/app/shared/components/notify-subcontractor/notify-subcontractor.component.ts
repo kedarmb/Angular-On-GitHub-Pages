@@ -1,8 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { OrganizationService } from 'app/service/organization.service';
-import Organization from 'app/model/organization.model';
+import { OrganizationService } from 'app/shared/core/service/organization.service';
+import Organization from 'app/shared/core/model/organization.model';
 
 @Component({
   selector: 'app-notify-subcontractor',

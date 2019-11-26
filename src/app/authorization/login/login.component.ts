@@ -1,14 +1,14 @@
 
-import { HelperService } from '../../service/helper.service';
-import { UserServiceService } from '../../service/user-service.service';
+import { HelperService } from '../../shared/core/service/helper.service';
+import { UserServiceService } from '../../shared/core/service/user-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 // import { LoginFormControl } from './login.validator';
 // import { LoginFormGroup } from './login.validator';
 import { Router } from '@angular/router';
-import Login from 'app/model/login.model';
-import { LoginService } from '../../service/login.service';
-import { errorMsg, regex } from '../../constant/index';
+import Login from 'app/shared/core/model/login.model';
+import { LoginService } from '../../shared/core/service/login.service';
+import { errorMsg, regex } from '../../shared/core/constant/index';
 //
 @Component({
   selector: 'app-login',

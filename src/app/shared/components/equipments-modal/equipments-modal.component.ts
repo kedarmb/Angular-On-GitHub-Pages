@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { EquipmentsService } from 'app/service/equipments.service';
-import Equipments from 'app/model/equipments.model';
+import Equipments from 'app/shared/core/model/equipments.model';
+import { EquipmentsService } from 'app/shared/core/service/equipments.service';
 
 @Component({
   selector: 'app-equipments-modal',
