@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 
 
-import { AdminLayoutRoutes } from './admin-layout.routing';
+import { AdminLayoutRoutes, AdminLayoutRoutesModule } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
@@ -59,7 +59,7 @@ import {MedicalComprehendComponent} from '../../medical-comprehend/medical-compr
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
+    AdminLayoutRoutesModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,

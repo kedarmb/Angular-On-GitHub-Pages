@@ -23,63 +23,27 @@ import {
     AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './authorization/login/login.component';
+import { SignupComponent } from './authorization/signup/signup.component';
 import {
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
-
-
     MatFormFieldModule,
     MatTooltipModule
 } from '@angular/material';
 //
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TenderModalComponent } from './modal/tender-modal/tender-modal.component';
 import { TenderService } from './service/tender.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TenderitemService } from './service/tenderitem.service';
-
-import { TrenchModalComponent } from './modal/trench-modal/trench-modal.component';
-import { CrewModalComponent } from './modal/crew-modal/crew-modal.component';
-import { OrganizationModalComponent } from './modal/organization-modal/organization-modal.component';
-import { OrganizationComponent } from './organization/organization.component';
-
-import { UserComponent } from './user/user.component';
-import { UserModalComponent } from './modal/user-modal/user-modal.component';
-
-
-
-import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
-import { AutoAdjustDirective } from './directive/auto-adjust.directive';
 import { OrganizationService } from './service/organization.service';
-import { NotifySubcontractorComponent } from './modal/notify-subcontractor/notify-subcontractor.component';
-import { CrewComponent } from './crew/crew.component';
 import { CrewItemService } from './service/crew-item.service';
 import { CrewService } from './service/crew.service';
-import { CreateCrewComponent } from './create-crew/create-crew.component';
-import { DateConverterPipe } from './pipe/date-converter.pipe';
-
 import { SpeechRecognitionService } from './service/speech-recognition.service';
-import { AnalyticsComponent } from './analytics/analytics.component';
-
-import { MedicalComprehendComponent } from './medical-comprehend/medical-comprehend.component';
 import { SearchSubscriberService } from './service/search-subscriber.service';
-
-import { UserServiceService } from './services/user-service.service';
-import { LoginService } from './service/login.service';
-
-import{SignupService} from './service/signup.service';
-//import { LobourModalComponent } from './modal/lobour-modal/lobour-modal.component';
-// import { QuoteComponent } from './quote/quote.component';
-
-import {EquipmentsService} from './service/equipments.service';
-import {LabourService} from './service/labour.service';
-import { EquipmentsModalComponent } from './modal/equipments-modal/equipments-modal.component';
-
-//import { LabourComponent } from './labour/labour.component';
-//import { EquipmentsComponent } from './equipments/equipments.component';
+import { EquipmentsService } from './service/equipments.service';
+import { LabourService } from './service/labour.service';
 
 
 @NgModule({
@@ -106,16 +70,7 @@ import { EquipmentsModalComponent } from './modal/equipments-modal/equipments-mo
     ],
     declarations: [
         AppComponent,
-        AdminLayoutComponent,
-        LoginComponent,
-        SignupComponent,
-        TenderModalComponent,
-        TrenchModalComponent,
-        CrewModalComponent,
-        OrganizationModalComponent,
-        UserModalComponent,
-        NotifySubcontractorComponent,
-        EquipmentsModalComponent
+        AdminLayoutComponent
     ],
 
     providers: [TenderService, TenderitemService, OrganizationService,
@@ -124,12 +79,7 @@ import { EquipmentsModalComponent } from './modal/equipments-modal/equipments-mo
 
 
     bootstrap: [AppComponent],
-    entryComponents: [TenderModalComponent,
-        TrenchModalComponent,
-        CrewModalComponent, OrganizationModalComponent,
-        EquipmentsModalComponent,
-        UserModalComponent,
-        NotifySubcontractorComponent,
+    entryComponents: [
 
     ]
 })

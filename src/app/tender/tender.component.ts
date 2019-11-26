@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TenderModalComponent } from '../modal/tender-modal/tender-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TenderService } from '../service/tender.service';
 import { Tender } from '../model/tender.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TenderModalComponent } from 'app/shared/components/tender-modal/tender-modal.component';
 
 @Component({
   selector: 'app-tender',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EquipmentsService } from 'app/service/equipments.service';
 import { Router } from '@angular/router';
-import { EquipmentsModalComponent } from 'app/modal/equipments-modal/equipments-modal.component';
+import { EquipmentsModalComponent } from '../shared/components/equipments-modal/equipments-modal.component';
 import Equipments from 'app/model/equipments.model';
 
 @Component({

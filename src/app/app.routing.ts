@@ -4,8 +4,8 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import {LoginComponent} from './login/login.component';
-import {SignupComponent} from './signup/signup.component';
+import {LoginComponent} from './authorization/login/login.component';
+import {SignupComponent} from './authorization/signup/signup.component';
 
 
 const routes: Routes = [
@@ -15,14 +15,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    pathMatch: 'full',
-  },
-  {
-    path: 'signup',
-    component: SignupComponent,
-    pathMatch: 'full',
+    path: '',
+    children: [{
+      path: '',
+      loadChildren: './authorization/authorization.module#AuthorizationModule'
+    }]
   },
   {
     path: '',

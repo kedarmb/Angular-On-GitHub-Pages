@@ -1,16 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
-import {TrenchModalComponent} from '../modal/trench-modal/trench-modal.component';
-import {CrewModalComponent} from '../modal/crew-modal/crew-modal.component';
 import {Observable, Subject, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
-import {NotifySubcontractorComponent} from '../modal/notify-subcontractor/notify-subcontractor.component';
 import {CrewService} from '../service/crew.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TenderService} from '../service/tender.service';
 import {Tender} from '../model/tender.model';
 import {TenderItem} from '../model/tender-item.model';
 import * as uuid from 'uuid';
+import { CrewModalComponent } from 'app/shared/components/crew-modal/crew-modal.component';
+import { NotifySubcontractorComponent } from 'app/shared/components/notify-subcontractor/notify-subcontractor.component';
 
 @Component({
     selector: 'app-view-tender',

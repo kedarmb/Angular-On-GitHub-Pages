@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbMarkDisabled} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model';
-import {CrewModalComponent} from '../modal/crew-modal/crew-modal.component';
+import { CrewModalComponent } from '../shared/components/crew-modal/crew-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Crew} from '../model/crew.model';
 import {CrewService} from '../service/crew.service';
