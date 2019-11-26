@@ -1,5 +1,5 @@
 import { UserModalComponent } from './../../shared/components/user-modal/user-modal.component';
-import { UserModalComponent } from '../../shared/components/user-modal/user-modal.component';
+//import { UserModalComponent } from '../../shared/components/user-modal/user-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 //import {TenderService} from '../service/tender.service';
