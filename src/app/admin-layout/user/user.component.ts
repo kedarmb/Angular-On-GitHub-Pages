@@ -1,11 +1,8 @@
+import { HttpService } from './../../shared/core/service/http.service';
 import { UserModalComponent } from './../../shared/components/user-modal/user-modal.component';
-//import { UserModalComponent } from '../../shared/components/user-modal/user-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-//import {TenderService} from '../service/tender.service';
-import { Tender } from '../../shared/core/model/tender.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserServiceService } from '../../shared/core/service/user-service.service';
 import { User } from '../../user.model';
 
 @Component({
@@ -19,7 +16,7 @@ export class UserComponent implements OnInit {
 
   public employee: any = [];
   tender: any;
-  constructor(private userserv: UserServiceService, private modalService: NgbModal,
+  constructor(private httpService: HttpService, private modalService: NgbModal,
     //private tenderService: TenderService,
     private router: Router) {
 
@@ -33,7 +30,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     // return this.employee = this.userserv.getemployee();
-    return this.userserv.getAll().subscribe(data => {
+    return this.httpService.getUser().subscribe(data => {
     this.data = data;
       console.log(data)
     });
@@ -41,7 +38,7 @@ export class UserComponent implements OnInit {
 
   }
   del(id): any {
-    return this.userserv.del(id).subscribe(data => {
+    return this.httpService.delUser(id).subscribe(data => {
     this.data = data;
       console.log(data);
     });

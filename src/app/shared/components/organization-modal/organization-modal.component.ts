@@ -7,7 +7,7 @@ import Organization from 'app/shared/core/model/organization.model';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { OrganizationService } from 'app/shared/core/service/organization.service';
+import { HttpService } from 'app/shared/core/service/http.service';
 
 import { CountriesService } from 'app/shared/core/service/countries.service';
 
@@ -32,7 +32,7 @@ export class OrganizationModalComponent implements OnInit {
   cityInfo: any[] = [];
   constructor(
     public activeModal: NgbActiveModal,
-    private organizationService: OrganizationService,
+    private httpService: HttpService,
     private country: CountriesService,
     private fb: FormBuilder,
     private helperService: HelperService
@@ -62,7 +62,7 @@ export class OrganizationModalComponent implements OnInit {
   }
   save() {
     console.log(this.organizationForm.value);
-      this.organizationService.create(this.organizationForm.value).subscribe(
+      this.httpService.createOrganization(this.organizationForm.value).subscribe(
         (response: any) => {
           console.log(response);
           if (response.status === 200) {
@@ -73,7 +73,7 @@ export class OrganizationModalComponent implements OnInit {
           console.log(error);
         }
       );
-      // this.organizationService.create(organization).subscribe(() => {
+      // this.httpService.create(organization).subscribe(() => {
       //   this.activeModal.close('closed');
       // })
   }

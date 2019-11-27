@@ -3,7 +3,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
 import { OrganizationModalComponent } from '../../shared/components/organization-modal/organization-modal.component';
 import Organization from '../../shared/core/model/organization.model';
-import {OrganizationService} from '../../shared/core/service/organization.service';
+import {HttpService} from '../../shared/core/service/http.service';
 
 @Component({
     selector: 'app-organization',
@@ -14,19 +14,19 @@ export class OrganizationComponent implements OnInit {
     organizations: any;
 
     ngOnInit() {
-        this.organizationService.getAll().subscribe((data) => {
+        this.httpService.getAllOrganization().subscribe((data) => {
             this.organizations = data['data'];
             console.log(data);
         })
     }
 
 
-    constructor(private modalService: NgbModal, private organizationService: OrganizationService, private router: Router) {
+    constructor(private modalService: NgbModal, private httpService: HttpService, private router: Router) {
     }
 
     delete(organization) {
-        this.organizationService.delete(organization).subscribe(() => {
-            this.organizationService.getAll().subscribe((organizations) => {
+        this.httpService.deleteOrganization(organization).subscribe(() => {
+            this.httpService.getAllOrganization().subscribe((organizations) => {
                 this.organizations = organizations;
             })
         })
@@ -41,7 +41,7 @@ export class OrganizationComponent implements OnInit {
             }
         modalRef.componentInstance.organization = obj || new Organization();
         modalRef.result.then(() => {
-            this.organizationService.getAll().subscribe((organizations) => {
+            this.httpService.getAllOrganization().subscribe((organizations) => {
                 console.log('.>>>>>>>>>>>>>>>>>>>>>>>>>', organizations);
                 this.organizations = organizations;
             });

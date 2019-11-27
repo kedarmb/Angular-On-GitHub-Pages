@@ -1,5 +1,5 @@
 export default class Labour {
-    //id: string;
+    // id: string;
     name: string;
     description: string;
     rate: string;
