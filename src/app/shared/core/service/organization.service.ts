@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import Organization from '../model/organization.model';
-import {Observable, of, from} from 'rxjs';
-import * as uuid from 'uuid';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as Constant from '../constant';
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizationService  {
 
+  getHeader() {
+    return new HttpHeaders()
+      .set('Content-Type', 'application/json; charset=utf-8')
+      .set('Accept', 'application/json; charset=utf-8');
+  } 
   constructor(private httpClient: HttpClient) { }
   
   public create(body) {
-    return this.httpClient.post(Constant.API_URL + '/organization', body, {observe: 'response'});
+    return this.httpClient.post(Constant.API_URL + '/organization', body, { headers: this.getHeader(), observe: 'response'});
       // return this.httpClient.post(Constant.API_URL + '/organization', body);
   }
 
