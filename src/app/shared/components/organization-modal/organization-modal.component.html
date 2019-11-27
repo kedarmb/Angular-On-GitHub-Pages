@@ -1,131 +1,115 @@
-<div class="main-content">
+<!-- <div class="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 offset-12">
-            <div class="modal-body">
-                        <form [formGroup]="organizationModalFormGroup">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput  formControlName="organization" placeholder="Organization*" type="text">
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['organization'].touched) && organizationModalFormGroup.controls['organization'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['organization'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
+                <div class="modal-body">
+                    <form [formGroup]="organizationForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-label>Organization<span class="text-danger">*</span></mat-label>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput formControlName="organization" type="text">
+                                </mat-form-field>
+                                <div *ngIf="!organizationForm.controls.organization.valid && (organizationForm.controls.organization.dirty || organizationForm.controls.organization.touched)"
+                                    class="error">
+                                    <div class="text-danger"
+                                        *ngIf="organizationForm.controls.organization.errors.invalidMsg">
+                                        {{organizationForm.controls.organization.errors.invalidMsg}}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput formControlName="streetAddress" placeholder="Street Address*" type="text">
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['streetAddress'].touched) && organizationModalFormGroup.controls['streetAddress'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['streetAddress'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>                           
-                           
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                            <mat-label>Country</mat-label>
-                                            <select formControlName="country" matNativeControl (change)="onChangeCountry($event.target.value)" required>
-                                                <option *ngFor="let country of countryInfo; let i = index" value="{{i}}">{{country.CountryName}}</option>
-                                            </select>
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['country'].touched) && organizationModalFormGroup.controls['country'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['country'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-label>Street Address <span class="text-danger">*</span></mat-label>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput formControlName="streetAddress" type="text">
+                                </mat-form-field>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                        <!-- <input matInput  formControlName="province" placeholder="Province*" type="text"> -->
-                                        <mat-label>Province</mat-label>
-                                        <select formControlName="country" matNativeControl (change)="onChangeState($event.target.value)" required>
-                                            <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">{{state.StateName}}</option>
-                                        </select>
-                                        
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['province'].touched) && organizationModalFormGroup.controls['province'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['province'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-label>Country<span class="text-danger">*</span></mat-label>
+                                <mat-form-field class="example-full-width">
+                                    <select formControlName="country" matNativeControl required>
+                                        <option value=""></option>
+                                        <option value="Country1">Canada</option>
+                                        <option value="Country2">India</option>
+                                        <option value="Country3">USA</option>
+                                    </select>
+                                </mat-form-field>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                            <mat-label>City</mat-label>
-                                            <select formControlName="country" matNativeControl required>
-                                                <option *ngFor="let city of cityInfo; let k = index" value="{{k}}">{{city}}</option>
-                                            </select>
-                                        <!-- <input matInput  formControlName="city" placeholder="City*" type="text"> -->
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['city'].touched) && organizationModalFormGroup.controls['city'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['city'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-label>Province <span class="text-danger">*</span></mat-label>
+                                <mat-form-field class="example-full-width">
+                                    <select formControlName="province" matNativeControl required>
+                                        <option value=""></option>
+                                        <option value="Province1">Ontario</option>
+                                        <option value="Province2">San Jose</option>
+                                        <option value="Province3">California</option>
+                                    </select>
+                                </mat-form-field>
                             </div>
+                        </div>
 
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                            <mat-label>Service Type</mat-label>
-                                            <select formControlName="serviceType" matNativeControl required>
-                                                    <option value=""></option>
-                                                <option value="a1">Type 1</option>
-                                                <option value="a2">Type 2</option>                                 
-                                            </select>
-                                        <!-- <input matInput  formControlName="serviceType" placeholder="ServiceType*" type="text"> -->
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['serviceType'].touched) && organizationModalFormGroup.controls['serviceType'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['serviceType'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-label>City <span class="text-danger">*</span></mat-label>
+                                <mat-form-field class="example-full-width">
+                                    <select formControlName="city" matNativeControl required>
+                                        <option value=""></option>
+                                        <option value="City1">Toranto</option>
+                                        <option value="City2">Las Vegas</option>
+                                        <option value="City3">New Delhi</option>
+                                    </select>
+                                </mat-form-field>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>Service Area</mat-label>
-                                            <select formControlName="serviceArea" matNativeControl required>
-                                                <option value=""></option>
-                                                <option value="t1">Area 1</option>
-                                                <option value="t2">Area 2</option>                                 
-                                            </select>
-                                    </mat-form-field>
-                                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || organizationModalFormGroup.controls['serviceArea'].touched) && organizationModalFormGroup.controls['serviceArea'].invalid">
-                                        <li *ngFor="let error of organizationModalFormGroup.controls['serviceArea'].getValidationMessages()">
-                                            {{error}}
-                                        </li>
-                                    </ul>                                                                   
-                                </div>
-                            </div>                            
-                            <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-                            <button mat-raised-button type="button" [disabled]="!organizationModalFormGroup.valid" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
-                        </form>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-label>Service Type <span class="text-danger">*</span></mat-label>
+                                <mat-form-field class="example-full-width">
+                                    <select formControlName="serviceType" matNativeControl required>
+                                        <option value=""></option>
+                                        <option value="type1">Type 1</option>
+                                        <option value="type2">Type 2</option>
+                                    </select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-label>Service Area <span class="text-danger">*</span></mat-label>
+                                <mat-form-field class="example-full-width">
+                                    <select formControlName="serviceArea" matNativeControl required>
+                                        <option value=""></option>
+                                        <option value="Area1">Area 1</option>
+                                        <option value="Area2">Area 2</option>
+                                    </select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <button mat-raised-button type="button" (click)="close()"
+                            class="btn btn-danger pull-right">Cancel</button>
+                        <button mat-raised-button type="button" (click)="save(organization)"
+                            class="btn btn-danger pull-right">Save</button>
+                    </form><br><br>
+                    <div class="pull-right">
+                        <span class="text-danger">*</span>Required Fields
                     </div>
                 </div>
             </div>
         </div>
     </div>
- <!-- <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+</div>
+ <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
         <button mat-raised-button type="button" [disabled]="userForm.form.invalid" (click)="save(organization)" class="btn btn-danger pull-right">Save</button>
     </form>
-</div> -->
+</div> --> 

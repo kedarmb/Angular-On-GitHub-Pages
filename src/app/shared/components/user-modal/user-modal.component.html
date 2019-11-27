@@ -51,7 +51,7 @@
     </form> -->
 
 
-    <form role="form" [formGroup]="userForm" novalidate (ngSubmit)="save(userForm)">
+    <!-- <form role="form" [formGroup]="userForm" novalidate (ngSubmit)="save(userForm)">
         <div class="form-group">
             <label for="name">User's Name</label>
             <input type="text" class="form-control" formControlName="name" placeholder="Username">
@@ -101,7 +101,60 @@
 
 
 
-        <!---->
+        
         <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
         <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
-    </form>
+    </form> -->
+
+
+
+
+
+ <div class="main-content">
+        <div class="card">
+            <div class="card-header card-header-danger">
+                <h6>Add User</h6>
+            </div>
+            <div class="card-body">
+            <form [formGroup]="userForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-label>Name</mat-label><span class="text-danger">*</span>
+                        <mat-form-field class="example-full-width">
+                            <input formControlName="name" matInput type="text">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-12">
+                       <mat-label>Email</mat-label><span class="text-danger">*</span>
+                        <mat-form-field class="example-full-width">
+                            <input formControlName="email" matInput type="text">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                       <mat-label>Password</mat-label><span class="text-danger">*</span>
+                       <mat-form-field class="example-full-width">
+                            <input formControlName="password" matInput type="text">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-label>Phone Number</mat-label><span class="text-danger">*</span>
+                        <mat-form-field class="example-full-width">
+                            <input formControlName="phoneNumber" matInput type="text">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
+            </form><br><br><br>
+            <div class="pull-right">
+                <span class="text-danger">*</span>Required Fields
+            </div>
+        </div>
+    </div>
+</div>
