@@ -11,7 +11,8 @@
 
                                         <ul class="nav nav-tabs" data-tabs="tabs">
                                             <li class="nav-item">
-                                                <a mat-button class="nav-link active" (click)="open()" href="#profile" data-toggle="tab">
+                                                <a mat-button class="nav-link active" (click)="open()" href="#profile"
+                                                    data-toggle="tab">
                                                     <i class="material-icons">add</i> ADD
                                                     <div class="ripple-container"></div>
                                                 </a>
@@ -36,7 +37,7 @@
                             <!--<p class="card-category"> Here is a subtitle for this table</p>-->
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive">                                
                                 <table id="mainTable" class="table table-hover">
                                     <thead class="">
                                         <th>
@@ -74,7 +75,7 @@
                                                 {{tender.clientName}}
                                             </td>
                                             <td>
-                                                {{tender.name}}
+                                                {{tender.tenderName}}
                                                 <!-- <a class="btn btn-link" routerLink="/tender-items">
 
                                             </a>-->
@@ -93,23 +94,34 @@
                                                 {{tender.quoteEndDate | date: 'dd/MM/yyyy'}}
                                             </td>
                                             <td class="td-actions width-15">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="open(tender)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                <i class="material-icons">edit</i>
-                                            </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                <i class="material-icons">close</i>
-                                            </button>
-                                                <button mat-raised-button type="button" matTooltip="Edit Tender Quotes" (click)="viewTender(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                <i class="material-icons">exit_to_app</i>
-                                            </button>
-                                                <button mat-raised-button type="button" matTooltip="Upload Tender" (click)="viewer(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task"
+                                                    (click)="open(tender)" [matTooltipPosition]="'above'"
+                                                    class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove"
+                                                    (click)="delete(tender)" [matTooltipPosition]="'above'"
+                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Edit Tender Quotes"
+                                                    (click)="viewTender(tender)" [matTooltipPosition]="'above'"
+                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">exit_to_app</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Upload Tender"
+                                                    (click)="viewer(tender)" [matTooltipPosition]="'above'"
+                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">
                                                         cloud_upload
-                                                        </i>
-                                            </button>
-                                                <button mat-raised-button type="button" matTooltip="Final Pricing of Tender" (click)="quotes(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                <i class="material-icons">announcement</i>
-                                            </button>
+                                                    </i>
+                                                </button>
+                                                <button mat-raised-button type="button"
+                                                    matTooltip="Final Pricing of Tender" (click)="quotes(tender)"
+                                                    [matTooltipPosition]="'above'"
+                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">announcement</i>
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>

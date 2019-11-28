@@ -13,7 +13,8 @@ import { TenderModalFormGroup } from './tender-modal-validator'; */
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { errorMsg, regex } from '../../core/constant/index';
-
+import * as uuid from '../../../../../node_modules/uuid';
+// '../../../../../node_modules/uuid';
 //
 
 
@@ -25,13 +26,29 @@ import { errorMsg, regex } from '../../core/constant/index';
 })
 export class TenderModalComponent implements OnInit {
 
-    @Input('tender')
+    // @Input('tender')
+
     tender: Tender;
     placement = 'bottom';
 
-    //tenderForm: TenderModalFormGroup = new TenderModalFormGroup();
-    tenderHeaderForm: FormGroup;
-    formSubmitted: boolean = false;
+    // tenderForm: TenderModalFormGroup = new TenderModalFormGroup();
+    //
+    tenderHeaderForm: FormGroup = this.formBuider.group({
+        clientName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30),
+        this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameErr })]],
+        //
+        tenderName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30),
+        this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameErr })]],
+        //
+        openDate: ['', Validators.required],
+        closeDate: ['', Validators.required],
+        quoteStartDate: ['', Validators.required],
+        quoteEndDate: ['', Validators.required],
+        id: uuid.v4(),
+        items: []
+
+    });
+    formSubmitted = false;
     //
     quoteOpenMinDate: any;
     quoteOpenMaxDate: any;
@@ -42,19 +59,17 @@ export class TenderModalComponent implements OnInit {
     constructor(public activeModal: NgbActiveModal,
         private tenderService: TenderService,
         private formBuider: FormBuilder,
-        private helperService: HelperService
+        private helperService: HelperService,
     ) {
     }
 
     ngOnInit() {
-        //console.log(this.tender);        
+        console.log('in tender modal ', this.tender);
+        // console.log('in tender modal ', uuid);
         this.convertToNgbDate();
         //
-        /* if(this.tender != null || this.tender != undefined){
-            this.autoPopulateForEdit(this.tender);
-        } */
 
-        this.tenderHeaderForm = this.formBuider.group({
+        /* this.tenderHeaderForm = this.formBuider.group({
             clientName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30),
             this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameErr })]],
             //
@@ -64,25 +79,34 @@ export class TenderModalComponent implements OnInit {
             openDate: ['', Validators.required],
             closeDate: ['', Validators.required],
             quoteStartDate: ['', Validators.required],
-            quoteEndDate: ['', Validators.required],
+            qoteEndDate: ['', Validators.required],
+            id: uuid.v4()
 
-        })
+        }); */
+
+        if (this.tender != null || this.tender !== undefined) {
+            this.autoPopulateForEdit(this.tender);
+        }
+
     }
 
     /** Added by Arup: 18 Nov 2019 */
     private autoPopulateForEdit(tender) {
-        /** 
+        /**
          * With patchValue, you can assign values to specific controls in a FormGroup by 
          * supplying an object of key/value pairs for just the controls of interest.
         */
-        /* this.tenderForm.patchValue({
-            clientName: tender.clientName,
-            tenderName: tender.name,
-            openDate: tender.openDate,
-            closeDate: tender.closeDate,
-            quoteStartDate: tender.quoteStartDate,
-            quoteEndDate: tender.quoteEndDate
-        }) */
+        /*   this.tenderHeaderForm.patchValue({
+              clientName: tender.clientName,
+              tenderName: tender.name,
+              openDate: tender.openDate,
+              closeDate: tender.closeDate,
+              quoteStartDate: tender.quoteStartDate,
+              quoteEndDate: tender.quoteEndDate
+          }) */
+        console.log(tender);
+        this.tenderHeaderForm.setValue(tender);
+        // this.tenderHeaderForm.controls.clientName.patchValue(tender.clientName);
     }
 
     dateChanged(control) {
@@ -90,39 +114,39 @@ export class TenderModalComponent implements OnInit {
     }
 
     setQuoteOpenDate() {
-        /* this.quoteOpenMinDate = {
-            year: this.tenderForm.controls.openDate.value.year, 
-            month: this.tenderForm.controls.openDate.value.month, 
-            day: this.tenderForm.controls.openDate.value.day + 4
-        }  */
+        this.quoteOpenMinDate = {
+            year: this.tenderHeaderForm.controls.openDate.value.year,
+            month: this.tenderHeaderForm.controls.openDate.value.month,
+            day: this.tenderHeaderForm.controls.openDate.value.day + 4
+        }
     }
     setQuoteCloseDate() {
         /** Max Open date is 4 days prior to tender close date */
-        /*  this.quoteOpenMaxDate = {
-             year: this.tenderForm.controls.closeDate.value.year, 
-             month: this.tenderForm.controls.closeDate.value.month, 
-             day: this.tenderForm.controls.closeDate.value.day - 4
-         } */
+        this.quoteOpenMaxDate = {
+            year: this.tenderHeaderForm.controls.closeDate.value.year,
+            month: this.tenderHeaderForm.controls.closeDate.value.month,
+            day: this.tenderHeaderForm.controls.closeDate.value.day - 4
+        }
         /** Min Close date is 10 days prior to tender close date */
-        /* this.quoteCloseMinDate = {
-            year: this.tenderForm.controls.closeDate.value.year, 
-            month: this.tenderForm.controls.closeDate.value.month, 
-            day: this.tenderForm.controls.closeDate.value.day - 10
-        } */
+        this.quoteCloseMinDate = {
+            year: this.tenderHeaderForm.controls.closeDate.value.year,
+            month: this.tenderHeaderForm.controls.closeDate.value.month,
+            day: this.tenderHeaderForm.controls.closeDate.value.day - 10
+        }
         //
         /** Max Close date is 4 days prior to tender close date */
-        /* this.quoteCloseMaxDate = {
-            year: this.tenderForm.controls.closeDate.value.year, 
-            month: this.tenderForm.controls.closeDate.value.month, 
-            day: this.tenderForm.controls.closeDate.value.day - 4
-        } */
+        this.quoteCloseMaxDate = {
+            year: this.tenderHeaderForm.controls.closeDate.value.year,
+            month: this.tenderHeaderForm.controls.closeDate.value.month,
+            day: this.tenderHeaderForm.controls.closeDate.value.day - 4
+        }
     }
 
 
     save(tenderForm) {
         this.formSubmitted = true;
-        //console.log('open date is ',this.tenderForm.controls.openDate.value.year);
-        // 
+        // console.log('open date is ',this.tenderForm.controls.openDate.value.year);
+        //
         this.convertToDate();
         //
         console.log(this.tender.id)
@@ -133,8 +157,8 @@ export class TenderModalComponent implements OnInit {
             })
         } else {
             console.log('else block');
-            //this.tender.clientName = this.tenderForm.controls.clientName.value;
-            //this.tender.name = this.tenderForm.controls.tenderName.value;
+            // this.tender.clientName = this.tenderForm.controls.clientName.value;
+            // this.tender.name = this.tenderForm.controls.tenderName.value;
             // this.activeModal.close('');
             this.tenderService.add(this.tender).subscribe((success) => {
                 this.activeModal.close('');

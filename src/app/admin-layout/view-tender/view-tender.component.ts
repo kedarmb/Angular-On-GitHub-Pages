@@ -1,12 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgbModal, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
-import {Observable, Subject, merge} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
-import {CrewService} from '../../shared/core/service/crew.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TenderService} from '../../shared/core/service/tender.service';
-import {Tender} from '../../shared/core/model/tender.model';
-import {TenderItem} from '../../shared/core/model/tender-item.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, Subject, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { CrewService } from '../../shared/core/service/crew.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TenderService } from '../../shared/core/service/tender.service';
+import { Tender } from '../../shared/core/model/tender.model';
+import { TenderItem } from '../../shared/core/model/tender-item.model';
 import * as uuid from 'uuid';
 import { CrewModalComponent } from 'app/shared/components/crew-modal/crew-modal.component';
 import { NotifySubcontractorComponent } from 'app/shared/components/notify-subcontractor/notify-subcontractor.component';
@@ -44,22 +44,22 @@ export class ViewTenderComponent {
     }
 
     tender: Tender = new Tender();
-      sections = [{name: 'WATERMAIN'}, {name: 'RESOTRATION'}];
+    sections = [{ name: 'WATERMAIN' }, { name: 'RESOTRATION' }];
     model: any;
     searching = false;
     searchFailed = false;
     states = [];
 
 
-    @ViewChild('instance', {static: true})
+    @ViewChild('instance', { static: true })
     instance: NgbTypeahead;
 
     focus$ = new Subject<string>();
     click$ = new Subject<string>();
 
     constructor(private modalService: NgbModal, private crewService: CrewService,
-                private activatedRoute: ActivatedRoute,
-                private tenderService: TenderService, private router: Router) {
+        private activatedRoute: ActivatedRoute,
+        private tenderService: TenderService, private router: Router) {
         this.activatedRoute.params.subscribe((params) => {
             this.tenderService.getTenderById(params.id).subscribe((tender) => {
                 this.tender = JSON.parse(JSON.stringify(tender));
@@ -74,12 +74,12 @@ export class ViewTenderComponent {
     }
 
 
-   /* trench(item) {
-        const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
-    }*/
+    /* trench(item) {
+         const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
+     }*/
 
     crew(item) {
-        const modalRef = this.modalService.open(CrewModalComponent, {centered: true, size: 'lg'});
+        const modalRef = this.modalService.open(CrewModalComponent, { centered: true, size: 'lg' });
     }
 
     toggleCollapse(index) {
@@ -120,7 +120,7 @@ export class ViewTenderComponent {
     }
 
     addSubitem(item) {
-        item.subitems.unshift({name: '', unitPrice: 0, quantity: 0, totalPrice: 0});
+        item.subitems.unshift({ name: '', unitPrice: 0, quantity: 0, totalPrice: 0 });
     }
 
     deleteSubitem(item, index) {
@@ -153,7 +153,7 @@ export class ViewTenderComponent {
 
 
     notify() {
-        const modalRef = this.modalService.open(NotifySubcontractorComponent, {centered: true});
+        const modalRef = this.modalService.open(NotifySubcontractorComponent, { centered: true });
     }
 
     populateCrew(item) {
@@ -175,7 +175,7 @@ export class ViewTenderComponent {
             this.trench.backfill.height = 0;
         }
         if (isNaN(this.trench.backfill.width)) {
-           this.trench.backfill.width = 0;
+            this.trench.backfill.width = 0;
         }
         if (isNaN(this.trench.backfill.density)) {
             this.trench.backfill.density = 0;
@@ -215,6 +215,6 @@ export class ViewTenderComponent {
         this.router.navigateByUrl('/pdf-viewer/' + item.id);
     }
     addSection() {
-        this.sections.push({name: 'Enter Section Name'});
+        this.sections.push({ name: 'Enter Section Name' });
     }
 }

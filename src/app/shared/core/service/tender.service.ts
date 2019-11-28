@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import Organization from '../model/organization.model';
 import { of } from 'rxjs';
 import { Tender } from '../model/tender.model';
-import { uuid } from '../../../../../node_modules/uuid'
+import { uuid } from '../../../../../node_modules/uuid';
 import { API_URL } from '../constant/index';
 import { Observable } from 'rxjs';
 
@@ -19,7 +19,7 @@ export class TenderService {
             closeDate: new Date(2010, 8, 22),
             quoteStartDate: new Date(2012, 6, 27),
             quoteEndDate: new Date(2000, 8, 30),
-            name: 'Real time Generating',
+            tenderName: 'Real time Generating',
             clientName: 'Aaskash Builder Pvt Ltd',
             items: [{
                 id: '105',
@@ -1283,16 +1283,16 @@ export class TenderService {
     add(tender: Tender): Observable<any> {
         console.log('add  called', tender);
         const myId = uuid.v4();
-        tender.id = myId;
-        //console.log('id added', tender);
-        //this.array.unshift(tender);
-        //return of([]);
+        // tender.id = myId;
+        // console.log('id added', tender);
+        // this.array.unshift(tender);
+        // return of([]);
         //
         const keys = Object.keys(tender);
         //
-        let formData = new FormData();
+        const formData = new FormData();
 
-        for (var i = 0; i < keys.length; i++) {
+        for (let i = 0; i < keys.length; i++) {
             formData.append(keys[i], tender[keys[i]]);
         }
         //
@@ -1343,4 +1343,3 @@ export class TenderService {
         }));
     }
 }
-      

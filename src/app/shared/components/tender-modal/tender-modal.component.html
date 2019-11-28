@@ -10,7 +10,7 @@
         </li>
       </ul> -->
     <div *ngIf="!tenderHeaderForm.controls.clientName.valid && 
-        (tenderHeaderForm.controls.clientName.dirty || tenderHeaderForm.controls.clientName.touched)" class="error">
+        (tenderHeaderForm.controls.clientName.dirty)" class="error">
       <div *ngIf="tenderHeaderForm.controls.clientName.errors.invalidMsg">
         {{tenderHeaderForm.controls.clientName.errors.invalidMsg}}
       </div>
@@ -29,7 +29,7 @@
         </li>
       </ul> -->
       <div *ngIf="!tenderHeaderForm.controls.tenderName.valid && 
-        (tenderHeaderForm.controls.tenderName.dirty || tenderHeaderForm.controls.tenderName.touched)" class="error">
+        (tenderHeaderForm.controls.tenderName.dirty)" class="error">
         <div *ngIf="tenderHeaderForm.controls.tenderName.errors.invalidMsg">
           {{tenderHeaderForm.controls.tenderName.errors.invalidMsg}}
         </div>
@@ -50,7 +50,7 @@
         </li>
       </ul> -->
       <div *ngIf="!tenderHeaderForm.controls.openDate.valid && 
-        (tenderHeaderForm.controls.openDate.dirty || tenderHeaderForm.controls.openDate.touched)" class="error">
+        (tenderHeaderForm.controls.openDate.dirty)" class="error">
         <div *ngIf="tenderHeaderForm.controls.openDate.errors.invalidMsg">
           {{tenderHeaderForm.controls.openDate.errors.invalidMsg}}
         </div>
@@ -62,7 +62,7 @@
       <input class="form-control" placeholder="yyyy-mm-dd" formControlName="closeDate" ngbDatepicker #d2="ngbDatepicker"
         (focus)="d2.toggle()" (dateSelect)="setQuoteCloseDate()">
       <div *ngIf="!tenderHeaderForm.controls.closeDate.valid && 
-        (tenderHeaderForm.controls.closeDate.dirty || tenderHeaderForm.controls.closeDate.touched)" class="error">
+        (tenderHeaderForm.controls.closeDate.dirty)" class="error">
         <div *ngIf="tenderHeaderForm.controls.closeDate.errors.invalidMsg">
           {{tenderHeaderForm.controls.closeDate.errors.invalidMsg}}
         </div>
@@ -73,26 +73,27 @@
       <label>Quote Start Date</label>
       <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteStartDate" ngbDatepicker
         #d3="ngbDatepicker" [minDate]="quoteOpenMinDate" [maxDate]="quoteOpenMaxDate" (focus)="d3.toggle()">
-      <ul class="text-danger list-unstyled"
-        *ngIf="(formSubmitted || tenderHeaderForm.controls['quoteStartDate'].dirty) && tenderHeaderForm.controls['quoteStartDate'].invalid">
-        <li *ngFor="let error of tenderHeaderForm.controls['quoteStartDate'].getValidationMessages()">
-          {{error}}
-        </li>
-      </ul>
+      <div *ngIf="!tenderHeaderForm.controls.quoteStartDate.valid && 
+        (tenderHeaderForm.controls.quoteStartDate.dirty)"
+        class="error">
+        <div *ngIf="tenderHeaderForm.controls.quoteStartDate.errors.invalidMsg">
+          {{tenderHeaderForm.controls.quoteStartDate.errors.invalidMsg}}
+        </div>
+      </div>
     </div>
 
-    <!-- <div class="form-group">
+    <div class="form-group">
       <label>Quote End Date</label>
-
       <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteEndDate" ngbDatepicker
         #d4="ngbDatepicker" [minDate]="quoteCloseMinDate" [maxDate]="quoteCloseMaxDate" (focus)="d4.toggle()">
-      <ul class="text-danger list-unstyled"
-        *ngIf="(formSubmitted || tenderForm.controls['quoteEndDate'].dirty) && tenderForm.controls['quoteEndDate'].invalid">
-        <li *ngFor="let error of tenderForm.controls['quoteEndDate'].getValidationMessages()">
-          {{error}}
-        </li>
-      </ul>
-    </div> -->
+      <div *ngIf="!tenderHeaderForm.controls.quoteEndDate.valid && 
+        (tenderHeaderForm.controls.quoteEndDate.dirty)"
+        class="error">
+        <div *ngIf="tenderHeaderForm.controls.quoteEndDate.errors.invalidMsg">
+          {{tenderHeaderForm.controls.quoteEndDate.errors.invalidMsg}}
+        </div>
+      </div>
+    </div>
     <!---->
     <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
     <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>

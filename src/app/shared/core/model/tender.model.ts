@@ -5,7 +5,7 @@ import {Subcontractor} from './subcontractor.model';
 export class Tender {
     id = '';
     clientName = '';
-    name = '';
+    tenderName = '';
     items: TenderItem [] = [];
     quoteStartDate: any ;
     quoteEndDate: any;
