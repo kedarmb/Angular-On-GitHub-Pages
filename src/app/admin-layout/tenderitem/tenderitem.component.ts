@@ -1,11 +1,7 @@
+import { HttpService } from './../../shared/core/service/http.service';
 import { Component, OnInit } from '@angular/core';
-import {TenderitemService} from '../../shared/core/service/tenderitem.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-
-import {TenderSubitem} from '../../shared/core/model/tender-subitem.model';
-import {TenderItem} from '../../shared/core/model/tender-item.model';
 import {Router} from '@angular/router';
-
 @Component({
   selector: 'app-tenderitem',
   templateUrl: './tenderitem.component.html',
@@ -16,11 +12,11 @@ export class TenderitemComponent implements OnInit {
   tenderItems: any = [];
   isCollapsed = false;
   accordion = {};
-  constructor(private tenderItemService:
-                  TenderitemService, private modalService: NgbModal, private router: Router) { }
+  constructor(private httpService:
+                  HttpService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit() {
-    this.tenderItemService.getTendersItems().subscribe((result) => {
+    this.httpService.getTendersItems().subscribe((result) => {
       this.tenderItems = result
     })
   }

@@ -11,7 +11,4 @@ export class Tender {
     quoteEndDate: any;
     openDate: any ;
     closeDate: any ;
-
-
-
 }

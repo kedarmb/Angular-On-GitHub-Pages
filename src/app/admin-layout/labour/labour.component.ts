@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LabourService } from 'app/shared/core/service/labour.service';
+import { HttpService } from 'app/shared/core/service/http.service';
 import { Router } from '@angular/router';
 
 import Labour from 'app/shared/core/model/labour.model';
@@ -14,18 +14,18 @@ export class LabourComponent implements OnInit {
   data:any={};
   labour:Array<any>;
 
-    constructor(private modalService: NgbModal, private labourService: LabourService, private router: Router) {
+    constructor(private modalService: NgbModal, private httpService: HttpService, private router: Router) {
     }
 
     ngOnInit() {
-      this.labourService.getAll().subscribe((data) => {
+      this.httpService.getAllLabour().subscribe((data) => {
           this.labour = data['data'];
           console.log(data['data'])})
     }
 
     delete(labour) {
-        this.labourService.delete(labour).subscribe(() => {
-            this.labourService.getAll().subscribe((labour) => {
+        this.httpService.deleteLabour(labour).subscribe(() => {
+            this.httpService.getAllLabour().subscribe((labour) => {
                 //this.labour = labour;
             })
         })
@@ -40,7 +40,7 @@ export class LabourComponent implements OnInit {
         }
         modalRef.componentInstance.labour = obj || new Labour();
         modalRef.result.then(() => {
-            this.labourService.getAll().subscribe((labour) => {
+            this.httpService.getAllLabour().subscribe((labour) => {
                 console.log('.>>>>>>>>>>>>>>>>>>>>>>>>>', labour);
                 //this.labour = labour;
             });

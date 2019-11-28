@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { OrganizationService } from 'app/shared/core/service/organization.service';
+import { HttpService } from 'app/shared/core/service/http.service';
 import Organization from 'app/shared/core/model/organization.model';
 
 @Component({
@@ -12,10 +12,10 @@ import Organization from 'app/shared/core/model/organization.model';
 export class NotifySubcontractorComponent implements OnInit {
 
   organizations: Organization[];
-  constructor(private activeModal: NgbActiveModal, private organizationService: OrganizationService) { }
+  constructor(private activeModal: NgbActiveModal, private httpService: HttpService) { }
 
   ngOnInit() {
-   /* this.organizationService.getAll().subscribe((organizations) => {
+   /* this.httpService.getAll().subscribe((organizations) => {
       this.organizations = organizations;
     })*/
   }

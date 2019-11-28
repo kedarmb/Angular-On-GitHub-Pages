@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import Equipments from 'app/shared/core/model/equipments.model';
-import { EquipmentsService } from 'app/shared/core/service/equipments.service';
+import { HttpService } from 'app/shared/core/service/http.service';
 
 @Component({
   selector: 'app-equipments-modal',
@@ -13,7 +13,7 @@ export class EquipmentsModalComponent implements OnInit {
   @Input('equipments')
   equipments: Equipments;
   placement = 'bottom';
-  constructor(public activeModal: NgbActiveModal, private equipmentsService: EquipmentsService) {}
+  constructor(public activeModal: NgbActiveModal, private httpService: HttpService) {}
 
   ngOnInit() {
   }
@@ -23,11 +23,11 @@ export class EquipmentsModalComponent implements OnInit {
   }
      save(equipments) {
     if (equipments.id) {
-      this.equipmentsService.update(102, equipments).subscribe(() => {
+      this.httpService.updateEquipment(102, equipments).subscribe(() => {
         this.activeModal.close('closed');
       })
     } else {
-      this.equipmentsService.create(equipments).subscribe(() => {
+      this.httpService.createEquipment(equipments).subscribe(() => {
         this.activeModal.close('closed');
       })
     }

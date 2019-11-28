@@ -1,6 +1,6 @@
+import { HttpService } from './../../shared/core/service/http.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EquipmentsService } from 'app/shared/core/service/equipments.service';
 import { Router } from '@angular/router';
 import { EquipmentsModalComponent } from '../../shared/components/equipments-modal/equipments-modal.component';
 import Equipments from 'app/shared/core/model/equipments.model';
@@ -15,17 +15,17 @@ export class EquipmentsComponent implements OnInit {
   equipments: Array<any>;
 
     ngOnInit() {
-        this.equipmentsService.getAll().subscribe((data) => {
+        this.httpService.getAllEquipment().subscribe((data) => {
             this.equipments = data['data'];
         })
     }
 
-    constructor(private modalService: NgbModal, private equipmentsService: EquipmentsService, private router: Router) {
+    constructor(private modalService: NgbModal, private httpService: HttpService, private router: Router) {
     }
 
     delete(equipments) {
-        this.equipmentsService.delete(equipments).subscribe(() => {
-            this.equipmentsService.getAll().subscribe((equipments) => {
+        this.httpService.deleteEquipment(equipments).subscribe(() => {
+            this.httpService.getAllEquipment().subscribe((equipments) => {
                 //this.equipments = equipments;
             })
         })
@@ -39,7 +39,7 @@ export class EquipmentsComponent implements OnInit {
         }
         modalRef.componentInstance.equipments = obj || new Equipments();
         modalRef.result.then(() => {
-            this.equipmentsService.getAll().subscribe((equipments) => {
+            this.httpService.getAllEquipment().subscribe((equipments) => {
                 console.log('.>>>>>>>>>>>>>>>>>>>>>>>>>', equipments);
                 //this.equipments = equipments;
             });

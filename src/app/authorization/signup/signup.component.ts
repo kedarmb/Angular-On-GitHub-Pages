@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { SignupFormGroup } from './signup.validator';
-import { SignupFormControl } from './signup.validator';
 import { TooltipPosition } from '@angular/material/tooltip';
-import { from } from 'rxjs';
-
-import { SignupService } from '../../shared/core/service/signup.service'
 import Signup from 'app/shared/core/model/signup.model';
 import { Router } from '@angular/router';
+import { HttpService } from 'app/shared/core/service/http.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -20,7 +17,7 @@ export class SignupComponent implements OnInit {
   positionOptions: TooltipPosition[] = ['below'];
   position = new FormControl(this.positionOptions[0]);
   signup: Signup = new Signup();
-  constructor(private fb: FormBuilder, private serv: SignupService, private route: Router) { }
+  constructor(private fb: FormBuilder, private httpService: HttpService, private route: Router) { }
   ngOnInit() {
 
   }
@@ -33,7 +30,7 @@ export class SignupComponent implements OnInit {
 
     console.log(this.signup)
 
-    this.serv.signup(this.signup).subscribe(data => {
+    this.httpService.signup(this.signup).subscribe(data => {
 
       this.data = data
       console.log(data);

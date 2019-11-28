@@ -1,4 +1,4 @@
-export class OrganizationModal{
-id:string;
-name:string
+export class OrganizationModal {
+    id: string;
+    name: string;
 }
