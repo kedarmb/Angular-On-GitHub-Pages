@@ -72,9 +72,5 @@ export class OrganizationModalComponent implements OnInit {
         error => {
           console.log(error);
         }
-      );
-      // this.httpService.create(organization).subscribe(() => {
-      //   this.activeModal.close('closed');
-      // })
-  }
+      )};
 }
