@@ -1,34 +1,52 @@
-<div class="modal-body">
-  <form #userForm="ngForm" novalidate role="form">
-      <div class="form-group">
-          <label for="name"> Name</label>
-          <span class="text-danger">*</span>
-          <input type="text" #name="ngModel" required class="form-control" [class.is-invalid]="name.invalid && name.touched" id="name" name="name" [(ngModel)]="equipments.name" placeholder="Enter Name">
-          <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
-      </div>
-
-      <div class="form-group">
-        <label for="rate">Rate</label>
-        <span class="text-danger">*</span>
-        <input type="text" required #rate="ngModel" [class.is-invalid]="rate.invalid && rate.touched" class="form-control" id="rate" name="rate" [(ngModel)]="equipments.rate" placeholder="Enter Rate">
-        <small class="text-danger" [class.d-none]="rate.valid || rate.untouched">Rate is required</small>
+<div class="main-content">
+    <div class="modal-body">
+        <div class="card">
+           <div class="card-header card-header-danger">
+               <small  style="color: white;">Add Equipments</small>
+           </div>
+            <div class="card-body">
+                <form [formGroup]="equipmentsForm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Name</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="name" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Rate</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="rate" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Description</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="description" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Type</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="type" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+                    <button mat-raised-button type="button" (click)="save(equipments)"
+                            class="btn btn-danger pull-right">Save</button>
+                </form>
+                <br><br><br>
+                <div class="pull-right">
+                    <span class="text-danger">*</span><small>Required Fields</small>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="equipmentsDesc">Description</label>
-        <span class="text-danger">*</span>
-        <input type="text" class="form-control" required [class.is-invalid]="equipmentsDesc.invalid && equipmentsDesc.touched" #equipmentsDesc="ngModel" id="equipmentsDesc" placeholder="Equipments Description" #equipmentsDesc="ngModel" name="equipmentsDesc" [(ngModel)]="equipments.description" placeholder="Enter Description">
-        <small class="text-danger" [class.d-none]="equipmentsDesc.valid || equipmentsDesc.untouched">Equipments Description is required</small>
-    </div>
-
-    <div class="form-group">
-        <label for="type">type</label>
-        <span class="text-danger">*</span>
-        <input type="text" class="form-control" required [class.is-invalid]="type.invalid && type.touched" #type="ngModel" id="type" placeholder="Equipments Description" #type="ngModel" name="type" [(ngModel)]="equipments.type" placeholder="Enter Description">
-        <small class="text-danger" [class.d-none]="type.valid || type.untouched">Equipments Description is required</small>
-    </div>
-
-      <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-      <button mat-raised-button type="button" [disabled]="userForm.form.invalid" (click)="save(equipments)" class="btn btn-danger pull-right">Save</button>
-  </form>
 </div>
