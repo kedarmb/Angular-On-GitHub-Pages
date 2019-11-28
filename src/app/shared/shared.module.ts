@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LabourModalComponent } from './components/labour-modal/labour-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     OrganizationModalComponent,
     EquipmentsModalComponent,
     UserModalComponent,
-    NotifySubcontractorComponent
+    NotifySubcontractorComponent,
+    LabourModalComponent
   ],
   exports: [
     TenderModalComponent,
@@ -61,6 +63,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     OrganizationModalComponent,
     EquipmentsModalComponent,
     UserModalComponent,
+    LabourModalComponent,
     NotifySubcontractorComponent
   ]
 })

@@ -16,9 +16,9 @@ import { HelperService } from 'app/shared/core/service/helper.service';
 import { regex, errorMsg } from 'app/shared/core/constant';
 
 @Component({
-  selector: 'app-organization-modal',
-  templateUrl: './organization-modal.component.html',
-  styleUrls: ['./organization-modal.component.scss']
+  selector: "app-organization-modal",
+  templateUrl: "./organization-modal.component.html",
+  styleUrls: ["./organization-modal.component.scss"]
 })
 export class OrganizationModalComponent implements OnInit {
   organizationForm: FormGroup;
@@ -58,7 +58,7 @@ export class OrganizationModalComponent implements OnInit {
   }
 
   close() {
-    this.activeModal.close('closed');
+    this.activeModal.close("closed");
   }
   save() {
     console.log(this.organizationForm.value);

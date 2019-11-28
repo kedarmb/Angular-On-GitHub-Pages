@@ -14,6 +14,14 @@ export class TenderComponent implements OnInit {
 
 
   tenders: any;
+
+  constructor(private modalService: NgbModal,
+    private tenderService: TenderService,
+    private router: Router) {
+
+  }
+
+
   ngOnInit() {
     this.tenderService.getAll().subscribe((result) => {
       this.tenders = result;
@@ -27,11 +35,7 @@ export class TenderComponent implements OnInit {
       })
     })
   }
-  constructor(private modalService: NgbModal,
-    private tenderService: TenderService,
-    private router: Router) {
 
-  }
 
   open(item?) {
     const modalRef = this.modalService.open(TenderModalComponent, { centered: true });
@@ -39,8 +43,8 @@ export class TenderComponent implements OnInit {
       this.tenderService.getAll().subscribe((tenders) => {
         this.tenders = tenders;
       })
-    }).catch(err =>{
-      console.log('modal cancelled ',err);
+    }).catch(err => {
+      console.log('modal cancelled ', err);
     })
     modalRef.componentInstance.tender = JSON.parse(JSON.stringify(item || new Tender()));
   }

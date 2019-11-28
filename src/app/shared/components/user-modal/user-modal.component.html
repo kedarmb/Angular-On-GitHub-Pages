@@ -1,159 +1,107 @@
-<div class="modal-body">
-    <!-- <form role="form">
-
-
-        <div class="form-group">
-            <label for="name"> Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder=" Name">
-        </div>
-
-        <div class="form-group">
-            <label for="tenderName">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Email" name="email">
-        </div>
-
-        <div class="form-group">
-            <label for="description">    Password</label>
-            <input type="email" class="form-control" id="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="description">      Mobile</label>
-            <input type="number" class="form-control" id="mobile" name="mobile" placeholder="Mobile">
-        </div> -->
-
-
-    <!-- <div class="form-group">
-            <label>Open Date</label>
-            <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" name="openDate" ngbDatepicker #d1="ngbDatepicker" [placement]="placement" (focus)="d1.toggle()">
-
+<!-- <div class="modal-body">
+     <div class="main-content">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h6>Add User</h6>
+                </div>
+                <div class="card-body">
+                <form [formGroup]="userForm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Name</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="name" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                        <mat-label>Email</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="email" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                        <mat-label>Password</mat-label><span class="text-danger">*</span>
+                        <mat-form-field class="example-full-width">
+                                <input formControlName="password" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Phone Number</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="phoneNumber" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+                    <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
+                </form><br><br><br>
+                <div class="pull-right">
+                    <span class="text-danger">*</span>Required Fields
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <label>Closed date</label>
-            <input class="form-control" placeholder="yyyy-mm-dd" name="closeDate" ngbDatepicker #d2="ngbDatepicker" [placement]="placement" (focus)="d2.toggle()">
-
-        </div>
-
-        <div class="form-group">
-            <label>Quote Start Date</label>
-            <input class="form-control" placeholder="yyyy-mm-dd" name="quoteStartDate" ngbDatepicker #d3="ngbDatepicker" [placement]="placement" (focus)="d3.toggle()">
-        </div>
-
-        <div class="form-group">
-            <label>Quote End Date</label>
-
-            <input class="form-control" placeholder="yyyy-mm-dd" name="quoteEndDate" ngbDatepicker #d4="ngbDatepicker" [placement]="placement" (focus)="d4.toggle()">
-        </div> -->
-    <!-- <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
-    </form> -->
-
-
-    <!-- <form role="form" [formGroup]="userForm" novalidate (ngSubmit)="save(userForm)">
-        <div class="form-group">
-            <label for="name">User's Name</label>
-            <input type="text" class="form-control" formControlName="name" placeholder="Username">
-            <ul class="text-danger list-unstyled"
-                *ngIf="(formSubmitted || userForm.controls['name'].dirty) && userForm.controls['name'].invalid">
-                <li *ngFor="let error of userForm.controls['name'].getValidationMessages()">
-                    {{error}}
-                </li>
-            </ul>
-        </div>
-
-
-
-        <div class="form-group">
-            <label for="email">User's Email</label>
-            <input type="text" class="form-control" formControlName="email" placeholder="Enter Email">
-            <ul class="text-danger list-unstyled"
-                *ngIf="(formSubmitted || userForm.controls['email'].dirty) && userForm.controls['email'].invalid">
-                <li *ngFor="let error of userForm.controls['email'].getValidationMessages()">
-                    {{error}}
-                </li>
-            </ul>
-        </div>
-
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" formControlName="password" placeholder="Password">
-            <ul class="text-danger list-unstyled"
-                *ngIf="(formSubmitted || userForm.controls['password'].dirty) && userForm.controls['password'].invalid">
-                <li *ngFor="let error of userForm.controls['password'].getValidationMessages()">
-                    {{error}}
-                </li>
-            </ul>
-        </div>
-
-        <div class="form-group">
-            <label for="moilenum">Mobile Num</label>
-            <input type="number" class="form-control" formControlName="moilenum" placeholder="Mobile number">
-            <ul class="text-danger list-unstyled"
-                *ngIf="(formSubmitted || userForm.controls['moilenum'].dirty) && userForm.controls['moilenum'].invalid">
-                <li *ngFor="let error of userForm.controls['moilenum'].getValidationMessages()">
-                    {{error}}
-                </li>
-            </ul>
-        </div>
-
-
-
-
-        
-        <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-        <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
-    </form> -->
-
-
-
-
-
- <div class="main-content">
+    </div>
+</div> -->
+<div class="main-content">
+    <div class="modal-body">
         <div class="card">
             <div class="card-header card-header-danger">
-                <h6>Add User</h6>
+                <small style="color: white;">Add User</small>
             </div>
             <div class="card-body">
-            <form [formGroup]="userForm">
-                <div class="row">
-                    <div class="col-md-12">
-                        <mat-label>Name</mat-label><span class="text-danger">*</span>
-                        <mat-form-field class="example-full-width">
-                            <input formControlName="name" matInput type="text">
-                        </mat-form-field>
+                <form [formGroup]="userForm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Name</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="name" matInput type="text">
+                            </mat-form-field>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                   <div class="col-md-12">
-                       <mat-label>Email</mat-label><span class="text-danger">*</span>
-                        <mat-form-field class="example-full-width">
-                            <input formControlName="email" matInput type="text">
-                        </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Email</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="email" matInput type="text">
+                            </mat-form-field>
+                            <div *ngIf="!userForm.controls.email.valid && (userForm.controls.email.dirty || userForm.controls.email.touched)" class="error">
+                                <div class="text-danger" *ngIf="userForm.controls.email.errors.invalidMsg">
+                                    {{userForm.controls.email.errors.invalidMsg}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                       <mat-label>Password</mat-label><span class="text-danger">*</span>
-                       <mat-form-field class="example-full-width">
-                            <input formControlName="password" matInput type="text">
-                        </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Password</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="password" matInput type="password">
+                            </mat-form-field>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <mat-label>Phone Number</mat-label><span class="text-danger">*</span>
-                        <mat-form-field class="example-full-width">
-                            <input formControlName="phoneNumber" matInput type="text">
-                        </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-label>Phone Number</mat-label><span class="text-danger">*</span>
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="phoneNumber" matInput type="text">
+                            </mat-form-field>
+                        </div>
                     </div>
+                    <button mat-raised-button type="button" (click)="close()"
+                        class="btn btn-danger pull-right">Cancel</button>
+                    <button mat-raised-button type="button" (click)="save()"
+                        class="btn btn-danger pull-right">Save</button>
+                </form>
+                <br><br><br>
+                <div class="pull-right">
+                    <span class="text-danger">*</span><small>Required Fields</small>
                 </div>
-                <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Save</button>
-            </form><br><br><br>
-            <div class="pull-right">
-                <span class="text-danger">*</span>Required Fields
             </div>
         </div>
     </div>

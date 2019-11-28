@@ -4,6 +4,7 @@ import { HttpService } from 'app/shared/core/service/http.service';
 import { Router } from '@angular/router';
 
 import Labour from 'app/shared/core/model/labour.model';
+import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-modal.component';
 
 @Component({
   selector: 'app-labour',
@@ -29,11 +30,12 @@ export class LabourComponent implements OnInit {
                 //this.labour = labour;
             })
         })
+
     }
 
 
     open(item?) {
-        const modalRef = this.modalService.open('', {centered: true});
+        const modalRef = this.modalService.open(LabourModalComponent, {centered: true});
         const obj = {};
         for (const i in item) {
             obj[i] = item[i];

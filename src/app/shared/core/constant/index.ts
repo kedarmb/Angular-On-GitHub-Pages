@@ -9,8 +9,8 @@ export const regex = {
          organizationName: ''
        };
 export const errorMsg = {
-         email: 'Email address not valid',
+         email: 'Email address is not valid',
          nameErr: 'Name must be at least 5 chars, must not exceed 30 chars & must not start or end with special chars',
          orgName: 'Organization Name',
-         nameMessage:  'Should not contain numbers'
+         nameMessage:  'this field Should not contain numbers'
        };
