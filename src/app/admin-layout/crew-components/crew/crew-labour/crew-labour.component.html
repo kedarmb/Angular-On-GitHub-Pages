@@ -1,0 +1,53 @@
+<div class="card-body">
+  <button mat-raised-button (click)="openAddLabourModal()"> Add Labour </button>
+  <div class="table-responsive">
+    <table id="mainTable" class="table table-hover">
+      <thead class="">
+        <th>
+          Name
+        </th>
+        <th>
+          Rate
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Type
+        </th>
+        <th>
+          Actions
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ii of labour  ">
+
+          <td>
+            {{ii.name}}
+          </td>
+          <td>
+            {{ii.description}}
+          </td>
+          <td>
+            {{ii.rate}}
+          </td>
+          <td>
+            {{ii.type}}
+          </td>
+          <td class="td-actions">
+            <button mat-raised-button type="button" matTooltip="Edit Task" (click)="open(labour)"
+              [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+              <i class="material-icons">edit</i>
+            </button>
+            <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(labour)"
+              [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+              <i class="material-icons">close</i>
+            </button>
+
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

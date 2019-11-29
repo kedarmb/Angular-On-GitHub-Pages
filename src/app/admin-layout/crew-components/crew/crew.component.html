@@ -1,0 +1,75 @@
+<div class="main-content">
+    <mat-tab-group>
+        <mat-tab>
+            <div>
+                <button mat-raised-button routerLink="/create-crew"> Add Crew </button>
+            </div>
+            <ng-template mat-tab-label>Crew</ng-template>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="mainTable" class="table table-hover">
+
+                        <thead class="">
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+
+                            <th>
+                                Equipment
+                            </th>
+                            <th>
+                                Labour
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let crew of crews;let index=index;">
+
+                                <td>
+                                    {{crew.name}}
+                                </td>
+                                <td>
+                                    {{crew.description}}
+                                </td>
+                                <td>
+                                    {{getLabour(crew)}}
+                                </td>
+                                <td>
+                                    {{getEquipment(crew)}}
+                                </td>
+
+                                <td class="td-actions">
+                                    <button mat-raised-button type="button" matTooltip="Edit Task" (click)="edit(crew)"
+                                        [matTooltipPosition]="'above'"
+                                        class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                    <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(crew)"
+                                        [matTooltipPosition]="'above'"
+                                        class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab>
+           
+            <ng-template mat-tab-label>Equipments</ng-template>
+            <app-crew-equipment></app-crew-equipment>
+        </mat-tab>
+        <mat-tab>
+            
+            <ng-template mat-tab-label>Labour</ng-template>
+            <app-crew-labour></app-crew-labour>
+        </mat-tab>
+    </mat-tab-group>
+</div>

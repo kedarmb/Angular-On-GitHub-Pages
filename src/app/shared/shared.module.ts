@@ -40,10 +40,8 @@ import { LabourModalComponent } from './components/labour-modal/labour-modal.com
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     LayoutModule,
     RouterModule,
     FormsModule,

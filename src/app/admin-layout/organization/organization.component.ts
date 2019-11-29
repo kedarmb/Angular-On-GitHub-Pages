@@ -12,45 +12,41 @@ import { HttpService } from '../../shared/core/service/http.service';
 })
 export class OrganizationComponent implements OnInit {
     organizations: any;
-
-
-    constructor(private modalService: NgbModal, private httpService: HttpService, private router: Router) {
-    }
+    constructor(private modalService: NgbModal, private httpService: HttpService, private router: Router) {}
     ngOnInit() {
+        this.getOrganization()
+    }
+    getOrganization() {
         this.httpService.getAllOrganization()
             .subscribe((response: any) => {
-                console.log(response);
                 if (response.status === 200) {
+                    console.log(response.body);
                     this.organizations = response.body;
                 }
             }, error => {
                 console.log(error);
-            });
-    }
-
+            })
+        }
 
     delete(organization) {
         this.httpService.deleteOrganization(organization).subscribe(() => {
             this.httpService.getAllOrganization()
-            .subscribe((organizations) => {
-                this.organizations = organizations;
-            })
+                .subscribe((organizations) => {
+                    this.organizations = organizations;
+                })
         })
     }
 
-    open(item?) {
+    open() {
         const modalRef = this.modalService.open(OrganizationModalComponent, { centered: true });
-        const obj = {};
+        // const obj = {};
         // tslint:disable-next-line: forin
-        for (const i in item) {
-            obj[i] = item[i];
-        }
-        modalRef.componentInstance.organization = obj || new Organization();
+        // for (const i in item) {
+        //     obj[i] = item[i];
+        // }
+        // modalRef.componentInstance.organization = obj || new Organization();
         modalRef.result.then(() => {
-            this.httpService.getAllOrganization().subscribe((organizations) => {
-                console.log('.>>>>>>>>>>>>>>>>>>>>>>>>>', organizations);
-                this.organizations = organizations;
-            });
+        this.getOrganization();
         })
 
     }
