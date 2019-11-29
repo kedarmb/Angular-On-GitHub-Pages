@@ -39,10 +39,7 @@ export class EquipmentsComponent implements OnInit {
         }
         modalRef.componentInstance.equipments = obj || new Equipments();
         modalRef.result.then(() => {
-            this.httpService.getAllEquipment().subscribe((equipments) => {
-                console.log('.>>>>>>>>>>>>>>>>>>>>>>>>>', equipments);
-                //this.equipments = equipments;
-            });
+            
         })
     }
 
