@@ -15,9 +15,11 @@ export class HelperService {
 
    getLabourData(data) {
     this.labourData = data;
+    console.log(data)
   }
   getEquipmentData(data) {
     this.equipmentData = data;
+    console.log(data)
   }
 
   customPatternValid(patternParam: any): ValidatorFn {

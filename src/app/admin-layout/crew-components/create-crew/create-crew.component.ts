@@ -1,3 +1,4 @@
+import { FormControl, FormArray, Validators } from '@angular/forms';
 // import { Equipments } from 'app/shared/core/model/equipments.model';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -13,11 +14,14 @@ import { CrewService } from '../../../shared/core/service/crew.service';
   styleUrls: ['./create-crew.component.scss']
 })
 export class CreateCrewComponent implements OnInit {
-  createCrewform: FormGroup;
-  formSubmitted = false;
-  labours: CrewItem[];
-  equipments: CrewItem[];
+  laboursData; // holds data from labours get api
+  equipmentsData; // holds data from equipment get api
   crew: Crew;
+  createCrewForm: FormGroup; // form variable
+  newCrewData = {
+    equipment: [],
+    labour: []
+  }
   constructor(private crewItemService: CrewItemService,
     private activateRoute: ActivatedRoute,
     private router: Router,
@@ -31,64 +35,93 @@ export class CreateCrewComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.form = this.formBuilder.group({
-    //   equipment: this.formBuilder.array([this.createEquipments])
-    // });
-  }
-  createEquipments(): FormGroup {
-    return this.formBuilder.group({
-      id: '',
+    this.laboursData = this.hs.labourData
+    this.equipmentsData = this.hs.equipmentData
+    this.createCrewForm = this.formBuilder.group({
+      crewname: ['', [Validators.required]],
+      crewdescription: ['', [Validators.required]],
+      equipment: this.formBuilder.array([this.createfields()]),
+      labour: this.formBuilder.array([this.createfields()]),
     });
-  }
 
-  isLabourChecked(labour) {
-    const ifExists = this.crew.labours.find((crew) => {
-      if (crew.id === labour.id) {
-        return true;
-      } else {
-        return false;
-      }
+    const j = this.laboursData.map((ev) => {
+      return Object.assign({ _id: ev._id, name: ev.name })
     })
-    if (ifExists) {
-      return true;
-    } else {
-      return false;
-    }
-
-  }
-
-  isEquipmentChecked(equipment) {
-
-    const ifExists = this.crew.equipments.find((item) => {
-      if (item.id === equipment.id) {
-        return true;
-      } else {
-        return false;
-      }
+    this.newCrewData.labour.push(j);
+    const k = this.equipmentsData.map((ev) => {
+      return Object.assign({ _id: ev._id, name: ev.name })
     })
+    this.newCrewData.equipment.push(k);
 
-    if (ifExists) {
-      return true;
-    } else {
-      return false;
-    }
+    // this.addCheckboxes()
+    this.createFamousForArray()
+
+  }
+  createfields(): FormGroup {
+    return this.formBuilder.group({
+      _id: [],
+      name: []
+    })
   }
 
-    // clickLabour(event, crewItem) {
-    //   if (event.target.checked) {
-    //     this.crew.labours.push(JSON.parse(JSON.stringify(crewItem)));
-    //   } else {
-    //     this.crew.labours = this.crew.labours.filter((labour) => {
-    //       if (labour.id === crewItem.id) {
-    //         return false;
-    //       } else {
-    //         return true;
-    //       }
-    //     })
-    //   }
+  createFamousForArray() {
+    const fg = this.laboursData.map(item => this.formBuilder.group(item));
+    const fa = this.formBuilder.array(fg);
+    this.createCrewForm.setControl('equipment', fa);
+    const fh = this.equipmentsData.map(item => this.formBuilder.group(item));
+    const fb = this.formBuilder.array(fh);
+    this.createCrewForm.setControl('labour', fb);
+
+    console.log(this.createCrewForm.controls);
+  }
+  // isLabourChecked(labour) {
+  //   const ifExists = this.crew.labours.find((crew) => {
+  //     if (crew.id === labour.id) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   })
+  //   if (ifExists) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+
+  // }
+
+  // isEquipmentChecked(equipment) {
+
+  //   const ifExists = this.crew.equipments.find((item) => {
+  //     if (item.id === equipment.id) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   })
+
+  //   if (ifExists) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  // clickLabour(event, crewItem) {
+  //   if (event.target.checked) {
+  //     this.crew.labours.push(JSON.parse(JSON.stringify(crewItem)));
+  //   } else {
+  //     this.crew.labours = this.crew.labours.filter((labour) => {
+  //       if (labour.id === crewItem.id) {
+  //         return false;
+  //       } else {
+  //         return true;
+  //       }
+  //     })
+  //   }
 
 
-    // }
+  // }
 
   // clickEquipment(event, crewItem) {
   //   if (event.target.checked) {

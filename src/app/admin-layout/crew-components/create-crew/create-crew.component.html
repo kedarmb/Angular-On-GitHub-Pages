@@ -1,19 +1,18 @@
 <div class="main-content">
     <div class="card">
-        <div class="card-header card-header-danger">
+        <!-- <div class="card-header card-header-danger">
             <h4 class="card-title"> CREW</h4>
-        </div>
+        </div> -->
         <div class="card-body">
-            <form [formGroup]="createCrewForm" novalidate role="form">
+            <form [formGroup]="createCrewForm">
                 <div class="row">
                     <div class="col-4">
                         <mat-form-field>
-                            <input matInput formControlName="crewname" placeholder="Crew name" name="crewname"
-                                [(ngModel)]="crew.name" type="text">
+                            <input matInput formControlName="crewname" placeholder="Crew name" name="crewname" type="text">
                         </mat-form-field>
                         <ul class="text-danger list-unstyled"
-                            *ngIf="(formSubmitted || form.controls['crewname'].dirty) && form.controls['crewname'].invalid">
-                            <li *ngFor="let error of form.controls['crewname'].getValidationMessages()">
+                            *ngIf="(createCrewForm.controls.crewname.dirty) && createCrewForm.controls.crewname.invalid">
+                            <li *ngFor="let error of createCrewForm.controls.crewname.getValidationMessages()">
                                 {{error}}
                             </li>
                         </ul>
@@ -21,38 +20,45 @@
                     <div class="col-4">
                         <mat-form-field>
                             <textarea matInput formControlName="crewdescription" placeholder="Enter Description"
-                                name="crewdescription" [(ngModel)]="crew.description"></textarea>
+                            name="crewdescription"></textarea>
                         </mat-form-field>
                         <ul class="text-danger list-unstyled"
-                            *ngIf="(formSubmitted || form.controls['crewdescription'].dirty) && form.controls['crewdescription'].invalid">
-                            <li *ngFor="let error of form.controls['crewdescription'].getValidationMessages()">
+                            *ngIf="(createCrewForm.controls.crewdescription.dirty) && createCrewForm.controls.crew.description.invalid">
+                            <li *ngFor="let error of createCrewForm.controls.crew.description.getValidationMessages()">
                                 {{error}}
                             </li>
                         </ul>
                     </div>
                     <div class="hr">
-                        <span>Equipment</span>
+                        <span>labour</span>
                     </div>
-                    <div class="hr">
-                        <span>Labour</span>
+
+                    <div formArrayName="labour">
+                        <label *ngFor="let order of createCrewForm.get('labour').controls; let i = index">
+                            <div [formGroupName]="i">
+
+                                <input type="checkbox" [formControlName]="i">
+                                <!-- {{ordersData[i]}} -->
+                            </div>
+                        </label>
                     </div>
-                    <div class="ToppingsSelector" formArrayName="toppings">
-                        <div class="ToppingsSelector__item" *ngFor="let topping of toppingsArray.controls"
-                            [formGroup]="topping">
-                            <mat-list>
-                                <mat-list-item *ngFor="let item of labour">
-                                    {{item}}
-                                </mat-list-item>
-                            </mat-list>
-                            <mat-checkbox [formControl]="topping.get('selected')">
-                                {{topping.get('name').value}}
-                            </mat-checkbox>
+                </div>
+                <div class="hr">
+                    <span>equipment</span>
+                </div>
+                <div formArrayName="equipment">
+                    <label *ngFor="let order of createCrewForm.get('equipment').controls; let i = index">
+                        <div [formGroupName]="i">
+                            <input type="checkbox" [formControlName]="i">
+                            <!-- {{ordersData[i]}} -->
                         </div>
-                    </div>
+                    </label>
+
+                    <!-- </form> -->
 
                 </div>
 
-                <button mat-raised-button type="submit" [disabled]="formSubmitted && form.invalid"
+                <button mat-raised-button type="submit" [disabled]="form.invalid"
                     class="btn btn-danger pull-right">
                     Save
                 </button>
