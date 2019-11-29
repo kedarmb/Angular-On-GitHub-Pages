@@ -1,0 +1,63 @@
+<div class="main-content">
+    <div class="card">
+        <div class="card-header card-header-danger">
+            <h4 class="card-title"> CREW</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="createCrewForm" novalidate role="form">
+                <div class="row">
+                    <div class="col-4">
+                        <mat-form-field>
+                            <input matInput formControlName="crewname" placeholder="Crew name" name="crewname"
+                                [(ngModel)]="crew.name" type="text">
+                        </mat-form-field>
+                        <ul class="text-danger list-unstyled"
+                            *ngIf="(formSubmitted || form.controls['crewname'].dirty) && form.controls['crewname'].invalid">
+                            <li *ngFor="let error of form.controls['crewname'].getValidationMessages()">
+                                {{error}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field>
+                            <textarea matInput formControlName="crewdescription" placeholder="Enter Description"
+                                name="crewdescription" [(ngModel)]="crew.description"></textarea>
+                        </mat-form-field>
+                        <ul class="text-danger list-unstyled"
+                            *ngIf="(formSubmitted || form.controls['crewdescription'].dirty) && form.controls['crewdescription'].invalid">
+                            <li *ngFor="let error of form.controls['crewdescription'].getValidationMessages()">
+                                {{error}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="hr">
+                        <span>Equipment</span>
+                    </div>
+                    <div class="hr">
+                        <span>Labour</span>
+                    </div>
+                    <div class="ToppingsSelector" formArrayName="toppings">
+                        <div class="ToppingsSelector__item" *ngFor="let topping of toppingsArray.controls"
+                            [formGroup]="topping">
+                            <mat-list>
+                                <mat-list-item *ngFor="let item of labour">
+                                    {{item}}
+                                </mat-list-item>
+                            </mat-list>
+                            <mat-checkbox [formControl]="topping.get('selected')">
+                                {{topping.get('name').value}}
+                            </mat-checkbox>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button mat-raised-button type="submit" [disabled]="formSubmitted && form.invalid"
+                    class="btn btn-danger pull-right">
+                    Save
+                </button>
+                <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel
+                </button>
+            </form>
+        </div>
+    </div>
