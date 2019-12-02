@@ -4,29 +4,31 @@ pipeline {
                 CHROME_BIN = '/bin/google-chrome'
         }
         
-        stage('Checkout SCM branch devBuild'){
+        stages {
+             stage('Checkout SCM branch devBuild'){
                 steps{
                         git branch: 'devBuild', credentialsId: 'fa2bcd20-6f2a-411c-a0fe-1f48a759c366', url: 'https://github.com/thinkperfect/SmartBid-Frontend.git' 
                 }
                 
         }
         
-        stage('Install node modules'){
+              stage('Install node modules'){
                 steps{
                         sh "npm install"
                         sh "npm audit fix"
                 }    
         }
         
-        stage('Build'){
+               stage('Build'){
                 steps{
                         sh "npm run-script build"
                 }
         }
         
-        stage('Unit Test'){
+              stage('Unit Test'){
                 steps{
                         sh "ng run-script test"
                 }
         }
+     }
 }
