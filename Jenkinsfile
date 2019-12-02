@@ -10,4 +10,7 @@ node {
         stage('Build'){
             sh "npm build"
         }
+        stage('Test'){
+            sh "npm test"
+        }
 }
