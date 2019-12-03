@@ -1,39 +1,108 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
-@font-face {
-    font-family: 'feather';
-    src: url('/assets/fonts/feather-webfont.eot');
-    /* IE9 Compat Modes */
-    src: url('/assets/fonts/feather-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('./assets/fonts/feather-webfont.ttf') format('truetype'), /* Safari, Android, iOS */
-    url('./assets/fonts/feather-webfont.svg') format('svg');
-    /* Legacy iOS */
-}
-
-body,
-html {
-    display: block;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    position: relative;
-    height: 100%;
-    font-family: feather !important;
-    font-size: 20px;
-}
-
-.sidebar .nav p {
-    margin: 0;
-    line-height: 30px;
-    font-size: 18px;
-}
-
-.main-content {
-    margin-top: 0;
-}
-
-.ngb-dp-month {
-    background: darkgray;
-}
+                                                                                                                        /* You can add global styles to this file, and also import other style files */
+                                                                                                                        
+                                                                                                                        @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
+                                                                                                                        @import '~@fullcalendar/core/main.css';
+                                                                                                                        @import '~@fullcalendar/daygrid/main.css';
+                                                                                                                        body,
+                                                                                                                        html {
+                                                                                                                            display: block;
+                                                                                                                            padding: 0;
+                                                                                                                            margin: 0;
+                                                                                                                            width: 100%;
+                                                                                                                            position: relative;
+                                                                                                                            height: 100%;
+                                                                                                                            font-family: 'Lato', sans-serif !important;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        body,
+                                                                                                                        html,
+                                                                                                                        tr,
+                                                                                                                        td {
+                                                                                                                            font-size: 14px;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        html .sidebar .nav p {
+                                                                                                                            margin: 0;
+                                                                                                                            line-height: 1.8;
+                                                                                                                            font-size: 16px;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .table thead th {
+                                                                                                                            font-size: 16px;
+                                                                                                                            font-weight: 600;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .ngb-dp-month {
+                                                                                                                            background: darkgray;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .main-panel .main-content {
+                                                                                                                            margin-left: -15px;
+                                                                                                                            margin-top: 0;
+                                                                                                                            padding: 20px 0px;
+                                                                                                                            min-height: calc(100vh - 123px);
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar {
+                                                                                                                            width: 220px;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar li {
+                                                                                                                            width: 220px;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        footer p {
+                                                                                                                            margin: 0;
+                                                                                                                            font-size: 14px !important;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .card-header {
+                                                                                                                            padding: 0;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar .nav li:first-child>a {
+                                                                                                                            color: red;
+                                                                                                                            margin: 0 15px;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar .nav li:nth-child(2)>a {
+                                                                                                                            color: red;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar .nav li:first-child.active>a,
+                                                                                                                        .sidebar .nav li:nth-child(2).active>a {
+                                                                                                                            color: #fff;
+                                                                                                                            background: darkgrey;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar .nav li:first-child.active>a i,
+                                                                                                                        .sidebar .nav li:nth-child(2).active>a i {
+                                                                                                                            color: #fff;
+                                                                                                                            background: darkgrey;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar .nav li:first-child>a i {
+                                                                                                                            color: red;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar .nav li:nth-child(2)>a i {
+                                                                                                                            color: red;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .sidebar .sidebar-wrapper {
+                                                                                                                            width: 220px;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .nav-tabs .nav-item .nav-link {
+                                                                                                                            padding: 10px 15px;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        .card-plain .card-header:not(.card-avatar) {
+                                                                                                                            margin-top: 20px;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        app-footer {
+                                                                                                                            width: calc(100% - 276px);
+                                                                                                                            position: fixed;
+                                                                                                                            bottom: 0;
+                                                                                                                        }

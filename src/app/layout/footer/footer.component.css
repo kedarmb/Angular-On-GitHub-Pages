@@ -1,10 +1,12 @@
-footer {
-    /*  */
-    background-color: #f4f4f4;
+/* footer {
     background: darkgray;
-    font-family: "Microsoft JhengHei !important";
-    font-family: 'Duru Sans', sans-serif;
     padding: 6px 15px;
+} */
+
+footer {
+    background: darkgray;
+    /* width: calc(100% - 276px);
+    position: fixed; */
 }
 
 .ft-tab {
@@ -14,6 +16,7 @@ footer {
 footer p {
     text-align: center;
     padding: 10px 10px;
+    font-size: 14px;
 }
 
 @media only screen and (max-width: 768px) {
