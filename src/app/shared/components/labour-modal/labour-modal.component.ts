@@ -34,7 +34,7 @@ export class LabourModalComponent implements OnInit {
     })
   }
 
-  save(labours) {
+  save() {
     console.log(this.labourForm.value);
     this.httpService.createLabour(this.labourForm.value).subscribe(
       (response: any) => {

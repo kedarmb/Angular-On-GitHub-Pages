@@ -47,7 +47,7 @@ export class EquipmentsModalComponent implements OnInit {
   close() {
     this.activeModal.close('closed');
   }
-  save(equipments) {
+  save() {
     console.log(this.equipmentsForm.value);
     this.httpService.createEquipment(this.equipmentsForm.value).subscribe((response: any) => {
       console.log(response);

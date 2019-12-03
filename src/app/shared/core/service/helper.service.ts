@@ -7,14 +7,14 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class HelperService {
-  labourData: any;
+  // labourData: any;
   equipmentData: any;
-// labourData = new BehaviorSubject<any>('');
+  labourData = new BehaviorSubject<any>('');
 
   constructor(private httpService: HttpService) {}
 
    getLabourData(data) {
-    this.labourData = data;
+    this.labourData.next(data);
     console.log(data)
   }
   getEquipmentData(data) {

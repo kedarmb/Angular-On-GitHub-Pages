@@ -28,6 +28,13 @@ export class CreateCrewComponent implements OnInit {
     private crewService: CrewService,
     private hs: HelperService,
     private formBuilder: FormBuilder) {
+     this.hs.labourData.subscribe((response) => {
+       this.laboursData = response;
+       this.equipmentsData = this.hs.equipmentData;
+       this.initCrewForm();
+    }, error => {
+      console.log(error);
+    })
     this.activateRoute.params.subscribe((params) => {
       this.crew = JSON.parse(JSON.stringify(this.crewService.getCrewById(params['id']) || new Crew()));
     })
@@ -35,15 +42,6 @@ export class CreateCrewComponent implements OnInit {
 
 
   ngOnInit() {
-    this.laboursData = this.hs.labourData
-    this.equipmentsData = this.hs.equipmentData
-    this.createCrewForm = this.formBuilder.group({
-      crewname: ['', [Validators.required]],
-      crewdescription: ['', [Validators.required]],
-      equipment: this.formBuilder.array([this.createfields()]),
-      labour: this.formBuilder.array([this.createfields()]),
-    });
-
     const j = this.laboursData.map((ev) => {
       return Object.assign({ _id: ev._id, name: ev.name })
     })
@@ -56,6 +54,14 @@ export class CreateCrewComponent implements OnInit {
     // this.addCheckboxes()
     this.createFamousForArray()
 
+  }
+  initCrewForm() {
+    this.createCrewForm = this.formBuilder.group({
+      crewname: ['', [Validators.required]],
+      crewdescription: ['', [Validators.required]],
+      equipment: this.formBuilder.array([this.createfields()]),
+      labour: this.formBuilder.array([this.createfields()]),
+    });
   }
   createfields(): FormGroup {
     return this.formBuilder.group({
@@ -71,7 +77,6 @@ export class CreateCrewComponent implements OnInit {
     const fh = this.equipmentsData.map(item => this.formBuilder.group(item));
     const fb = this.formBuilder.array(fh);
     this.createCrewForm.setControl('labour', fb);
-
     console.log(this.createCrewForm.controls);
   }
   // isLabourChecked(labour) {
@@ -143,13 +148,13 @@ export class CreateCrewComponent implements OnInit {
     this.router.navigateByUrl('/crew');
   }
   save() {
-    if (this.crew.id) {
-      this.crewService.update(this.crew);
-    } else {
-      this.crewService.add(this.crew);
-    }
+    // if (this.crew.id) {
+    //   this.crewService.update(this.crew);
+    // } else {
+    //   this.crewService.add(this.crew);
+    // }
 
-    this.router.navigateByUrl('/crew');
+    // this.router.navigateByUrl('/crew');
   }
 
 

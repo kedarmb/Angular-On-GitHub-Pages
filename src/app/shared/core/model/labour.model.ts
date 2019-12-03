@@ -5,3 +5,4 @@ export default class Labour {
     rate: string;
     type: string;
 }
+

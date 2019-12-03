@@ -3,31 +3,31 @@
         <!-- <div class="card-header card-header-danger">
             <h4 class="card-title"> CREW</h4>
         </div> -->
-        <div class="card-body">
-            <form [formGroup]="createCrewForm">
+        <div  class="card-body">
+            <form *ngIf="createCrewForm" [formGroup]="createCrewForm">
                 <div class="row">
                     <div class="col-4">
                         <mat-form-field>
                             <input matInput formControlName="crewname" placeholder="Crew name" name="crewname" type="text">
                         </mat-form-field>
-                        <ul class="text-danger list-unstyled"
+                        <!-- <ul class="text-danger list-unstyled"
                             *ngIf="(createCrewForm.controls.crewname.dirty) && createCrewForm.controls.crewname.invalid">
                             <li *ngFor="let error of createCrewForm.controls.crewname.getValidationMessages()">
                                 {{error}}
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                     <div class="col-4">
                         <mat-form-field>
                             <textarea matInput formControlName="crewdescription" placeholder="Enter Description"
                             name="crewdescription"></textarea>
                         </mat-form-field>
-                        <ul class="text-danger list-unstyled"
+                        <!-- <ul class="text-danger list-unstyled"
                             *ngIf="(createCrewForm.controls.crewdescription.dirty) && createCrewForm.controls.crew.description.invalid">
                             <li *ngFor="let error of createCrewForm.controls.crew.description.getValidationMessages()">
                                 {{error}}
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                     <div class="hr">
                         <span>labour</span>
@@ -38,7 +38,7 @@
                             <div [formGroupName]="i">
 
                                 <input type="checkbox" [formControlName]="i">
-                                <!-- {{ordersData[i]}} -->
+                                {{i}}
                             </div>
                         </label>
                     </div>
@@ -50,7 +50,7 @@
                     <label *ngFor="let order of createCrewForm.get('equipment').controls; let i = index">
                         <div [formGroupName]="i">
                             <input type="checkbox" [formControlName]="i">
-                            <!-- {{ordersData[i]}} -->
+                            {{i}}
                         </div>
                     </label>
 
@@ -58,7 +58,7 @@
 
                 </div>
 
-                <button mat-raised-button type="submit" [disabled]="form.invalid"
+                <button mat-raised-button type="submit" [disabled]="createCrewForm.invalid"
                     class="btn btn-danger pull-right">
                     Save
                 </button>
