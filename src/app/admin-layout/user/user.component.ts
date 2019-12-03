@@ -17,11 +17,11 @@ export class UserComponent implements OnInit {
   public employee: any = [];
   tender: any;
   constructor(private httpService: HttpService, private modalService: NgbModal,
-    //private tenderService: TenderService,
+    // private tenderService: TenderService,
     private router: Router) {
 
   }
-  // user={    
+  // user={
   //   Name: 'Alish',
   //   Email:" agarg@thinfect.com",
   //   Password:1234,
@@ -37,11 +37,11 @@ export class UserComponent implements OnInit {
 
 
   }
-  del(id): any {
-    return this.httpService.delUser(id).subscribe(data => {
-    this.data = data;
-      console.log(data);
-    });
+  del(): any {
+    // return this.httpService.delUser(id).subscribe(data => {
+    // this.data = data;
+    //   console.log(data);
+    // });
 
 
   }

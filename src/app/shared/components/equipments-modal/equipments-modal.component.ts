@@ -13,8 +13,6 @@ import { HttpService } from 'app/shared/core/service/http.service';
 })
 export class EquipmentsModalComponent implements OnInit {
   equipmentsForm: FormGroup;
-  @Input('equipments')
-  equipments: Equipments;
   placement = 'bottom';
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
@@ -40,8 +38,7 @@ export class EquipmentsModalComponent implements OnInit {
         ]
       ],
       description: ['', [Validators.required]],
-      type: ['', [Validators.required]],
-      actions: ['', [Validators.required]],
+      type: ['', [Validators.required]]
     });
   }
   public subForm() {
@@ -50,9 +47,8 @@ export class EquipmentsModalComponent implements OnInit {
   close() {
     this.activeModal.close('closed');
   }
-  save(equipments) {
+  save() {
     console.log(this.equipmentsForm.value);
-    
     this.httpService.createEquipment(this.equipmentsForm.value).subscribe((response: any) => {
       console.log(response);
         if (response.status === 200) {

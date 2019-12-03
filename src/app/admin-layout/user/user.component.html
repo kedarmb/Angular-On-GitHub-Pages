@@ -50,13 +50,13 @@
                                         </th>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let i of data">
+                                        <tr>
 
-                                            <td>{{i.userId}}</td>
-                                            <td>{{i.id}}</td>
-                                            <td>{{i.title}}</td>
-                                            <td>{{i.completed}}</td>
-                                            <td><button type="button" class="btn btn-primary" (click)="del(i.id)">delete</button> </td>
+                                            <td>{{data.userId}}</td>
+                                            <td>{{data.id}}</td>
+                                            <td>{{data.title}}</td>
+                                            <td>{{data.completed}}</td>
+                                            <td><button type="button" class="btn btn-primary" (click)="del()">delete</button> </td>
                                             <!-- <td><button type="button" class="btn btn-primary">delete</td> -->
                                         </tr>
                                         <!-- <tr *ngFor=" let item of tender;let index=index; ">

@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -16,14 +16,14 @@ import { HelperService } from 'app/shared/core/service/helper.service';
 import { regex, errorMsg } from 'app/shared/core/constant';
 
 @Component({
-  selector: "app-organization-modal",
-  templateUrl: "./organization-modal.component.html",
-  styleUrls: ["./organization-modal.component.scss"]
+  selector: 'app-organization-modal',
+  templateUrl: './organization-modal.component.html',
+  styleUrls: ['./organization-modal.component.scss']
 })
 export class OrganizationModalComponent implements OnInit {
   organizationForm: FormGroup;
   formSubmitted = false;
-
+  @Output() valueChange = new EventEmitter();
   // @Input('organization')
   organization: Organization;
   placement = 'bottom';
@@ -58,7 +58,7 @@ export class OrganizationModalComponent implements OnInit {
   }
 
   close() {
-    this.activeModal.close("closed");
+    this.activeModal.close('closed');
   }
   save() {
     console.log(this.organizationForm.value);
@@ -67,14 +67,11 @@ export class OrganizationModalComponent implements OnInit {
           console.log(response);
           if (response.status === 200) {
             this.activeModal.close('closed');
+            this.valueChange.emit(response.status);
           }
         },
         error => {
           console.log(error);
         }
-      );
-      // this.httpService.create(organization).subscribe(() => {
-      //   this.activeModal.close('closed');
-      // })
-  }
+      )};
 }

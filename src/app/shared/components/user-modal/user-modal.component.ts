@@ -38,7 +38,7 @@ export class UserModalComponent implements OnInit {
   close() {
     this.activeModal.close('closed');
   }
-  save(user) {
+  save() {
     this.formSubmitted = true;
     console.log('this.userForm.value', this.userForm.value);
   }
