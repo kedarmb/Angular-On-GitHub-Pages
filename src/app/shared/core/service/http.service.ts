@@ -101,7 +101,11 @@ export class HttpService {
   public updateUser(body) {
     return this.httpClient.put(API_URL + '/user/' + body.id, body, { headers: this.getHeader(), observe: 'response' });
   }
-  public getUser() {
-    return this.httpClient.get( '/user');
+  public getAllUser() {
+    return this.httpClient.get(API_URL + '/user', { headers: this.getHeader(), observe: 'response' });
+  }
+
+  public getByIdUser(id) {
+    return this.httpClient.get(API_URL + '/user/' + id, { headers: this.getHeader(), observe: 'response' });
   }
 }
