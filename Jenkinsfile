@@ -1,13 +1,34 @@
-node {
-        stage('Checkout SCM'){
-                git branch: 'master', credentialsId: 'fa2bcd20-6f2a-411c-a0fe-1f48a759c366', url: 'https://github.com/thinkperfect/SmartBid-Frontend.git'  
+pipeline {
+
+        environment {
+                CHROME_BIN = '/bin/google-chrome'
         }
         
-        stage('Install node modules'){
-            sh "npm install"
+        stages {
+             stage('Checkout SCM branch devBuild'){
+                steps{
+                        git branch: 'devBuild', credentialsId: 'fa2bcd20-6f2a-411c-a0fe-1f48a759c366', url: 'https://github.com/thinkperfect/SmartBid-Frontend.git' 
+                }
+                
         }
         
-        stage('Build'){
-            sh "npm build"
+              stage('Install node modules'){
+                steps{
+                        sh "npm install"
+                        sh "npm audit fix"
+                }    
         }
+        
+               stage('Build'){
+                steps{
+                        sh "npm run-script build"
+                }
+        }
+        
+              stage('Unit Test'){
+                steps{
+                        sh "ng run-script test"
+                }
+        }
+     }
 }
