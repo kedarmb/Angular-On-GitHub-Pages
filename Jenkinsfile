@@ -29,8 +29,15 @@ pipeline {
         
               stage('Unit Test'){
                 steps{
-                        sh "ng run-script test"
+                        sh "npm run test"
                 }
         }
+                
+             stage('e2e Tests') {
+                steps {
+                        sh "npm run e2e"
+            }
+        }
+                
      }
 }
