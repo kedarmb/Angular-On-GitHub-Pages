@@ -1,11 +1,11 @@
 import { CrewEquipmentComponent } from './crew-equipment/crew-equipment.component';
 import { Component, OnInit } from '@angular/core';
-import {NgbMarkDisabled} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model';
+import { NgbMarkDisabled } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model';
 import { CrewModalComponent } from '../../../shared/components/crew-modal/crew-modal.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Crew} from '../../../shared/core/model/crew.model';
-import {CrewService} from '../../../shared/core/service/crew.service';
-import {Router} from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Crew } from '../../../shared/core/model/crew.model';
+import { CrewService } from '../../../shared/core/service/crew.service';
+import { Router } from '@angular/router';
 import { EquipmentsModalComponent } from 'app/shared/components/equipments-modal/equipments-modal.component';
 import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-modal.component';
 
@@ -16,7 +16,7 @@ import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-
 })
 export class CrewComponent implements OnInit {
 
-   crews: Crew[];
+  crews: Crew[];
   httpService: any;
   organizationForm: any;
   activeModal: any;
@@ -24,32 +24,33 @@ export class CrewComponent implements OnInit {
   constructor(private modalService: NgbModal, private crewService: CrewService, private router: Router) { }
 
   ngOnInit() {
-     
+
   }
 
-getCrewData() {
-  this.httpService.labour(this.organizationForm.value).subscribe(
-        (response: any) => {
-          console.log(response);
-          if (response.status === 200) {
-            this.activeModal.close('closed');
-            this.valueChange.emit(response.status);
-          }
-        },
-        error => {
-          console.log(error);
+  getCrewData() {
+    this.httpService.labour(this.organizationForm.value).subscribe(
+      (response: any) => {
+        console.log(response);
+        if (response.status === 200) {
+          this.activeModal.close('closed');
+          this.valueChange.emit(response.status);
         }
-      )};
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  };
 
   open(crew?) {
-    const modalRef = this.modalService.open(CrewModalComponent, {centered: true, size: 'lg'});
+    const modalRef = this.modalService.open(CrewModalComponent, { centered: true, size: 'lg' });
   }
   delete(crew) {
-     this.crewService.delete(crew).subscribe(() => {
-       this.crewService.getAll().subscribe((crews) => {
+    this.crewService.delete(crew).subscribe(() => {
+      this.crewService.getAll().subscribe((crews) => {
         this.crews = crews;
-       });
-     })
+      });
+    })
   }
 
   getLabour(crew) {
@@ -83,7 +84,7 @@ getCrewData() {
   }
 
   edit(crew) {
-        this.router.navigateByUrl('/create-crew/' + crew.id);
+    this.router.navigateByUrl('/create-crew/' + crew.id);
   }
   openAddEquipmentModal() {
     const modalRef = this.modalService.open(EquipmentsModalComponent, { centered: true });

@@ -28,9 +28,13 @@ export class CreateCrewComponent implements OnInit {
     private crewService: CrewService,
     private hs: HelperService,
     private formBuilder: FormBuilder) {
+    this.hs.equipmentData.subscribe((response) => {
+         this.equipmentsData = response
+      }, error => {
+        console.log(error);
+      })
      this.hs.labourData.subscribe((response) => {
        this.laboursData = response;
-       this.equipmentsData = this.hs.equipmentData;
        this.initCrewForm();
     }, error => {
       console.log(error);
@@ -59,8 +63,8 @@ export class CreateCrewComponent implements OnInit {
     this.createCrewForm = this.formBuilder.group({
       crewname: ['', [Validators.required]],
       crewdescription: ['', [Validators.required]],
-      equipment: this.formBuilder.array([this.createfields()]),
-      labour: this.formBuilder.array([this.createfields()]),
+      equipment: this.formBuilder.array([]),
+      labour: this.formBuilder.array([]),
     });
   }
   createfields(): FormGroup {
@@ -71,14 +75,30 @@ export class CreateCrewComponent implements OnInit {
   }
 
   createFamousForArray() {
-    const fg = this.laboursData.map(item => this.formBuilder.group(item));
-    const fa = this.formBuilder.array(fg);
-    this.createCrewForm.setControl('equipment', fa);
-    const fh = this.equipmentsData.map(item => this.formBuilder.group(item));
-    const fb = this.formBuilder.array(fh);
-    this.createCrewForm.setControl('labour', fb);
-    console.log(this.createCrewForm.controls);
+    // const fg = this.newCrewData.labour.map(item => this.formBuilder.group(item));
+    // const fa = this.formBuilder.array(fg);
+    // this.createCrewForm.setControl('equipment', fa);
+    // const fh = this.newCrewData.labour.map(item => this.formBuilder.group(item));
+    // const fb = this.formBuilder.array(fh);
+    // this.createCrewForm.setControl('labour', fb);
+    // console.log(this.createCrewForm.controls);
   }
+
+  updateChkbxArray(chk, isChecked, key) {
+    const chkArray = <FormArray>this.createCrewForm.get(key);
+    if (isChecked) {
+      // sometimes inserts values already included creating double records for the same values -hence the defence
+      if (chkArray.controls.findIndex(x => x.value === chk._id) === -1) {
+        chkArray.push(new FormControl({ _id: chk._id, name: chk.name }));
+        console.log(this.createCrewForm)
+      }
+    } else {
+      const idx = chkArray.controls.findIndex(x => x.value === chk._id);
+      chkArray.removeAt(idx);
+      console.log(this.createCrewForm)
+    }
+  }
+
   // isLabourChecked(labour) {
   //   const ifExists = this.crew.labours.find((crew) => {
   //     if (crew.id === labour.id) {

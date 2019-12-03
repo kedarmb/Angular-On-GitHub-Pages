@@ -32,31 +32,26 @@
                     <div class="hr">
                         <span>labour</span>
                     </div>
+                    <div  *ngIf="laboursData  && laboursData.length > 0">
 
-                    <div formArrayName="labour">
-                        <label *ngFor="let order of createCrewForm.get('labour').controls; let i = index">
-                            <div [formGroupName]="i">
-
-                                <input type="checkbox" [formControlName]="i">
-                                {{i}}
-                            </div>
-                        </label>
-                    </div>
-                </div>
+                        <p *ngFor="let n of laboursData" formArrayName="labour">
+                            <mat-checkbox class="checkbox-margin" (change)="updateChkbxArray(n, $event.checked, 'labour')" value="n._id">
+                                {{n.name}}</mat-checkbox>
+                            </p>
+                        </div>
+                   
                 <div class="hr">
                     <span>equipment</span>
                 </div>
-                <div formArrayName="equipment">
-                    <label *ngFor="let order of createCrewForm.get('equipment').controls; let i = index">
-                        <div [formGroupName]="i">
-                            <input type="checkbox" [formControlName]="i">
-                            {{i}}
-                        </div>
-                    </label>
-
-                    <!-- </form> -->
-
-                </div>
+            <div *ngIf="equipmentsData  && equipmentsData.length > 0">
+            
+                <p *ngFor="let n of equipmentsData" formArrayName="equipment">
+                    <mat-checkbox class="checkbox-margin" (change)="updateChkbxArray(n, $event.checked, 'equipment')"
+                        value="n._id">
+                        {{n.name}}</mat-checkbox>
+                </p>
+            </div>
+                </div> 
 
                 <button mat-raised-button type="submit" [disabled]="createCrewForm.invalid"
                     class="btn btn-danger pull-right">
