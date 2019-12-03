@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class TenderService {
 
+
     array: Tender[] = [
         {
             id: '123',
@@ -1275,14 +1276,40 @@ export class TenderService {
     ];
 
 
+    arr = [{
+        id: '123',
+        items: [{
+            //id: '105',
+            itemNo: 'A-1',
+            specNo: 'PW.2 OPSS 442 SP',
+            //crew: 'Crew1',
+            /* trench: {
+                height: 10,
+                width: 10,
+                length: 10,
+                cubeVolume: 1000,
+                diameter: 20,
+                pipeVolume: 10,
+                totalVolume: 100,
+                remaningVolume: 0
+            }, */
+            //itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
+            //description: 'some description',
+            //unit : 'm', quantity: '2.00',
+
+        }]
+    }
+    ]
+
+
 
     constructor(private http: HttpClient) {
     }
 
-    // Modified by Arup to connect with API : 19-11-2019    
+    // Modified by Arup to connect with API : 19-11-2019
     add(tender: Tender): Observable<any> {
         console.log('add  called', tender);
-        const myId = uuid.v4();
+        // const myId = uuid.v4();
         // tender.id = myId;
         // console.log('id added', tender);
         // this.array.unshift(tender);
@@ -1296,7 +1323,7 @@ export class TenderService {
             formData.append(keys[i], tender[keys[i]]);
         }
         //
-        const createTenderURL = API_URL + '/tender';
+        const createTenderURL = API_URL + '/tenders';
         //
 
         return this.http.post(createTenderURL, formData);
@@ -1305,7 +1332,7 @@ export class TenderService {
 
     update(item) {
         console.log('update called', item);
-        this.array = this.array.map((tender) => {
+        this.arr = this.arr.map((tender) => {
             if (tender.id === item.id) {
                 return item;
             } else {

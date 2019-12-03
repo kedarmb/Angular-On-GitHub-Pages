@@ -105,9 +105,9 @@ export class AnalyticsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.tenderService.getTenderById('123').subscribe((tender) => {
+    /* this.tenderService.getTenderById('123').subscribe((tender) => {
       this.tender = tender;
-    })
+    }) */
   }
 
 

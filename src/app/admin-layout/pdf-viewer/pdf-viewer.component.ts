@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload'
-import {TenderService} from '../../shared/core/service/tender.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Tender} from '../../shared/core/model/tender.model';
-import {TenderItem} from '../../shared/core/model/tender-item.model';
+import { TenderService } from '../../shared/core/service/tender.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Tender } from '../../shared/core/model/tender.model';
+import { TenderItem } from '../../shared/core/model/tender-item.model';
 import * as uuid from 'uuid';
 @Component({
   selector: 'app-pdf-viewer',
@@ -14,13 +14,14 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
 
   pdfSrc: any;
 
-   tender: Tender;
-   tenderItem: TenderItem = new TenderItem();
+  //tender: Tender;
+  tender: any;
+  tenderItem: TenderItem = new TenderItem();
   public previewSrc: string = null;
 
   constructor(private tenderService: TenderService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router, private ngZone: NgZone) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router, private ngZone: NgZone) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -30,7 +31,7 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
     })
   }
   ngAfterViewInit(): void {
-     const containers = document.getElementsByClassName('nav-item');
+    const containers = document.getElementsByClassName('nav-item');
     for (let i = 0; i < containers.length; i++) {
       const container = containers[i];
       container.addEventListener('dragover', this.dragover)
@@ -61,14 +62,14 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
   }
 
   save() {
-      const uid = uuid.v4();
-      this.tenderItem.id = uid;
-      this.tender.items.push(this.tenderItem);
-      this.tenderItem = new TenderItem();
+    const uid = uuid.v4();
+    this.tenderItem.id = uid;
+    this.tender.items.push(this.tenderItem);
+    this.tenderItem = new TenderItem();
   }
 
   cancel() {
-   this.router.navigateByUrl('/tender');
+    this.router.navigateByUrl('/tender');
   }
   dragover(e) {
 
@@ -81,20 +82,20 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
 
   drop = (e) => {
 
-     this.ngZone.run(() => {
-       const id = e.dataTransfer.getData('text')
-       const value = e.dataTransfer.getData('value');
-       this.tenderItem[e.target.name] += value;
-       document.getElementById(id).remove();
-     })
+    this.ngZone.run(() => {
+      const id = e.dataTransfer.getData('text')
+      const value = e.dataTransfer.getData('value');
+      this.tenderItem[e.target.name] += value;
+      document.getElementById(id).remove();
+    })
   }
 
-   dragstart(e) {
+  dragstart(e) {
     e.dataTransfer.setData('text', e.target.id);
     e.dataTransfer.setData('value', e.target.innerHTML);
 
 
-   }
+  }
 
 
 

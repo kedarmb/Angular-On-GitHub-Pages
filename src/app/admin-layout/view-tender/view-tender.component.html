@@ -97,618 +97,707 @@
                                 </thead>
 
                                 <tbody>
-                                    <ng-container *ngFor="let item of tender.items; let index=index;">
 
-                                        <tr>
-                                            <td class="width-2 text-center">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            checked>
-                                                        <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="width-2"><textarea type="text" class="form-control" appAutoAdjust
-                                                    name="itemNo" [(ngModel)]="item.itemNo"></textarea></td>
-                                            <td class="width-10"><textarea type="text" class="form-control"
-                                                    appAutoAdjust name="specNo" [(ngModel)]="item.specNo"></textarea>
-                                            </td>
-                                            <td class="width-20"><textarea type="text" class="form-control"
-                                                    appAutoAdjust name="specNo" [(ngModel)]="item.itemName"></textarea>
-                                            </td>
-                                            <td class="width-25"><textarea type="text" class="form-control"
-                                                    appAutoAdjust name="itemNo"
-                                                    [(ngModel)]="item.description"></textarea></td>
-                                            <td class="width-2"><textarea type="text" class="form-control" appAutoAdjust
-                                                    name="unit" [(ngModel)]="item.unit"></textarea>
-                                            </td>
-                                            <td class="width-5"><input type="number" class="form-control" appAutoAdjust
-                                                    name="quantity" [(ngModel)]="item.quantity"></td>
-                                            <td class="width-5"><input type="text" class="form-control" appAutoAdjust
-                                                    name="unitPrice" [(ngModel)]="item.unitPrice" disabled="true"></td>
+                                    <form *ngIf="masterForm" [formGroup]="masterForm">
 
-                                            <td class="width-5"><textarea type="text" class="form-control" appAutoAdjust
-                                                    name="totalPrice" [(ngModel)]="item.totalPrice"></textarea></td>
+                                        <!-- <ng-container *ngFor="let item of tender.items; let indx = index;"> -->
+                                            
+                                            <div formArrayName="items" 
+                                            *ngFor="let controlItem of masterForm.get('items')['controls']; let ci = index;">
+                                            
+                                            <div [formGroupName]="ci">
+                                                    <tr>
+                                                        <!-- <td class="width-2 text-center">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="" checked>
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </td> -->
+                                                        
+                                                        <!-- <td class="width-2">
+                                                            <textarea type="text" class="form-control" appAutoAdjust
+                                                                name="itemNo" formControlName="itemNo"></textarea>
+                                                        </td>
 
-                                            <td class="td-actions width-15">
-                                                <button mat-raised-button type="button" matTooltip="view"
-                                                    [matTooltipPosition]="'above'" (click)="viewer(item)"
-                                                    class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="remove"
-                                                    [matTooltipPosition]="'above'" (click)="delete(item)"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
-                                                </button>
-                                                <button mat-raised-button type="button" *ngIf="!accordion[index]"
-                                                    matTooltip="expand" (click)="toggleCollapse(index)"
-                                                    [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">expand_more</i>
-                                                </button>
-                                                <button mat-raised-button type="button" *ngIf="accordion[index]"
-                                                    matTooltip="less" (click)="toggleCollapse(index)"
-                                                    [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">expand_less</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr [ngbCollapse]="!accordion[index]">
-                                            <td colspan="9" class="collapse-body">
+                                                        <td class="width-10"><textarea type="text" class="form-control"
+                                                                appAutoAdjust name="specNo"
+                                                                formControlName="specNo"></textarea>
+                                                        </td> -->
 
-                                                <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-                                                    <ngb-panel>
-                                                        <ng-template ngbPanelTitle>
-                                                            <!-- <p><span matBadge="4" matBadgeOverlap="false">Mail</span></p> -->
+                                                       <!--  <td class="width-2"><textarea type="text" class="form-control"
+                                                            appAutoAdjust name="itemNo"
+                                                            [(ngModel)]="item.itemNo"></textarea></td>
 
-                                                            <p> <span matBadge="10" matBadgeOverlap="false"
-                                                                    class="title">SubLine Items</span></p>
-                                                            <!-- <span matBadge="10" matBadgeOverlap="false" class="notification">3</span></p> -->
+                                                    <td class="width-10"><textarea type="text" class="form-control"
+                                                            appAutoAdjust name="specNo"
+                                                            [(ngModel)]="item.specNo"></textarea>
+                                                    </td>
+                                                    <td class="width-20"><textarea type="text" class="form-control"
+                                                            appAutoAdjust name="specNo"
+                                                            [(ngModel)]="item.itemName"></textarea>
+                                                    </td>
+                                                    <td class="width-25"><textarea type="text" class="form-control"
+                                                            appAutoAdjust name="itemNo"
+                                                            [(ngModel)]="item.description"></textarea></td>
+                                                    <td class="width-2"><textarea type="text" class="form-control"
+                                                            appAutoAdjust name="unit"
+                                                            [(ngModel)]="item.unit"></textarea>
+                                                    </td>
+                                                    <td class="width-5"><input type="number" class="form-control"
+                                                            appAutoAdjust name="quantity" [(ngModel)]="item.quantity">
+                                                    </td>
+                                                    <td class="width-5"><input type="text" class="form-control"
+                                                            appAutoAdjust name="unitPrice" [(ngModel)]="item.unitPrice"
+                                                            disabled="true"></td>
 
-                                                        </ng-template>
-                                                        <ng-template ngbPanelContent>
-                                                            <table class="table table-condensed">
-                                                                <thead>
-                                                                    <th>Name</th>
-                                                                    <th>Unit Price</th>
-                                                                    <th>Quantity</th>
-                                                                    <th>Total Price</th>
-                                                                    <th>
-                                                                        <a mat-button class="nav-link" href="#settings"
-                                                                            data-toggle="tab"
-                                                                            (click)="addSubitem(item)">
-                                                                            <i class="material-icons">add</i>
-                                                                        </a>
-                                                                    </th>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr *ngFor="let subitem of item.subitems">
+                                                    <td class="width-5"><textarea type="text" class="form-control"
+                                                            appAutoAdjust name="totalPrice"
+                                                            [(ngModel)]="item.totalPrice"></textarea></td> -->
 
-                                                                        <td>
-                                                                            <textarea type="text" class="form-control"
-                                                                                appAutoAdjust name="itemNo"
-                                                                                [(ngModel)]="subitem.name"></textarea>
-                                                                        </td>
-                                                                        <td>
+                                                        <td class="td-actions width-15">
+                                                            <button mat-raised-button type="button" matTooltip="view"
+                                                                [matTooltipPosition]="'above'" (click)="viewer(item)"
+                                                                class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                                <i class="material-icons">remove_red_eye</i>
+                                                            </button>
+                                                            <button mat-raised-button type="button" matTooltip="remove"
+                                                                [matTooltipPosition]="'above'" (click)="delete(item)"
+                                                                class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+                                                            <button mat-raised-button type="button"
+                                                                *ngIf="!accordion[index]" matTooltip="expand"
+                                                                (click)="toggleCollapse(index)"
+                                                                [matTooltipPosition]="'above'"
+                                                                class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                                <i class="material-icons">expand_more</i>
+                                                            </button>
+                                                            <button mat-raised-button type="button"
+                                                                *ngIf="accordion[index]" matTooltip="less"
+                                                                (click)="toggleCollapse(index)"
+                                                                [matTooltipPosition]="'above'"
+                                                                class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                                <i class="material-icons">expand_less</i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
 
-                                                                            <textarea type="text" class="form-control"
-                                                                                appAutoAdjust name="itemNo"
-                                                                                [(ngModel)]="subitem.unitPrice"></textarea>
-                                                                        </td>
-                                                                        <td>
+                                                    <tr [ngbCollapse]="!accordion[index]">
+                                                        <!-- <td colspan="9" class="collapse-body">
 
-                                                                            <textarea type="text" class="form-control"
-                                                                                appAutoAdjust name="itemNo"
-                                                                                [(ngModel)]="subitem.quantity"></textarea>
-                                                                        </td>
-                                                                        <td>
+                                                        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                                                            <ngb-panel>
+                                                                <ng-template ngbPanelTitle>
 
-                                                                            <textarea type="text" class="form-control"
-                                                                                appAutoAdjust name="itemNo"
-                                                                                [(ngModel)]="subitem.totalPrice"></textarea>
-                                                                        </td>
-                                                                        <td class="td-actions width-10">
 
-                                                                            <button mat-raised-button type="button"
-                                                                                matTooltip="Remove"
-                                                                                [matTooltipPosition]="'above'"
-                                                                                (click)="deleteSubitem(item,index)"
-                                                                                class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                                                <i class="material-icons">close</i>
-                                                                            </button>
-                                                                    </tr>
-                                                                    <!-- <li class="nav-item dropdown">
-                                        <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="material-icons">build</i>
-                                            <span class="notification">5</span>
-                                            <p>
-                                                <span class="d-lg-none d-md-block">Some Actions</span>
-                                            </p>
-                                        </a>
-                                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a>
-                                            <a class="dropdown-item" href="javascript:void(0)">You have 5 new tasks</a>
-                                            <a class="dropdown-item" href="javascript:void(0)">You're now friend with Andrew</a>
-                                            <a class="dropdown-item" href="javascript:void(0)">Another Notification</a>
-                                            <a class="dropdown-item" href="javascript:void(0)">Another One</a>
-                                        </div>
-                                    </li> -->
-                                                                </tbody>
+                                                                    <p> <span matBadge="10" matBadgeOverlap="false"
+                                                                            class="title">SubLine Items</span></p>
 
-                                                            </table>
-                                                        </ng-template>
-                                                    </ngb-panel>
-                                                    <ngb-panel>
-                                                        <ng-template ngbPanelTitle>
-                                                            <!-- <span class="title">Trench Calculation</span> -->
-                                                            <span matBadge="4" matBadgeOverlap="false"
-                                                                class="title">Trench Calculation</span>
 
-                                                        </ng-template>
-                                                        <ng-template ngbPanelContent>
-                                                            <div class="row justify-content-center align-items-center">
-                                                                <div class="col-auto">
-                                                                    <div class="form-group">
-                                                                        <label for="typeahead-focus">Search for
-                                                                            CREW:</label>
-                                                                        <input id="typeahead-focus" type="text"
-                                                                            class="typeahead" [(ngModel)]="item.crew"
-                                                                            (selectItem)="selectedItem($event,item)"
-                                                                            [ngbTypeahead]="searchFunctionFactory(instance)"
-                                                                            (focus)="focus$.next($event.target.value)"
-                                                                            (click)="click$.next($event.target.value)"
-                                                                            #instance="ngbTypeahead" />
-                                                                        <span *ngIf="searching">searching...</span>
-                                                                        <div class="invalid-feedback"
-                                                                            *ngIf="searchFailed">
-                                                                            Sorry, suggestions could not be loaded.
+                                                                </ng-template>
+                                                                <ng-template ngbPanelContent>
+                                                                    <table class="table table-condensed">
+                                                                        <thead>
+                                                                            <th>Name</th>
+                                                                            <th>Unit Price</th>
+                                                                            <th>Quantity</th>
+                                                                            <th>Total Price</th>
+                                                                            <th>
+                                                                                <a mat-button class="nav-link"
+                                                                                    href="#settings" data-toggle="tab"
+                                                                                    (click)="addSubitem(item)">
+                                                                                    <i class="material-icons">add</i>
+                                                                                </a>
+                                                                            </th>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr *ngFor="let subitem of item.subitems">
+
+                                                                                <td>
+                                                                                    <textarea type="text"
+                                                                                        class="form-control"
+                                                                                        appAutoAdjust name="itemNo"
+                                                                                        [(ngModel)]="subitem.name"></textarea>
+                                                                                </td>
+                                                                                <td>
+
+                                                                                    <textarea type="text"
+                                                                                        class="form-control"
+                                                                                        appAutoAdjust name="itemNo"
+                                                                                        [(ngModel)]="subitem.unitPrice"></textarea>
+                                                                                </td>
+                                                                                <td>
+
+                                                                                    <textarea type="text"
+                                                                                        class="form-control"
+                                                                                        appAutoAdjust name="itemNo"
+                                                                                        [(ngModel)]="subitem.quantity"></textarea>
+                                                                                </td>
+                                                                                <td>
+
+                                                                                    <textarea type="text"
+                                                                                        class="form-control"
+                                                                                        appAutoAdjust name="itemNo"
+                                                                                        [(ngModel)]="subitem.totalPrice"></textarea>
+                                                                                </td>
+                                                                                <td class="td-actions width-10">
+
+                                                                                    <button mat-raised-button
+                                                                                        type="button"
+                                                                                        matTooltip="Remove"
+                                                                                        [matTooltipPosition]="'above'"
+                                                                                        (click)="deleteSubitem(item,index)"
+                                                                                        class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                                                        <i
+                                                                                            class="material-icons">close</i>
+                                                                                    </button>
+                                                                            </tr>
+
+                                                                        </tbody>
+
+                                                                    </table>
+                                                                </ng-template>
+                                                            </ngb-panel>
+                                                            <ngb-panel>
+                                                                <ng-template ngbPanelTitle>
+                                                                    <span matBadge="4" matBadgeOverlap="false"
+                                                                        class="title">Trench Calculation</span>
+                                                                </ng-template>
+                                                                <ng-template ngbPanelContent>
+                                                                    <div
+                                                                        class="row justify-content-center align-items-center">
+                                                                        <div class="col-auto">
+                                                                            <div class="form-group">
+                                                                                <label for="typeahead-focus">Search for
+                                                                                    CREW:</label>
+                                                                                <input id="typeahead-focus" type="text"
+                                                                                    class="typeahead"
+                                                                                    [(ngModel)]="item.crew"
+                                                                                    (selectItem)="selectedItem($event,item)"
+                                                                                    [ngbTypeahead]="searchFunctionFactory(instance)"
+                                                                                    (focus)="focus$.next($event.target.value)"
+                                                                                    (click)="click$.next($event.target.value)"
+                                                                                    #instance="ngbTypeahead" />
+                                                                                <span
+                                                                                    *ngIf="searching">searching...</span>
+                                                                                <div class="invalid-feedback"
+                                                                                    *ngIf="searchFailed">
+                                                                                    Sorry, suggestions could not be
+                                                                                    loaded.
+                                                                                </div>
+                                                                            </div>
+
                                                                         </div>
                                                                     </div>
+                                                                    <table class="table table-borderless">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <table
+                                                                                        class="table table-striped table-bordered">
+                                                                                        <caption>BACKFILL</caption>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                LENGTH
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <textarea type="text"
+                                                                                                    class="form-control"
+                                                                                                    (keyup)="calculateTrench()"
+                                                                                                    appAutoAdjust
+                                                                                                    name="itemNo"
+                                                                                                    [(ngModel)]="trench.backfill.length">
+                                                                           </textarea>
+                                                                                        </tr>
 
-                                                                </div>
-                                                            </div>
-                                                            <table class="table table-borderless">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <table
-                                                                                class="table table-striped table-bordered">
-                                                                                <caption>BACKFILL</caption>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        LENGTH
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text"
-                                                                                            class="form-control"
-                                                                                            (keyup)="calculateTrench()"
-                                                                                            appAutoAdjust name="itemNo"
-                                                                                            [(ngModel)]="trench.backfill.length">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                HEIGHT
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <textarea type="text"
+                                                                                                    class="form-control"
+                                                                                                    (keyup)="calculateTrench()"
+                                                                                                    appAutoAdjust
+                                                                                                    name="itemNo"
+                                                                                                    [(ngModel)]="trench.backfill.height">
                                                                            </textarea>
-                                                                                </tr>
+                                                                                            </td>
+                                                                                        </tr>
 
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        HEIGHT
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text"
-                                                                                            class="form-control"
-                                                                                            (keyup)="calculateTrench()"
-                                                                                            appAutoAdjust name="itemNo"
-                                                                                            [(ngModel)]="trench.backfill.height">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                WIDTH
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <textarea type="text"
+                                                                                                    class="form-control"
+                                                                                                    (keyup)="calculateTrench()"
+                                                                                                    appAutoAdjust
+                                                                                                    name="itemNo"
+                                                                                                    [(ngModel)]="trench.backfill.width">
                                                                            </textarea>
-                                                                                    </td>
-                                                                                </tr>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                Volume
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <textarea type="text"
+                                                                                                    class="form-control"
+                                                                                                    (keyup)="calculateTrench()"
+                                                                                                    appAutoAdjust
+                                                                                                    name="itemNo"
+                                                                                                    [(ngModel)]="trench.backfill.boxVolume">
+                                                                           </textarea>
+                                                                                            </td>
+                                                                                        </tr>
 
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        WIDTH
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text"
-                                                                                            class="form-control"
-                                                                                            (keyup)="calculateTrench()"
-                                                                                            appAutoAdjust name="itemNo"
-                                                                                            [(ngModel)]="trench.backfill.width">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                DENSITY
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <textarea type="text"
+                                                                                                    class="form-control"
+                                                                                                    (keyup)="calculateTrench()"
+                                                                                                    appAutoAdjust
+                                                                                                    name="itemNo"
+                                                                                                    [(ngModel)]="trench.backfill.density">
                                                                            </textarea>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Volume
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text"
-                                                                                            class="form-control"
-                                                                                            (keyup)="calculateTrench()"
-                                                                                            appAutoAdjust name="itemNo"
-                                                                                            [(ngModel)]="trench.backfill.boxVolume">
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                WEIGHT
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <textarea type="text"
+                                                                                                    class="form-control"
+                                                                                                    (keyup)="calculateTrench()"
+                                                                                                    appAutoAdjust
+                                                                                                    name="itemNo"
+                                                                                                    [(ngModel)]="trench.backfill.weight">
                                                                            </textarea>
-                                                                                    </td>
-                                                                                </tr>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
 
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        DENSITY
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text"
-                                                                                            class="form-control"
-                                                                                            (keyup)="calculateTrench()"
-                                                                                            appAutoAdjust name="itemNo"
-                                                                                            [(ngModel)]="trench.backfill.density">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <table
+                                                                                        class="table table-striped table-bordered">
+                                                                                        <caption>Beading</caption>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td>Length</td>
+                                                                                                <td>
+                                                                                                    <textarea
+                                                                                                        type="text"
+                                                                                                        class="form-control"
+                                                                                                        (keyup)="calculateTrench()"
+                                                                                                        appAutoAdjust
+                                                                                                        name="itemNo"
+                                                                                                        [(ngModel)]="trench.backfill.length">
                                                                            </textarea>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        WEIGHT
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text"
-                                                                                            class="form-control"
-                                                                                            (keyup)="calculateTrench()"
-                                                                                            appAutoAdjust name="itemNo"
-                                                                                            [(ngModel)]="trench.backfill.weight">
-                                                                           </textarea>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
+                                                                                                </td>
+                                                                                            </tr>
 
-                                                                        </td>
-                                                                        <td>
-                                                                            <table
-                                                                                class="table table-striped table-bordered">
-                                                                                <caption>Beading</caption>
+                                                                                            <tr>
+                                                                                                <td>Height</td>
+                                                                                                <td> <textarea
+                                                                                                        type="text"
+                                                                                                        class="form-control"
+                                                                                                        (keyup)="calculateTrench()"
+                                                                                                        appAutoAdjust
+                                                                                                        name="itemNo"
+                                                                                                        [(ngModel)]="trench.beading.height">
+                                                                           </textarea></td>
+                                                                                            </tr>
+
+                                                                                            <tr>
+                                                                                                <td>Width</td>
+                                                                                                <td> <textarea
+                                                                                                        type="text"
+                                                                                                        class="form-control"
+                                                                                                        (keyup)="calculateTrench()"
+                                                                                                        appAutoAdjust
+                                                                                                        name="itemNo"
+                                                                                                        [(ngModel)]="trench.backfill.width">
+                                                                           </textarea></td>
+                                                                                            </tr>
+
+                                                                                            <tr>
+                                                                                                <td>Box Volume</td>
+                                                                                                <td> <textarea
+                                                                                                        type="text"
+                                                                                                        class="form-control"
+                                                                                                        (keyup)="calculateTrench()"
+                                                                                                        appAutoAdjust
+                                                                                                        name="itemNo"
+                                                                                                        [(ngModel)]="trench.beading.boxVolume">
+                                                                           </textarea></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Diameter</td>
+                                                                                                <td> <textarea
+                                                                                                        type="text"
+                                                                                                        class="form-control"
+                                                                                                        (keyup)="calculateTrench()"
+                                                                                                        appAutoAdjust
+                                                                                                        name="itemNo"
+                                                                                                        [(ngModel)]="trench.beading.diameter">
+                                                                           </textarea></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Pipe Volume</td>
+                                                                                                <td> <textarea
+                                                                                                        type="text"
+                                                                                                        class="form-control"
+                                                                                                        (keyup)="calculateTrench()"
+                                                                                                        appAutoAdjust
+                                                                                                        name="itemNo"
+                                                                                                        [(ngModel)]="trench.beading.pipeVolume">
+                                                                           </textarea></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Density</td>
+                                                                                                <td> <textarea
+                                                                                                        type="text"
+                                                                                                        class="form-control"
+                                                                                                        (keyup)="calculateTrench()"
+                                                                                                        appAutoAdjust
+                                                                                                        name="itemNo"
+                                                                                                        [(ngModel)]="trench.beading.density">
+                                                                           </textarea></td>
+                                                                                            </tr>
+
+                                                                                            <tr>
+                                                                                                <td>Weight</td>
+                                                                                                <td> <textarea
+                                                                                                        type="text"
+                                                                                                        class="form-control"
+                                                                                                        (keyup)="calculateTrench()"
+                                                                                                        appAutoAdjust
+                                                                                                        name="itemNo"
+                                                                                                        [(ngModel)]="trench.beading.weight">
+                                                                           </textarea></td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td class="trench-calculation">
+                                                                                    <div class="section"
+                                                                                        style="text-align:center;">
+
+
+                                                                                        <div class="cube"
+                                                                                            style="margin:auto;">
+                                                                                            <div class="front"
+                                                                                                [ngStyle]="{'width':trench.backfill.length+'px'}">
+                                                                                                <div class="lower"
+                                                                                                    [ngStyle]="{'width':trench.backfill.length+'px'}">
+                                                                                                    <div
+                                                                                                        class="left-dimension">
+                                                                                                        <p
+                                                                                                            class="rotate">
+                                                                                                            100m
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="top-dimension">
+                                                                                                        <p>100m</p>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="image-circle">
+                                                                                                        100
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="upper"
+                                                                                                    [ngStyle]="{'width':trench.backfill.length+'px'}">
+                                                                                                    <div
+                                                                                                        class="left-dimension">
+                                                                                                        <p
+                                                                                                            class="rotate">
+                                                                                                            {{this.trench.backfill.height}}
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="top-dimension">
+                                                                                                        <p>{{this.trench.backfill.length}}
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="back"
+                                                                                                [ngStyle]="{'width':trench.backfill.length+'px'}">
+                                                                                                <div class="upper"
+                                                                                                    [ngStyle]="{'width':trench.backfill.length+'px'}">
+                                                                                                    <div
+                                                                                                        class="left-dimension">
+                                                                                                        <p
+                                                                                                            class="rotate">
+                                                                                                            {{this.trench.backfill.height}}
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="top-dimension">
+                                                                                                        <p>{{this.trench.backfill.length}}
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                                <div class="lower"
+                                                                                                    [ngStyle]="{'width':trench.backfill.length+'px'}">
+                                                                                                    <div
+                                                                                                        class="left-dimension">
+                                                                                                        <p
+                                                                                                            class="rotate">
+                                                                                                            100m
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="top-dimension">
+                                                                                                        <p>100m</p>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="image-circle">
+
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            <div class="top-dimension">
+                                                                                                <p>{{this.trench.backfill.length}}
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="top"
+                                                                                                [ngStyle]="{'width':trench.backfill.length+'px'}">
+                                                                                            </div>
+                                                                                            <div class="bottom"
+                                                                                                [ngStyle]="{'width':trench.backfill.length+'px'}">
+
+                                                                                            </div>
+                                                                                            <div class="left">
+                                                                                                <div class="upper">
+                                                                                                    BACKFILL
+                                                                                                    <div
+                                                                                                        class="left-dimension">
+                                                                                                        <p
+                                                                                                            class="rotate">
+                                                                                                            {{trench.backfill.height}}
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="top-dimension">
+                                                                                                        <p>{{trench.backfill.width}}
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="lower">
+                                                                                                    BEDDING
+                                                                                                    <div
+                                                                                                        class="left-dimension">
+                                                                                                        <p
+                                                                                                            class="rotate">
+                                                                                                            100m
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="top-dimension">
+                                                                                                        <p>100m</p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="right"
+                                                                                                [ngStyle]="{'left':(trench.backfill.length*1)-100+'px'}">
+                                                                                                <div class="upper">
+                                                                                                    <div
+                                                                                                        class="left-dimension">
+                                                                                                        <p
+                                                                                                            class="rotate">
+                                                                                                            {{this.trench.backfill.height}}
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="top-dimension">
+                                                                                                        <p>{{this.trench.backfill.width}}
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="lower">
+                                                                                                    <div
+                                                                                                        class="left-dimension">
+                                                                                                        <p
+                                                                                                            class="rotate">
+                                                                                                            100m
+                                                                                                        </p>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="top-dimension">
+                                                                                                        <p>100m</p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </ng-template>
+                                                            </ngb-panel>
+                                                            <ngb-panel>
+                                                                <ng-template ngbPanelTitle>
+                                                                    <span class="title"
+                                                                        (click)="populateCrew(item)">CREW</span>
+                                                                </ng-template>
+                                                                <ng-template ngbPanelContent>
+                                                                    <div
+                                                                        class="row justify-content-center align-items-center">
+                                                                        <div class="col-auto">
+                                                                            <div class="form-group">
+                                                                                <label for="typeahead-focus">Search for
+                                                                                    CREW:</label>
+                                                                                <input id="typeahead-focus" type="text"
+                                                                                    class="typeahead"
+                                                                                    [(ngModel)]="item.crew"
+                                                                                    (selectItem)="selectedItem($event,item)"
+                                                                                    [ngbTypeahead]="searchFunctionFactory(instance)"
+                                                                                    (focus)="focus$.next($event.target.value)"
+                                                                                    (click)="click$.next($event.target.value)"
+                                                                                    #instance="ngbTypeahead" />
+                                                                                <span
+                                                                                    *ngIf="searching">searching...</span>
+                                                                                <div class="invalid-feedback"
+                                                                                    *ngIf="searchFailed">
+                                                                                    Sorry, suggestions could not be
+                                                                                    loaded.
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-6">
+                                                                            <div class="title">Equipment</div>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <div class="title">Labour</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-6">
+                                                                            <table class="table table-condensed">
+
+                                                                                <thead>
+                                                                                    <th>Name</th>
+                                                                                    <th>Price/Hour</th>
+                                                                                    <th>Hour</th>
+
+                                                                                </thead>
                                                                                 <tbody>
-                                                                                    <tr>
-                                                                                        <td>Length</td>
+                                                                                    <tr
+                                                                                        *ngFor="let equipment of item.equipments">
                                                                                         <td>
                                                                                             <textarea type="text"
                                                                                                 class="form-control"
-                                                                                                (keyup)="calculateTrench()"
                                                                                                 appAutoAdjust
                                                                                                 name="itemNo"
-                                                                                                [(ngModel)]="trench.backfill.length">
-                                                                           </textarea>
+                                                                                                [(ngModel)]="equipment.name"></textarea>
                                                                                         </td>
-                                                                                    </tr>
+                                                                                        <td>
 
-                                                                                    <tr>
-                                                                                        <td>Height</td>
-                                                                                        <td> <textarea type="text"
+                                                                                            <textarea type="text"
                                                                                                 class="form-control"
-                                                                                                (keyup)="calculateTrench()"
                                                                                                 appAutoAdjust
                                                                                                 name="itemNo"
-                                                                                                [(ngModel)]="trench.beading.height">
-                                                                           </textarea></td>
-                                                                                    </tr>
+                                                                                                [(ngModel)]="equipment.price"></textarea>
+                                                                                        </td>
+                                                                                        <td>
 
-                                                                                    <tr>
-                                                                                        <td>Width</td>
-                                                                                        <td> <textarea type="text"
+                                                                                            <textarea type="text"
                                                                                                 class="form-control"
-                                                                                                (keyup)="calculateTrench()"
                                                                                                 appAutoAdjust
                                                                                                 name="itemNo"
-                                                                                                [(ngModel)]="trench.backfill.width">
-                                                                           </textarea></td>
-                                                                                    </tr>
+                                                                                                [(ngModel)]="equipment.hour"></textarea>
+                                                                                        </td>
 
-                                                                                    <tr>
-                                                                                        <td>Box Volume</td>
-                                                                                        <td> <textarea type="text"
-                                                                                                class="form-control"
-                                                                                                (keyup)="calculateTrench()"
-                                                                                                appAutoAdjust
-                                                                                                name="itemNo"
-                                                                                                [(ngModel)]="trench.beading.boxVolume">
-                                                                           </textarea></td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>Diameter</td>
-                                                                                        <td> <textarea type="text"
-                                                                                                class="form-control"
-                                                                                                (keyup)="calculateTrench()"
-                                                                                                appAutoAdjust
-                                                                                                name="itemNo"
-                                                                                                [(ngModel)]="trench.beading.diameter">
-                                                                           </textarea></td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>Pipe Volume</td>
-                                                                                        <td> <textarea type="text"
-                                                                                                class="form-control"
-                                                                                                (keyup)="calculateTrench()"
-                                                                                                appAutoAdjust
-                                                                                                name="itemNo"
-                                                                                                [(ngModel)]="trench.beading.pipeVolume">
-                                                                           </textarea></td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>Density</td>
-                                                                                        <td> <textarea type="text"
-                                                                                                class="form-control"
-                                                                                                (keyup)="calculateTrench()"
-                                                                                                appAutoAdjust
-                                                                                                name="itemNo"
-                                                                                                [(ngModel)]="trench.beading.density">
-                                                                           </textarea></td>
-                                                                                    </tr>
-
-                                                                                    <tr>
-                                                                                        <td>Weight</td>
-                                                                                        <td> <textarea type="text"
-                                                                                                class="form-control"
-                                                                                                (keyup)="calculateTrench()"
-                                                                                                appAutoAdjust
-                                                                                                name="itemNo"
-                                                                                                [(ngModel)]="trench.beading.weight">
-                                                                           </textarea></td>
                                                                                     </tr>
                                                                                 </tbody>
+
                                                                             </table>
-                                                                        </td>
-                                                                        <td class="trench-calculation">
-                                                                            <div class="section"
-                                                                                style="text-align:center;">
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <table class="table table-condensed">
 
-                                                                                <!-- =cube section start= -->
-                                                                                <div class="cube" style="margin:auto;">
-                                                                                    <div class="front"
-                                                                                        [ngStyle]="{'width':trench.backfill.length+'px'}">
-                                                                                        <div class="lower"
-                                                                                            [ngStyle]="{'width':trench.backfill.length+'px'}">
-                                                                                            <div class="left-dimension">
-                                                                                                <p class="rotate">100m
-                                                                                                </p>
-                                                                                            </div>
+                                                                                <thead>
+                                                                                    <th>Name</th>
+                                                                                    <th>Price/Hour</th>
+                                                                                    <th>Hour</th>
 
-                                                                                            <div class="top-dimension">
-                                                                                                <p>100m</p>
-                                                                                            </div>
-                                                                                            <div class="image-circle">
-                                                                                                100
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="upper"
-                                                                                            [ngStyle]="{'width':trench.backfill.length+'px'}">
-                                                                                            <div class="left-dimension">
-                                                                                                <p class="rotate">
-                                                                                                    {{this.trench.backfill.height}}
-                                                                                                </p>
-                                                                                            </div>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr
+                                                                                        *ngFor="let labour of item.labours">
+                                                                                        <td>
+                                                                                            <textarea type="text"
+                                                                                                class="form-control"
+                                                                                                appAutoAdjust
+                                                                                                name="itemNo"
+                                                                                                [(ngModel)]="labour.name"></textarea>
+                                                                                        </td>
+                                                                                        <td>
 
-                                                                                            <div class="top-dimension">
-                                                                                                <p>{{this.trench.backfill.length}}
-                                                                                                </p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="back"
-                                                                                        [ngStyle]="{'width':trench.backfill.length+'px'}">
-                                                                                        <div class="upper"
-                                                                                            [ngStyle]="{'width':trench.backfill.length+'px'}">
-                                                                                            <div class="left-dimension">
-                                                                                                <p class="rotate">
-                                                                                                    {{this.trench.backfill.height}}
-                                                                                                </p>
-                                                                                            </div>
+                                                                                            <textarea type="text"
+                                                                                                class="form-control"
+                                                                                                appAutoAdjust
+                                                                                                name="itemNo"
+                                                                                                [(ngModel)]="labour.price"></textarea>
+                                                                                        </td>
+                                                                                        <td>
 
-                                                                                            <div class="top-dimension">
-                                                                                                <p>{{this.trench.backfill.length}}
-                                                                                                </p>
-                                                                                            </div>
+                                                                                            <textarea type="text"
+                                                                                                class="form-control"
+                                                                                                appAutoAdjust
+                                                                                                name="itemNo"
+                                                                                                [(ngModel)]="labour.hour"></textarea>
+                                                                                        </td>
 
-                                                                                        </div>
-                                                                                        <div class="lower"
-                                                                                            [ngStyle]="{'width':trench.backfill.length+'px'}">
-                                                                                            <div class="left-dimension">
-                                                                                                <p class="rotate">100m
-                                                                                                </p>
-                                                                                            </div>
+                                                                                    </tr>
+                                                                                </tbody>
 
-                                                                                            <div class="top-dimension">
-                                                                                                <p>100m</p>
-                                                                                            </div>
-                                                                                            <div class="image-circle">
-
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <div class="top"
-                                                                                        [ngStyle]="{'width':trench.backfill.length+'px'}">
-                                                                                    </div>
-                                                                                    <div class="bottom"
-                                                                                        [ngStyle]="{'width':trench.backfill.length+'px'}">
-
-                                                                                    </div>
-                                                                                    <div class="left">
-                                                                                        <div class="upper">BACKFILL
-                                                                                            <div class="left-dimension">
-                                                                                                <p class="rotate">
-                                                                                                    {{trench.backfill.height}}
-                                                                                                </p>
-                                                                                            </div>
-
-                                                                                            <div class="top-dimension">
-                                                                                                <p>{{trench.backfill.width}}
-                                                                                                </p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="lower">BEDDING
-                                                                                            <div class="left-dimension">
-                                                                                                <p class="rotate">100m
-                                                                                                </p>
-                                                                                            </div>
-
-                                                                                            <div class="top-dimension">
-                                                                                                <p>100m</p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="right"
-                                                                                        [ngStyle]="{'left':(trench.backfill.length*1)-100+'px'}">
-                                                                                        <div class="upper">
-                                                                                            <div class="left-dimension">
-                                                                                                <p class="rotate">
-                                                                                                    {{this.trench.backfill.height}}
-                                                                                                </p>
-                                                                                            </div>
-
-                                                                                            <div class="top-dimension">
-                                                                                                <p>{{this.trench.backfill.width}}
-                                                                                                </p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="lower">
-                                                                                            <div class="left-dimension">
-                                                                                                <p class="rotate">100m
-                                                                                                </p>
-                                                                                            </div>
-
-                                                                                            <div class="top-dimension">
-                                                                                                <p>100m</p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </ng-template>
-                                                    </ngb-panel>
-                                                    <ngb-panel>
-                                                        <ng-template ngbPanelTitle>
-                                                            <span class="title" (click)="populateCrew(item)">CREW</span>
-                                                        </ng-template>
-                                                        <ng-template ngbPanelContent>
-                                                            <div class="row justify-content-center align-items-center">
-                                                                <div class="col-auto">
-                                                                    <div class="form-group">
-                                                                        <label for="typeahead-focus">Search for
-                                                                            CREW:</label>
-                                                                        <input id="typeahead-focus" type="text"
-                                                                            class="typeahead" [(ngModel)]="item.crew"
-                                                                            (selectItem)="selectedItem($event,item)"
-                                                                            [ngbTypeahead]="searchFunctionFactory(instance)"
-                                                                            (focus)="focus$.next($event.target.value)"
-                                                                            (click)="click$.next($event.target.value)"
-                                                                            #instance="ngbTypeahead" />
-                                                                        <span *ngIf="searching">searching...</span>
-                                                                        <div class="invalid-feedback"
-                                                                            *ngIf="searchFailed">
-                                                                            Sorry, suggestions could not be loaded.
+                                                                            </table>
                                                                         </div>
                                                                     </div>
+                                                                </ng-template>
+                                                            </ngb-panel>
+                                                        </ngb-accordion>
+                                                    </td> -->
+                                                    </tr>
+                                                </div>
+                                            </div>
+                                        <!-- </ng-container> -->
 
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="title">Equipment</div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="title">Labour</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <table class="table table-condensed">
+                                    </form>
 
-                                                                        <thead>
-                                                                            <th>Name</th>
-                                                                            <th>Price/Hour</th>
-                                                                            <th>Hour</th>
-
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr
-                                                                                *ngFor="let equipment of item.equipments">
-                                                                                <td>
-                                                                                    <textarea type="text"
-                                                                                        class="form-control"
-                                                                                        appAutoAdjust name="itemNo"
-                                                                                        [(ngModel)]="equipment.name"></textarea>
-                                                                                </td>
-                                                                                <td>
-
-                                                                                    <textarea type="text"
-                                                                                        class="form-control"
-                                                                                        appAutoAdjust name="itemNo"
-                                                                                        [(ngModel)]="equipment.price"></textarea>
-                                                                                </td>
-                                                                                <td>
-
-                                                                                    <textarea type="text"
-                                                                                        class="form-control"
-                                                                                        appAutoAdjust name="itemNo"
-                                                                                        [(ngModel)]="equipment.hour"></textarea>
-                                                                                </td>
-
-                                                                            </tr>
-                                                                        </tbody>
-
-                                                                    </table>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <table class="table table-condensed">
-
-                                                                        <thead>
-                                                                            <th>Name</th>
-                                                                            <th>Price/Hour</th>
-                                                                            <th>Hour</th>
-
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr *ngFor="let labour of item.labours">
-                                                                                <td>
-                                                                                    <textarea type="text"
-                                                                                        class="form-control"
-                                                                                        appAutoAdjust name="itemNo"
-                                                                                        [(ngModel)]="labour.name"></textarea>
-                                                                                </td>
-                                                                                <td>
-
-                                                                                    <textarea type="text"
-                                                                                        class="form-control"
-                                                                                        appAutoAdjust name="itemNo"
-                                                                                        [(ngModel)]="labour.price"></textarea>
-                                                                                </td>
-                                                                                <td>
-
-                                                                                    <textarea type="text"
-                                                                                        class="form-control"
-                                                                                        appAutoAdjust name="itemNo"
-                                                                                        [(ngModel)]="labour.hour"></textarea>
-                                                                                </td>
-
-                                                                            </tr>
-                                                                        </tbody>
-
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </ng-template>
-                                                    </ngb-panel>
-                                                </ngb-accordion>
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-                                    <tr>
+                                    <!-- <tr>
                                         <td colspan="7" class="text-right">Total</td>
                                         <td colspan="2" class="text-left">5000</td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
 
                             </table>
