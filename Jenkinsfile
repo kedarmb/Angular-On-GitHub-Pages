@@ -1,4 +1,6 @@
 pipeline {
+        
+        agent any
 
         environment {
                 CHROME_BIN = '/bin/google-chrome'
