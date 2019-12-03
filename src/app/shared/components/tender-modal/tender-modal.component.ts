@@ -1,21 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Tender } from 'app/shared/core/model/tender.model';
-// import { TenderService } from 'app/service/tender.service';
-// import { Tender } from '../../model/tender.model';
+
+
 import { TenderService } from '../../core/service/tender.service';
 import { HelperService } from '../../core/service/helper.service';
 
-// import form validator
-/* import { TenderModalFormControl } from './tender-modal-validator'
-import { TenderModalFormGroup } from './tender-modal-validator'; */
-//
+
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { errorMsg, regex } from '../../core/constant/index';
 import * as uuid from '../../../../../node_modules/uuid';
-// '../../../../../node_modules/uuid';
-//
+import { Tender } from 'app/shared/core/model/tender.model';
+
+
 
 
 
@@ -26,13 +23,11 @@ import * as uuid from '../../../../../node_modules/uuid';
 })
 export class TenderModalComponent implements OnInit {
 
-    // @Input('tender')
-
+ 
     tender: Tender;
     placement = 'bottom';
 
-    // tenderForm: TenderModalFormGroup = new TenderModalFormGroup();
-    //
+  
     tenderHeaderForm: FormGroup = this.formBuider.group({
         clientName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30),
         this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameErr })]],
@@ -65,24 +60,9 @@ export class TenderModalComponent implements OnInit {
 
     ngOnInit() {
         console.log('in tender modal ', this.tender);
-        // console.log('in tender modal ', uuid);
+     
         this.convertToNgbDate();
-        //
-
-        /* this.tenderHeaderForm = this.formBuider.group({
-            clientName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30),
-            this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameErr })]],
-            //
-            tenderName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30),
-            this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameErr })]],
-            //
-            openDate: ['', Validators.required],
-            closeDate: ['', Validators.required],
-            quoteStartDate: ['', Validators.required],
-            qoteEndDate: ['', Validators.required],
-            id: uuid.v4()
-
-        }); */
+       
 
         if (this.tender != null || this.tender !== undefined) {
             this.autoPopulateForEdit(this.tender);
@@ -92,21 +72,10 @@ export class TenderModalComponent implements OnInit {
 
     /** Added by Arup: 18 Nov 2019 */
     private autoPopulateForEdit(tender) {
-        /**
-         * With patchValue, you can assign values to specific controls in a FormGroup by 
-         * supplying an object of key/value pairs for just the controls of interest.
-        */
-        /*   this.tenderHeaderForm.patchValue({
-              clientName: tender.clientName,
-              tenderName: tender.name,
-              openDate: tender.openDate,
-              closeDate: tender.closeDate,
-              quoteStartDate: tender.quoteStartDate,
-              quoteEndDate: tender.quoteEndDate
-          }) */
+       
         console.log(tender);
         this.tenderHeaderForm.setValue(tender);
-        // this.tenderHeaderForm.controls.clientName.patchValue(tender.clientName);
+     
     }
 
     dateChanged(control) {

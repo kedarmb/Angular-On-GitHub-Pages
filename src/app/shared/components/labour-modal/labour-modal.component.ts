@@ -1,10 +1,11 @@
-import { HttpService } from './../../core/service/http.service';
+// import { HttpService } from './../../core/service/http.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { regex, errorMsg } from 'app/shared/core/constant';
 import Labour from 'app/shared/core/model/labour.model';
+import { HttpService } from 'app/shared/core/service/http.service';
 
 @Component({
   selector: 'app-labour-modal',

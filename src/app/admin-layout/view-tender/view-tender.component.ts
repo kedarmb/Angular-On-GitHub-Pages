@@ -196,9 +196,12 @@ export class ViewTenderComponent implements OnInit {
 
 
 
-    /* trench(item) {
-         const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
-     }*/
+   /* trench(item) {
+        const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
+    }*/
+    back(){
+        this.router.navigateByUrl('/tender');
+    }
 
     crew(item) {
         const modalRef = this.modalService.open(CrewModalComponent, { centered: true, size: 'lg' });

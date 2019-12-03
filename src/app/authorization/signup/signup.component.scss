@@ -1,10 +1,15 @@
-.main-content{
-  height:100%;
-  position:relative;
+.main-content {
+    height: 100%;
+    position: relative;
 }
-.container-fluid{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
+
+.container-fluid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card {
+    font-size: 14px;
 }
