@@ -29,13 +29,13 @@ pipeline {
         
               stage('Unit Test'){
                 steps{
-                        sh "npm run test"
+                        sh "npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI"
                 }
         }
                 
              stage('e2e Tests') {
                 steps {
-                        sh "npm run e2e"
+                        sh "npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js"
             }
         }
                 
