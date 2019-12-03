@@ -7,6 +7,7 @@ import { regex, errorMsg } from 'app/shared/core/constant';
 import Labour from 'app/shared/core/model/labour.model';
 import { HttpService } from 'app/shared/core/service/http.service';
 
+
 @Component({
   selector: 'app-labour-modal',
   templateUrl: './labour-modal.component.html',
@@ -22,7 +23,7 @@ export class LabourModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private helperService: HelperService,
-    private httpService: HttpService
+    private httpService:HttpService
   ) { }
 
   ngOnInit() {

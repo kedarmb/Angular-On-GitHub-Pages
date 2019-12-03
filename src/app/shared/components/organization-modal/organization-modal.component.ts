@@ -41,9 +41,7 @@ export class OrganizationModalComponent implements OnInit {
   ngOnInit() {
     this.organizationForm = this.fb.group({
       name: ['',
-        [Validators.required, this.helperService.customPatternValid({
-          pattern: regex.organizationName, msg: String(errorMsg.orgName + ' ' + errorMsg.nameMessage)
-        })]],
+        [Validators.required, this.helperService.customPatternValid({ pattern: regex.alphabetOnly, msg: errorMsg.nameMessage })]],
       streetAddress: ['', [Validators.required]],
       city: ['', [Validators.required]],
       province: ['', [Validators.required]],

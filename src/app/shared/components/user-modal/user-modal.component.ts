@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HelperService } from '../../core/service/helper.service';
 import { regex, errorMsg } from '../../core/constant/index';
+import { HttpService } from 'app/shared/core/service/http.service';
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
@@ -12,26 +13,28 @@ export class UserModalComponent implements OnInit {
   formSubmitted = false;
   userForm: FormGroup;
   placement = 'bottom';
+  passwordShown=false;
   constructor(public activeModal: NgbActiveModal,
     private formBuider: FormBuilder,
     private helperService: HelperService,
+    private httpService: HttpService
   ) { }
 
   ngOnInit() {
+    this.createUserForm()
+
+  }
+
+  createUserForm(){
     this.userForm = this.formBuider.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          this.helperService.customPatternValid({
-            pattern: regex.emailReg,
-            msg: String(errorMsg.email)
-          })
-        ]
-      ],
       email: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg, msg: errorMsg.email })]],
-      password: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      fname: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.alphabetOnly, msg: errorMsg.nameMessage })]],
+      lname: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.alphabetOnly, msg: errorMsg.nameMessage })]],
+      password: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.passwordPattern, msg: errorMsg.passwordMessage })]],
+      mobile: ['', [Validators.required, this.helperService.customPatternValid({pattern: regex.phoneNumber, msg: errorMsg.phoneMsg})]],
+      role: ['prime'],
+      status: ['created'],
+      organization: ['5dd512e3b0975e2e70e12d01', [Validators.required, this.helperService.customPatternValid({ msg: errorMsg.requiredField })]]
     });
   }
 
@@ -40,6 +43,21 @@ export class UserModalComponent implements OnInit {
   }
   save() {
     this.formSubmitted = true;
-    console.log('this.userForm.value', this.userForm.value);
+    if(this.userForm.valid)  {
+      if (this.userForm) {
+        this.httpService.createUser(this.userForm.value).subscribe((successData) => {
+          console.log('successData:', successData);
+          this.activeModal.close('');
+        }, (err) => {
+          console.log(err);
+          this.activeModal.close('')
+        })
+      }
+    }
+  }
+  passwordToggle() {
+    if (this.passwordShown) {
+      this.passwordShown = true;
+    }
   }
 }

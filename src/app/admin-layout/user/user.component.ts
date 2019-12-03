@@ -13,71 +13,38 @@ import { User } from '../../user.model';
 export class UserComponent implements OnInit {
   data: any = {};
   user: User = new User();
-
   public employee: any = [];
-  tender: any;
   constructor(private httpService: HttpService, private modalService: NgbModal,
-    // private tenderService: TenderService,
-    private router: Router) {
-
-  }
-  // user={
-  //   Name: 'Alish',
-  //   Email:" agarg@thinfect.com",
-  //   Password:1234,
-  //   Mobile:1234567899
-  // };
-
+    private router: Router) { }
   ngOnInit() {
-    // return this.employee = this.userserv.getemployee();
-    return this.httpService.getUser().subscribe(data => {
-    this.data = data;
-      console.log(data)
-    });
+    this.getUsers();
+  }
 
+  getUsers() {
+    this.httpService.getAllUser()
+      .subscribe((response: any) => {
+        // console.log(response.body);
+        if (response.status === 200) {
+          // console.log(response.body);
+          this.user = response.body;
+        }
+      }, error => {
+        console.log('44:', error);
+      });
 
   }
   del(): any {
     // return this.httpService.delUser(id).subscribe(data => {
-    // this.data = data;
-    //   console.log(data);
+    //   this.data = data;
+    //   // console.log(data);
     // });
-
-
   }
-
-
-  open(item?) {
+  open() {
     const modalRef = this.modalService.open(UserModalComponent, { centered: true });
-    modalRef.result.then((user) => {
-      console.log(user);
-      /* this.userserv.getAll().subscribe((users) => {
-        this.tenders = tenders;
-      }) */
-    }).catch(err => {
-      console.log('modal cancelled ', err);
+    modalRef.result.then((response) => {
+      // console.log(response);
+      // this.user = response;
+      this.getUsers();
     })
-    modalRef.componentInstance.tender = JSON.parse(JSON.stringify(item || new User()));
   }
-
-
-}// End of class
-
-  // ngOnInit() {
-  //   this.tenderService.getAll().subscribe((result) => {
-  //     this.tender = result;
-  //   })
-  // }
-
-  // onDelete(index) {
-  //    this.tender.splice(index, 1);
-  // }
-  // constructor(private modalService: NgbModal, private tenderService: TenderService, private router: Router) {}
-
-
-  // viewTender() {
-  //   this.router.navigateByUrl('view-tender');
-  // }
-
-
-
+}
