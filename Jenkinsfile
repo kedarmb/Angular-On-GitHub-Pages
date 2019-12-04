@@ -41,12 +41,10 @@ pipeline {
                 
      }
      post {
-        always {
-            echo 'I will always say Hello again!'
-            
+        always {  
             emailext attachLog: true, attachmentsPattern: 'generatedFile.txt', body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                 compressLog: true, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
-                to: 'trathod@thinkperfect.io','akbhattacharya@thinkfect.com'
+                to: 'trathod@thinkperfect.io,akbhattacharya@thinkfect.com'
         }
     }
 }
