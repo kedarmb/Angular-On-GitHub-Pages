@@ -11,7 +11,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CrewLabourComponent implements OnInit {
   valueChange: any;
-  labourData: EventEmitter<any>;
   labour
   constructor(private modalService: NgbModal, private httpService: HttpService, private helperService: HelperService) { }
 
@@ -37,9 +36,10 @@ export class CrewLabourComponent implements OnInit {
 
   openAddLabourModal() {
     const modalRef = this.modalService.open(LabourModalComponent, { centered: true });
-    modalRef.componentInstance.labourData().subscribe((response) => {
+    modalRef.componentInstance.labourData.subscribe((response) => {
       console.log(response);
-      this.labour = response;
+      this.labour.push(response);
+
     })
   }
 }

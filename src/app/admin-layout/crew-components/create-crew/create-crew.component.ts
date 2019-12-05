@@ -54,17 +54,15 @@ export class CreateCrewComponent implements OnInit {
       return Object.assign({ _id: ev._id, name: ev.name })
     })
     this.newCrewData.equipment.push(k);
-
     // this.addCheckboxes()
     this.createFamousForArray()
-
   }
   initCrewForm() {
     this.createCrewForm = this.formBuilder.group({
       crewname: ['', [Validators.required]],
       crewdescription: ['', [Validators.required]],
-      equipment: this.formBuilder.array([]),
-      labour: this.formBuilder.array([]),
+      equipment: this.formBuilder.control([]),
+      labour: this.formBuilder.control([]),
     });
   }
   createfields(): FormGroup {

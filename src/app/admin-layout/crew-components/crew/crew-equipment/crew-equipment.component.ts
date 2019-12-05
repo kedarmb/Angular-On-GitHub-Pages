@@ -32,10 +32,10 @@ export class CrewEquipmentComponent implements OnInit {
       }
     )};
   openAddLabourModal() {
-    const modalRef = this.modalService.open(LabourModalComponent, { centered: true });
-    modalRef.componentInstance.labourData().subscribe((response) => {
+    const modalRef = this.modalService.open(EquipmentsModalComponent, { centered: true });
+    modalRef.componentInstance.equipmentData.subscribe((response) => {
       console.log(response);
-      this.equipments = response.data;
+      this.equipments.push(response);
     })
   }
 }

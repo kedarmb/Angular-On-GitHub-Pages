@@ -16,8 +16,6 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { UserComponent } from './user/user.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { MedicalComprehendComponent } from './medical-comprehend/medical-comprehend.component';
-import { EquipmentsComponent } from 'app/admin-layout/equipments/equipments.component';
-import { LabourComponent } from 'app/admin-layout/labour/labour.component';
 import { FullcalenderComponent } from './fullcalender/fullcalender.component';
 import { NgModule } from '@angular/core';
 export const AdminLayoutRoutes: Routes = [
@@ -27,8 +25,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'comprehend', component: MedicalComprehendComponent },
     { path: 'pdf-viewer/:id', component: PdfViewerComponent },
     { path: 'crew', component: CrewComponent },
-    { path: 'equipments', component: EquipmentsComponent },
-    { path: 'labour', component: LabourComponent },
     { path: 'create-crew', component: CreateCrewComponent },
     { path: 'create-crew/:id', component: CreateCrewComponent },
     { path: 'create-tenderitem', component: CreateTenderItemComponent },

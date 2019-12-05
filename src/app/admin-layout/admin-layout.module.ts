@@ -41,8 +41,6 @@ import { UserComponent } from './user/user.component';
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { AutoAdjustDirective } from '../shared/directive/auto-adjust.directive';
 import { CrewComponent } from './crew-components/crew/crew.component';
-import { EquipmentsComponent } from './equipments/equipments.component';
-import { LabourComponent } from './labour/labour.component';
 import { CreateCrewComponent } from './crew-components/create-crew/create-crew.component';
 import { DateConverterPipe } from '../shared/pipe/date-converter.pipe';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
@@ -100,8 +98,6 @@ import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-lab
     CreateTenderItemComponent,
     AutoAdjustDirective,
     CrewComponent,
-    EquipmentsComponent,
-    LabourComponent,
     CreateCrewComponent,
     DateConverterPipe,
 

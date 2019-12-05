@@ -17,8 +17,6 @@ export class LabourModalComponent implements OnInit {
   labourForm: FormGroup;
   @Output() public labourData = new EventEmitter();
 
-  Output
-  labours: Labour
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,

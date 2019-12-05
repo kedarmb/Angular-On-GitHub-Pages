@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import Equipments from 'app/shared/core/model/equipments.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,6 +14,8 @@ import { HttpService } from 'app/shared/core/service/http.service';
 export class EquipmentsModalComponent implements OnInit {
   equipmentsForm: FormGroup;
   placement = 'bottom';
+
+  @Output() public equipmentData = new EventEmitter();
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
               private helperService: HelperService,
@@ -38,7 +40,7 @@ export class EquipmentsModalComponent implements OnInit {
         ]
       ],
       description: ['', [Validators.required]],
-      type: ['', [Validators.required]]
+      type: ['equipment', [Validators.required]]
     });
   }
   public subForm() {
@@ -53,6 +55,7 @@ export class EquipmentsModalComponent implements OnInit {
       console.log(response);
         if (response.status === 200) {
           this.activeModal.close('closed');
+          this.equipmentData.emit(response.body)
         }
       })
     }
