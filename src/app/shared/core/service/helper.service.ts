@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HelperService {
   // labourData: any;
-  equipmentData: any;
+  equipmentData = new BehaviorSubject<any>('');
   labourData = new BehaviorSubject<any>('');
 
   constructor(private httpService: HttpService) {}
@@ -18,7 +18,7 @@ export class HelperService {
     console.log(data)
   }
   getEquipmentData(data) {
-    this.equipmentData = data;
+    this.equipmentData.next(data);
     console.log(data)
   }
 
