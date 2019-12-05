@@ -1315,18 +1315,18 @@ export class TenderService {
         // this.array.unshift(tender);
         // return of([]);
         //
-        const keys = Object.keys(tender);
+        /* const keys = Object.keys(tender);
         //
         const formData = new FormData();
 
         for (let i = 0; i < keys.length; i++) {
             formData.append(keys[i], tender[keys[i]]);
-        }
+        } */
         //
-        const createTenderURL = API_URL + '/tenders';
+        const createTenderURL = API_URL + '/tender';
         //
 
-        return this.http.post(createTenderURL, formData);
+        return this.http.post(createTenderURL, tender);
 
     }
 
@@ -1356,8 +1356,10 @@ export class TenderService {
         return of([]);
     }
 
-    getAll() {
-        return of(this.array);
+    getAll(): Observable<any> {
+        // return of(this.array);
+        const createTenderURL = API_URL + '/tenders';
+        return this.http.get(createTenderURL);
     }
 
     getTenderById(id) {

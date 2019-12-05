@@ -94,7 +94,6 @@ export class ViewTenderComponent implements OnInit {
     getMasterForm() {
         // console.log()
         this.masterForm = this.formBuilder.group({
-            // items: this.formBuilder.array([list.items.map(lineItem => this.generateLineItemsControls(lineItem))])
             items: this.formBuilder.array([])
             // this.formBuilder.array([this.generateLineItemsControls()])
         })

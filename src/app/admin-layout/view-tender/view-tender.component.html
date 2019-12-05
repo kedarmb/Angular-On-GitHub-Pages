@@ -7,7 +7,8 @@
                 <div class="card">
 
                     <div class="card-header card-header-tabs card-header-danger">
-                        <button mat-raised-button type="submit" (click)="back()" class="btn tender-back pull-right"><i _ngcontent-xma-c12="" class="material-icons"> keyboard_backspace </i></button>
+                        <button mat-raised-button type="submit" (click)="back()" class="btn tender-back pull-right"><i
+                                _ngcontent-xma-c12="" class="material-icons"> keyboard_backspace </i></button>
                         <div class="nav-tabs-navigation">
                             <div class="nav-tabs-wrapper col-md-6">
 
@@ -24,25 +25,29 @@
                             <div class="nav-tabs-wrapper col-md-6 fr">
                                 <ul class="nav nav-tabs" data-tabs="tabs">
                                     <li class="nav-item ">
-                                        <a mat-button class="nav-link" matTooltip="Action item" href="#settings" data-toggle="tab" (click)="addSection()">
+                                        <a mat-button class="nav-link" matTooltip="Action item" href="#settings"
+                                            data-toggle="tab" (click)="addSection()">
                                             <i class="material-icons">add</i>
 
                                         </a>
                                     </li>
                                     <li class="nav-item fr">
-                                        <a mat-button class="nav-link" matTooltip="Subline items" href="#settings" data-toggle="tab" (click)="add()">
+                                        <a mat-button class="nav-link" matTooltip="Subline items" href="#settings"
+                                            data-toggle="tab" (click)="add()">
                                             <i class="material-icons">add</i>
 
                                         </a>
                                     </li>
                                     <li class="nav-item fr">
-                                        <a mat-button class="nav-link" matTooltip="Notifications" href="#settings" data-toggle="tab" (click)="notify()">
+                                        <a mat-button class="nav-link" matTooltip="Notifications" href="#settings"
+                                            data-toggle="tab" (click)="notify()">
                                             <i class="material-icons">notifications</i>
 
                                         </a>
                                     </li>
                                     <li class="nav-item fr ">
-                                        <a mat-button class="nav-link" matTooltip="Save" href="#settings" data-toggle="tab" (click)="save()">
+                                        <a mat-button class="nav-link" matTooltip="Save" href="#settings"
+                                            data-toggle="tab" (click)="save()">
                                             <i class="material-icons">save</i>
 
                                         </a>
@@ -100,9 +105,32 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" *ngFor="let section of sections;">
-                                <caption class="section"><textarea type="text" class="form-control watermain" appAutoAdjust name="itemNo" [(ngModel)]="section.name"></textarea>
+                                <caption class="section"><textarea type="text" class="form-control watermain"
+                                        appAutoAdjust name="itemNo" [(ngModel)]="section.name"></textarea>
                                 </caption>
-                                <thead class=" text-primary">
+
+
+                            </table>
+
+                            <form [formGroup]="masterForm" *ngIf="masterForm">
+                                
+                                <div formArrayName="items">
+                                    <div *ngFor="let item of masterForm.get('items').controls; let index = index"
+                                        [formGroupName]="index">
+                                        <input formControlName="itemNo">
+                                        <input formControlName="specNo">
+                                        <input formControlName="itemName">
+                                        <input formControlName="description">
+                                        <input formControlName="unit">
+                                        <input formControlName="unitPrice">
+                                    </div>
+                                </div>
+
+                            </form>
+
+                            <!-- [formGroupName]="index" -->
+
+                            <!-- <thead class=" text-primary">
                                     <th>
                                         Select
                                     </th>
@@ -132,19 +160,17 @@
                                         Actions
                                     </th>
 
-                                </thead>
+                                </thead> -->
 
-                                <tbody>
+                            <!--  <tbody> -->
 
-                                    <form *ngIf="masterForm" [formGroup]="masterForm">
-
-                                        <!-- <ng-container *ngFor="let item of tender.items; let indx = index;"> -->
+                            <!--<form *ngIf="masterForm" [formGroup]="masterForm">                                      
 
                                         <div formArrayName="items" *ngFor="let controlItem of masterForm.get('items')['controls']; let ci = index;">
 
                                             <div [formGroupName]="ci">
                                                 <tr>
-                                                    <!-- <td class="width-2 text-center">
+                                                     <td class="width-2 text-center">
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
                                                                     <input class="form-check-input" type="checkbox"
@@ -156,7 +182,7 @@
                                                             </div>
                                                         </td> -->
 
-                                                    <!-- <td class="width-2">
+                            <!-- <td class="width-2">
                                                             <textarea type="text" class="form-control" appAutoAdjust
                                                                 name="itemNo" formControlName="itemNo"></textarea>
                                                         </td>
@@ -166,7 +192,7 @@
                                                                 formControlName="specNo"></textarea>
                                                         </td> -->
 
-                                                    <!--  <td class="width-2"><textarea type="text" class="form-control"
+                            <!--  <td class="width-2"><textarea type="text" class="form-control"
                                                             appAutoAdjust name="itemNo"
                                                             [(ngModel)]="item.itemNo"></textarea></td>
 
@@ -194,7 +220,7 @@
 
                                                     <td class="width-5"><textarea type="text" class="form-control"
                                                             appAutoAdjust name="totalPrice"
-                                                            [(ngModel)]="item.totalPrice"></textarea></td> -->
+                                                            [(ngModel)]="item.totalPrice"></textarea></td> 
 
                                                     <td class="td-actions width-15">
                                                         <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" (click)="viewer(item)" class="btn btn-primary btn-link btn-sm btn-just-icon">
@@ -210,10 +236,10 @@
                                                                 <i class="material-icons">expand_less</i>
                                                             </button>
                                                     </td>
-                                                </tr>
+                                                </tr>-->
 
-                                                <tr [ngbCollapse]="!accordion[index]">
-                                                    <!-- <td colspan="9" class="collapse-body">
+                            <!-- <tr [ngbCollapse]="!accordion[index]"> -->
+                            <!-- <td colspan="9" class="collapse-body">
 
                                                         <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
                                                             <ngb-panel>
@@ -697,22 +723,22 @@
                             </ngb-panel>
                             </ngb-accordion>
                             </td> -->
-                                                </tr>
+                            <!-- </tr>
                                             </div>
-                                        </div>
-                                        <!-- </ng-container> -->
+                                        </div> -->
+                            <!-- </ng-container> -->
 
 
-                                    </form>
+                            <!-- </form> -->
 
-                                    <!-- <tr>
+                            <!-- <tr>
 
                                         <td colspan="7" class="text-right">Total</td>
                                         <td colspan="2" class="text-left">5000</td>
                                     </tr> -->
-                                </tbody>
+                            <!-- </tbody> -->
 
-                            </table>
+                            <!--  </table> -->
 
                         </div>
                     </div>

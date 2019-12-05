@@ -24,7 +24,10 @@ export class TenderComponent implements OnInit {
 
   ngOnInit() {
     this.tenderService.getAll().subscribe((result) => {
+      console.log('all tenders list fetched');
       this.tenders = result;
+    }, (err) => {
+      console.log(err);
     })
   }
 

@@ -17,26 +17,14 @@
                                                     <div class="ripple-container"></div>
                                                 </a>
                                             </li>
-                                            <!-- <li class="nav-item">
-                                               <a mat-button class="nav-link" href="#messages" data-toggle="tab">
-                                                 <i class="material-icons">code</i> Website
-                                                 <div class="ripple-container"></div>
-                                               </a>
-                                             </li>
-                                             <li class="nav-item">
-                                               <a mat-button class="nav-link" href="#settings" data-toggle="tab">
-                                                 <i class="material-icons">cloud</i> Server
-                                                 <div class="ripple-container"></div>
-                                               </a>
-                                             </li>-->
+                                            
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <!-- <h4 class="card-title mt-0"> Tender</h4>-->
-                            <!--<p class="card-category"> Here is a subtitle for this table</p>-->
+                            
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" *ngIf="tenders">
                             <div class="table-responsive">                                
                                 <table id="mainTable" class="table table-hover">
                                     <thead class="">
@@ -75,10 +63,8 @@
                                                 {{tender.clientName}}
                                             </td>
                                             <td>
-                                                {{tender.tenderName}}
-                                                <!-- <a class="btn btn-link" routerLink="/tender-items">
-
-                                            </a>-->
+                                                {{tender.name}}
+                                                
                                             </td>
 
                                             <td>
@@ -127,6 +113,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div *ngIf="!tenders">
+                            <span style="font-weight: 900; font-size: larger;">Loading list .... </span>
                         </div>
 
                     </div>

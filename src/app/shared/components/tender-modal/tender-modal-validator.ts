@@ -19,7 +19,7 @@ export class TenderModalFormControl extends FormControl {
     }
 
     getValidationMessages() {
-        let messages: string[] = [];        
+        let messages: string[] = [];
         if (this.errors) {
             //console.log(this.errors);
             for (let errorName in this.errors) {
@@ -74,7 +74,7 @@ export class TenderModalFormGroup extends FormGroup {
     /**
      * Some comments goes here
      */
-    get parentalControls(): TenderModalFormControl[] {        
+    get parentalControls(): TenderModalFormControl[] {
         return Object.keys(this.controls).map((k) => this.controls[k] as TenderModalFormControl);
     }
 
