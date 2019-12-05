@@ -29,8 +29,22 @@ pipeline {
         
               stage('Unit Test'){
                 steps{
-                        sh "ng run-script test"
+                        sh "npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI"
                 }
         }
+                
+             stage('e2e Tests') {
+                steps {
+                        sh "npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js"
+            }
+        }
+                
      }
+     post {
+        always {  
+            emailext attachLog: true, attachmentsPattern: 'generatedFile.txt', body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
+                compressLog: true, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
+                to: 'trathod@thinkperfect.io,akbhattacharya@thinkfect.com'
+        }
+    }
 }

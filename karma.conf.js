@@ -21,6 +21,13 @@ module.exports = function (config) {
     preprocessors: {
       
     },
+    browsers: ['Chrome'],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     mime: {
       'text/x-typescript': ['ts','tsx']
     },
