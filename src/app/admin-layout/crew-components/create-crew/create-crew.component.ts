@@ -1,13 +1,17 @@
 import { FormControl, FormArray, Validators } from '@angular/forms';
-// import { Equipments } from 'app/shared/core/model/equipments.model';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { CrewItem } from '../../../shared/core/model/crew-item.model';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CrewItemService } from '../../../shared/core/service/crew-item.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Crew } from '../../../shared/core/model/crew.model';
+import { Crew, Engineer } from '../../../shared/core/model/crew.model';
 import { CrewService } from '../../../shared/core/service/crew.service';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
+
+
 @Component({
   selector: 'app-create-crew',
   templateUrl: './create-crew.component.html',
@@ -18,162 +22,203 @@ export class CreateCrewComponent implements OnInit {
   equipmentsData; // holds data from equipment get api
   crew: Crew;
   createCrewForm: FormGroup; // form variable
-  newCrewData = {
-    equipment: [],
-    labour: []
-  }
+
+  public chipSelectedLabour: Engineer[] = [];
+  public chipSelectedEquipment: any = [];
+  public filteredEquipment: Observable<String[]>;
+  public filteredLabour: Observable<String[]>;
+
+  //
+  // Set this to false to ensure engineers are from allEngineers list only.
+  // Set this to true to also allow 'free text' engineers.
+  //
+  private allowFreeTextAddEngineer = false;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  @ViewChild('Eauto', { static: false }) matEAutocomplete: MatAutocomplete;
+  @ViewChild('Lauto', { static: false }) matLAutocomplete: MatAutocomplete;
+  @ViewChild('EquipmentInput', { static: false }) EquipmentInput: ElementRef<HTMLInputElement>;
+  @ViewChild('LabourInput', { static: false }) LabourInput: ElementRef<HTMLInputElement>;
+
   constructor(private crewItemService: CrewItemService,
     private activateRoute: ActivatedRoute,
     private router: Router,
     private crewService: CrewService,
     private hs: HelperService,
     private formBuilder: FormBuilder) {
-    this.hs.equipmentData.subscribe((response) => {
-         this.equipmentsData = response
+      this.hs.equipmentData.subscribe((response) => {
+        this.equipmentsData = response
       }, error => {
-        console.log(error);
+        // console.log(error);
       })
-     this.hs.labourData.subscribe((response) => {
-       this.laboursData = response;
-       this.initCrewForm();
-    }, error => {
-      console.log(error);
-    })
-    this.activateRoute.params.subscribe((params) => {
-      this.crew = JSON.parse(JSON.stringify(this.crewService.getCrewById(params['id']) || new Crew()));
-    })
-  }
+      this.hs.labourData.subscribe((response) => {
+        this.laboursData = response;
+      }, error => {
+        // console.log(error)
+      })
+      this.activateRoute.params.subscribe((params) => {
+        this.crew = JSON.parse(JSON.stringify(this.crewService.getCrewById(params['id']) || new Crew()));
+      })
+    }
 
 
-  ngOnInit() {
-    const j = this.laboursData.map((ev) => {
-      return Object.assign({ _id: ev._id, name: ev.name })
-    })
-    this.newCrewData.labour.push(j);
-    const k = this.equipmentsData.map((ev) => {
-      return Object.assign({ _id: ev._id, name: ev.name })
-    })
-    this.newCrewData.equipment.push(k);
-    // this.addCheckboxes()
-    this.createFamousForArray()
-  }
-  initCrewForm() {
-    this.createCrewForm = this.formBuilder.group({
-      crewname: ['', [Validators.required]],
-      crewdescription: ['', [Validators.required]],
-      equipment: this.formBuilder.control([]),
-      labour: this.formBuilder.control([]),
-    });
-  }
-  createfields(): FormGroup {
-    return this.formBuilder.group({
-      _id: [],
-      name: []
-    })
-  }
+    ngOnInit() {
+      // this.addCheckboxes()
+      this.initCrewForm();
+      this.filteredEquipment = this.createCrewForm.get('equipment').valueChanges.pipe(
+        startWith(null),
+        map(equipment => this.hs.filterOnValueChange(equipment, this.equipmentsData, this.chipSelectedEquipment)));
 
-  createFamousForArray() {
-    // const fg = this.newCrewData.labour.map(item => this.formBuilder.group(item));
-    // const fa = this.formBuilder.array(fg);
-    // this.createCrewForm.setControl('equipment', fa);
-    // const fh = this.newCrewData.labour.map(item => this.formBuilder.group(item));
-    // const fb = this.formBuilder.array(fh);
-    // this.createCrewForm.setControl('labour', fb);
-    // console.log(this.createCrewForm.controls);
-  }
+        this.filteredLabour = this.createCrewForm.get('labour').valueChanges.pipe(
+          startWith(null),
+          map(labour => this.hs.filterOnValueChange(labour, this.laboursData, this.chipSelectedLabour)))
+    }
+          
+        initCrewForm() {
+          this.createCrewForm = this.formBuilder.group({
+            crewname: ['', [Validators.required]],
+            crewdescription: ['', [Validators.required]],
+            equipment: this.formBuilder.control([]),
+            labour: this.formBuilder.control([]),
+          });
+        }
 
-  updateChkbxArray(chk, isChecked, key) {
-    const chkArray = <FormArray>this.createCrewForm.get(key);
-    if (isChecked) {
-      // sometimes inserts values already included creating double records for the same values -hence the defence
-      if (chkArray.controls.findIndex(x => x.value === chk._id) === -1) {
-        chkArray.push(new FormControl({ _id: chk._id, name: chk.name }));
-        console.log(this.createCrewForm)
+        cancel() {
+          this.router.navigateByUrl('/crew');
+    }
+    save() {
+      this.createCrewForm.controls.equipment.setValue(this.chipSelectedEquipment)
+      this.createCrewForm.controls.labour.setValue(this.chipSelectedLabour)
+      // console.log(this.createCrewForm)
+      this.chipSelectedEquipment.map((val) =>  {
+        const a = Object.assign({_id: val._id})
+        const b = Object.values(a)
+        return b
+      })
+
+    }
+
+    public addLabour(event: MatChipInputEvent): void {
+      if (!this.allowFreeTextAddEngineer) {
+        // only allowed to select from the filtered autocomplete list
+        // console.log('allowFreeTextAddEngineer is false');
+        return;
       }
-    } else {
-      const idx = chkArray.controls.findIndex(x => x.value === chk._id);
-      chkArray.removeAt(idx);
-      console.log(this.createCrewForm)
+
+      //
+      // Only add when MatAutocomplete is not open
+      // To make sure this does not conflict with OptionSelected Event
+      //
+      if (this.matLAutocomplete.isOpen) {
+        return;
+      }
+
+      // Add our engineer
+      const value = event.value;
+      // console.log(event.value)
+      if ((value || '').trim()) {
+        this.selectLabourByName(value.trim());
+      }
+    // console.log(this.createCrewForm)
+    this.resetInputs(this.LabourInput, this.createCrewForm.controls.labour);
+  }
+  public addEquipment(event: MatChipInputEvent): void {
+    if (!this.allowFreeTextAddEngineer) {
+      // only allowed to select from the filtered autocomplete list
+      // console.log('allowFreeTextAddEngineer is false');
+      return;
+    }
+
+    //
+    // Only add when MatAutocomplete is not open
+    // To make sure this does not conflict with OptionSelected Event
+    //
+    if (this.matEAutocomplete.isOpen) {
+      return;
+    }
+
+    // Add our engineer
+    const value = event.value;
+    if ((value || '').trim()) {
+      this.selectEquipmentByName(value.trim());
+    }
+    // console.log(this.createCrewForm)
+    this.resetInputs(this.EquipmentInput, this.createCrewForm.controls.equipment);
+}
+
+  public removeLabour(engineer: Engineer): void {
+    const index = this.chipSelectedLabour.indexOf(engineer);
+    if (index >= 0) {
+      this.chipSelectedLabour.splice(index, 1);
+      this.resetInputs(this.LabourInput, this.createCrewForm.controls.labour);
+    }
+  }
+  public removeEquipment(engineer: Engineer): void {
+    const index = this.chipSelectedEquipment.indexOf(engineer);
+    if (index >= 0) {
+      this.chipSelectedEquipment.splice(index, 1);
+      this.resetInputs(this.EquipmentInput, this.createCrewForm.controls.equipment);
     }
   }
 
-  // isLabourChecked(labour) {
-  //   const ifExists = this.crew.labours.find((crew) => {
-  //     if (crew.id === labour.id) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   })
-  //   if (ifExists) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-
-  // }
-
-  // isEquipmentChecked(equipment) {
-
-  //   const ifExists = this.crew.equipments.find((item) => {
-  //     if (item.id === equipment.id) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   })
-
-  //   if (ifExists) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
-  // clickLabour(event, crewItem) {
-  //   if (event.target.checked) {
-  //     this.crew.labours.push(JSON.parse(JSON.stringify(crewItem)));
-  //   } else {
-  //     this.crew.labours = this.crew.labours.filter((labour) => {
-  //       if (labour.id === crewItem.id) {
-  //         return false;
-  //       } else {
-  //         return true;
-  //       }
-  //     })
-  //   }
-
-
-  // }
-
-  // clickEquipment(event, crewItem) {
-  //   if (event.target.checked) {
-  //     this.crew.equipments.push(JSON.parse(JSON.stringify(crewItem)));
-  //   } else {
-  //     this.crew.equipments = this.crew.equipments.filter((equipment) => {
-  //       if (equipment.id === crewItem.id) {
-  //         return false;
-  //       } else {
-  //         return true;
-  //       }
-  //     })
-  //   }
-  //   console.log('********************************', this.crew.equipments);
-
-  // }
-
-  cancel() {
-    this.router.navigateByUrl('/crew');
+  public equipmentSelected(event: MatAutocompleteSelectedEvent): void {
+    // console.log(event)
+    this.selectEquipmentByName(event.option.value);
+    // this.resetInputs(this.EquipmentInput, this.createCrewForm.controls.equipment);
   }
-  save() {
-    // if (this.crew.id) {
-    //   this.crewService.update(this.crew);
-    // } else {
-    //   this.crewService.add(this.crew);
-    // }
-
-    // this.router.navigateByUrl('/crew');
+  public labourSelected(event: MatAutocompleteSelectedEvent): void {
+    // console.log(event)
+    this.selectLabourByName(event.option.value);
+    this.resetInputs(this.LabourInput, this.createCrewForm.controls.labour);
   }
 
+  private resetInputs(elCtrl, inputCtrl) {
+    // clear input element
+    elCtrl.nativeElement.value = '';
+    // clear control value and trigger engineerControl.valueChanges event 
+    inputCtrl.setValue(null);
+  }
+  private selectLabourByName(engineerName) {
+    const foundEngineer = this.laboursData.filter(engineer => {
+      // console.log(engineer)
+      return engineer.name == engineerName
+    });
+    // console.log(foundEngineer)
+    // console.log(engineerName)
+    if (foundEngineer.length) {
+      //
+      // We found the engineer name in the allEngineers list
+      //
+      this.chipSelectedLabour.push(foundEngineer[0]);
+      this.createCrewForm.setValue(this.chipSelectedLabour, {emitEvent: false});
+    } else {
+      //
+      // Create a new engineer, assigning a new higher _Id
+      // This is the use case when allowFreeTextAddEngineer is true
+      //
+      const highest_Id = Math.max(...this.chipSelectedLabour.map(engineer => engineer._Id), 0);
+      this.chipSelectedLabour.push({ name: engineerName, _Id: highest_Id + 1 });
+      // console.log(this.chipSelectedLabour);
+    }
+  }
+  private selectEquipmentByName(engineerName) {
+    const foundEngineer = this.equipmentsData.filter(engineer => {
+      // console.log(engineer)
+      return engineer.name == engineerName
+    });
+    if (foundEngineer.length) {
+      //
+      // We found the engineer name in the allEngineers list
+      //
+      this.chipSelectedEquipment.push(foundEngineer[0]);
+      this.createCrewForm.setValue(this.chipSelectedLabour, {emitEvent: false});
+    } else {
+      //
+      // Create a new engineer, assigning a new higher _Id
+      // This is the use case when allowFreeTextAddEngineer is true
+      //
+      const highest_Id = Math.max(...this.chipSelectedEquipment.map(engineer => engineer._Id), 0);
+      this.chipSelectedEquipment.push({ name: engineerName, _Id: highest_Id + 1 });
+    }
+  }
 
 }

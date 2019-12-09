@@ -20,7 +20,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
     imports: [
-        TagInputModule,
         ToastrModule.forRoot(),
         NgxSpinnerModule,
         BrowserAnimationsModule,

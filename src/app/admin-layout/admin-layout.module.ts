@@ -25,7 +25,10 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatListModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatChipsModule,
+  MatAutocompleteModule,
+  MatIconModule
 } from '@angular/material';
 
 
@@ -79,7 +82,10 @@ import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-lab
     MatTabsModule,
     MatListModule,
     MatCheckboxModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatIconModule
   ],
   declarations: [
     DashboardComponent,

@@ -4,7 +4,7 @@
             <h4 class="card-title"> CREW</h4>
         </div> -->
         <div  class="card-body">
-            <form *ngIf="createCrewForm" [formGroup]="createCrewForm">
+            <form *ngIf="createCrewForm" [formGroup]="createCrewForm" (ngSubmit)="save()" >
                 <div class="row">
                     <div class="col-4">
                         <mat-form-field>
@@ -32,25 +32,61 @@
                     <div class="hr">
                         <span>labour</span>
                     </div>
-                    <div  *ngIf="laboursData  && laboursData.length > 0">
+
+                    <!-- <div  *ngIf="laboursData  && laboursData.length > 0">
 
                         <p *ngFor="let n of laboursData" formArrayName="labour">
                             <mat-checkbox class="checkbox-margin" (change)="updateChkbxArray(n, $event.checked, 'labour')" value="n._id">
                                 {{n.name}}</mat-checkbox>
                             </p>
                         </div>
-                   
+                    -->
+                    <mat-form-field>
+                        <mat-chip-list #chipLabourList>
+                            <mat-chip *ngFor="let labour of chipSelectedLabour" [selectable]=true [removable]=true
+                                (removed)="removeLabour(labour)">
+                                {{labour.name}}
+                                <mat-icon matChipRemove>X</mat-icon>
+                            </mat-chip>
+                            <input placeholder="Your labour" #LabourInput formControlName="labour" [matAutocomplete]="Lauto"
+                                [matChipInputFor]="chipLabourList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]=true (matChipInputTokenEnd)="addLabour($event)">
+                        </mat-chip-list>
+                        <mat-autocomplete #Lauto="matAutocomplete" (optionSelected)="labourSelected($event)">
+                            <mat-option *ngFor="let thisLabourName of filteredLabour | async" [value]="thisLabourName">
+                                {{thisLabourName}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
                 <div class="hr">
                     <span>equipment</span>
                 </div>
-            <div *ngIf="equipmentsData  && equipmentsData.length > 0">
+                <mat-form-field>
+                    <mat-chip-list #chipEquipmentList>
+                        <mat-chip *ngFor="let equipment of chipSelectedEquipment" [selectable]=true [removable]=true
+                            (removed)="removeEquipment(equipment)">
+                            {{equipment.name}}
+                            <mat-icon matChipRemove>X</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Your equipment" #EquipmentInput formControlName="equipment" [matAutocomplete]="Eauto"
+                            [matChipInputFor]="chipEquipmentList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]=true (matChipInputTokenEnd)="addEquipment($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #Eauto="matAutocomplete" (optionSelected)="equipmentSelected($event)">
+                        <mat-option *ngFor="let thisequipmentName of filteredEquipment | async" [value]="thisequipmentName">
+                            {{thisequipmentName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <!-- <div *ngIf="equipmentsData  && equipmentsData.length > 0">
             
                 <p *ngFor="let n of equipmentsData" formArrayName="equipment">
                     <mat-checkbox class="checkbox-margin" (change)="updateChkbxArray(n, $event.checked, 'equipment')"
                         value="n._id">
                         {{n.name}}</mat-checkbox>
                 </p>
-            </div>
+            </div> -->
                 </div> 
 
                 <button mat-raised-button type="submit" [disabled]="createCrewForm.invalid"

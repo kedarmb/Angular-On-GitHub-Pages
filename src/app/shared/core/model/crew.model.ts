@@ -7,3 +7,8 @@ export class Crew {
     labours: CrewItem[] = [];
     equipments: CrewItem[] = [];
 }
+
+export interface Engineer {
+    name: string;
+    _Id: number;
+}
