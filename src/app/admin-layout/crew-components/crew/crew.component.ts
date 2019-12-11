@@ -8,11 +8,24 @@ import { CrewService } from '../../../shared/core/service/crew.service';
 import { Router } from '@angular/router';
 import { EquipmentsModalComponent } from 'app/shared/components/equipments-modal/equipments-modal.component';
 import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-modal.component';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-crew',
   templateUrl: './crew.component.html',
-  styleUrls: ['./crew.component.scss']
+  styleUrls: ['./crew.component.scss'],
+  animations: [
+    trigger('EnterLeave', [
+      state('flyIn', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('0.5s ease-in')
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-out', style({ transform: 'translateX(-100%)' }))
+      ])
+    ])
+  ]
 })
 export class CrewComponent implements OnInit {
 
@@ -21,12 +34,29 @@ export class CrewComponent implements OnInit {
   organizationForm: any;
   activeModal: any;
   valueChange: any;
+  currentState = 'initial';
+  public show = false;
+  public buttonName = 'Show';
+
   constructor(private modalService: NgbModal, private crewService: CrewService, private router: Router) { }
 
   ngOnInit() {
 
   }
+  toggle() {
+    this.show = !this.show;
 
+    // CHANGE THE NAME OF THE BUTTON.
+    if (this.show) {
+      this.buttonName = 'Hide';
+    } else {
+      this.buttonName = 'Show';
+    }
+  }
+
+  changeState() {
+    this.currentState = this.currentState === 'initial' ? 'final' : 'initial';
+  }
   getCrewData() {
     this.httpService.labour(this.organizationForm.value).subscribe(
       (response: any) => {

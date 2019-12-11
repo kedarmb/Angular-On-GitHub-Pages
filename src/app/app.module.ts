@@ -14,7 +14,6 @@ import { CrewItemService } from './shared/core/service/crew-item.service';
 import { CrewService } from './shared/core/service/crew.service';
 import { SpeechRecognitionService } from './shared/core/service/speech-recognition.service';
 import { SearchSubscriberService } from './shared/core/service/search-subscriber.service';
-import { TagInputModule } from 'ngx-chips';
 import { LayoutModule } from './layout/layout.module';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
