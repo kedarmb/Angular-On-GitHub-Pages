@@ -14,9 +14,25 @@ import { NotifySubcontractorComponent } from './components/notify-subcontractor/
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule,
+        MatButtonToggleModule, MatIconModule, MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule, MatSidenavModule,
+  MatMenuModule, MatListModule, MatDividerModule, MatGridListModule, MatExpansionModule, MatTabsModule, MatStepperModule,
+        MatAutocompleteModule, MatDialogModule } from '@angular/material';
+// import { , MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LabourModalComponent } from './components/labour-modal/labour-modal.component';
+import { MatCardModule } from '@angular/material/card';
+const MaterialComponent = [
+  MatButtonModule, MatButtonToggleModule,
+  MatIconModule, MatBadgeModule,
+  MatProgressSpinnerModule, MatToolbarModule,
+  MatSidenavModule, MatMenuModule,
+  MatListModule, MatDividerModule,
+  MatGridListModule, MatExpansionModule,
+  MatCardModule, MatTabsModule, MatStepperModule,
+  MatFormFieldModule, MatInputModule, MatSelectModule,
+  MatAutocompleteModule, MatDialogModule];
+
 
 @NgModule({
   declarations: [
@@ -36,9 +52,14 @@ import { LabourModalComponent } from './components/labour-modal/labour-modal.com
     OrganizationModalComponent,
     EquipmentsModalComponent,
     UserModalComponent,
-    NotifySubcontractorComponent
+    NotifySubcontractorComponent,
+    MaterialComponent
   ],
   imports: [
+    MatDialogModule,
+    // MatDialog,
+    // MatDialogRef,
+    MatCardModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -52,7 +73,8 @@ import { LabourModalComponent } from './components/labour-modal/labour-modal.com
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    NgbModule
+    NgbModule,
+    MaterialComponent
   ],
   entryComponents: [
     TenderModalComponent,

@@ -2,7 +2,7 @@ import { HelperService } from 'app/shared/core/service/helper.service';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-crew-labour',
@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class CrewLabourComponent implements OnInit {
   valueChange: any;
   labour
-  constructor(private modalService: NgbModal, private httpService: HttpService, private helperService: HelperService) { }
+  constructor(private modalService: MatDialog, private httpService: HttpService, private helperService: HelperService) { }
 
   ngOnInit() {
     this.getLabourData()
@@ -35,8 +35,11 @@ export class CrewLabourComponent implements OnInit {
 
 
   openAddLabourModal() {
-    const modalRef = this.modalService.open(LabourModalComponent, { centered: true });
-    modalRef.componentInstance.labourData.subscribe((response) => {
+    const modalRef = this.modalService.open(LabourModalComponent, {
+      height: 'auto',
+      width: '35%'
+    });
+    modalRef.afterClosed().subscribe((response) => {
       console.log(response);
       this.labour.push(response);
 

@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HelperService } from '../../core/service/helper.service';
 import { regex, errorMsg } from '../../core/constant/index';
 import { HttpService } from 'app/shared/core/service/http.service';
+import { MatDialogClose } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
@@ -13,8 +15,8 @@ export class UserModalComponent implements OnInit {
   formSubmitted = false;
   userForm: FormGroup;
   placement = 'bottom';
-  passwordShown=false;
-  constructor(public activeModal: NgbActiveModal,
+  passwordShown = false;
+  constructor(@Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
     private formBuider: FormBuilder,
     private helperService: HelperService,
     private httpService: HttpService
@@ -22,35 +24,36 @@ export class UserModalComponent implements OnInit {
 
   ngOnInit() {
     this.createUserForm()
-
   }
 
-  createUserForm(){
+  createUserForm() {
     this.userForm = this.formBuider.group({
       email: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg, msg: errorMsg.email })]],
       fname: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.alphabetOnly, msg: errorMsg.nameMessage })]],
       lname: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.alphabetOnly, msg: errorMsg.nameMessage })]],
-      password: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.passwordPattern, msg: errorMsg.passwordMessage })]],
+      password: ['', [Validators.required,
+        this.helperService.customPatternValid({ pattern: regex.passwordPattern, msg: errorMsg.passwordMessage })]],
       mobile: ['', [Validators.required, this.helperService.customPatternValid({pattern: regex.phoneNumber, msg: errorMsg.phoneMsg})]],
       role: ['prime'],
       status: ['created'],
-      organization: ['5dd512e3b0975e2e70e12d01', [Validators.required, this.helperService.customPatternValid({ msg: errorMsg.requiredField })]]
+      organization: ['5dd512e3b0975e2e70e12d01',
+      [Validators.required, this.helperService.customPatternValid({ msg: errorMsg.requiredField })]]
     });
   }
 
   close() {
-    this.activeModal.close('closed');
+    this.modal._matDialogClose();
   }
   save() {
     this.formSubmitted = true;
-    if(this.userForm.valid)  {
+    if (this.userForm.valid)  {
       if (this.userForm) {
         this.httpService.createUser(this.userForm.value).subscribe((successData) => {
           console.log('successData:', successData);
-          this.activeModal.close('');
+          this.modal._matDialogClose()
         }, (err) => {
           console.log(err);
-          this.activeModal.close('')
+          this.modal._matDialogClose();
         })
       }
     }

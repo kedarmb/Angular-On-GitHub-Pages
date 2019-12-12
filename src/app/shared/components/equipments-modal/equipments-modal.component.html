@@ -1,45 +1,41 @@
-<div class="main-content">
-    <div class="modal-body">
-        <div class="card-body">
-            <form [formGroup]="equipmentsForm">
-                <div class="row">
-                    <div class="col-md-12">
-                        <mat-label>Name</mat-label><span class="text-danger">*</span>
-                        <mat-form-field class="example-full-width">
-                            <input formControlName="name" matInput type="text">
-                        </mat-form-field>
-                    </div>
+<div class="container">
+    <form [formGroup]="equipmentsForm">
+        <h1 mat-dialog-title align="center">Add Equipments</h1>
+        <div mat-dialog-content>
+            <div>
+                <mat-label>Name</mat-label><span class="text-danger">*</span>
+                <mat-form-field class="example-full-width"  appearance="legacy" color="warn">
+                    <input formControlName="name" matInput type="text">
+                </mat-form-field>
+                <div *ngIf="!equipmentsForm.controls.name.valid && (equipmentsForm.controls.name.dirty || equipmentsForm.controls.name.touched)"
+                    class="error">
+                    <small class="text-danger" *ngIf="equipmentsForm.controls.name.errors.invalidMsg">
+                        {{equipmentsForm.controls.name.errors.invalidMsg}}
+                    </small>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <mat-label>Rate</mat-label><span class="text-danger">*</span>
-                        <mat-form-field class="example-full-width">
-                            <input formControlName="rate" matInput type="text">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <mat-label>Description</mat-label><span class="text-danger">*</span>
-                        <mat-form-field class="example-full-width">
-                            <input formControlName="description" matInput type="text">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <mat-label>Type</mat-label><span class="text-danger">*</span>
-                        <mat-form-field class="example-full-width">
-                            <input readonly formControlName="type" matInput type="text">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-                <button mat-raised-button type="button" (click)="save()" class="btn btn-danger pull-right">Save</button>
-            </form><br><br><br>
-            <div class="pull-right">
-                <span class="text-danger">*</span><small>Required Fields</small>
+            </div>
+            <div>
+                <mat-label>Rate</mat-label><span class="text-danger">*</span>
+                <mat-form-field class="example-full-width"  appearance="legacy" color="warn">
+                    <input formControlName="rate" matInput type="text">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-label>Description</mat-label><span class="text-danger">*</span>
+                <mat-form-field class="example-full-width" appearance="legacy" color="warn">
+                    <input formControlName="description" matInput type="text">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-label>Type</mat-label><span class="text-danger">*</span>
+                <mat-form-field  appearance="legacy" color="warn" class="example-full-width">
+                    <input formControlName="type" matInput type="text">
+                </mat-form-field>
             </div>
         </div>
-    </div>
+        <mat-dialog-actions class="pull-right">
+            <button mat-raised-button type="button" (click)="save()" class="btn btn-danger pull-right">Save</button>
+            <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+        </mat-dialog-actions>
+    </form>
 </div>

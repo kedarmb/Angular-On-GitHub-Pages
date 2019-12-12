@@ -1,102 +1,70 @@
-<div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 offset-12">
-                <div class="modal-body">
-                    <form [formGroup]="organizationForm">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <mat-label>Organization<span class="text-danger">*</span></mat-label>
-                                <mat-form-field class="example-full-width">
-                                    <input matInput formControlName="name" type="text">
-                                </mat-form-field>
-                                <div *ngIf="!organizationForm.controls.name.valid && (organizationForm.controls.name.dirty || organizationForm.controls.name.touched)" class="error">
-                                    <div class="text-danger" *ngIf="organizationForm.controls.name.errors.invalidMsg">
-                                        {{organizationForm.controls.name.errors.invalidMsg}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <mat-label>Street Address <span class="text-danger">*</span></mat-label>
-                                <mat-form-field class="example-full-width">
-                                    <input matInput formControlName="streetAddress" type="text">
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <mat-label>Country<span class="text-danger">*</span></mat-label>
-                                <mat-form-field class="example-full-width">
-                                    <select formControlName="country" matNativeControl required>
-                                        <option ></option>
-                                        <option >Canada</option>
-                                        <option >India</option>
-                                        <option >USA</option>
-                                    </select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <mat-label>Province <span class="text-danger">*</span></mat-label>
-                                <mat-form-field class="example-full-width">
-                                    <select formControlName="province" matNativeControl required>
-                                        <option value=""></option>
-                                        <option >Ontario</option>
-                                        <option >San Jose</option>
-                                        <option >California</option>
-                                    </select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <mat-label>City <span class="text-danger">*</span></mat-label>
-                                <mat-form-field class="example-full-width">
-                                    <select formControlName="city" matNativeControl required>
-                                        <option >Toranto</option>
-                                        <option >Las Vegas</option>
-                                        <option >New Delhi</option>
-                                    </select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <mat-label>Service Type <span class="text-danger">*</span></mat-label>
-                                <mat-form-field class="example-full-width">
-                                    <select formControlName="serviceType" matNativeControl required>
-                                        <option>compress</option>
-                                    </select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <mat-label>Service Area <span class="text-danger">*</span></mat-label>
-                                <mat-form-field class="example-full-width">
-                                    <select formControlName="serviceArea" matNativeControl required>
-                                        <option>reboot</option>
-                                    </select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-                        <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()" class="btn btn-danger pull-right">Save</button>
-                    </form><br><br>
-                    <div class="pull-right">
-                        <span class="text-danger">*</span>Required Fields
-                    </div>
-                </div>
+    <form [formGroup]="organizationForm">
+        <h1 mat-dialog-title align="center">Add Organization</h1>
+        <div mat-dialog-content>
+            <div class="col">
+                <mat-label>Organization</mat-label><span class="text-danger">*</span>
+                <mat-form-field class="example-full-width">
+                    <input formControlName="name" matInput type="text">
+                </mat-form-field>
             </div>
+            <div class="col">
+                <mat-label>Street Address</mat-label><span class="text-danger">*</span>
+                <mat-form-field class="example-full-width">
+                    <input formControlName="organization" matInput type="text">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-label>Country<span class="text-danger">*</span></mat-label>
+                <mat-form-field class="example-full-width">
+                    <select formControlName="country" matNativeControl required>
+                        <option></option>
+                        <option>Canada</option>
+                        <option>India</option>
+                        <option>USA</option>
+                    </select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-label>Province <span class="text-danger">*</span></mat-label>
+                <mat-form-field class="example-full-width">
+                    <select formControlName="province" matNativeControl required>
+                        <option value=""></option>
+                        <option>Ontario</option>
+                        <option>San Jose</option>
+                        <option>California</option>
+                    </select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-label>City <span class="text-danger">*</span></mat-label>
+                <mat-form-field class="example-full-width">
+                    <select formControlName="city" matNativeControl required>
+                        <option>Toranto</option>
+                        <option>Las Vegas</option>
+                        <option>New Delhi</option>
+                    </select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-label>Service Type <span class="text-danger">*</span></mat-label>
+                <mat-form-field class="example-full-width">
+                    <select formControlName="serviceType" matNativeControl required>
+                        <option>compress</option>
+                    </select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-label>Service Area <span class="text-danger">*</span></mat-label>
+                <mat-form-field class="example-full-width">
+                    <select formControlName="serviceArea" matNativeControl required>
+                        <option>reboot</option>
+                    </select>
+                </mat-form-field>
+            </div>
+            <mat-dialog-actions class=" pull-right">
+                <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
+                    class="btn btn-danger">Save</button>
+                <button mat-raised-button type="button" (click)="close()" class="btn btn-danger">Cancel</button>
+            </mat-dialog-actions>
         </div>
-    </div>
-</div>
+    </form>

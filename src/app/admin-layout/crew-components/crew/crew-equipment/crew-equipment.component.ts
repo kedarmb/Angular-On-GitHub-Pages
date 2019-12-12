@@ -2,9 +2,9 @@ import { HelperService } from './../../../../shared/core/service/helper.service'
 import { BehaviorSubject } from 'rxjs';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EquipmentsModalComponent } from 'app/shared/components/equipments-modal/equipments-modal.component';
 import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-modal.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-crew-equipment',
@@ -13,7 +13,7 @@ import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-
 })
 export class CrewEquipmentComponent implements OnInit {
   equipments: any;
-  constructor(private modalService: NgbModal, private httpService: HttpService, private helperService: HelperService) { }
+  constructor(private modalService: MatDialog, private httpService: HttpService, private helperService: HelperService) { }
 
   ngOnInit() {
     this.getEquipmentData()
@@ -31,9 +31,12 @@ export class CrewEquipmentComponent implements OnInit {
         console.log(error);
       }
     )};
-  openAddLabourModal() {
-    const modalRef = this.modalService.open(EquipmentsModalComponent, { centered: true });
-    modalRef.componentInstance.equipmentData.subscribe((response) => {
+  openAddEquipmentModal() {
+    const modalRef = this.modalService.open(EquipmentsModalComponent, {
+      height: 'auto',
+      width: '35%'
+    });
+    modalRef.afterClosed().subscribe((response) => {
       console.log(response);
       this.equipments.push(response);
     })

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../user.model';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-user',
@@ -14,7 +15,7 @@ export class UserComponent implements OnInit {
   data: any = {};
   user: User = new User();
   public employee: any = [];
-  constructor(private httpService: HttpService, private modalService: NgbModal,
+  constructor(private httpService: HttpService, private modalService: MatDialog,
     private router: Router) { }
   ngOnInit() {
     this.getUsers();
@@ -40,11 +41,21 @@ export class UserComponent implements OnInit {
     // });
   }
   open() {
-    const modalRef = this.modalService.open(UserModalComponent, { centered: true });
-    modalRef.result.then((response) => {
-      // console.log(response);
-      // this.user = response;
-      this.getUsers();
-    })
+    const dialogRef = this.modalService.open(UserModalComponent, {
+      height: 'auto',
+      width: '35%'
+    });
+    dialogRef.afterClosed().subscribe(response => {
+      console.log(response);
+      this.user = response;
+    });
+    this.getUsers();
   }
+
+    // const modalRef = this.modalService.open(UserModalComponent, { centered: true });
+    // modalRef.result.then((response) => {
+    //   // console.log(response);
+    //   // this.user = response;
+        // })
+  // }
 }

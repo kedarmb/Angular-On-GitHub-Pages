@@ -1,11 +1,11 @@
 
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import Organization from 'app/shared/core/model/organization.model';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { HttpService } from 'app/shared/core/service/http.service';
 
@@ -14,6 +14,8 @@ import { CountriesService } from 'app/shared/core/service/countries.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
 
 import { regex, errorMsg } from 'app/shared/core/constant';
+import { MatDialog, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { EquipmentsModalComponent } from '../equipments-modal/equipments-modal.component';
 
 @Component({
   selector: 'app-organization-modal',
@@ -31,11 +33,14 @@ export class OrganizationModalComponent implements OnInit {
   stateInfo: any[] = [];
   cityInfo: any[] = [];
   constructor(
-    public activeModal: NgbActiveModal,
+    @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
+    // public modal: MatDialogClose,
+    // public activeModal: NgbActiveModal,
     private httpService: HttpService,
     private country: CountriesService,
     private fb: FormBuilder,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private dialogRef: MatDialogRef<EquipmentsModalComponent>
   ) { }
 
   ngOnInit() {
@@ -56,7 +61,8 @@ export class OrganizationModalComponent implements OnInit {
   }
 
   close() {
-    this.activeModal.close('closed');
+    this.dialogRef.close();
+    // this.modal._matDialogClose('close');
   }
   save() {
     console.log(this.organizationForm.value);
@@ -64,12 +70,13 @@ export class OrganizationModalComponent implements OnInit {
         (response: any) => {
           console.log(response);
           if (response.status === 200) {
-            this.activeModal.close('closed');
+            this.modal._matDialogClose('');
             this.valueChange.emit(response.status);
           }
         },
         error => {
           console.log(error);
+          this.modal._matDialogClose('');
         }
       )};
 }

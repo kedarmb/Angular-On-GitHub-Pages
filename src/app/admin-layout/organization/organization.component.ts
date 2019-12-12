@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationModalComponent } from '../../shared/components/organization-modal/organization-modal.component';
 import Organization from '../../shared/core/model/organization.model';
 import { HttpService } from '../../shared/core/service/http.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-organization',
@@ -12,7 +13,7 @@ import { HttpService } from '../../shared/core/service/http.service';
 })
 export class OrganizationComponent implements OnInit {
     organizations: any;
-    constructor(private modalService: NgbModal, private httpService: HttpService, private router: Router) {}
+    constructor(private modalService: MatDialog, private httpService: HttpService, private router: Router) {}
     ngOnInit() {
         this.getOrganization()
     }
@@ -38,14 +39,21 @@ export class OrganizationComponent implements OnInit {
     }
 
     open() {
-        const modalRef = this.modalService.open(OrganizationModalComponent, { centered: true });
+        // const modalRef = this.modalService.open(OrganizationModalComponent, { centered: true });
         // const obj = {};
         // tslint:disable-next-line: forin
         // for (const i in item) {
         //     obj[i] = item[i];
         // }
         // modalRef.componentInstance.organization = obj || new Organization();
-        modalRef.result.then(() => {
+        const modalRef = this.modalService.open(OrganizationModalComponent, {
+            height: 'auto',
+            width: '35%' });
+        modalRef.afterClosed().subscribe(response => {
+            console.log(response);
+            this.organizations = response;
+        });
+        modalRef.afterClosed().subscribe((response) => {
         this.getOrganization();
         })
 

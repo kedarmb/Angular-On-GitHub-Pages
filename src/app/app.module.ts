@@ -15,8 +15,11 @@ import { CrewService } from './shared/core/service/crew.service';
 import { SpeechRecognitionService } from './shared/core/service/speech-recognition.service';
 import { SearchSubscriberService } from './shared/core/service/search-subscriber.service';
 import { LayoutModule } from './layout/layout.module';
+import { MatCardModule } from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
+
 @NgModule({
     imports: [
         ToastrModule.forRoot(),
@@ -30,6 +33,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         AppRoutingModule,
         NgbModule,
         SharedModule,
+        MatCardModule,
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
         })
@@ -38,6 +42,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         AppComponent,
         AdminLayoutComponent
     ],
+
     providers: [
         TenderService,
         CrewItemService,

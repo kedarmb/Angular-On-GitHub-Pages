@@ -1,11 +1,12 @@
 // import { HttpService } from './../../core/service/http.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { regex, errorMsg } from 'app/shared/core/constant';
 import Labour from 'app/shared/core/model/labour.model';
 import { HttpService } from 'app/shared/core/service/http.service';
+import { MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 
 @Component({
@@ -18,10 +19,11 @@ export class LabourModalComponent implements OnInit {
   @Output() public labourData = new EventEmitter();
 
   constructor(
-    public activeModal: NgbActiveModal,
+    @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
     private fb: FormBuilder,
     private helperService: HelperService,
-    private httpService:HttpService
+    private httpService: HttpService,
+    private dialogRef: MatDialogRef<LabourModalComponent>
   ) { }
 
   ngOnInit() {
@@ -40,17 +42,18 @@ export class LabourModalComponent implements OnInit {
       (response: any) => {
         console.log(response);
         if (response.status === 200) {
-          this.activeModal.close('closed');
+          this.modal._matDialogClose()
           this.labourData.emit(response.body)
         }
       },
-      error => {
-        console.log(error);
-      }
-    )
+      (err) => {
+        console.log(err);
+        this.modal._matDialogClose();
+      })
   };
 
   close() {
-    this.activeModal.close('closed');
+    this.dialogRef.close();
+    // this.modal._matDialogClose('close');
   }
 }
