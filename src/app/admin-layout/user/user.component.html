@@ -1,78 +1,95 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
+    <mat-toolbar color="primary">
 
-            <div class="col-md-12">
+        <a (click)="open()">
+            <i class="material-icons">add</i>Add
+        </a>
 
-                <div class="card card-plain">
-                    <div class="card-header">
-                        <div class="card">
-                            <div class="card-header card-header-tabs card-header-danger">
-                                <div class="nav-tabs-navigation">
-                                    <div class="nav-tabs-wrapper">
+    </mat-toolbar>
+    <table class="mat_tab" mat-table [dataSource]="user" class="mat-elevation-z8">
 
-                                        <ul class="nav nav-tabs" data-tabs="tabs">
-                                            <li class="nav-item">
-                                                <!-- <a mat-button class="nav-link active" (click)="open()" href="#profile" data-toggle="tab"> -->
-                                                <a mat-button class="nav-link active" href="#profile" data-toggle="tab" (click)="open()">
-                                                    <i class="material-icons">add</i> ADD
-                                                    <div class="ripple-container"></div>
-                                                </a>
-                                            </li>
+                
+        <ng-container matColumnDef="Email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{element.email}} </td>
+        </ng-container>
+        <ng-container matColumnDef="First Name">
+            <th mat-header-cell *matHeaderCellDef>First Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.fname}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Last Name">
+            <th mat-header-cell *matHeaderCellDef>Last Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.lname}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Mobile">
+            <th mat-header-cell *matHeaderCellDef>Mobile</th>
+            <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Role">
+            <th mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+                <button type="button" class="btn btn-primary" (click)="del()">delete</button></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="mainTable" class="table table-hover">
+    </table>
+    <!-- <mat-card>
 
-                                    <thead class="">
-                                        <th>
-                                            Email
-                                        </th>
-                                        <th>
-                                            First Name
-                                        </th>
-                                        <th>
-                                            Last Name
-                                        </th>
-                                        <th>
-                                            Mobile
-                                        </th>
-                                        <!-- <th>
-                                            Organization
-                                        </th> -->
-                                        <th>
-                                            Role
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
-                                        <th>
-                                            Actions
-                                        </th>
-                                    </thead>
-                                    <tbody *ngIf="user">
-                                        <tr *ngFor="let item of user; let index=index;">
-                                            <td>{{item.email}}</td>
-                                            <td>{{item.fname}}</td>
-                                            <td>{{item.lname}}</td>
-                                            <td>{{item.mobile}}</td>
-                                            <!-- <td>{{item.organization}}</td> -->
-                                            <td>{{item.role}}</td>
-                                            <td>{{item.status}}</td>
-                                            <td><button type="button" class="btn btn-primary" (click)="del()">delete</button> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <!-- </div> -->
-                    </div>
-                </div>
+        <mat-card-content>
+
+
+            <div class="table-responsive">
+                <table id="mainTable" class="table table-hover">
+
+                    <thead class="">
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            Last Name
+                        </th>
+                        <th>
+                            Mobile
+                        </th>
+                       
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </thead>
+                    <tbody *ngIf="user">
+                        <tr *ngFor="let item of user; let index=index;">
+                            <td>{{item.email}}</td>
+                            <td>{{item.fname}}</td>
+                            <td>{{item.lname}}</td>
+                            <td>{{item.mobile}}</td>
+                          
+                            <td>{{item.role}}</td>
+                            <td>{{item.status}}</td>
+                            <td><button type="button" class="btn btn-primary" (click)="del()">delete</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-    </div>
+        </mat-card-content>
+    </mat-card> -->
+
+
 </div>

@@ -1,0 +1,15 @@
+// .card .card-body {
+//     padding: 0.9375rem 20px!important;
+// }
+mat-card-footer {
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
+}
+
+mat-card-body {
+    background: #f9f9f9;
+}
+
+mat-card-header,
+mat-toolbar {
+    background: linear-gradient(60deg, #ffa726, #fb8c00);
+}

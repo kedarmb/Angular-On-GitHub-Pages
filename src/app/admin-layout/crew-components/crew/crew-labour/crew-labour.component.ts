@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./crew-labour.component.scss']
 })
 export class CrewLabourComponent implements OnInit {
+  displayedColumns: string[] = [ 'Name', 'Rate', 'Description', 'Type', 'Actions'];
   valueChange: any;
   labour
   constructor(private modalService: MatDialog, private httpService: HttpService, private helperService: HelperService) { }

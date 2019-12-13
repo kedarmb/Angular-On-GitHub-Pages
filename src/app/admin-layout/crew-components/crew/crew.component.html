@@ -1,171 +1,164 @@
 <div class="main-content">
-    <mat-tab-group>
-        <mat-tab>
-            <div>
-                <button mat-raised-button routerLink="/create-crew"> Add Crew </button>
-            </div>
-            <ng-template mat-tab-label>Crew</ng-template>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="mainTable" class="table table-hover">
 
-                        <thead class="">
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Description
-                            </th>
+        <mat-toolbar color="primary">
 
-                            <th>
-                                Equipment
-                            </th>
-                            <th>
-                                Labour
-                            </th>
-                            <th>
-                                Actions
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let crew of crews;let index=index;">
+                <a  (click)="toggle()">
+                    <i class="material-icons">add</i>Add Crew
+                </a>
+        
+            </mat-toolbar>
 
-                                <td>
-                                    {{crew.name}}
-                                </td>
-                                <td>
-                                    {{crew.description}}
-                                </td>
-                                <td>
-                                    {{getLabour(crew)}}
-                                </td>
-                                <td>
-                                    {{getEquipment(crew)}}
-                                </td>
-
-                                <td class="td-actions">
-                                    <button mat-raised-button type="button" matTooltip="Edit Task" (click)="edit(crew)"
-                                        [matTooltipPosition]="'above'"
-                                        class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(crew)"
-                                        [matTooltipPosition]="'above'"
-                                        class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <button (click)="toggle()">{{buttonName}}</button>
-            <div style="width:200px; margin-left: 20px"  *ngIf="show" [@EnterLeave]="'flyIn'">
-               <!-- <app-create-crew></app-create-crew> -->
-                <form *ngIf="createCrewForm" [formGroup]="createCrewForm" (ngSubmit)="save()">
-                    <div class="row">
-                        <div class="col-4">
-                            <mat-form-field>
-                                <input matInput formControlName="crewname" placeholder="Crew name" name="crewname" type="text">
-                            </mat-form-field>
-                            <!-- <ul class="text-danger list-unstyled"
-                                            *ngIf="(createCrewForm.controls.crewname.dirty) && createCrewForm.controls.crewname.invalid">
-                                            <li *ngFor="let error of createCrewForm.controls.crewname.getValidationMessages()">
-                                                {{error}}
-                                            </li>
-                                        </ul> -->
-                        </div>
-                        <div class="col-4">
-                            <mat-form-field>
-                                <textarea matInput formControlName="crewdescription" placeholder="Enter Description"
-                                    name="crewdescription"></textarea>
-                            </mat-form-field>
-                            <!-- <ul class="text-danger list-unstyled"
-                                            *ngIf="(createCrewForm.controls.crewdescription.dirty) && createCrewForm.controls.crew.description.invalid">
-                                            <li *ngFor="let error of createCrewForm.controls.crew.description.getValidationMessages()">
-                                                {{error}}
-                                            </li>
-                                        </ul> -->
-                        </div>
-                        <div class="hr">
-                            <span>labour</span>
-                        </div>
-                
-                        <!-- <div  *ngIf="laboursData  && laboursData.length > 0">
-                
-                                        <p *ngFor="let n of laboursData" formArrayName="labour">
-                                            <mat-checkbox class="checkbox-margin" (change)="updateChkbxArray(n, $event.checked, 'labour')" value="n._id">
-                                                {{n.name}}</mat-checkbox>
-                                            </p>
-                                        </div>
-                                    -->
-                        <mat-form-field>
-                            <mat-chip-list #chipLabourList>
-                                <mat-chip *ngFor="let labour of chipSelectedLabour" [selectable]=true [removable]=true
-                                    (removed)="removeLabour(labour)">
-                                    {{labour.name}}
-                                    <mat-icon matChipRemove>X</mat-icon>
-                                </mat-chip>
-                                <input placeholder="Your labour" #LabourInput formControlName="labour" [matAutocomplete]="Lauto"
-                                    [matChipInputFor]="chipLabourList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                    [matChipInputAddOnBlur]=true (matChipInputTokenEnd)="addLabour($event)">
-                            </mat-chip-list>
-                            <mat-autocomplete #Lauto="matAutocomplete" (optionSelected)="labourSelected($event)">
-                                <mat-option *ngFor="let thisLabourName of filteredLabour | async" [value]="thisLabourName">
-                                    {{thisLabourName}}
-                                </mat-option>
-                            </mat-autocomplete>
-                        </mat-form-field>
-                
-                        <div class="hr">
-                            <span>equipment</span>
-                        </div>
-                        <mat-form-field>
-                            <mat-chip-list #chipEquipmentList>
-                                <mat-chip *ngFor="let equipment of chipSelectedEquipment" [selectable]=true [removable]=true
-                                    (removed)="removeEquipment(equipment)">
-                                    {{equipment.name}}
-                                    <mat-icon matChipRemove>X</mat-icon>
-                                </mat-chip>
-                                <input placeholder="Your equipment" #EquipmentInput formControlName="equipment"
-                                    [matAutocomplete]="Eauto" [matChipInputFor]="chipEquipmentList"
-                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]=true
-                                    (matChipInputTokenEnd)="addEquipment($event)">
-                            </mat-chip-list>
-                            <mat-autocomplete #Eauto="matAutocomplete" (optionSelected)="equipmentSelected($event)">
-                                <mat-option *ngFor="let thisequipmentName of filteredEquipment | async" [value]="thisequipmentName">
-                                    {{thisequipmentName}}
-                                </mat-option>
-                            </mat-autocomplete>
-                        </mat-form-field>
-                        <!-- <div *ngIf="equipmentsData  && equipmentsData.length > 0">
-                            
-                                <p *ngFor="let n of equipmentsData" formArrayName="equipment">
-                                    <mat-checkbox class="checkbox-margin" (change)="updateChkbxArray(n, $event.checked, 'equipment')"
-                                        value="n._id">
-                                        {{n.name}}</mat-checkbox>
-                                </p>
-                            </div> -->
+        <mat-tab-group>
+            <mat-tab>
+                <!-- <div>
+                    <button mat-raised-button routerLink="/create-crew"> Add Crew </button>
+                </div> -->
+                <ng-template mat-tab-label>Crew</ng-template>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="mainTable" class="table table-hover">
+    
+                            <thead class="">
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+    
+                                <th>
+                                    Equipment
+                                </th>
+                                <th>
+                                    Labour
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let crew of crews;let index=index;">
+    
+                                    <td>
+                                        {{crew.name}}
+                                    </td>
+                                    <td>
+                                        {{crew.description}}
+                                    </td>
+                                    <td>
+                                        {{getLabour(crew)}}
+                                    </td>
+                                    <td>
+                                        {{getEquipment(crew)}}
+                                    </td>
+    
+                                    <td class="td-actions">
+                                        <button mat-raised-button type="button" matTooltip="Edit Task" (click)="edit(crew)"
+                                            [matTooltipPosition]="'above'"
+                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(crew)"
+                                            [matTooltipPosition]="'above'"
+                                            class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                </div>
+                <!-- <button (click)="toggle()">{{buttonName}}</button> -->
+                <div   *ngIf="show" [@EnterLeave]="'flyIn'">
+                 
+                    <form class="w-50" *ngIf="createCrewForm" [formGroup]="createCrewForm" (ngSubmit)="save()">
+                       
+                             
+                            <div class="hr">
+                                    <span>Crew Name</span>
+                                </div>
+                    
+                                <mat-form-field>
+                                    <input matInput formControlName="crewname" placeholder="Crew name" name="crewname" type="text">
+                                </mat-form-field>
+                             
+                        
+                                <div class="hr">
+                                        <span>Description</span>
+                                    </div>
+                        
+                          
+                                <mat-form-field>
+                                    <textarea matInput formControlName="crewdescription" placeholder="Enter Description" type="text"
+                                        name="crewdescription"></textarea>
+                                </mat-form-field>
+                               
+                          
+                            <div class="hr">
+                                <span>labour</span>
+                            </div>
                 
-                    <button mat-raised-button type="submit" [disabled]="createCrewForm.invalid" class="btn btn-danger pull-right">
-                        Save
-                    </button>
-                    <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel
-                    </button>
-                </form>
-            </div>
-        </mat-tab>
-        <mat-tab>
-           
-            <ng-template mat-tab-label>Equipments</ng-template>
-            <app-crew-equipment></app-crew-equipment>
-        </mat-tab>
-        <mat-tab>
-            
-            <ng-template mat-tab-label>Labour</ng-template>
-            <app-crew-labour></app-crew-labour>
-        </mat-tab>
-    </mat-tab-group>
-</div>
+                         
+                            <mat-form-field>
+                                <mat-chip-list #chipLabourList>
+                                    <mat-chip *ngFor="let labour of chipSelectedLabour" [selectable]=true [removable]=true
+                                        (removed)="removeLabour(labour)">
+                                        {{labour.name}}
+                                        <mat-icon matChipRemove>X</mat-icon>
+                                    </mat-chip>
+                                    <input placeholder="Your labour" #LabourInput formControlName="labour" [matAutocomplete]="Lauto"
+                                        [matChipInputFor]="chipLabourList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                        [matChipInputAddOnBlur]=true (matChipInputTokenEnd)="addLabour($event)">
+                                </mat-chip-list>
+                                <mat-autocomplete #Lauto="matAutocomplete" (optionSelected)="labourSelected($event)">
+                                    <mat-option *ngFor="let thisLabourName of filteredLabour | async" [value]="thisLabourName">
+                                        {{thisLabourName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                    
+                          <div class="hr">
+                                <span>equipment</span>
+                            </div> 
+                            <mat-form-field>
+                                <mat-chip-list #chipEquipmentList>
+                                    <mat-chip *ngFor="let equipment of chipSelectedEquipment" [selectable]=true [removable]=true
+                                        (removed)="removeEquipment(equipment)">
+                                        {{equipment.name}}
+                                        <mat-icon matChipRemove>X</mat-icon>
+                                    </mat-chip>
+                                    <input placeholder="Your equipment" #EquipmentInput formControlName="equipment"
+                                        [matAutocomplete]="Eauto" [matChipInputFor]="chipEquipmentList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]=true
+                                        (matChipInputTokenEnd)="addEquipment($event)">
+                                </mat-chip-list>
+                                <mat-autocomplete #Eauto="matAutocomplete" (optionSelected)="equipmentSelected($event)">
+                                    <mat-option *ngFor="let thisequipmentName of filteredEquipment | async" [value]="thisequipmentName">
+                                        {{thisequipmentName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                           
+                   
+                    
+                        <button mat-raised-button type="submit" [disabled]="createCrewForm.invalid" class="btn btn-danger pull-right">
+                            Save
+                        </button>
+                        <button mat-raised-button type="button" class="btn btn-danger pull-right" (click)="cancel()">Cancel
+                        </button>
+                    </form>
+                </div>
+            </mat-tab>
+            <mat-tab>
+               
+                <ng-template mat-tab-label>Equipments</ng-template>
+                <app-crew-equipment></app-crew-equipment>
+            </mat-tab>
+            <mat-tab>
+                
+                <ng-template mat-tab-label>Labour</ng-template>
+                <app-crew-labour></app-crew-labour>
+            </mat-tab>
+        </mat-tab-group>
+    </div>

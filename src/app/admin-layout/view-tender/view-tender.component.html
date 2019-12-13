@@ -115,7 +115,7 @@
                             <form [formGroup]="masterForm" *ngIf="masterForm">
                                 
                                 <div formArrayName="items">
-                                    <div *ngFor="let item of masterForm.get('items').controls; let index = index"
+                                    <div *ngFor="let item of masterForm.get('items')['controls']; let index = index"
                                         [formGroupName]="index">
                                         <input formControlName="itemNo">
                                         <input formControlName="specNo">
@@ -226,13 +226,13 @@
                                                         <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" (click)="viewer(item)" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                                 <i class="material-icons">remove_red_eye</i>
                                                             </button>
-                                                        <button mat-raised-button type="button" matTooltip="remove" [matTooltipPosition]="'above'" (click)="delete(item)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="remove" [matTooltipPosition]="'above'" (click)="delete(item)" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                                 <i class="material-icons">close</i>
                                                             </button>
-                                                        <button mat-raised-button type="button" *ngIf="!accordion[index]" matTooltip="expand" (click)="toggleCollapse(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" *ngIf="!accordion[index]" matTooltip="expand" (click)="toggleCollapse(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                                 <i class="material-icons">expand_more</i>
                                                             </button>
-                                                        <button mat-raised-button type="button" *ngIf="accordion[index]" matTooltip="less" (click)="toggleCollapse(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" *ngIf="accordion[index]" matTooltip="less" (click)="toggleCollapse(index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                                 <i class="material-icons">expand_less</i>
                                                             </button>
                                                     </td>
@@ -684,40 +684,9 @@
                                                     </tr>
                                                 </tbody>
 
+                                        <tr [ngbCollapse]="!accordion[index]">
 
-                                            </table>
-                                        </div>
-                                        <div class="col-6">
-                                            <table class="table table-condensed">
-
-                                                <thead>
-                                                    <th>Name</th>
-                                                    <th>Price/Hour</th>
-                                                    <th>Hour</th>
-
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let labour of item.labours">
-                                                        <td>
-                                                            <textarea type="text" class="form-control" appAutoAdjust name="itemNo" [(ngModel)]="labour.name"></textarea>
-                                                        </td>
-                                                        <td>
-
-
-
-                                                            <textarea type="text" class="form-control" appAutoAdjust name="itemNo" [(ngModel)]="labour.price"></textarea>
-                                                        </td>
-                                                        <td>
-
-                                                            <textarea type="text" class="form-control" appAutoAdjust name="itemNo" [(ngModel)]="labour.hour"></textarea>
-                                                        </td>
-
-                                                    </tr>
-                                                </tbody>
-
-
-                                            </table>
-                                        </div>
+                                        </tr>
                                     </div>
                                 </ng-template>
                             </ngb-panel>
@@ -740,13 +709,10 @@
 
                             <!--  </table> -->
 
-                        </div>
-                    </div>
                 </div>
             </div>
-
         </div>
 
 
+
     </div>
-</div>

@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./crew-equipment.component.scss']
 })
 export class CrewEquipmentComponent implements OnInit {
+  displayedColumns: string[] = [ 'Name', 'Rate', 'Description', 'Type', 'Actions'];
   equipments: any;
   constructor(private modalService: MatDialog, private httpService: HttpService, private helperService: HelperService) { }
 

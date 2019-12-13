@@ -14,6 +14,8 @@ import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 // import { UpgradeComponent } from '../upgrade/upgrade.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -26,6 +28,9 @@ import {
   MatToolbarModule,
   MatListModule,
   MatCheckboxModule,
+  MatGridListModule,
+  MatCardModule,
+  MatTableModule,
   MatChipsModule,
   MatAutocompleteModule,
   MatIconModule
@@ -83,6 +88,9 @@ import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-lab
     MatListModule,
     MatCheckboxModule,
     MatToolbarModule,
+    MatGridListModule,
+    MatCardModule,
+    MatTableModule,
     MatChipsModule,
     MatAutocompleteModule,
     MatIconModule

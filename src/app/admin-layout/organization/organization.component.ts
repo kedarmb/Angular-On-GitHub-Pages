@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls: ['./organization.component.scss']
 })
 export class OrganizationComponent implements OnInit {
+    displayedColumns: string[] = [ 'Name', 'Street Address', 'Service Type', 'ServiceArea', 'province', 'Country', 'City', 'Actions'];
     organizations: any;
     constructor(private modalService: MatDialog, private httpService: HttpService, private router: Router) {}
     ngOnInit() {

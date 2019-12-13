@@ -12,7 +12,7 @@ import { TenderModalComponent } from 'app/shared/components/tender-modal/tender-
 })
 export class TenderComponent implements OnInit {
 
-
+  displayedColumns: string[] = [ 'Client Name', 'Tender Name', 'Open Date', 'Close Date', 'Quote Start Date', 'Quote End Date', 'Actions'];
   tenders: any;
 
   constructor(private modalService: NgbModal,

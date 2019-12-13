@@ -74,6 +74,7 @@ const MaterialComponent = [
     MatSelectModule,
     MatTooltipModule,
     NgbModule,
+    MatToolbarModule,
     MaterialComponent
   ],
   entryComponents: [

@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { HelperService } from '../../core/service/helper.service';
 import { regex, errorMsg } from '../../core/constant/index';
 import { HttpService } from 'app/shared/core/service/http.service';
-import { MatDialogClose } from '@angular/material';
+import { MatDialogClose, MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { EquipmentsModalComponent } from '../equipments-modal/equipments-modal.component';
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
@@ -19,7 +20,8 @@ export class UserModalComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
     private formBuider: FormBuilder,
     private helperService: HelperService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private dialogRef: MatDialogRef<EquipmentsModalComponent>
   ) { }
 
   ngOnInit() {
@@ -42,7 +44,8 @@ export class UserModalComponent implements OnInit {
   }
 
   close() {
-    this.modal._matDialogClose();
+    this.dialogRef.close();
+    // this.modal._matDialogClose('close');
   }
   save() {
     this.formSubmitted = true;

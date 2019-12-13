@@ -11,7 +11,10 @@ import { MatDialog } from '@angular/material';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
+
+
 export class UserComponent implements OnInit {
+  displayedColumns: string[] = [ 'Email', 'First Name', 'Last Name', 'Mobile', 'Role', 'Status', 'Actions'];
   data: any = {};
   user: User = new User();
   public employee: any = [];
