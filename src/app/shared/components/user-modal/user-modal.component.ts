@@ -43,6 +43,9 @@ export class UserModalComponent implements OnInit {
     });
   }
 
+  // close() {
+  //   this.modal._matDialogClose();
+  // }
   close() {
     this.dialogRef.close();
     // this.modal._matDialogClose('close');

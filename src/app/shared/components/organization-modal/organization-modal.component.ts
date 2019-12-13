@@ -70,13 +70,13 @@ export class OrganizationModalComponent implements OnInit {
         (response: any) => {
           console.log(response);
           if (response.status === 200) {
-            this.modal._matDialogClose('');
+            this.dialogRef.close('');
             this.valueChange.emit(response.status);
           }
         },
         error => {
           console.log(error);
-          this.modal._matDialogClose('');
+          this.dialogRef.close('');
         }
       )};
 }

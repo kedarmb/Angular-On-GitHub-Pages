@@ -3,19 +3,19 @@
         <div mat-dialog-content>
             <div class="col">
                 <mat-label>Organization</mat-label><span class="text-danger">*</span>
-                <mat-form-field class="example-full-width">
+                <mat-form-field >
                     <input formControlName="name" matInput type="text">
                 </mat-form-field>
             </div>
             <div class="col">
                 <mat-label>Street Address</mat-label><span class="text-danger">*</span>
-                <mat-form-field class="example-full-width">
-                    <input formControlName="organization" matInput type="text">
+                <mat-form-field >
+                    <input formControlName="streetAddress" matInput type="text">
                 </mat-form-field>
             </div>
             <div class="col">
                 <mat-label>Country<span class="text-danger">*</span></mat-label>
-                <mat-form-field class="example-full-width">
+                <mat-form-field >
                     <select formControlName="country" matNativeControl required>
                         <option></option>
                         <option>Canada</option>
@@ -26,7 +26,7 @@
             </div>
             <div class="col">
                 <mat-label>Province <span class="text-danger">*</span></mat-label>
-                <mat-form-field class="example-full-width">
+                <mat-form-field >
                     <select formControlName="province" matNativeControl required>
                         <option value=""></option>
                         <option>Ontario</option>
@@ -37,7 +37,7 @@
             </div>
             <div class="col">
                 <mat-label>City <span class="text-danger">*</span></mat-label>
-                <mat-form-field class="example-full-width">
+                <mat-form-field >
                     <select formControlName="city" matNativeControl required>
                         <option>Toranto</option>
                         <option>Las Vegas</option>
@@ -47,7 +47,7 @@
             </div>
             <div class="col">
                 <mat-label>Service Type <span class="text-danger">*</span></mat-label>
-                <mat-form-field class="example-full-width">
+                <mat-form-field >
                     <select formControlName="serviceType" matNativeControl required>
                         <option>compress</option>
                     </select>
@@ -55,7 +55,7 @@
             </div>
             <div class="col">
                 <mat-label>Service Area <span class="text-danger">*</span></mat-label>
-                <mat-form-field class="example-full-width">
+                <mat-form-field >
                     <select formControlName="serviceArea" matNativeControl required>
                         <option>reboot</option>
                     </select>
