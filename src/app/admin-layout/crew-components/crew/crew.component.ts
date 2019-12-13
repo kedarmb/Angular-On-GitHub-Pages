@@ -1,3 +1,4 @@
+import { HttpService } from 'app/shared/core/service/http.service';
 import { CrewEquipmentComponent } from './crew-equipment/crew-equipment.component';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbMarkDisabled } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model';
@@ -267,7 +268,6 @@ export class CrewComponent implements OnInit {
   getCrewData() {
     this.httpService.labour(this.organizationForm.value).subscribe(
       (response: any) => {
-        console.log(response);
         if (response.status === 200) {
           this.activeModal.close('closed');
           this.valueChange.emit(response.status);
@@ -327,3 +327,10 @@ export class CrewComponent implements OnInit {
     const modalRef = this.modalService.open(EquipmentsModalComponent, { centered: true });
   }
 }
+
+
+
+// 
+//
+//
+//
