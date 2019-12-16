@@ -1,21 +1,13 @@
 
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 import Organization from 'app/shared/core/model/organization.model';
-
-// import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { HttpService } from 'app/shared/core/service/http.service';
-
 import { CountriesService } from 'app/shared/core/service/countries.service';
-
 import { HelperService } from 'app/shared/core/service/helper.service';
-
 import { regex, errorMsg } from 'app/shared/core/constant';
 import { MatDialog, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { EquipmentsModalComponent } from '../equipments-modal/equipments-modal.component';
+import { updateLocale } from 'moment';
 
 @Component({
   selector: 'app-organization-modal',
@@ -26,57 +18,79 @@ export class OrganizationModalComponent implements OnInit {
   organizationForm: FormGroup;
   formSubmitted = false;
   @Output() valueChange = new EventEmitter();
-  // @Input('organization')
   organization: Organization;
   placement = 'bottom';
   countryInfo: any[] = [];
   stateInfo: any[] = [];
   cityInfo: any[] = [];
+  resData = {
+    status: true,
+    data: ''
+  };
+
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
-    // public modal: MatDialogClose,
-    // public activeModal: NgbActiveModal,
     private httpService: HttpService,
     private country: CountriesService,
     private fb: FormBuilder,
     private helperService: HelperService,
-    private dialogRef: MatDialogRef<EquipmentsModalComponent>
-  ) { }
+    private dialogRef: MatDialogRef<any>
+  ) {}
 
   ngOnInit() {
     this.organizationForm = this.fb.group({
-      name: ['',
-        [Validators.required, this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameMessage })]],
+      name: ['', [Validators.required,
+      this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameMessage })]],
       streetAddress: ['', [Validators.required]],
       city: ['', [Validators.required]],
       province: ['', [Validators.required]],
       country: ['', [Validators.required]],
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
-      type: [['1']]
+      orgType: [['1']],
+      createDate: [new Date().toISOString],
+      updateDate: [new Date().toISOString],
+      _id: [this.data.modal._id]
     });
-  }
-  public subForm() {
-    console.log(' this.organizationForm:', this.organizationForm);
-  }
 
+    if (this.data.modal.val === true) {
+      const newVal = this.data.modal.data
+      delete newVal.__v
+      this.organizationForm.setValue(newVal)
+    }
+  }
   close() {
-    this.dialogRef.close();
-    // this.modal._matDialogClose('close');
+    this.resData.status = false;
+    this.dialogRef.close(this.resData);
   }
   save() {
-    console.log(this.organizationForm.value);
-      this.httpService.createOrganization(this.organizationForm.value).subscribe(
-        (response: any) => {
-          console.log(response);
+      const finalVal = this.organizationForm.value
+      delete finalVal._id;
+      this.httpService.createOrganization(finalVal)
+      .subscribe((response: any) => {
           if (response.status === 200) {
-            this.dialogRef.close('');
-            this.valueChange.emit(response.status);
+            this.dialogRef.close(this.resData);
+            this.valueChange.emit(response);
           }
         },
         error => {
           console.log(error);
-          this.dialogRef.close('');
         }
-      )};
+      )
+  };
+  update() {
+      const finalVal = this.organizationForm.value
+      delete finalVal.createDate
+      this.httpService.updateOrganization(finalVal).subscribe(
+        (response: any) => {
+          if (response.status === 200) {
+            this.dialogRef.close(this.resData);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      )
+  }
 }

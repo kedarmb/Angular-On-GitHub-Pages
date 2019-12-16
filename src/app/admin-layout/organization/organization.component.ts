@@ -12,9 +12,13 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls: ['./organization.component.scss']
 })
 export class OrganizationComponent implements OnInit {
-    displayedColumns: string[] = [ 'Name', 'Street Address', 'Service Type', 'ServiceArea', 'province', 'Country', 'City', 'Actions'];
+    displayedColumns: string[] = ['Name', 'Street Address', 'Service Type', 'ServiceArea', 'province', 'Country', 'City', 'Actions'];
     organizations: any;
-    constructor(private modalService: MatDialog, private httpService: HttpService, private router: Router) {}
+    update = {
+        data:'',
+        val:''
+    };
+    constructor(private modalService: MatDialog, private httpService: HttpService, private router: Router) { }
     ngOnInit() {
         this.getOrganization()
     }
@@ -28,7 +32,7 @@ export class OrganizationComponent implements OnInit {
             }, error => {
                 console.log(error);
             })
-        }
+    }
 
     delete(organization) {
         this.httpService.deleteOrganization(organization).subscribe(() => {
@@ -39,25 +43,28 @@ export class OrganizationComponent implements OnInit {
         })
     }
 
-    open() {
-        // const modalRef = this.modalService.open(OrganizationModalComponent, { centered: true });
-        // const obj = {};
-        // tslint:disable-next-line: forin
-        // for (const i in item) {
-        //     obj[i] = item[i];
-        // }
-        // modalRef.componentInstance.organization = obj || new Organization();
+    openModal() {
         const modalRef = this.modalService.open(OrganizationModalComponent, {
             height: 'auto',
-            width: '35%' });
-        modalRef.afterClosed().subscribe(response => {
-            console.log(response);
-            this.organizations = response;
+            width: '35%', data: { modal: this.update }
         });
-        modalRef.afterClosed().subscribe((response) => {
-        this.getOrganization();
-        })
+        modalRef.afterClosed().subscribe(response => {
+            if (response.status === true) {
+                console.log(response.data);
+                this.organizations = response.data;
+            }
+        });
 
+    }
+    addOrg(val) {
+        this.update.val = val
+        this.openModal();
+
+    }
+    updateOrg(val, data) {
+        this.update.val = val
+        this.update.data = data
+        this.openModal();
     }
 
     viewTender() {

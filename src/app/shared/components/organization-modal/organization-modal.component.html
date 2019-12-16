@@ -62,8 +62,14 @@
                 </mat-form-field>
             </div>
             <mat-dialog-actions class=" pull-right">
-                <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
+                <div *ngIf="data.modal.val == false">
+                    <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
                     class="btn btn-danger">Save</button>
+                </div>
+                <div *ngIf="data.modal.val == true">
+                    <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="update()"
+                    class="btn btn-danger">Update</button>
+                </div>
                 <button mat-raised-button type="button" (click)="close()" class="btn btn-danger">Cancel</button>
             </mat-dialog-actions>
         </div>

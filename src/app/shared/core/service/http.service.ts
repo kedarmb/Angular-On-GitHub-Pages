@@ -71,25 +71,23 @@ export class HttpService {
   }
 
   public createOrganization(body) {
-    return this.httpClient.post(API_URL + '/organization', body, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.post(ApiUrl.orgUrl, body, { headers: this.getHeader(), observe: 'response' });
   }
 
-  public updateOrganization(id, body) {
-
-    return this.httpClient.put(API_URL + '/organization/' + id, body, { headers: this.getHeader(), observe: 'response' });
+  public updateOrganization(data) {
+    return this.httpClient.put(ApiUrl.orgUrl + '/' + data.id, data, { headers: this.getHeader(), observe: 'response' });
   }
 
-  public deleteOrganization(id) {
-
-    return this.httpClient.delete(API_URL + '/organization/' + id, { headers: this.getHeader(), observe: 'response' });
+  public deleteOrganization(data) {
+    return this.httpClient.delete(ApiUrl.orgUrl + '/' + data.id, { headers: this.getHeader(), observe: 'response' });
   }
 
   public getAllOrganization() {
-    return this.httpClient.get(API_URL + '/organization', { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.get(ApiUrl.orgUrl, { headers: this.getHeader(), observe: 'response' });
   }
 
   public getByIdOrganization(id) {
-    return this.httpClient.get(API_URL + '/organization/' + id, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.get(ApiUrl.orgUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
   public signup(body) {
     console.log(body);

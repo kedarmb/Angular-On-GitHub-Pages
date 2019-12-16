@@ -1,20 +1,10 @@
 <div class="main-content">
-
-
-
-
-
-
     <mat-toolbar color="primary">
-
-        <a (click)="open()">
+        <a (click)="addOrg(false)">
             <i class="material-icons">add</i>Add
         </a>
-
     </mat-toolbar>
     <table class="mat_tab" mat-table [dataSource]="organizations" class="mat-elevation-z8">
-
-                
         <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let element">  {{element.name}} </td>
@@ -47,7 +37,7 @@
         <ng-container matColumnDef="Actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let element">
-                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="open()" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="updateOrg(true,  element)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                     <i class="material-icons">edit</i>
                 </button>
 <button mat-raised-button type="button" matTooltip="Remove" (click)="delete()" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
