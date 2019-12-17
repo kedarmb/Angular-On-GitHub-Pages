@@ -13,6 +13,8 @@ import * as uuid from '../../../../../node_modules/uuid';
 import { Tender } from 'app/shared/core/model/tender.model';
 //
 import * as moment from 'moment';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 
 
@@ -44,6 +46,7 @@ export class TenderModalComponent implements OnInit {
         private tenderService: TenderService,
         private formBuider: FormBuilder,
         private helperService: HelperService,
+        private spinner: NgxSpinnerService
     ) {
     }
 
@@ -67,7 +70,7 @@ export class TenderModalComponent implements OnInit {
             //
             name: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
             //
-            description: ['', Validators.required], 
+            description: ['', Validators.required],
             openDate: ['', Validators.required],
             closeDate: ['', Validators.required],
             quoteStartDate: ['', Validators.required],
@@ -157,14 +160,15 @@ export class TenderModalComponent implements OnInit {
         //
         // this.convertToDate();
         //
-        console.log(this.tender.id)
-        if (this.tender.id) {
+        console.log(this.tender._id)
+        if (this.tender._id) {
             this.tenderService.update(this.tender).subscribe((data) => {
                 console.log('data is.. ', data);
                 this.activeModal.close('');
             })
         } else {
             if (this.tenderHeaderForm.valid) {
+                this.spinner.show();
                 // console.log(moment().toISOString(this.tenderHeaderForm.value.openDate));
                 this.tenderHeaderForm.patchValue({
                     openDate: moment().toISOString(this.tenderHeaderForm.value.openDate),
@@ -178,13 +182,19 @@ export class TenderModalComponent implements OnInit {
 
                 console.log('form is valid .. calling service');
                 //
-                this.tenderService.add(this.tenderHeaderForm.value).subscribe((success) => {
+                setTimeout(() => {
                     this.activeModal.close('');
-                    console.log('success block ', success);
-                }, (err) => {
-                    this.activeModal.close('');
-                    console.log('err block ', err);
-                })
+                    this.spinner.hide();
+                 }, 2000)
+                /*  this.tenderService.add(this.tenderHeaderForm.value).subscribe((success) => {
+                     this.activeModal.close('');
+                     console.log('success block ', success);
+                     this.spinner.hide();
+                 }, (err) => {
+                     this.activeModal.close('');
+                     console.log('err block ', err);
+                     this.spinner.hide();
+                 }) */
             }
         }
 

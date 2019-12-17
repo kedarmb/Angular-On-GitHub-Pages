@@ -17,15 +17,15 @@
                                                     <div class="ripple-container"></div>
                                                 </a>
                                             </li>
-                                            
+
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="card-body" *ngIf="tenders">
-                            <div class="table-responsive">                                
+                            <div class="table-responsive">
                                 <table id="mainTable" class="table table-hover">
                                     <thead class="">
                                         <th>
@@ -35,7 +35,7 @@
                                             Client Name
                                         </th>
                                         <th>
-                                           Tender Name
+                                            Tender Name
                                         </th>
 
                                         <th>
@@ -64,7 +64,7 @@
                                             </td>
                                             <td>
                                                 {{tender.name}}
-                                                
+
                                             </td>
 
                                             <td>
@@ -114,11 +114,21 @@
                                 </table>
                             </div>
                         </div>
-                        <div *ngIf="!tenders">
-                            <span style="font-weight: 900; font-size: larger;">Loading list .... </span>
+                        <div>
+                            <!-- <span style="font-weight: 900; font-size: larger;">Loading list .... </span> -->
+
                         </div>
 
                     </div>
+                </div>
+                <div class="card card-plain" *ngIf="!tenders">
+                    <div class="card-header" style="text-align: center; margin-bottom: 60px;">
+                        Loading your list of tenders ..
+                    </div>
+                    <!-- <div class="card-body">                            
+                        <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">                            
+                        </ngx-spinner>
+                    </div> -->
                 </div>
             </div>
         </div>

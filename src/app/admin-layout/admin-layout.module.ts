@@ -14,8 +14,6 @@ import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 // import { UpgradeComponent } from '../upgrade/upgrade.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-
 import {
   MatButtonModule,
   MatInputModule,
@@ -30,7 +28,6 @@ import {
   MatCheckboxModule,
   MatGridListModule,
   MatCardModule,
-  MatTableModule,
   MatChipsModule,
   MatAutocompleteModule,
   MatIconModule
@@ -44,7 +41,7 @@ import { EditInputComponent } from './edit-input/edit-input.component';
 import { OrganizationComponent } from './organization/organization.component';
 
 import { UserComponent } from './user/user.component';
-//import { LabourComponent } from '../../components/labour/labour.component';
+// import { LabourComponent } from '../../components/labour/labour.component';
 
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { AutoAdjustDirective } from '../shared/directive/auto-adjust.directive';
@@ -63,6 +60,11 @@ import { MedicalComprehendComponent } from './medical-comprehend/medical-compreh
 import { FullcalenderComponent } from './fullcalender/fullcalender.component';
 import { CrewEquipmentComponent } from './crew-components/crew/crew-equipment/crew-equipment.component';
 import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-labour.component';
+//
+// import { NgxSpinnerModule } from 'ngx-spinner';
+//
+import { MatTableModule } from '@angular/material';
+
 
 
 @NgModule({
@@ -88,6 +90,8 @@ import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-lab
     MatListModule,
     MatCheckboxModule,
     MatToolbarModule,
+    // NgxSpinnerModule,
+    MatTableModule,
     MatGridListModule,
     MatCardModule,
     MatTableModule,

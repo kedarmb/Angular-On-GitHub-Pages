@@ -1,5 +1,6 @@
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -17,7 +18,9 @@ import { SearchSubscriberService } from './shared/core/service/search-subscriber
 import { LayoutModule } from './layout/layout.module';
 import { MatCardModule } from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
-import { NgxSpinnerModule } from 'ngx-spinner';
+//
+
+
 
 
 @NgModule({
@@ -33,10 +36,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         AppRoutingModule,
         NgbModule,
         SharedModule,
+        ToastrModule.forRoot(),
         MatCardModule,
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
-        })
+        }),
+        
     ],
     declarations: [
         AppComponent,

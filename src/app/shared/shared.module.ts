@@ -1,5 +1,3 @@
-// import { AppRoutingModule } from 'app/app.routing';
-
 import { LayoutModule } from '../layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -14,14 +12,18 @@ import { NotifySubcontractorComponent } from './components/notify-subcontractor/
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule,
-        MatButtonToggleModule, MatIconModule, MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule, MatSidenavModule,
+import {
+  MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule,
+  MatButtonToggleModule, MatIconModule, MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule, MatSidenavModule,
   MatMenuModule, MatListModule, MatDividerModule, MatGridListModule, MatExpansionModule, MatTabsModule, MatStepperModule,
-        MatAutocompleteModule, MatDialogModule } from '@angular/material';
+  MatAutocompleteModule, MatDialogModule
+} from '@angular/material';
 // import { , MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LabourModalComponent } from './components/labour-modal/labour-modal.component';
 import { MatCardModule } from '@angular/material/card';
+
+//
 const MaterialComponent = [
   MatButtonModule, MatButtonToggleModule,
   MatIconModule, MatBadgeModule,
@@ -32,7 +34,6 @@ const MaterialComponent = [
   MatCardModule, MatTabsModule, MatStepperModule,
   MatFormFieldModule, MatInputModule, MatSelectModule,
   MatAutocompleteModule, MatDialogModule];
-
 
 @NgModule({
   declarations: [
@@ -75,7 +76,7 @@ const MaterialComponent = [
     MatTooltipModule,
     NgbModule,
     MatToolbarModule,
-    MaterialComponent
+    MaterialComponent,
   ],
   entryComponents: [
     TenderModalComponent,

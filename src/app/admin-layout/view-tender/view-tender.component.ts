@@ -10,7 +10,9 @@ import { TenderItem } from '../../shared/core/model/tender-item.model';
 import * as uuid from 'uuid';
 import { CrewModalComponent } from 'app/shared/components/crew-modal/crew-modal.component';
 import { NotifySubcontractorComponent } from 'app/shared/components/notify-subcontractor/notify-subcontractor.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { isArray } from 'util';
 
 @Component({
     selector: 'app-view-tender',
@@ -50,6 +52,10 @@ export class ViewTenderComponent implements OnInit {
     searching = false;
     searchFailed = false;
     states = [];
+    displayedColumns: string[] = ['ItemNo', 'SpecNo', 'ItemName', 'Description',
+        'Unit', 'Unit-Price', 'Quantity', 'TotalPrice'];
+    lineItems: any;
+
 
 
     @ViewChild('instance', { static: true })
@@ -61,12 +67,16 @@ export class ViewTenderComponent implements OnInit {
     masterForm: FormGroup;
     // lineItemsForm: FormGroup;
 
-    constructor(private modalService: NgbModal, private crewService: CrewService,
+    constructor(/* private modalService: NgbModal,  */private crewService: CrewService,
         private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,
-        private tenderService: TenderService, private router: Router) {
+        private tenderService: TenderService, private router: Router, public dialog: MatDialog) {
         //
         this.activatedRoute.params.subscribe((params) => {
+            // console.log('param ', params);
             this.tenderService.getTenderById(params.id).subscribe((tender) => {
+                // console.log(tender);
+                this.lineItems = tender.items;
+                console.log(this.lineItems);
                 this.tender = JSON.parse(JSON.stringify(tender));
                 // this.createLineItemFormGroup();
                 this.getMasterForm();
@@ -91,6 +101,11 @@ export class ViewTenderComponent implements OnInit {
         //  this.mapValuesIntoForm();
     }
 
+    printConsole(param) {
+        // console.log(JSON.stringify(param));
+        // console.log(param.get('name').value);
+        // https://stackblitz.com/edit/reactive-forms-generate-very-large-form-final?file=src%2Fapp%2Fapp.component.html
+    }
     getMasterForm() {
         // console.log()
         this.masterForm = this.formBuilder.group({
@@ -101,35 +116,53 @@ export class ViewTenderComponent implements OnInit {
 
     createLineItemForm() {
         this.tender.items.forEach((item, index) => {
+
             const lineItemFormArr = this.masterForm.get('items') as FormArray;
             lineItemFormArr.push(this.createItemCtrl(item));
-            item.subcontractors.forEach((subCnt, subCntIndex) => {
+            //
+            item.subitems.forEach((subItem, subItemIndex) => {
                 // console.log((<FormArray>lineItemFormArr.controls[index].get('subcontractors')));
-                const subContractorNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('subcontractors'))
+                const subItemNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('subitems'))
                 //
-                subContractorNode.push(this.createSubContCtrls(subCnt));
+                subItemNode.push(this.createSublineItemsCtrls(subItem));
                 //
-                subCnt.subitems.forEach((subItem, subIndex) => {
-                     //
+                /* subCnt.subitems.forEach((subItem, subIndex) => {
+                    //
                     // console.log('subItem is ', subItem);
                     const subItemsNode: FormArray = ((<FormArray>(<FormArray>lineItemFormArr.controls[index].get('subcontractors'))
                         .controls[subCntIndex].get('subitems')));
                     //
                     subItemsNode.push(this.createSubItemsCtrls(subItem));
-                })
+                }) */
 
             })
-            //
-            item.equipments.forEach((equipment, equipIndex) => {
+
+            /* item.equipments.forEach((equipment, equipIndex) => {
                 const equipmentNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('equipments'));
                 equipmentNode.push(this.createEquipmentControls(equipment))
-            })
+            }) */
             //
-            item.labours.forEach((labour, labourIndex) =>{
+            /* item.labours.forEach((labour, labourIndex) => {
                 const labourNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('labours'));
                 labourNode.push(this.createLaboursControls(labour));
-            })
+            }) */
         })
+        // console.log(this.masterForm)
+        this.masterForm.get('items')['controls'].map((item) => {
+            // console.log(item)
+            /* item.get('equipments')['controls'].map(eq => {
+                // console.log(eq)
+            },
+                item.get('subcontractors')['controls'].map(sub => {
+                    // console.log(sub)
+                    // console.log(item)
+                    sub.get('subitems')['controls'].map(subItem => {
+                        //
+                    })
+                })
+            ) */
+        }
+        )
     }
 
 
@@ -145,21 +178,33 @@ export class ViewTenderComponent implements OnInit {
             unitPrice: [element.unitPrice],
             quantity: [element.quantity],
             totalPrice: [element.totalPrice],
-            trench: [element.trench],
-            subcontractors: this.formBuilder.array([]),
-            equipments: this.formBuilder.array([]),
-            labours: this.formBuilder.array([])
+            // trench: [element.trench],
+            subitems: this.formBuilder.array([])
+            // subcontractors: this.formBuilder.array([]),
+            // equipments: this.formBuilder.array([]),
+            // labours: this.formBuilder.array([])
+        })
+    }
+
+    createSublineItemsCtrls(element) {
+        return this.formBuilder.group({
+            id: [element.id],
+            name: [element.name],
+            unit: [element.unit],
+            unitPrice: [element.unitPrice],
+            quantity: [element.quantity],
+            totalPrice: [element.totalPrice]
         })
     }
     //
-    createSubContCtrls(element) {
+    /* createSubContCtrls(element) {
         // console.log('createSubContCtrls', element);
         return this.formBuilder.group({
             name: [element.name],
             subitems: this.formBuilder.array([])
         })
-    }
-    createSubItemsCtrls(element) {
+    } */
+    /* createSubItemsCtrls(element) {
         return this.formBuilder.group({
             id: [element.id],
             name: [element.name],
@@ -168,45 +213,46 @@ export class ViewTenderComponent implements OnInit {
             unitPrice: [element.unitPrice],
             totalPrice: [element.totalPrice]
         })
-    }
+    } */
 
-    createEquipmentControls(element) {
+    /* createEquipmentControls(element) {
         return this.formBuilder.group({
-            _id: [element._id],
+            // _id: [element._id],
             name: [element.name],
             description: [element.description],
             rate: [element.rate],
             type: [element.type]
         })
 
-    }
+    } */
 
-    createLaboursControls(element) {
+    /* createLaboursControls(element) {
         return this.formBuilder.group({
-            _id: [element._id],
+            // _id: [element._id],
             name: [element.name],
             description: [element.description],
             rate: [element.rate],
             type: [element.type],
-            createdAt: [element.createdAt]
+            // createdAt: [element.createdAt]
         })
-    }
+    } */
 
 
 
 
-   /* trench(item) {
-        const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
-    }*/
-    back(){
+    /* trench(item) {
+         const modalRef = this.modalService.open(TrenchModalComponent, {centered: true});
+     }*/
+    back() {
         this.router.navigateByUrl('/tender');
     }
 
     crew(item) {
-        const modalRef = this.modalService.open(CrewModalComponent, { centered: true, size: 'lg' });
+        // const modalRef = this.modalService.open(CrewModalComponent, { centered: true, size: 'lg' });
     }
 
     toggleCollapse(index) {
+        console.log('indx is ', index);
         this.accordion[index] = !this.accordion[index]
     }
 
@@ -226,16 +272,42 @@ export class ViewTenderComponent implements OnInit {
         this.tender.items.unshift(tenderItem);
     }
 
+    addLineItem() {
+        const subIlineItm = {
+            id: '',
+            name: '',
+            unit: '',
+            unitPrice: '',
+            quantity: '',
+            totalPrice: ''
+        }
+        //
+        const lineItm = this.formBuilder.group({
+            itemNo: [],
+            specNo: [],
+            itemName: [],
+            description: [],
+            unit: [],
+            unitPrice: [],
+            quantity: [],
+            totalPrice: [],
+            subitems: this.formBuilder.array([this.createSublineItemsCtrls(subIlineItm)])
+        });
+        //
+        const lineItemsArr = this.masterForm.get('items') as FormArray;
+        lineItemsArr.insert(0, lineItm);
+    }
+    //
     save() {
-        if (this.tender.id) {
+        if (this.tender._id) {
             this.tenderService.update(this.tender).subscribe(() => {
-                this.tenderService.getTenderById(this.tender.id).subscribe((tender) => {
+                this.tenderService.getTenderById(this.tender._id).subscribe((tender) => {
                     // this.tender = tender;
                 })
             })
         } else {
             this.tenderService.add(this.tender).subscribe(() => {
-                this.tenderService.getTenderById(this.tender.id).subscribe((tender) => {
+                this.tenderService.getTenderById(this.tender._id).subscribe((tender) => {
                     // this.tender = tender;
                 })
             })
@@ -243,19 +315,33 @@ export class ViewTenderComponent implements OnInit {
 
     }
 
-    addSubitem(item) {
+    /* addSubitem(item) {
         item.subitems.unshift({ name: '', unitPrice: 0, quantity: 0, totalPrice: 0 });
+    } */
+    addSubLineItem(param) {
+        // const subItemNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('subitems'))
+        const sbGroup = this.formBuilder.group({
+            id: '',
+            name: '',
+            unit: '',
+            unitPrice: '',
+            quantity: '',
+            totalPrice: ''
+        })
+        //
+        const subItemsArr = param.get('subitems').controls as Array<any>;
+        // subItemsArr.push(sbGroup);
+        // subItemsArr.insert(0, sbGroup);
+        subItemsArr.unshift(sbGroup);
     }
 
-    deleteSubitem(item, index) {
-        item.subitems.splice(index, 1);
+    removeSublineItem(param, index) {
+        const subItemsArr = param.get('subitems').controls as Array<any>;
+        subItemsArr.splice(index, 1);
     }
 
     public searchFunctionFactory(instance: any): (text: Observable<string>) => Observable<any[]> {
-
-
         const getCities = (text$: Observable<string>) => {
-
             const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
             const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !instance.isPopupOpen()));
             const inputFocus$ = this.focus$;
@@ -277,7 +363,16 @@ export class ViewTenderComponent implements OnInit {
 
 
     notify() {
-        const modalRef = this.modalService.open(NotifySubcontractorComponent, { centered: true });
+        // const modalRef = this.modalService.open(NotifySubcontractorComponent, { centered: true });
+        //
+        const dialogRef = this.dialog.open(NotifySubcontractorComponent, {
+            width: '350px'/* ,
+            data: { name: this.name, animal: this.animal } */
+        });
+        //
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed ', result);
+        });
     }
 
     populateCrew(item) {
@@ -326,9 +421,7 @@ export class ViewTenderComponent implements OnInit {
             this.trench.backfill.height *
             this.trench.backfill.width));
         this.trench.backfill.weight = Math.floor(this.trench.backfill.density * this.trench.backfill.boxVolume);
-        this.trench.beading.boxVolume = Math.floor((this.trench.beading.length *
-            this.trench.beading.height *
-            this.trench.beading.width));
+        this.trench.beading.boxVolume = Math.floor((this.trench.beading.length * this.trench.beading.height * this.trench.beading.width));
         this.trench.beading.pipeVolume = Math.floor((3.14 * (this.trench.beading.diameter / 2) * this.trench.beading.height));
         const remaningVolume = this.trench.beading.boxVolume - this.trench.beading.pipeVolume;
         this.trench.beading.weight = Math.floor(remaningVolume * this.trench.beading.density);

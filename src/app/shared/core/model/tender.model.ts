@@ -3,7 +3,7 @@ import {TenderItem} from './tender-item.model';
 import {Subcontractor} from './subcontractor.model';
 
 export class Tender {
-    id = '';
+    _id = '';
     clientName = '';
     tenderName = '';
     items: TenderItem [] = [];
