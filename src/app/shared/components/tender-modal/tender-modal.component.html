@@ -1,5 +1,5 @@
 <div class="modal-body">
-  <form [formGroup]="tenderHeaderForm" novalidate (ngSubmit)="save(tenderHeaderForm)" *ngIf="tenderHeaderForm">    
+  <form [formGroup]="tenderHeaderForm" novalidate  *ngIf="tenderHeaderForm">    
     <label for="clientName">Client Name</label>
     <input type="text" class="form-control" formControlName="clientName" placeholder="Client Name">
     
@@ -85,7 +85,7 @@
     </div>
     <!--  [disabled]="tenderHeaderForm.invalid"  -->
     <button mat-raised-button (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-    <button mat-raised-button type="submit" class="btn btn-danger pull-right" 
+    <button mat-raised-button (click)="save()" class="btn btn-danger pull-right" 
     [disabled]="tenderHeaderForm.invalid" >Save</button>
   </form>
 

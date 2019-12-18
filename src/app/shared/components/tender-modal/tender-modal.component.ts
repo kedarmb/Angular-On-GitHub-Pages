@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit, Inject } from '@angular/core';
+// import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+//
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 import { TenderService } from '../../core/service/tender.service';
@@ -27,7 +29,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class TenderModalComponent implements OnInit {
 
 
-    tender: Tender;
+    tender: Tender = null;
     placement = 'bottom';
 
 
@@ -42,22 +44,26 @@ export class TenderModalComponent implements OnInit {
     quoteCloseMinDate: any;
     quoteCloseMaxDate: any;
 
-    constructor(public activeModal: NgbActiveModal,
+    constructor(/* public activeModal: NgbActiveModal, */
+        public tenderModalRef: MatDialogRef<TenderModalComponent>,
+        @Inject(MAT_DIALOG_DATA) public tenderData: any,
         private tenderService: TenderService,
         private formBuider: FormBuilder,
         private helperService: HelperService,
         private spinner: NgxSpinnerService
     ) {
+
+
     }
 
     ngOnInit() {
-        // console.log('in tender modal ', this.tender);
-        this.convertToNgbDate();
+        console.log('receiving data in tender dialog ', this.tenderData);
+        // this.convertToNgbDate();
         //
         this.initializeForm();
         //
         if (this.tender != null || this.tender !== undefined) {
-            this.autoPopulateForEdit(this.tender);
+            // this.autoPopulateForEdit(this.tender);
         };
         //
 
@@ -65,7 +71,10 @@ export class TenderModalComponent implements OnInit {
 
     initializeForm() {
         this.tenderHeaderForm = this.formBuider.group({
-            //
+            // TODO: setup correct controls for populating this form.
+            __v: [],
+            tags: [],
+            _id: [],
             clientName: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
             //
             name: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
@@ -75,8 +84,12 @@ export class TenderModalComponent implements OnInit {
             closeDate: ['', Validators.required],
             quoteStartDate: ['', Validators.required],
             quoteEndDate: ['', Validators.required],
-            user: ['5da89960a103e032019e38ac'],
-            organization: ['5dd7a520715859802e8b2c55']
+            createDate: [],
+            createdBy: [],
+            updateDate: [],
+            organizationRef: []
+            // user: ['5da89960a103e032019e38ac'],
+            // organization: ['5dd7a520715859802e8b2c55']
         });
     }
 
@@ -110,7 +123,8 @@ export class TenderModalComponent implements OnInit {
     }
     /** Added by Arup: 18 Nov 2019 */
     private autoPopulateForEdit(tender) {
-        // console.log(tender);
+        console.log(tender);
+        // this.tenderHeaderForm.reset();
         // this.tenderHeaderForm.setValue(tender);
     }
 
@@ -154,7 +168,8 @@ export class TenderModalComponent implements OnInit {
     }
 
 
-    save(tenderHeaderForm) {
+    save() {
+        console.log(this.tender)
         this.formSubmitted = true;
         // console.log('open date is ',this.tenderHeaderForm.controls.openDate.value.year);
         //
@@ -164,7 +179,7 @@ export class TenderModalComponent implements OnInit {
         if (this.tender._id) {
             this.tenderService.update(this.tender).subscribe((data) => {
                 console.log('data is.. ', data);
-                this.activeModal.close('');
+                // this.activeModal.close('');
             })
         } else {
             if (this.tenderHeaderForm.valid) {
@@ -183,9 +198,9 @@ export class TenderModalComponent implements OnInit {
                 console.log('form is valid .. calling service');
                 //
                 setTimeout(() => {
-                    this.activeModal.close('');
+                    // this.activeModal.close('');
                     this.spinner.hide();
-                 }, 2000)
+                }, 2000)
                 /*  this.tenderService.add(this.tenderHeaderForm.value).subscribe((success) => {
                      this.activeModal.close('');
                      console.log('success block ', success);
@@ -201,7 +216,10 @@ export class TenderModalComponent implements OnInit {
     }
 
     close() {
-        this.activeModal.dismiss('closed');
+        // this.activeModal.dismiss('closed');
+        console.log('close invoked')
+        // TODO: to pass data to the close() method to the calling component
+        this.tenderModalRef.close()
     }
 
     convertToNgbDate() {

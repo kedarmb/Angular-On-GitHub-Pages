@@ -16,9 +16,9 @@ export class TenderitemComponent implements OnInit {
                   HttpService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit() {
-    this.httpService.getTendersItems().subscribe((result) => {
+    /* this.httpService.getTendersItems().subscribe((result) => {
       this.tenderItems = result
-    })
+    }) */
   }
   openItem(item?) {
 

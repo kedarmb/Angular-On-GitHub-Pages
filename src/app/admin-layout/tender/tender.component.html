@@ -11,7 +11,7 @@
 
                                         <ul class="nav nav-tabs" data-tabs="tabs">
                                             <li class="nav-item">
-                                                <a mat-button class="nav-link active" (click)="open()" href="#profile"
+                                                <a mat-button class="nav-link active" (click)="openTenderHeaderDialog()" href="#profile"
                                                     data-toggle="tab">
                                                     <i class="material-icons">add</i> ADD
                                                     <div class="ripple-container"></div>
@@ -81,7 +81,7 @@
                                             </td>
                                             <td class="td-actions width-15">
                                                 <button mat-raised-button type="button" matTooltip="Edit Task"
-                                                    (click)="open(tender)" [matTooltipPosition]="'above'"
+                                                    (click)="openTenderHeaderDialog(tender)" [matTooltipPosition]="'above'"
                                                     class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">edit</i>
                                                 </button>
@@ -121,9 +121,9 @@
 
                     </div>
                 </div>
-                <div class="card card-plain" *ngIf="!tenders">
+                <div class="card card-plain" *ngIf="tenders?.length < 1">
                     <div class="card-header" style="text-align: center; margin-bottom: 60px;">
-                        Loading your list of tenders ..
+                        <h2>Loading your list of tenders ..</h2>
                     </div>
                     <!-- <div class="card-body">                            
                         <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">                            

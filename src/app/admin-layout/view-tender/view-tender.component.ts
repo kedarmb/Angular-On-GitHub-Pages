@@ -13,7 +13,7 @@ import { NotifySubcontractorComponent } from 'app/shared/components/notify-subco
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { isArray } from 'util';
-
+import { HttpService } from '../../shared/core/service/http.service';
 @Component({
     selector: 'app-view-tender',
     templateUrl: './view-tender.component.html',
@@ -69,22 +69,28 @@ export class ViewTenderComponent implements OnInit {
 
     constructor(/* private modalService: NgbModal,  */private crewService: CrewService,
         private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,
-        private tenderService: TenderService, private router: Router, public dialog: MatDialog) {
+        private tenderService: TenderService, private router: Router, public dialog: MatDialog,
+        private httpServ: HttpService) {
         //
         this.activatedRoute.params.subscribe((params) => {
             // console.log('param ', params);
-            this.tenderService.getTenderById(params.id).subscribe((tender) => {
+            // this.tenderService.getTenderById
+
+            this.httpServ.getTenderDetailById(params.id).subscribe((tender) => {
+                console.log('Success fetching tender details ', tender)
                 // console.log(tender);
-                this.lineItems = tender.items;
+                /* this.lineItems = tender.items;
                 console.log(this.lineItems);
                 this.tender = JSON.parse(JSON.stringify(tender));
                 // this.createLineItemFormGroup();
                 this.getMasterForm();
                 this.createLineItemForm();
 
-                console.log(this.masterForm);
+                console.log(this.masterForm); */
                 // this.createSubcontractorControls();
 
+            }, (err) => {
+                console.log('Error fetching tender details ', err);
             })
         })
         this.crewService.getAll().subscribe((crews) => {

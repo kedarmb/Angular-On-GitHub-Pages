@@ -291,11 +291,11 @@ export class TenderService {
         return of([]);
     }
 
-    getAll(): Observable<any> {
+    /* getAll(): Observable<any> {
         return of(this.array);
         // const createTenderURL = API_URL + '/tenders';
         // return this.http.get(createTenderURL);
-    }
+    } */
 
     getTenderById(id) {
         console.log('id is ', id)

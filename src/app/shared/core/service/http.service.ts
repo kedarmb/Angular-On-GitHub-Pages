@@ -86,24 +86,35 @@ export class HttpService {
     return this.httpClient.post(API_URL + '/signup', body, { headers: this.getHeader(), observe: 'response' });
   }
 
-  getTendersItems() {
+  /* getTendersItems() {
     return this.httpClient.get(`https://5d98bdd161c84c00147d7173.mockapi.io/tenderitems`);
-  }
+  } */
 
   public delUser(id: string) {
     return this.httpClient.delete(ApiUrl.UserUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
   public createUser(body) {
-    return this.httpClient.post(API_URL + '/user/', body, { headers: this.getHeader(), observe: 'response' } );
+    return this.httpClient.post(API_URL + '/user/', body, { headers: this.getHeader(), observe: 'response' });
   }
   public updateUser(body) {
     return this.httpClient.put(ApiUrl.UserUrl + '/' + body.id, body, { headers: this.getHeader(), observe: 'response' });
   }
   public getAllUser() {
-    return this.httpClient.get(ApiUrl.UserUrl , { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.get(ApiUrl.UserUrl, { headers: this.getHeader(), observe: 'response' });
   }
 
   public getByIdUser(id) {
     return this.httpClient.get(ApiUrl.UserUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
+  }
+  //
+  // API call for Tender Header & Tender Line & Subline Items
+  /** Public method to return the list of Tender Headers */
+  public getTenders() {
+    return this.httpClient.get(ApiUrl.tenderUrl, { headers: this.getHeader(), observe: 'response' })
+  }
+
+  /** Public method to Fetch single record of Tender */
+  public getTenderDetailById(id) {
+    return this.httpClient.get(ApiUrl.tenderUrl + '/' + id, { headers: this.getHeader(), observe: 'response' })
   }
 }
