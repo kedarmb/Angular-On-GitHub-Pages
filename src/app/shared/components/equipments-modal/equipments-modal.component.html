@@ -4,7 +4,7 @@
         <div mat-dialog-content>
             <div>
                 <mat-label>Name</mat-label><span class="text-danger">*</span>
-                <mat-form-field class="example-full-width"  appearance="legacy" color="warn">
+                <mat-form-field class="example-full-width" appearance="legacy" color="warn">
                     <input formControlName="name" matInput type="text">
                 </mat-form-field>
                 <div *ngIf="!equipmentsForm.controls.name.valid && (equipmentsForm.controls.name.dirty || equipmentsForm.controls.name.touched)"
@@ -16,7 +16,7 @@
             </div>
             <div>
                 <mat-label>Rate</mat-label><span class="text-danger">*</span>
-                <mat-form-field class="example-full-width"  appearance="legacy" color="warn">
+                <mat-form-field class="example-full-width" appearance="legacy" color="warn">
                     <input formControlName="rate" matInput type="text">
                 </mat-form-field>
             </div>
@@ -28,14 +28,21 @@
             </div>
             <div>
                 <mat-label>Type</mat-label><span class="text-danger">*</span>
-                <mat-form-field  appearance="legacy" color="warn" class="example-full-width">
+                <mat-form-field appearance="legacy" color="warn" class="example-full-width">
                     <input formControlName="type" matInput type="text">
                 </mat-form-field>
             </div>
         </div>
         <mat-dialog-actions class="pull-right">
-            <button mat-raised-button type="button" (click)="save()" class="btn btn-danger pull-right">Save</button>
-            <button mat-raised-button type="button" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+            <div *ngIf="data.modal.val == false">
+                <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
+                    class="btn btn-danger">Save</button>
+            </div>
+            <div *ngIf="data.modal.val == true">
+                <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="update()"
+                    class="btn btn-danger">Update</button>
+            </div>
+            <button mat-raised-button type="button" (click)="close()" class="btn btn-danger">Cancel</button>
         </mat-dialog-actions>
     </form>
-</div>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

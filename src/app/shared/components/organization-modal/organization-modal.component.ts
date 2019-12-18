@@ -24,7 +24,7 @@ export class OrganizationModalComponent implements OnInit {
   stateInfo: any[] = [];
   cityInfo: any[] = [];
   resData = {
-    status: true,
+    status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
     data: ''
   };
 
@@ -36,7 +36,7 @@ export class OrganizationModalComponent implements OnInit {
     private fb: FormBuilder,
     private helperService: HelperService,
     private dialogRef: MatDialogRef<any>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.organizationForm = this.fb.group({
@@ -44,13 +44,17 @@ export class OrganizationModalComponent implements OnInit {
       this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameMessage })]],
       streetAddress: ['', [Validators.required]],
       city: ['', [Validators.required]],
+      contactEmail: ['', [Validators.required]],
+      contactPhone: ['', [Validators.required]],
       province: ['', [Validators.required]],
       country: ['', [Validators.required]],
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
-      orgType: [['1']],
+      orgType: ['Prime'],
       createDate: [new Date().toISOString],
       updateDate: [new Date().toISOString],
+      createdBy: ['5da878a9c635743159f4d8d9'],
+      organizationRef: ['5dd5158b75de6156ccceb0ee'],
       _id: [this.data.modal._id]
     });
 
@@ -61,33 +65,43 @@ export class OrganizationModalComponent implements OnInit {
     }
   }
   close() {
-    this.resData.status = false;
+    this.resData.status = 'close';
     this.dialogRef.close(this.resData);
   }
   save() {
-      const finalVal = this.organizationForm.value
-      delete finalVal._id;
-      this.httpService.createOrganization(finalVal)
+    const finalVal = this.organizationForm.value
+    delete finalVal._id;
+    delete finalVal.updateDate;
+    console.log(this.data.modal.data._id)
+    console.log(this.organizationForm.value)
+    this.httpService.createOrganization(finalVal)
       .subscribe((response: any) => {
-          if (response.status === 200) {
-            this.dialogRef.close(this.resData);
-            this.valueChange.emit(response);
-          }
-        },
+        console.log(response)
+        if (response.status === 200) {
+          console.log(response)
+          this.dialogRef.close(this.resData);
+        }
+      },
         error => {
           console.log(error);
         }
       )
   };
   update() {
-      const finalVal = this.organizationForm.value
-      delete finalVal.createDate
-      this.httpService.updateOrganization(finalVal).subscribe(
-        (response: any) => {
-          if (response.status === 200) {
-            this.dialogRef.close(this.resData);
-          }
-        },
+    let finaVal = this.organizationForm.value
+    delete finaVal.createDate
+    delete finaVal._id
+    console.log(this.data.modal.data._id)
+    console.log(this.organizationForm.value)
+    this.httpService.updateOrganization(finaVal, this.data.modal.data._id)
+    .subscribe((response: any) => {
+      console.log(response)
+      if (response.status === 201) {
+        console.log(response)
+        this.resData.status = 'update';
+          this.dialogRef.close(this.resData);
+        }
+      },
         error => {
           console.log(error);
         }

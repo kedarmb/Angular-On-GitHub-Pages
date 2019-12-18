@@ -14,6 +14,10 @@ import { MatDialog } from '@angular/material';
 export class CrewEquipmentComponent implements OnInit {
   displayedColumns: string[] = [ 'Name', 'Rate', 'Description', 'Type', 'Actions'];
   equipments: any;
+  update = {
+    data: '',
+    val: ''
+  };
   constructor(private modalService: MatDialog, private httpService: HttpService, private helperService: HelperService) { }
 
   ngOnInit() {
@@ -32,14 +36,25 @@ export class CrewEquipmentComponent implements OnInit {
         console.log(error);
       }
     )};
-  openAddEquipmentModal() {
+  openModal() {
     const modalRef = this.modalService.open(EquipmentsModalComponent, {
       height: 'auto',
-      width: '35%'
+      width: '35%', data: { modal: this.update }
     });
-    modalRef.afterClosed().subscribe((response) => {
-      console.log(response);
-      this.equipments.push(response);
-    })
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === true) {
+        console.log(response.data);
+        this.equipments.push(response);
+      }
+    });
+  }
+   addEq(val) {
+    this.update.val = val
+    this.openModal();
+  }
+  updateEq(val, data) {
+    this.update.val = val
+    this.update.data = data
+    this.openModal();
   }
 }

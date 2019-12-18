@@ -7,7 +7,7 @@
     <table class="mat_tab" mat-table [dataSource]="organizations" class="mat-elevation-z8">
         <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">  {{element.name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
         <ng-container matColumnDef="Street Address">
             <th mat-header-cell *matHeaderCellDef>Street Address</th>
@@ -23,27 +23,29 @@
         </ng-container>
         <ng-container matColumnDef="province">
             <th mat-header-cell *matHeaderCellDef>province</th>
-            <td mat-cell *matCellDef="let element">  {{element.province}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.province}} </td>
         </ng-container>
         <ng-container matColumnDef="Country">
             <th mat-header-cell *matHeaderCellDef> Country </th>
             <td mat-cell *matCellDef="let element"> {{element.country}} </td>
         </ng-container>
         <ng-container matColumnDef="City">
-            <th mat-header-cell *matHeaderCellDef>  City </th>
+            <th mat-header-cell *matHeaderCellDef> City </th>
             <td mat-cell *matCellDef="let element"> {{element.city}} </td>
         </ng-container>
-       
+
         <ng-container matColumnDef="Actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="updateOrg(true,  element)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+            <td mat-cell *matCellDef="let element, let i=index">
+                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="updateOrg(true, element)"
+                    [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                     <i class="material-icons">edit</i>
                 </button>
-<button mat-raised-button type="button" matTooltip="Remove" (click)="delete()" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                <button mat-raised-button type="button" matTooltip="Remove" (click)="removeOrg(element, i)"
+                    [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                     <i class="material-icons">close</i>
                 </button>
-               
+
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -96,4 +98,3 @@
         </mat-card-content>
 
     </mat-card> -->
-

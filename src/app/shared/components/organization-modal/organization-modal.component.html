@@ -14,8 +14,20 @@
                 </mat-form-field>
             </div>
             <div class="col">
-                <mat-label>Country<span class="text-danger">*</span></mat-label>
+                <mat-label>Phone</mat-label><span class="text-danger">*</span>
                 <mat-form-field >
+                    <input formControlName="contactPhone" matInput type="text">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-label>Email</mat-label><span class="text-danger">*</span>
+                <mat-form-field >
+                    <input formControlName="contactEmail" matInput type="text">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-label>Country<span class="text-danger">*</span></mat-label>
+                <mat-form-field>
                     <select formControlName="country" matNativeControl required>
                         <option></option>
                         <option>Canada</option>
@@ -26,9 +38,9 @@
             </div>
             <div class="col">
                 <mat-label>Province <span class="text-danger">*</span></mat-label>
-                <mat-form-field >
+                <mat-form-field>
                     <select formControlName="province" matNativeControl required>
-                        <option value=""></option>
+                        <option></option>
                         <option>Ontario</option>
                         <option>San Jose</option>
                         <option>California</option>
@@ -37,7 +49,7 @@
             </div>
             <div class="col">
                 <mat-label>City <span class="text-danger">*</span></mat-label>
-                <mat-form-field >
+                <mat-form-field>
                     <select formControlName="city" matNativeControl required>
                         <option>Toranto</option>
                         <option>Las Vegas</option>
@@ -55,7 +67,7 @@
             </div>
             <div class="col">
                 <mat-label>Service Area <span class="text-danger">*</span></mat-label>
-                <mat-form-field >
+                <mat-form-field>
                     <select formControlName="serviceArea" matNativeControl required>
                         <option>reboot</option>
                     </select>

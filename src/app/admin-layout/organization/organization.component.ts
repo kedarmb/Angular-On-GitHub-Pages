@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationModalComponent } from '../../shared/components/organization-modal/organization-modal.component';
 import Organization from '../../shared/core/model/organization.model';
 import { HttpService } from '../../shared/core/service/http.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 
 @Component({
     selector: 'app-organization',
@@ -13,12 +15,17 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class OrganizationComponent implements OnInit {
     displayedColumns: string[] = ['Name', 'Street Address', 'Service Type', 'ServiceArea', 'province', 'Country', 'City', 'Actions'];
-    organizations: any;
+    @ViewChild(MatTable, {static:false}) table: MatTable<any>;
+    organizations;
     update = {
         data:'',
         val:''
     };
-    constructor(private modalService: MatDialog, private httpService: HttpService, private router: Router) { }
+
+    constructor(private modalService: MatDialog,
+        private changeDetectorRefs: ChangeDetectorRef,
+        
+         private httpService: HttpService, private router: Router) { }
     ngOnInit() {
         this.getOrganization()
     }
@@ -34,24 +41,23 @@ export class OrganizationComponent implements OnInit {
             })
     }
 
-    delete(organization) {
-        this.httpService.deleteOrganization(organization).subscribe(() => {
-            this.httpService.getAllOrganization()
-                .subscribe((organizations) => {
-                    this.organizations = organizations;
-                })
-        })
-    }
-
     openModal() {
         const modalRef = this.modalService.open(OrganizationModalComponent, {
             height: 'auto',
             width: '35%', data: { modal: this.update }
         });
         modalRef.afterClosed().subscribe(response => {
-            if (response.status === true) {
+            if (response.status === 'close') {
                 console.log(response.data);
-                this.organizations = response.data;
+            }
+            if (response.status === 'add') {
+                console.log(response.data);
+                this.organizations.push(response.data);
+            }
+            if (response.status === 'update') {
+                console.log(response.data);
+                this.getOrganization() 
+                this.table.renderRows();
             }
         });
 
@@ -66,7 +72,17 @@ export class OrganizationComponent implements OnInit {
         this.update.data = data
         this.openModal();
     }
-
+    removeOrg(val, e) {
+        this.httpService.deleteOrganization(val._id)
+        .subscribe((response: any) => {
+            if (response.status === 200) {
+                this.organizations.splice(e, 1)
+                this.table.renderRows();
+                }
+            }, error => {
+                console.log(error);
+            })
+    }
     viewTender() {
         this.router.navigateByUrl('view-tender');
     }

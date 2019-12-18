@@ -12,23 +12,15 @@ export class HttpService {
       .set('Content-Type', 'application/json; charset=utf-8')
       .set('Accept', 'application/json; charset=utf-8');
   }
-  constructor(private httpClient: HttpClient) {
-
-   }
-  // Example api
-  //
-  // getLabourById(data): Observable<any> {
-  //   return this.httpClient.put(ApiUrl.LabourUrl +'/' + data._id , data, {headers: this.getHeader(), observe: 'response' });
-  // }
-  //
+  constructor(private httpClient: HttpClient) {}
 
   public createEquipment(body) {
     return this.httpClient.post(ApiUrl.equipmentUrl, body, { headers: this.getHeader(), observe: 'response' });
   }
 
-  public updateEquipment(id, body) {
+  public updateEquipment(data) {
 
-    return this.httpClient.put(ApiUrl.equipmentUrl + '/' + id, body, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.put(ApiUrl.equipmentUrl + '/' + data.id, data, { headers: this.getHeader(), observe: 'response' });
   }
 
   public deleteEquipment(id) {
@@ -74,12 +66,12 @@ export class HttpService {
     return this.httpClient.post(ApiUrl.orgUrl, body, { headers: this.getHeader(), observe: 'response' });
   }
 
-  public updateOrganization(data) {
-    return this.httpClient.put(ApiUrl.orgUrl + '/' + data.id, data, { headers: this.getHeader(), observe: 'response' });
+  public updateOrganization(data, id) {
+    return this.httpClient.put(ApiUrl.orgUrl + '/' + id, data, { headers: this.getHeader(), observe: 'response' });
   }
 
   public deleteOrganization(data) {
-    return this.httpClient.delete(ApiUrl.orgUrl + '/' + data.id, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.delete(ApiUrl.orgUrl + '/' + data, { headers: this.getHeader(), observe: 'response' });
   }
 
   public getAllOrganization() {

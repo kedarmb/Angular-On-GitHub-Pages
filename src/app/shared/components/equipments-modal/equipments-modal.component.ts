@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Equipments from 'app/shared/core/model/equipments.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'app/shared/core/service/helper.service';
@@ -15,17 +15,25 @@ export class EquipmentsModalComponent implements OnInit {
   equipmentsForm: FormGroup;
   placement = 'bottom';
 
+  @Output() valueChange = new EventEmitter();
+  resData = {
+    status: true,
+    data: ''
+  };
   @Output() public equipmentData = new EventEmitter();
-  constructor(@Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
-              private fb: FormBuilder,
-    private helperService: HelperService, private dialogRef: MatDialogRef<EquipmentsModalComponent>,
-    private httpService: HttpService) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder,
+    private helperService: HelperService,
+    private dialogRef: MatDialogRef<EquipmentsModalComponent>,
+    private httpService: HttpService) { }
 
-    ngOnInit() {
+  ngOnInit() {
     this.equipmentsForm = this.fb.group({
       name:
-      ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.nameReg, msg: String(errorMsg.requiredField)})]],
-      rate: ['', [ Validators.required, this.helperService.customPatternValid({msg: String(errorMsg.requiredField)})]],
+        ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.nameReg, msg: String(errorMsg.requiredField) })]],
+      rate: ['', [Validators.required, this.helperService.customPatternValid({ msg: String(errorMsg.requiredField) })]],
       description: ['', [Validators.required]],
       type: ['equipment', [Validators.required]]
     });
@@ -34,17 +42,36 @@ export class EquipmentsModalComponent implements OnInit {
     console.log('this.organizationForm:', this.equipmentsForm);
   }
   close() {
-    this.dialogRef.close();
-    // this.modal._matDialogClose('close');
+    this.resData.status = false;
+    this.dialogRef.close(this.resData);
   }
   save() {
-    console.log(this.equipmentsForm.value);
-    this.httpService.createEquipment(this.equipmentsForm.value).subscribe((response: any) => {
-      console.log(response);
+    const finalVal = this.equipmentsForm.value
+    delete finalVal._id;
+    this.httpService.createEquipment(finalVal)
+      .subscribe((response: any) => {
         if (response.status === 200) {
-          this.modal._matDialogClose('closed');
-          this.equipmentData.emit(response.body)
+          this.dialogRef.close(this.resData);
+          this.valueChange.emit(response);
         }
-      })
-    }
+      },
+        error => {
+          console.log(error);
+        }
+      )
+  };
+  update() {
+    const finalVal = this.equipmentsForm.value
+    delete finalVal.createDate
+    this.httpService.updateEquipment(finalVal)
+      .subscribe((response: any) => {
+        if (response.status === 201) {
+          this.dialogRef.close(this.resData);
+        }
+      },
+        error => {
+          console.log(error);
+        }
+      )
+  }
 }
