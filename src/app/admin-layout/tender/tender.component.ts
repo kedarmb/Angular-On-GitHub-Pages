@@ -18,7 +18,8 @@ import { HttpService } from '../../shared/core/service/http.service';
 export class TenderComponent implements OnInit {
 
   displayedColumns: string[] = ['Client Name', 'Tender Name', 'Open Date', 'Close Date', 'Quote Start Date', 'Quote End Date', 'Actions'];
-  tenders: Array<any> = []
+  tenders: Array<any> = [];
+  
 
 
 
@@ -60,21 +61,34 @@ export class TenderComponent implements OnInit {
   /** Public Method to Add new Tender Header or Edit existing Tender Header. For editing pass
    * respective tender data to the method.
    */
-  openTenderHeaderDialog(tenderItem?) {
-    // sending undefined value to MatDialog throws error so check and send null:
-    const paramData = (tenderItem === undefined) ? null : tenderItem;
-    const dialogRef = this.tenderModalDialog.open(TenderModalComponent, {
+  openTenderHeaderDialog(data) {
+     const dialogRef = this.tenderModalDialog.open(TenderModalComponent, {
       width: '550px',
-      data: paramData
-    });
-    //
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed ', result);
-      if (result === undefined) {
+      data: data,
+       disableClose: true
+     })
+    dialogRef.afterClosed().subscribe(response => {
+      console.log('The dialog was closed ', response);
+      if (response.status === 'close' || response.status === undefined) {
         this.toastr.warning('Tender creation cncelled.', 'Cancelled');
+      }
+      if (response.status === 'add') {
+        console.log(response.data);
+        this.tenders.push(response.data);
+      }
+      if (response.status === 'update') {
+        console.log(response.data);
       }
     });
   }
+
+  AddUpdateTender(val: boolean, data?: {}, index?: number) {
+    const update: { data: {}, val: boolean} = {data, val};
+    update.data = data;
+    update.val = val;
+    this.openTenderHeaderDialog(update);
+  }
+
   viewTender(tender) {
     // console.log(tender);
     // tender._id = '5dde7f6bfc6b8a42441783ab';

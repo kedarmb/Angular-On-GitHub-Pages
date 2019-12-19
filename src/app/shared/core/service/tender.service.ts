@@ -16,10 +16,10 @@ export class TenderService {
     array: Tender[] = [
         {
             _id: '5dde7f6bfc6b8a42441783ab',
-            openDate: new Date(2019, 7, 7),
-            closeDate: new Date(2010, 8, 22),
-            quoteStartDate: new Date(2012, 6, 27),
-            quoteEndDate: new Date(2000, 8, 30),
+            openDate: '2019-07-07T00:00:00+00:00',
+            closeDate: '2010-08-22T00:00:00+00:00',
+            quoteStartDate: '2010-07-11T00:00:00+00:00',
+            quoteEndDate: '2010-07-18T00:00:00+00:00',
             tenderName: 'Real time Generating',
             clientName: 'Aaskash Builder Pvt Ltd',
             items: [{

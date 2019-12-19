@@ -1,19 +1,10 @@
-import { Component, Input, OnInit, Inject } from '@angular/core';
-// import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-//
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TenderService } from '../../core/service/tender.service';
 import { HelperService } from '../../core/service/helper.service';
-
-
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
-
-import { errorMsg, regex } from '../../core/constant/index';
-import * as uuid from '../../../../../node_modules/uuid';
+import { regex } from '../../core/constant/index';
 import { Tender } from 'app/shared/core/model/tender.model';
-//
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -27,26 +18,20 @@ import { NgxSpinnerService } from 'ngx-spinner';
     styleUrls: ['./tender-modal.component.scss']
 })
 export class TenderModalComponent implements OnInit {
-
-
     tender: Tender = null;
-    placement = 'bottom';
-
-
     tenderHeaderForm: FormGroup;
-    formSubmitted = false;
-    //
     tenderCloseMinDate: any; // Tender close date must be atleast 5 days from tender open date
-    //
     quoteOpenMinDate: any;
     quoteOpenMaxDate: any;
-    //
     quoteCloseMinDate: any;
     quoteCloseMaxDate: any;
+    resData = {
+        status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
+        data: {}
+    };
 
-    constructor(/* public activeModal: NgbActiveModal, */
-        public tenderModalRef: MatDialogRef<TenderModalComponent>,
-        @Inject(MAT_DIALOG_DATA) public tenderData: any,
+    constructor(public tenderModalRef: MatDialogRef<TenderModalComponent>,
+        @Inject(MAT_DIALOG_DATA) public tData: any,
         private tenderService: TenderService,
         private formBuider: FormBuilder,
         private helperService: HelperService,
@@ -57,16 +42,11 @@ export class TenderModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('receiving data in tender dialog ', this.tenderData);
-        // this.convertToNgbDate();
-        //
         this.initializeForm();
-        //
         if (this.tender != null || this.tender !== undefined) {
             // this.autoPopulateForEdit(this.tender);
         };
-        //
-
+        console.log(this.tData);
     }
 
     initializeForm() {
@@ -91,6 +71,9 @@ export class TenderModalComponent implements OnInit {
             // user: ['5da89960a103e032019e38ac'],
             // organization: ['5dd7a520715859802e8b2c55']
         });
+        if (this.tData.data) {
+            this.tenderHeaderForm.setValue(this.tData.data)
+        }
     }
 
     private customValidator(param): ValidatorFn {
@@ -169,57 +152,38 @@ export class TenderModalComponent implements OnInit {
 
 
     save() {
-        console.log(this.tender)
-        this.formSubmitted = true;
-        // console.log('open date is ',this.tenderHeaderForm.controls.openDate.value.year);
-        //
-        // this.convertToDate();
-        //
-        console.log(this.tender._id)
-        if (this.tender._id) {
-            this.tenderService.update(this.tender).subscribe((data) => {
-                console.log('data is.. ', data);
-                // this.activeModal.close('');
-            })
-        } else {
-            if (this.tenderHeaderForm.valid) {
-                this.spinner.show();
-                // console.log(moment().toISOString(this.tenderHeaderForm.value.openDate));
-                this.tenderHeaderForm.patchValue({
-                    openDate: moment().toISOString(this.tenderHeaderForm.value.openDate),
-                    closeDate: moment().toISOString(this.tenderHeaderForm.value.closeDate),
-                    quoteStartDate: moment().toISOString(this.tenderHeaderForm.value.quoteStartDate),
-                    quoteEndDate: moment().toISOString(this.tenderHeaderForm.value.quoteEndDate),
+
+        if (this.tData.val) {
+            this.tenderService.update(this.tender)
+                .subscribe(response => {
+                    this.resData.data = response;
+                    this.resData.status = 'update';
+                    this.tenderModalRef.close(response);
                 })
-
-                console.log('else block', this.tenderHeaderForm.value);
-                console.log('else block', this.tenderHeaderForm.valid);
-
-                console.log('form is valid .. calling service');
-                //
-                setTimeout(() => {
-                    // this.activeModal.close('');
-                    this.spinner.hide();
-                }, 2000)
-                /*  this.tenderService.add(this.tenderHeaderForm.value).subscribe((success) => {
-                     this.activeModal.close('');
-                     console.log('success block ', success);
-                     this.spinner.hide();
-                 }, (err) => {
-                     this.activeModal.close('');
-                     console.log('err block ', err);
-                     this.spinner.hide();
-                 }) */
-            }
         }
-
+        if (!this.tData.val) {
+            // this.spinner.show();
+            // console.log(moment().toISOString(this.tenderHeaderForm.value.openDate));
+            this.tenderHeaderForm.patchValue({
+                openDate: moment().toISOString(this.tenderHeaderForm.value.openDate),
+                closeDate: moment().toISOString(this.tenderHeaderForm.value.closeDate),
+                quoteStartDate: moment().toISOString(this.tenderHeaderForm.value.quoteStartDate),
+                quoteEndDate: moment().toISOString(this.tenderHeaderForm.value.quoteEndDate),
+            })
+            this.tenderService.add(this.tenderHeaderForm.value)
+                .subscribe(response => {
+                    this.resData.data = response;
+                    this.resData.status = 'add';
+                    this.tenderModalRef.close(this.resData);
+                }, (err) => {
+                    console.log('err block ', err);
+                })
+        }
     }
 
     close() {
-        // this.activeModal.dismiss('closed');
-        console.log('close invoked')
-        // TODO: to pass data to the close() method to the calling component
-        this.tenderModalRef.close()
+        this.resData.status = 'close';
+        this.tenderModalRef.close(this.resData);
     }
 
     convertToNgbDate() {
