@@ -73,32 +73,40 @@ export class ViewTenderComponent implements OnInit {
         private httpServ: HttpService) {
         //
         this.activatedRoute.params.subscribe((params) => {
+            this.httpServ.getMockLineItems().subscribe((data) => {
+                console.log('success fetching MOCK lineitems ', data);
+            }, (err) => {
+                console.log('failed to load mock line items ', err);
+            })
+
             // console.log('param ', params);
             // this.tenderService.getTenderById
 
-            this.httpServ.getTenderDetailById(params.id).subscribe((tender) => {
-                console.log('Success fetching tender details ', tender)
-                // console.log(tender);
-                /* this.lineItems = tender.items;
-                console.log(this.lineItems);
-                this.tender = JSON.parse(JSON.stringify(tender));
-                // this.createLineItemFormGroup();
-                this.getMasterForm();
-                this.createLineItemForm();
+            // this.httpServ.getTenderDetailById(params.id).subscribe((tender) => {
+            //     console.log('Success fetching tender details ', tender)
+            // console.log(tender);
+            // ********************************** */
+            // this.lineItems = tender.items;
+            // console.log(this.lineItems);
+            // this.tender = JSON.parse(JSON.stringify(tender));
+            // // this.createLineItemFormGroup();
+            // this.getMasterForm();
+            // this.createLineItemForm();
 
-                console.log(this.masterForm); */
-                // this.createSubcontractorControls();
+            // console.log(this.masterForm);
+            // ********************************** */
+            // this.createSubcontractorControls();
 
-            }, (err) => {
-                console.log('Error fetching tender details ', err);
-            })
+            //     }, (err) => {
+            //         console.log('Error fetching tender details ', err);
+            //     })
         })
-        this.crewService.getAll().subscribe((crews) => {
-            crews.map((crew) => {
-                this.crews[crew.name] = crew;
-                this.states.push(crew.name);
-            })
-        });
+        // this.crewService.getAll().subscribe((crews) => {
+        //     crews.map((crew) => {
+        //         this.crews[crew.name] = crew;
+        //         this.states.push(crew.name);
+        //     })
+        // });
     }
 
     ngOnInit() {

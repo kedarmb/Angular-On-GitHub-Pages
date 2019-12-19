@@ -161,6 +161,7 @@ export class TenderModalComponent implements OnInit {
                     this.tenderModalRef.close(response);
                 })
         }
+        
         if (!this.tData.val) {
             // this.spinner.show();
             // console.log(moment().toISOString(this.tenderHeaderForm.value.openDate));
@@ -218,7 +219,7 @@ export class TenderModalComponent implements OnInit {
 
     /**
      * Function modified by Arup 8-11-2019
-     * 
+     *
      */
     convertToDate() {
         // Tender object populated from FormControls:
