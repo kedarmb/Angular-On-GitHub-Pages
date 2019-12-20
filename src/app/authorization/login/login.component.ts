@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import Login from 'app/shared/core/model/login.model';
 import { HttpService } from '../../shared/core/service/http.service';
 import { errorMsg, regex } from '../../shared/core/constant/index';
+import { ToastrService } from 'ngx-toastr';
 //
 @Component({
   selector: 'app-login',
@@ -21,11 +22,11 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
     private formBuider: FormBuilder,
     private httpService: HttpService,
-    private helperService: HelperService) {
+    private helperService: HelperService,
+    private toastr: ToastrService) {
   }
 
   ngOnInit() {
-    // console.log(this.emailRegex)
     this.loginForm = this.formBuider.group({
       email: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg, msg: errorMsg.email })]],
       password: ['', Validators.required]
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/dashboard');
         }
       }, error => {
+        this.toastr.error(error.error.message)
         console.log(error);
       });
   }

@@ -71,13 +71,11 @@
         </div>
         <div class="col">
             <mat-label>Service Type <span class="text-danger">*</span></mat-label>
-                <tag-input formControlName="serviceType" [modelAsStrings]="true">
-                </tag-input>
+            <tag-input formControlName="serviceType" [modelAsStrings]="true"></tag-input>
         </div>
         <div class="col">
             <mat-label>Service Area <span class="text-danger">*</span></mat-label>
-            <tag-input formControlName="serviceArea" [modelAsStrings]="true">
-            </tag-input>
+            <tag-input formControlName="serviceArea" [modelAsStrings]="true"></tag-input>
         </div>
         <mat-dialog-actions class=" pull-right">
             <div *ngIf="data.val == false">

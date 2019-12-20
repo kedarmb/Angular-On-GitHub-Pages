@@ -59,7 +59,7 @@ export class HttpService {
   }
 
   public login(data) {
-    return this.httpClient.post(API_URL + '/login', data, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.post(ApiUrl.loginUrl + '/', data, { headers: this.getHeader(), observe: 'response' });
   }
 
   public createOrganization(body) {
@@ -83,7 +83,7 @@ export class HttpService {
   }
   public signup(body) {
     console.log(body);
-    return this.httpClient.post(API_URL + '/signup', body, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.post(ApiUrl.createAcc + '/', body, { headers: this.getHeader(), observe: 'response' });
   }
 
   /* getTendersItems() {
@@ -94,7 +94,7 @@ export class HttpService {
     return this.httpClient.delete(ApiUrl.UserUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
   public createUser(body) {
-    return this.httpClient.post(API_URL + '/auth/register/', body, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.post(ApiUrl.createAcc + '/', body, { headers: this.getHeader(), observe: 'response' });
   }
   public updateUser(body, id) {
     return this.httpClient.put(ApiUrl.UserUrl + '/' + id, body, { headers: this.getHeader(), observe: 'response' });

@@ -38,9 +38,14 @@ export const ApiUrl = {
   crewUrl: urlCreator('/crew'),
   lineItemUrl: urlCreator('/item'),
   subItemUrl: urlCreator('/subitem'),
+  loginUrl: urlCreator('/auth/login'),
+  createAcc: authUrlCreator('/auth/register')
 }
 
 function urlCreator(actionName: string): string {
+  return `${environment.baseURL}${actionName}`;
+};
+function authUrlCreator(actionName: string): string {
   return `${environment.baseURL}${actionName}`;
 };
 

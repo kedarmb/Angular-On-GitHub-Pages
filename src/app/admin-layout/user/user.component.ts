@@ -13,7 +13,7 @@ import User from 'app/shared/core/model/user.model';
 
 
 export class UserComponent implements OnInit {
-  displayedColumns: string[] = [ 'Email', 'First Name', 'Last Name', 'Mobile', 'Role', 'Status', 'Actions'];
+  displayedColumns: string[] = ['Email', 'First Name', 'Last Name', 'Mobile', 'Role', 'Status', 'Actions'];
   data: any = {};
   user
   public employee: any = [];
@@ -24,8 +24,8 @@ export class UserComponent implements OnInit {
     val: ''
   };
   constructor(private httpService: HttpService,
-              private modalService: MatDialog,
-            private router: Router) { }
+    private modalService: MatDialog,
+    private router: Router) { }
   ngOnInit() {
     this.getUsers();
   }
@@ -72,10 +72,8 @@ export class UserComponent implements OnInit {
     this.openModal();
   }
   removeUser(val, e) {
-          this.user.splice(e, 1)
-    console.log('e::', e);
-    console.log(this.user);
-          this.table.renderRows();
+    this.user.splice(e, 1)
+    this.table.renderRows();
     this.httpService.deleteOrganization(val._id)
       .subscribe((response: any) => {
         if (response.status === 200) {
@@ -84,39 +82,4 @@ export class UserComponent implements OnInit {
         console.log(error);
       })
   }
-  /*removeUser(val, e) {
-    this.httpService.delUser(val._id)
-      .subscribe((response: any) => {
-        if (response.status === 200) {
-          this.users.splice(e, 1)
-          this.table.renderRows();
-        }
-      }, error => {
-        console.log(error);
-      })
-  }
-  */
-    // return this.httpService.delUser(id).subscribe(data => {
-    //   this.data = data;
-    //   // console.log(data);
-    // });
-
-  // open() {
-  //   const dialogRef = this.modalService.open(UserModalComponent, {
-  //     height: 'auto',
-  //     width: '35%'
-  //   });
-  //   dialogRef.afterClosed().subscribe(response => {
-  //     console.log(response);
-  //     this.user = response;
-  //   });
-  //   this.getUsers();
-  // }
-
-    // const modalRef = this.modalService.open(UserModalComponent, { centered: true });
-    // modalRef.result.then((response) => {
-    //   // console.log(response);
-    //   // this.user = response;
-        // })
-  // }
 }

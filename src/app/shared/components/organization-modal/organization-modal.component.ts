@@ -1,3 +1,4 @@
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -32,7 +33,7 @@ export class OrganizationModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
     private httpService: HttpService,
-    private country: CountriesService,
+    private toastr: ToastrService,
     private fb: FormBuilder,
     private helperService: HelperService,
     private dialogRef: MatDialogRef<any>
@@ -41,10 +42,10 @@ export class OrganizationModalComponent implements OnInit {
   ngOnInit() {
     this.createOrganizationForm();
     if (this.data.val === true) {
-      const newVal = this.data.data
+      const newVal = Object.assign({}, this.data.data)
       delete newVal.__V
       delete newVal.createDate
-      delete newVal.updateDatea
+      delete newVal.updateDate
       this.organizationForm.setValue(newVal)
     }
   }
@@ -63,7 +64,6 @@ export class OrganizationModalComponent implements OnInit {
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
       orgType: ['Prime'],
-      createdBy: ['5da878a9c635743159f4d8d9'],
       organizationRef: ['5dd5158b75de6156ccceb0ee'],
       _id: [this.data._id]
     });
@@ -81,25 +81,26 @@ export class OrganizationModalComponent implements OnInit {
           this.resData.status = 'add';
           this.resData.data = response.body;
           this.dialogRef.close(this.resData);
+          this.toastr.success(response.statusText)
         }
       }, error => {
-        console.log(error);
+          this.toastr.error(error.error.message)
       }
-      )
+      ) 
   };
 
   update() {
-    const finaVal = this.organizationForm.value
-    delete finaVal._id
+    const finaVal = Object.assign({}, this.organizationForm.value)
     this.httpService.updateOrganization(finaVal, this.data.data._id)
       .subscribe((response: any) => {
         if (response.status === 201) {
           this.resData.status = 'update';
           this.dialogRef.close(this.resData);
+          this.toastr.success(response.statusText)
         }
       },
         error => {
-          console.log(error);
+            this.toastr.error(error.error.message)
         }
       )
   }

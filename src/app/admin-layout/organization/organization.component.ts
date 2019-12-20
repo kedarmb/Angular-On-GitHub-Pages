@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/operators';
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +26,8 @@ export class OrganizationComponent implements OnInit {
 
     constructor(private modalService: MatDialog,
         private changeDetectorRefs: ChangeDetectorRef,
-        private httpService: HttpService, private router: Router) { }
+        private httpService: HttpService, private router: Router,
+        private toastr: ToastrService) { }
     ngOnInit() {
         this.getOrganization()
     }
@@ -36,7 +38,7 @@ export class OrganizationComponent implements OnInit {
                     this.organizations = response.body;
                 }
             }, error => {
-                console.log(error);
+                  this.toastr.error(error.error.message)
             })
     }
 
@@ -68,15 +70,15 @@ export class OrganizationComponent implements OnInit {
         this.openModal();
     }
     removeOrg(val, e) {
-        console.log('e::', e);
         this.httpService.deleteOrganization(val._id)
         .subscribe((response: any) => {
             if (response.status === 200) {
                 this.organizations.splice(e, 1)
                 this.table.renderRows();
+                this.toastr.success('Removed Successfully')
                 }
             }, error => {
-                console.log(error);
+                  this.toastr.error(error.error.message)
             })
     }
     viewTender() {
