@@ -63,7 +63,7 @@
                     </thead>
 
                     <tbody>
-                        <ng-container *ngFor="let item of masterForm.get('items').controls; let i = index"
+                        <ng-container *ngFor="let item of masterForm.get('items')['controls']; let i = index"
                             [formGroupName]="i">
 
                             <tr>
