@@ -54,7 +54,7 @@ pipeline {
                                 git commit -m '${env.BUILD_NUMBER}'
                                 git config --local credential.helper "!f() { echo username=\\$GIT_AUTH_USR; echo password=\\$GIT_AUTH_PSW; }; f"
                                 git remote rm origin
-                                git remote add origin "https://ad685938e05af159d5cd9668350783a16b56f394@github.com/KedarBelavanaki/SmartBid-Frontend.git"
+                                git remote add origin "https://ad685938e05af159d5cd9668350783a16b56f394@github.com/thinkperfect/SmartBid-Frontend.git"
                                 git push origin tempBuild -f
                         ''')
                                 sh "cd /var/lib/jenkins/workspace"
