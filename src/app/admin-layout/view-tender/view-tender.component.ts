@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, Subject, merge } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { Observable, Subject, merge, ReplaySubject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, tap, take, takeUntil } from 'rxjs/operators';
 import { CrewService } from '../../shared/core/service/crew.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TenderService } from '../../shared/core/service/tender.service';
@@ -14,12 +14,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { isArray } from 'util';
 import { HttpService } from '../../shared/core/service/http.service';
+import { MatSelect } from '@angular/material/select';
 @Component({
     selector: 'app-view-tender',
     templateUrl: './view-tender.component.html',
     styleUrls: ['./view-tender.component.scss']
 })
-export class ViewTenderComponent implements OnInit {
+export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
 
     accordion = {};
 
@@ -47,7 +48,7 @@ export class ViewTenderComponent implements OnInit {
     }
 
     tender: Tender = new Tender();
-    sections = [{ name: 'WATERMAIN' }, { name: 'RESOTRATION' }];
+    // sections = [{ name: 'WATERMAIN' }, { name: 'RESOTRATION' }];
     model: any;
     searching = false;
     searchFailed = false;
@@ -56,6 +57,25 @@ export class ViewTenderComponent implements OnInit {
         'Unit', 'Unit-Price', 'Quantity', 'TotalPrice'];
     lineItems: any;
 
+    //
+    sections = [
+        { name: 'Watermain', id: '1' },
+        { name: 'Restoration', id: '2' },
+        { name: 'Some Other', id: '3' },
+        { name: 'Another Section', id: '4' },
+    ];
+    public sectionMultiCtrl: FormControl = new FormControl();
+
+    /** control for the MatSelect filter keyword multi-selection */
+    public multiFilterCtrl: FormControl = new FormControl();
+
+    /** list of sections filtered by search keyword */
+    public filteredSectionsMulti: ReplaySubject<any> = new ReplaySubject<any>(1);
+
+    @ViewChild('multiSelect', { static: true }) multiSelect: MatSelect;
+
+    /** Subject that emits when the component has been destroyed. */
+    protected _onDestroy = new Subject<void>();
 
 
     @ViewChild('instance', { static: true })
@@ -110,15 +130,62 @@ export class ViewTenderComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.itemPropertiesArray = [];
-        // this.initilizeMasterForm();
-        //  this.mapValuesIntoForm();
+        // this.sectionMultiCtrl.setValue([this.sections[0]]);
+
+        // load the initial bank list
+        this.filteredSectionsMulti.next(this.sections.slice());
+
+        // listen for search field value changes
+        this.multiFilterCtrl.valueChanges
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(() => {
+                this.filtersectionsMulti();
+            });
     }
 
-    printConsole(param) {
-        // console.log(JSON.stringify(param));
-        // console.log(param.get('name').value);
-        // https://stackblitz.com/edit/reactive-forms-generate-very-large-form-final?file=src%2Fapp%2Fapp.component.html
+    ngAfterViewInit() {
+        this.setInitialValue();
+    }
+
+    ngOnDestroy() {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+
+
+    /**
+   * Sets the initial value after the filteredsections are loaded initially
+   */
+    protected setInitialValue() {
+        this.filteredSectionsMulti
+            .pipe(take(1), takeUntil(this._onDestroy))
+            .subscribe(() => {
+                // setting the compareWith property to a comparison function
+                // triggers initializing the selection according to the initial value of
+                // the form control (i.e. _initializeSelection())
+                // this needs to be done after the filteredsections are loaded initially
+                // and after the mat-option elements are available
+
+                this.multiSelect.compareWith = (a, b) => a && b && a.id === b.id;
+            });
+    }
+
+    protected filtersectionsMulti() {
+        if (!this.sections) {
+            return;
+        }
+        // get the search keyword
+        let search = this.multiFilterCtrl.value;
+        if (!search) {
+            this.filteredSectionsMulti.next(this.sections.slice());
+            return;
+        } else {
+            search = search.toLowerCase();
+        }
+        // filter the sections
+        this.filteredSectionsMulti.next(
+            this.sections.filter(bank => bank.name.toLowerCase().indexOf(search) > -1)
+        );
     }
     getMasterForm() {
         // console.log()
@@ -445,9 +512,9 @@ export class ViewTenderComponent implements OnInit {
     viewer(item) {
         this.router.navigateByUrl('/pdf-viewer/' + item.id);
     }
-    addSection() {
+    /* addSection() {
         this.sections.push({ name: 'Enter Section Name' });
-    }
+    } */
 }
 
 

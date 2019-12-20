@@ -30,7 +30,8 @@ import {
   MatCardModule,
   MatChipsModule,
   MatAutocompleteModule,
-  MatIconModule
+  MatIconModule,
+  MatTableModule
 } from '@angular/material';
 
 
@@ -63,7 +64,7 @@ import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-lab
 //
 // import { NgxSpinnerModule } from 'ngx-spinner';
 //
-import { MatTableModule } from '@angular/material';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -94,10 +95,10 @@ import { MatTableModule } from '@angular/material';
     MatTableModule,
     MatGridListModule,
     MatCardModule,
-    MatTableModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatIconModule
+    MatIconModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [
     DashboardComponent,

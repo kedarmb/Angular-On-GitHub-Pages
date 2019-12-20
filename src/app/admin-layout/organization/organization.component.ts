@@ -25,7 +25,6 @@ export class OrganizationComponent implements OnInit {
 
     constructor(private modalService: MatDialog,
         private changeDetectorRefs: ChangeDetectorRef,
-
         private httpService: HttpService, private router: Router) { }
     ngOnInit() {
         this.getOrganization()

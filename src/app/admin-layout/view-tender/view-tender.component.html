@@ -2,11 +2,23 @@
 
     <mat-toolbar color="primary">
 
-        <mat-toolbar-row>            
+        <mat-toolbar-row>
             <div>
                 <button mat-button (click)="addLineItem()">Add Line Item</button>
-                <button mat-button (click)="notify()">Invite Sub Contractors</button>     
+                <button mat-button (click)="notify()">Invite Sub Contractors</button>
             </div>
+            <span flex></span>
+            <mat-form-field >
+                <mat-select [formControl]="sectionMultiCtrl" placeholder="Select a section" [multiple]="true"
+                    #multiSelect>
+                    <ngx-mat-select-search [formControl]="multiFilterCtrl" 
+                    placeholderLabel="type here or just select" noEntriesFoundLabel="No suggestions found!">
+                    </ngx-mat-select-search>
+                    <mat-option *ngFor="let section of filteredSectionsMulti | async" [value]="section">
+                        {{section.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </mat-toolbar-row>
     </mat-toolbar>
 
@@ -93,9 +105,8 @@
                                         class="btn btn-danger btn-link btn-sm btn-just-icon">
                                         <i class="material-icons">close</i>
                                     </button>
-                                    <button mat-raised-button type="button" *ngIf="!accordion[i]"
-                                        matTooltip="expand" (click)="toggleCollapse(i)"
-                                        [matTooltipPosition]="'above'"
+                                    <button mat-raised-button type="button" *ngIf="!accordion[i]" matTooltip="expand"
+                                        (click)="toggleCollapse(i)" [matTooltipPosition]="'above'"
                                         class="btn btn-danger btn-link btn-sm btn-just-icon">
                                         <i class="material-icons">expand_more</i>
                                     </button>
@@ -124,7 +135,8 @@
                                                         <th>Quantity</th>
                                                         <th>Total Price</th>
                                                         <th>
-                                                            <a mat-button class="nav-link" data-toggle="tab" (click)="addSubLineItem(item)">
+                                                            <a mat-button class="nav-link" data-toggle="tab"
+                                                                (click)="addSubLineItem(item)">
                                                                 <i class="material-icons">add</i>
                                                             </a>
                                                         </th>
@@ -466,7 +478,7 @@
                     </ng-template>
                 </ngb-panel> -->
 
-                                    
+
                                     </ngb-accordion>
                                 </td>
                             </tr>
@@ -482,8 +494,4 @@
             </div>
         </form>
     </div>
-
-
-
-
 </div>
