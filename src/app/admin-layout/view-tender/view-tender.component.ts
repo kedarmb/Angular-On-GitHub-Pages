@@ -59,10 +59,11 @@ export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //
     sections = [
-        { name: 'Watermain', id: '1' },
+        { name: '', id: '' },
+        /* { name: 'Watermain', id: '1' },
         { name: 'Restoration', id: '2' },
         { name: 'Some Other', id: '3' },
-        { name: 'Another Section', id: '4' },
+        { name: 'Another Section', id: '4' }, */
     ];
     public sectionMultiCtrl: FormControl = new FormControl();
 
@@ -93,6 +94,8 @@ export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
         private httpServ: HttpService) {
         //
         this.activatedRoute.params.subscribe((params) => {
+            this.fetchInitialSections();
+            return;
             this.httpServ.getMockLineItems().subscribe((data) => {
                 console.log('success fetching MOCK lineitems ', data);
             }, (err) => {
@@ -129,11 +132,21 @@ export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
         // });
     }
 
+    fetchInitialSections() {
+        this.httpServ.getSections().subscribe((res) => {
+            console.log('success fetching seactions ', res);
+            this.sections = res.body as Array<any>;
+            // load the initial bank list
+            this.filteredSectionsMulti.next(this.sections.slice());
+        }, (err) => {
+            console.log('error fetching sections ', err);
+        })
+    }
     ngOnInit() {
         // this.sectionMultiCtrl.setValue([this.sections[0]]);
 
-        // load the initial bank list
-        this.filteredSectionsMulti.next(this.sections.slice());
+        /* // load the initial bank list
+        this.filteredSectionsMulti.next(this.sections.slice()); */
 
         // listen for search field value changes
         this.multiFilterCtrl.valueChanges
@@ -166,7 +179,7 @@ export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
                 // this needs to be done after the filteredsections are loaded initially
                 // and after the mat-option elements are available
 
-                this.multiSelect.compareWith = (a, b) => a && b && a.id === b.id;
+                this.multiSelect.compareWith = (a, b) => a && b && a.tenderRef === b.tenderRef;
             });
     }
 

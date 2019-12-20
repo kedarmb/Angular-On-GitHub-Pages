@@ -108,6 +108,9 @@ export class HttpService {
   }
   //
   // API call for Tender Header & Tender Line & Subline Items
+  public getSections() {
+    return this.httpClient.get(ApiUrl.sectionUrl, { headers: this.getHeader(), observe: 'response' });
+  }
   /** Public method to return the list of Tender Headers */
   public getTenders() {
     return this.httpClient.get(ApiUrl.tenderUrl, { headers: this.getHeader(), observe: 'response' });
