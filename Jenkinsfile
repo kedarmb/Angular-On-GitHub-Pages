@@ -42,7 +42,7 @@ pipeline {
         }
      post {
         success {  
-               sh "cd /var/lib/jenkins/workspace/SmartBid-Frontend-Pipeline"
+               sh "cd /var/lib/jenkins/workspace/SmartBid-UI"
                 script {
                         if ( params.BRANCH_NAME == 'devBuild') {
                                 environment { 
