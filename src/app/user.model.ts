@@ -1,6 +1,13 @@
-export class User{
-    id: number;
-        name: string;
-        email: string;
-        phone: number;
+export default class User {
+    email = 'string';
+    password = 'string';
+    fname = 'string';
+    lname = 'string';
+    mobile = 'string';
+    organization: 'string';
 }
+
+
+
+
+

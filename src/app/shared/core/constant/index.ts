@@ -1,6 +1,6 @@
 import { environment } from 'environments/environment';
 
-export const API_URL = ' https://rt7ynesqck.execute-api.us-east-1.amazonaws.com/dev/api';
+export const API_URL = ' https://smartbid-api.herokuapp.com/v1';
 export const regex = {
  
 nameReg: /^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/,

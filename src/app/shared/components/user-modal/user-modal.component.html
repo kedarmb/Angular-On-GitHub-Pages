@@ -74,11 +74,30 @@
                     </small>
                 </div>
             </div>
-        </div>
-        <mat-dialog-actions class="pull-right">
-            <button mat-raised-button type="button" (click)="save()" class="btn btn-danger pull-right"
-                [disabled]="!userForm.valid">Save</button>
-            <button mat-raised-button mat-dialog-close class="btn btn-danger pull-right">Cancel</button>
+        </div>   
+        <mat-dialog-actions class=" pull-right">
+            <div *ngIf="data.val == false">
+                <button mat-raised-button type="button" [disabled]="!userForm.valid" (click)="save()"
+                    class="btn btn-danger">Save</button>
+            </div>
+            <div *ngIf="data.val == true">
+                <button mat-raised-button type="button" [disabled]="!userForm.valid" (click)="update()"
+                    class="btn btn-danger">Update</button>
+            </div>
+            <button mat-raised-button type="button" (click)="close()" class="btn btn-danger">Cancel</button>
         </mat-dialog-actions>
     </form>
 </div>
+                <!-- <mat-dialog-actions class="pull-right">
+                    <button mat-raised-button type="button" (click)="save()" class="btn btn-danger pull-right"
+                        [disabled]="!userForm.valid">Save</button>
+                        <div *ngIf="data.val == false">
+                            <button mat-raised-button type="button" [disabled]="!userForm.valid" (click)="save()"
+                                class="btn btn-danger">Save</button>
+                        </div>
+                        <div *ngIf="data.val == true">
+                            <button mat-raised-button type="button" [disabled]="!userForm.valid" (click)="update()"
+                                class="btn btn-danger">Update</button>
+                        </div>
+                    <button mat-raised-button mat-dialog-close class="btn btn-danger pull-right">Cancel</button>
+                </mat-dialog-actions> -->

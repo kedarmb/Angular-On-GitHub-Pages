@@ -1,8 +1,10 @@
 export default class User {
-    name = 'string';
     email = 'string';
     password = 'string';
+    fname = 'string';
+    lname = 'string';
     mobile =  'string';
+    organization: 'string';
 }
 
 

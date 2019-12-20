@@ -14,18 +14,19 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
     styleUrls: ['./organization.component.scss']
 })
 export class OrganizationComponent implements OnInit {
-    displayedColumns: string[] = ['Name', 'Street Address', 'Service Type', 'ServiceArea', 'province', 'Country', 'City', 'Actions'];
-    @ViewChild(MatTable, {static:false}) table: MatTable<any>;
+    displayedColumns: string[] = ['Name', 'Email', 'Phone', 'Street Address', 'Service Type',
+                                                                        'ServiceArea', 'province', 'Country', 'City', 'Actions'];
+    @ViewChild(MatTable, {static: false}) table: MatTable<any>;
     organizations;
     update = {
-        data:'',
-        val:''
+        data: '',
+        val: ''
     };
 
     constructor(private modalService: MatDialog,
         private changeDetectorRefs: ChangeDetectorRef,
-        
-         private httpService: HttpService, private router: Router) { }
+
+        private httpService: HttpService, private router: Router) { }
     ngOnInit() {
         this.getOrganization()
     }
@@ -44,28 +45,27 @@ export class OrganizationComponent implements OnInit {
     openModal() {
         const modalRef = this.modalService.open(OrganizationModalComponent, {
             height: 'auto',
-            width: '35%', data: { modal: this.update }
+            width: '35%', data: this.update , disableClose: true
         });
         modalRef.afterClosed().subscribe(response => {
-            if (response.status === 'close') {
+            if (response.status === 'close'  || response.status === undefined) {
                 console.log(response.data);
             }
             if (response.status === 'add') {
-                console.log(response.data);
+                console.log(response);
                 this.organizations.push(response.data);
+                this.table.renderRows();
             }
             if (response.status === 'update') {
                 console.log(response.data);
-                this.getOrganization() 
+                this.getOrganization()
                 this.table.renderRows();
             }
         });
-
     }
     addOrg(val) {
         this.update.val = val
         this.openModal();
-
     }
     updateOrg(val, data) {
         this.update.val = val
@@ -73,6 +73,7 @@ export class OrganizationComponent implements OnInit {
         this.openModal();
     }
     removeOrg(val, e) {
+        console.log('e::', e);
         this.httpService.deleteOrganization(val._id)
         .subscribe((response: any) => {
             if (response.status === 200) {

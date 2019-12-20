@@ -39,13 +39,23 @@ export class OrganizationModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.createOrganizationForm();
+    if (this.data.val === true) {
+      const newVal = this.data.data
+      delete newVal.__v
+      this.organizationForm.setValue(newVal)
+    }
+  }
+  createOrganizationForm() {
     this.organizationForm = this.fb.group({
       name: ['', [Validators.required,
-      this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameMessage })]],
+                        this.helperService.customPatternValid({ pattern: regex.nameReg, msg: errorMsg.nameErr })]],
       streetAddress: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      contactEmail: ['', [Validators.required]],
-      contactPhone: ['', [Validators.required]],
+      contactEmail: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg, msg: errorMsg.email }),
+                                                this.helperService.customPatternValid({ msg: errorMsg.requiredField})]],
+      contactPhone: ['', [Validators.required,
+                            this.helperService.customPatternValid({ pattern: regex.phoneNumber, msg: errorMsg.phoneMsg })]],
       province: ['', [Validators.required]],
       country: ['', [Validators.required]],
       serviceType: ['', [Validators.required]],
@@ -55,14 +65,8 @@ export class OrganizationModalComponent implements OnInit {
       updateDate: [new Date().toISOString],
       createdBy: ['5da878a9c635743159f4d8d9'],
       organizationRef: ['5dd5158b75de6156ccceb0ee'],
-      _id: [this.data.modal._id]
+      _id: [this.data._id]
     });
-
-    if (this.data.modal.val === true) {
-      const newVal = this.data.modal.data
-      delete newVal.__v
-      this.organizationForm.setValue(newVal)
-    }
   }
   close() {
     this.resData.status = 'close';
@@ -72,28 +76,29 @@ export class OrganizationModalComponent implements OnInit {
     const finalVal = this.organizationForm.value
     delete finalVal._id;
     delete finalVal.updateDate;
-    console.log(this.data.modal.data._id)
-    console.log(this.organizationForm.value)
+    console.log(this.data.data._id)
     this.httpService.createOrganization(finalVal)
       .subscribe((response: any) => {
-        console.log(response)
-        if (response.status === 200) {
-          console.log(response)
+        if (response.status === 201) {
+          
+          console.log(this.resData);
+          this.resData.status = 'add';
+          this.resData.data = response.body;
+
           this.dialogRef.close(this.resData);
         }
-      },
-        error => {
+      }, error => {
           console.log(error);
         }
-      )
-  };
+      )};
+
   update() {
-    let finaVal = this.organizationForm.value
+    const finaVal = this.organizationForm.value
     delete finaVal.createDate
     delete finaVal._id
-    console.log(this.data.modal.data._id)
+    console.log(this.data.data._id)
     console.log(this.organizationForm.value)
-    this.httpService.updateOrganization(finaVal, this.data.modal.data._id)
+    this.httpService.updateOrganization(finaVal, this.data.data._id)
     .subscribe((response: any) => {
       console.log(response)
       if (response.status === 201) {

@@ -94,10 +94,10 @@ export class HttpService {
     return this.httpClient.delete(ApiUrl.UserUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
   public createUser(body) {
-    return this.httpClient.post(API_URL + '/user/', body, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.post(API_URL + '/auth/register/', body, { headers: this.getHeader(), observe: 'response' });
   }
-  public updateUser(body) {
-    return this.httpClient.put(ApiUrl.UserUrl + '/' + body.id, body, { headers: this.getHeader(), observe: 'response' });
+  public updateUser(body, id) {
+    return this.httpClient.put(ApiUrl.UserUrl + '/' + id, body, { headers: this.getHeader(), observe: 'response' });
   }
   public getAllUser() {
     return this.httpClient.get(ApiUrl.UserUrl, { headers: this.getHeader(), observe: 'response' });
