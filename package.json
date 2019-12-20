@@ -5,14 +5,12 @@
   "scripts": {
     "ng": "ng",
     "start": "node server",
-    "install" : "npm install",
-    "audit" : "npm audit fix",
     "build": "ng build --aot --prod",
     "update:packages": "node wipe-dependencies.js && rm -rf node_modules/ && npm update --save-dev && npm update --save",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && ng serve -o"
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm audit fix && ng serve -o"
   },
   "engines": {
     "node": "10.16.0",
