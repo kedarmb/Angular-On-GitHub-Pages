@@ -9,9 +9,8 @@ import { OrganizationModalComponent } from './components/organization-modal/orga
 import { EquipmentsModalComponent } from './components/equipments-modal/equipments-modal.component';
 import { UserModalComponent } from './components/user-modal/user-modal.component';
 import { NotifySubcontractorComponent } from './components/notify-subcontractor/notify-subcontractor.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { TagInputModule } from 'ngx-chips';
 import {
   MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule,
   MatButtonToggleModule, MatIconModule, MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule, MatSidenavModule,
@@ -22,6 +21,7 @@ import {
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LabourModalComponent } from './components/labour-modal/labour-modal.component';
 import { MatCardModule } from '@angular/material/card';
+import { EllipsisPipe } from './pipe/ellipsis.pipe';
 
 //
 const MaterialComponent = [
@@ -44,9 +44,11 @@ const MaterialComponent = [
     EquipmentsModalComponent,
     UserModalComponent,
     NotifySubcontractorComponent,
-    LabourModalComponent
+    LabourModalComponent,
+    EllipsisPipe
   ],
   exports: [
+    EllipsisPipe,
     TenderModalComponent,
     TrenchModalComponent,
     CrewModalComponent,
@@ -57,9 +59,9 @@ const MaterialComponent = [
     MaterialComponent
   ],
   imports: [
+    
+    TagInputModule,
     MatDialogModule,
-    // MatDialog,
-    // MatDialogRef,
     MatCardModule,
     CommonModule,
     FormsModule,

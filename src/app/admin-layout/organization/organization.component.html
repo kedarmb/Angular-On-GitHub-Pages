@@ -26,8 +26,8 @@
             <td mat-cell *matCellDef="let element"> {{element.serviceType}}</td>
         </ng-container>
         <ng-container matColumnDef="ServiceArea">
+            <td mat-cell *matCellDef="let element"> {{element.serviceArea | ellipsis:15}} </td>
             <th mat-header-cell *matHeaderCellDef> ServiceArea</th>
-            <td mat-cell *matCellDef="let element"> {{element.serviceArea}} </td>
         </ng-container>
         <ng-container matColumnDef="province">
             <th mat-header-cell *matHeaderCellDef>province</th>

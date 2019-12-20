@@ -18,13 +18,11 @@ import { SearchSubscriberService } from './shared/core/service/search-subscriber
 import { LayoutModule } from './layout/layout.module';
 import { MatCardModule } from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
-//
-
-
-
+import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
     imports: [
+        TagInputModule,
         ToastrModule.forRoot(),
         NgxSpinnerModule,
         BrowserAnimationsModule,
@@ -41,11 +39,12 @@ import { ToastrModule } from 'ngx-toastr';
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
         }),
-        
+
     ],
     declarations: [
         AppComponent,
-        AdminLayoutComponent
+        AdminLayoutComponent,
+        
     ],
 
     providers: [

@@ -59,9 +59,6 @@ export class UserModalComponent implements OnInit {
     });
   }
 
-  // close() {
-  //   this.modal._matDialogClose();
-  // }
   close() {
     this.resData.status = 'close';
     this.dialogRef.close(this.resData);
@@ -71,15 +68,11 @@ export class UserModalComponent implements OnInit {
     const finalVal = this.userForm.value
     delete finalVal._id;
     delete finalVal.updateDate;
-    console.log(this.data.data._id)
-    console.log('save invoked ', this.userForm.value);
     this.httpService.createUser(finalVal)
       .subscribe((response: any) => {
         if (response.status === 201) {
-          console.log('response is ', response);
-          console.log(this.resData);
           this.resData.status = 'add';
-          this.resData.data = response.body;
+          this.resData.data = response.body.user;
           this.dialogRef.close(this.resData);
         }
       }, error => {
@@ -91,13 +84,9 @@ export class UserModalComponent implements OnInit {
     const finaVal = Object.assign({},this.userForm.value)
     delete finaVal.createDate
     delete finaVal._id
-    console.log(this.data.data._id)
-    console.log(this.userForm.value)
     this.httpService.updateUser(finaVal, this.data.data._id)
       .subscribe((response: any) => {
-        console.log(response)
         if (response.status === 201) {
-          console.log(response)
           this.resData.status = 'update';
           this.dialogRef.close(this.resData);
         }

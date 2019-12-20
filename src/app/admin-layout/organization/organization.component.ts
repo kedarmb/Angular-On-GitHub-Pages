@@ -34,7 +34,6 @@ export class OrganizationComponent implements OnInit {
         this.httpService.getAllOrganization()
             .subscribe((response: any) => {
                 if (response.status === 200) {
-                    console.log(response.body);
                     this.organizations = response.body;
                 }
             }, error => {
@@ -49,15 +48,12 @@ export class OrganizationComponent implements OnInit {
         });
         modalRef.afterClosed().subscribe(response => {
             if (response.status === 'close'  || response.status === undefined) {
-                console.log(response.data);
             }
             if (response.status === 'add') {
-                console.log(response);
                 this.organizations.push(response.data);
                 this.table.renderRows();
             }
             if (response.status === 'update') {
-                console.log(response.data);
                 this.getOrganization()
                 this.table.renderRows();
             }
