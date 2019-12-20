@@ -5,6 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node server",
+    "install" : "npm install"
+    "audit" : "npm audit fix"
     "build": "ng build --aot --prod",
     "update:packages": "node wipe-dependencies.js && rm -rf node_modules/ && npm update --save-dev && npm update --save",
     "test": "ng test",
