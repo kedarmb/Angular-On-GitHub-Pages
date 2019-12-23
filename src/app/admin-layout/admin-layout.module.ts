@@ -63,10 +63,10 @@ import { FullcalenderComponent } from './fullcalender/fullcalender.component';
 import { CrewEquipmentComponent } from './crew-components/crew/crew-equipment/crew-equipment.component';
 import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-labour.component';
 //
-// import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 //
 import { MatTableModule } from '@angular/material';
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -92,14 +92,15 @@ import { MatTableModule } from '@angular/material';
     MatListModule,
     MatCheckboxModule,
     MatToolbarModule,
-    // NgxSpinnerModule,
     MatTableModule,
     MatGridListModule,
     MatCardModule,
     MatTableModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatIconModule
+    MatIconModule,
+    NgxMatSelectSearchModule,
+    NgxSpinnerModule
   ],
   declarations: [
     DashboardComponent,

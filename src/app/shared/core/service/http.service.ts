@@ -121,6 +121,15 @@ export class HttpService {
     return this.httpClient.get(ApiUrl.tenderUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
 
+  public addNewTender(body) {
+    return this.httpClient.post(ApiUrl.tenderUrl, body, { headers: this.getHeader(), observe: 'response' });
+  }
+  public updateTender(id, body) {
+    return this.httpClient.put(ApiUrl.tenderUrl + '/' + id, body, { headers: this.getHeader(), observe: 'response' });
+  }
+  public deleteTenderById(id) {
+    return this.httpClient.delete(ApiUrl.tenderUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
+  }
   public getMockLineItems() {
     return this.httpClient.get(ApiUrl.lineItemMock, { headers: this.getHeader(), observe: 'response' })
   }

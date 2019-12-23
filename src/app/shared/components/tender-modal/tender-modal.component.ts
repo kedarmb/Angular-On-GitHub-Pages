@@ -1,12 +1,17 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TenderService } from '../../core/service/tender.service';
+// import { TenderService } from '../../core/service/tender.service';
 import { HelperService } from '../../core/service/helper.service';
+import { HttpService } from '../../core/service/http.service'
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { regex } from '../../core/constant/index';
 import { Tender } from 'app/shared/core/model/tender.model';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 
@@ -29,31 +34,49 @@ export class TenderModalComponent implements OnInit {
         status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
         data: {}
     };
+    injectedData: any;
+    allClients: Array<any> = [];
+    clientList: Observable<any[]>;
 
     constructor(public tenderModalRef: MatDialogRef<TenderModalComponent>,
         @Inject(MAT_DIALOG_DATA) public tData: any,
-        private tenderService: TenderService,
+        private httpServ: HttpService,
         private formBuider: FormBuilder,
-        private helperService: HelperService,
-        private spinner: NgxSpinnerService
+        private hs: HelperService,
+        private spinner: NgxSpinnerService,
+        private toastr: ToastrService,
     ) {
-
 
     }
 
     ngOnInit() {
-        this.initializeForm();
-        if (this.tender != null || this.tender !== undefined) {
-            // this.autoPopulateForEdit(this.tender);
-        };
         console.log(this.tData);
+        this.allClients = [...this.hs.getOrgList()];
+        if (this.tData.value) {
+            // this.dialogRef.componentInstance.data = {numbers: value};
+            // this.tData.data.openDate = moment().toISOString(this.tData.data.openDate);
+            this.injectedData = Object.assign({}, this.tData.tender);   // making a clone as tData is Composite data
+
+            // this.injectedData.openDate = moment().toISOString(this.injectedData.openDate);
+            this.injectedData.openDate = moment(this.injectedData.openDate).toISOString();
+            console.log(this.injectedData.openDate)
+            this.injectedData.closeDate = moment(this.injectedData.closeDate).toISOString();
+            this.injectedData.quoteStartDate = moment(this.injectedData.quoteStartDate).toISOString();
+            this.injectedData.quoteEndDate = moment(this.injectedData.quoteEndDate).toISOString();
+            //
+            // this.tenderModalRef.componentInstance.data = inputData
+            // console.log('tracing val  ', this.injectedData);
+        }
+
+        this.initializeForm();
+        //
     }
+
 
     initializeForm() {
         this.tenderHeaderForm = this.formBuider.group({
             // TODO: setup correct controls for populating this form.
-            __v: [],
-            tags: [],
+
             _id: [],
             clientName: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
             //
@@ -64,18 +87,49 @@ export class TenderModalComponent implements OnInit {
             closeDate: ['', Validators.required],
             quoteStartDate: ['', Validators.required],
             quoteEndDate: ['', Validators.required],
-            createDate: [],
-            createdBy: [],
-            updateDate: [],
-            organizationRef: []
-            // user: ['5da89960a103e032019e38ac'],
-            // organization: ['5dd7a520715859802e8b2c55']
         });
-        if (this.tData.data) {
-            this.tenderHeaderForm.setValue(this.tData.data)
+        //
+
+        this.clientList = this.tenderHeaderForm.get('clientName').valueChanges
+            .pipe(
+                startWith(''),
+                map(v => v ? this.filteredClients(v) : this.allClients.slice())
+            );
+        //
+        this.tenderHeaderForm.get('openDate').valueChanges.subscribe(() => {
+            this.setMinDate();
+        })
+        //
+        if (this.injectedData) {
+            //
+            console.log(this.injectedData);
+            delete this.injectedData.itemRef;
+            delete this.injectedData.sectionRef;
+            delete this.injectedData.__v;
+            // delete this.injectedData._id;
+            delete this.injectedData.status;
+            delete this.injectedData.createDate;
+            delete this.injectedData.createdBy;
+            delete this.injectedData.updateDate;
+            delete this.injectedData.updatedBy;
+            delete this.injectedData.organizationRef;
+            //
+            // this.injectedData.clientName = this.hs.findClientID(this.injectedData.clientName);
+            // console.log(this.injectedData);
+            // 
+            this.tenderHeaderForm.setValue(this.injectedData);
+            // console.log(this.tenderHeaderForm.value);
         }
+        //
+
     }
 
+    private filteredClients(value: string): any {
+        const filterValue = value.toLowerCase();
+        // console.log(this.allClients.filter(client => client.name.toLowerCase().indexOf(filterValue) === 0))
+        return this.allClients.filter(client => client.name.toLowerCase().indexOf(filterValue) === 0);
+    }
+    //
     private customValidator(param): ValidatorFn {
         //
         let msg: string;
@@ -104,151 +158,90 @@ export class TenderModalComponent implements OnInit {
             };
         }
     }
-    /** Added by Arup: 18 Nov 2019 */
-    private autoPopulateForEdit(tender) {
-        console.log(tender);
-        // this.tenderHeaderForm.reset();
-        // this.tenderHeaderForm.setValue(tender);
-    }
 
-    dateChanged(control) {
-        console.log(control);
-    }
-
-    setQuoteOpenDate() {
-        this.quoteOpenMinDate = {
-            year: this.tenderHeaderForm.controls.openDate.value.year,
-            month: this.tenderHeaderForm.controls.openDate.value.month,
-            day: this.tenderHeaderForm.controls.openDate.value.day + 4
-        }
-        //
-        this.tenderCloseMinDate = {
-            year: this.tenderHeaderForm.controls.openDate.value.year,
-            month: this.tenderHeaderForm.controls.openDate.value.month,
-            day: this.tenderHeaderForm.controls.openDate.value.day + 16
-        }
-    }
-    setQuoteCloseDate() {
-        /** Max Open date is 4 days prior to tender close date */
-        this.quoteOpenMaxDate = {
-            year: this.tenderHeaderForm.controls.closeDate.value.year,
-            month: this.tenderHeaderForm.controls.closeDate.value.month,
-            day: this.tenderHeaderForm.controls.closeDate.value.day - 4
-        }
-        /** Min Close date is 10 days prior to tender close date */
-        this.quoteCloseMinDate = {
-            year: this.tenderHeaderForm.controls.closeDate.value.year,
-            month: this.tenderHeaderForm.controls.closeDate.value.month,
-            day: this.tenderHeaderForm.controls.closeDate.value.day - 10
-        }
-        //
-        /** Max Close date is 4 days prior to tender close date */
-        this.quoteCloseMaxDate = {
-            year: this.tenderHeaderForm.controls.closeDate.value.year,
-            month: this.tenderHeaderForm.controls.closeDate.value.month,
-            day: this.tenderHeaderForm.controls.closeDate.value.day - 4
+    /** Method invoked from Template HTML  */
+    setMinDate() {
+        console.log('open date value ', this.tenderHeaderForm.controls.openDate.value);
+        if (this.tenderHeaderForm.controls.openDate.value != null) {
+            this.tenderCloseMinDate = this.tenderHeaderForm.controls.openDate.value;
+            //
+            this.tenderHeaderForm.get('closeDate').enable();
+            this.tenderHeaderForm.get('quoteStartDate').enable();
+            this.tenderHeaderForm.get('quoteEndDate').enable();
+        } else if (this.tenderHeaderForm.controls.openDate.value == null) {
+            this.tenderHeaderForm.get('closeDate').reset();
+            this.tenderHeaderForm.get('closeDate').disable();
+            this.tenderHeaderForm.get('quoteStartDate').reset();
+            this.tenderHeaderForm.get('quoteStartDate').disable();
+            this.tenderHeaderForm.get('quoteEndDate').reset();
+            this.tenderHeaderForm.get('quoteEndDate').disable();
         }
     }
-
 
     save() {
-
-        if (this.tData.val) {
-            this.tenderService.update(this.tender)
-                .subscribe(response => {
-                    this.resData.data = response;
-                    this.resData.status = 'update';
-                    this.tenderModalRef.close(response);
-                })
-        }
-        
-        if (!this.tData.val) {
-            // this.spinner.show();
-            // console.log(moment().toISOString(this.tenderHeaderForm.value.openDate));
-            this.tenderHeaderForm.patchValue({
-                openDate: moment().toISOString(this.tenderHeaderForm.value.openDate),
-                closeDate: moment().toISOString(this.tenderHeaderForm.value.closeDate),
-                quoteStartDate: moment().toISOString(this.tenderHeaderForm.value.quoteStartDate),
-                quoteEndDate: moment().toISOString(this.tenderHeaderForm.value.quoteEndDate),
-            })
-            this.tenderService.add(this.tenderHeaderForm.value)
-                .subscribe(response => {
-                    this.resData.data = response;
-                    this.resData.status = 'add';
-                    this.tenderModalRef.close(this.resData);
-                }, (err) => {
-                    console.log('err block ', err);
-                })
-        }
+        this.spinner.show();
+        console.log(this.tenderHeaderForm.value);
+        const updateData = Object.assign({}, this.tenderHeaderForm.value);
+        const tenderID = updateData._id;
+        updateData.clientName = this.hs.findClientID(updateData.clientName);
+        //
+        this.httpServ.addNewTender(updateData).subscribe((res) => {
+            console.log('success in adding ', res);
+            //
+            if (res.status === 201) {
+                console.log('success in updating ', res);
+                this.resData.status = 'add';
+                this.resData.data = res.body;
+                this.tenderModalRef.close(this.resData);
+                this.toastr.info(res.statusText);
+                this.spinner.hide();
+            }
+        }, (err) => {
+            console.log('err in adding ', err);
+            this.spinner.hide();
+        })
     }
 
+    update() {
+        // console.log(this.tenderHeaderForm.value);
+        this.spinner.show();
+        const updateData = Object.assign({}, this.tenderHeaderForm.value);
+        const tenderID = updateData._id;
+        //
+        console.log(updateData)
+        updateData.clientName = this.hs.findClientID(updateData.clientName);
+        //
+        this.httpServ.updateTender(tenderID, updateData).subscribe((res) => {
+
+            if (res.status === 201) {
+                console.log('success in updating ', res);
+                this.resData.status = 'update';
+                this.resData.data = res.body;
+                this.tenderModalRef.close(this.resData);
+                this.toastr.info(res.statusText);
+                this.spinner.hide();
+            }
+        }, (err) => {
+            this.spinner.hide();
+            console.log('err in updating ', err);
+        })
+    }
+    //
     close() {
         this.resData.status = 'close';
+        this.resData.data = null;
         this.tenderModalRef.close(this.resData);
     }
 
-    convertToNgbDate() {
-
-        this.tender.openDate = new Date(this.tender.openDate);
-        this.tender.closeDate = new Date(this.tender.closeDate);
-        this.tender.quoteStartDate = new Date(this.tender.quoteEndDate);
-        this.tender.quoteEndDate = new Date(this.tender.quoteStartDate);
-        this.tender.openDate = {
-            year: this.tender.openDate.getFullYear(),
-            month: this.tender.openDate.getMonth(),
-            day: this.tender.openDate.getDay()
-        };
-        this.tender.closeDate = {
-            year: this.tender.closeDate.getFullYear(),
-            month: this.tender.closeDate.getMonth(),
-            day: this.tender.closeDate.getDay()
-        };
-        this.tender.quoteStartDate = {
-            year: this.tender.quoteStartDate.getFullYear(),
-            month: this.tender.quoteStartDate.getMonth(),
-            day: this.tender.quoteStartDate.getDay()
-        };
-        this.tender.quoteEndDate = {
-            year: this.tender.quoteEndDate.getFullYear(),
-            month: this.tender.quoteEndDate.getMonth(),
-            day: this.tender.quoteEndDate.getDay()
-        };
-
+    /* private findClientID(name: string, data) {
+        const client = data.find(item => item.name === name)
+        // console.log(name + ' ......' + client);
+        return client._id;
     }
-
-
-    /**
-     * Function modified by Arup 8-11-2019
-     *
-     */
-    convertToDate() {
-        // Tender object populated from FormControls:
-        /* this.tender.openDate = new Date(this.tenderHeaderForm.controls.openDate.value.year,
-            this.tenderHeaderForm.controls.openDate.value.month,
-            this.tenderHeaderForm.controls.openDate.value.day);
-        //
-        this.tender.closeDate = new Date(this.tenderHeaderForm.controls.closeDate.value.year,
-            this.tenderHeaderForm.controls.closeDate.value.month,
-            this.tenderHeaderForm.controls.closeDate.value.day);
-        //
-        this.tender.quoteStartDate = new Date(this.tenderHeaderForm.controls.quoteStartDate.value.year,
-            this.tenderHeaderForm.controls.quoteStartDate.value.month,
-            this.tenderHeaderForm.controls.quoteStartDate.value.day);
-        //
-        this.tender.quoteEndDate = new Date(this.tenderHeaderForm.controls.quoteEndDate.value.year,
-            this.tenderHeaderForm.controls.quoteEndDate.value.month,
-            this.tenderHeaderForm.controls.quoteEndDate.value.day); */
-    }
-
-    /* convertToDate() {
-        this.tender.openDate = new Date(this.tender.openDate.year,
-            this.tender.openDate.month, this.tender.openDate.day);
-        this.tender.closeDate = new Date(this.tender.closeDate.year, this.tender.closeDate.month,
-            this.tender.closeDate.day);
-        this.tender.quoteStartDate = new Date(this.tender.quoteStartDate.year,
-            this.tender.quoteStartDate.month, this.tender.quoteStartDate.day);
-        this.tender.quoteEndDate = new Date(this.tender.quoteEndDate.year,
-            this.tender.quoteEndDate.month, this.tender.quoteEndDate.day);
+    private findClientNameById(id, data) {
+        const client = data.find(item => item._id === id)
+        // console.log(name + ' ......' + client);
+        return client.name;
     } */
 
 }

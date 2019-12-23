@@ -1,98 +1,143 @@
 <div class="modal-body">
-  <form [formGroup]="tenderHeaderForm" novalidate  *ngIf="tenderHeaderForm">    
-    <label for="clientName">Client Name</label>
-    <input type="text" class="form-control" formControlName="clientName" placeholder="Client Name">
-    
-    <div *ngIf="(!tenderHeaderForm.controls.clientName.valid &&  
+  <form [formGroup]="tenderHeaderForm" novalidate *ngIf="tenderHeaderForm">
+    <mat-form-field>
+      <mat-label for="clientName">Client Name</mat-label>
+      <input matInput formControlName="clientName" placeholder="choose an existing client" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let client of clientList | async" [value]="client.name">          
+          <span>{{client.name}}</span>          
+        </mat-option>
+      </mat-autocomplete>
+
+      <mat-error *ngIf="(!tenderHeaderForm.controls.clientName.valid &&  
         tenderHeaderForm.controls.clientName.dirty)" class="error">
-      <div *ngIf="tenderHeaderForm.controls.clientName.errors.invalidMsg">
-        {{tenderHeaderForm.controls.clientName.errors.invalidMsg}}
-      </div>
-      
-    </div>
-    
-    <div class="form-group">
-      <label for="name">Tender name</label>
-      <input type="text" class="form-control" formControlName="name" placeholder="Tender name">      
-      <div *ngIf="!tenderHeaderForm.controls.name.valid && 
+        <div *ngIf="tenderHeaderForm.controls.clientName.errors.invalidMsg">
+          {{tenderHeaderForm.controls.clientName.errors.invalidMsg}}
+        </div>
+
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label for="name">Tender name</mat-label>
+      <input matInput formControlName="name" placeholder="type in tender name">
+      <mat-error *ngIf="!tenderHeaderForm.controls.name.valid && 
         (tenderHeaderForm.controls.name.dirty)" class="error">
         <div *ngIf="tenderHeaderForm.controls.name.errors.invalidMsg">
           {{tenderHeaderForm.controls.name.errors.invalidMsg}}
         </div>
-      </div>
-    </div>
+      </mat-error>
+    </mat-form-field>
 
-    <div class="form-group">
-      <label for="tenderName">Description</label>
-      <input type="text" class="form-control" formControlName="description" placeholder="Short description..">      
-      <div *ngIf="!tenderHeaderForm.controls.description.valid && 
+    <mat-form-field>
+      <mat-label for="tenderName">Description</mat-label>
+      <input matInput type="text" formControlName="description" placeholder="type in a short description">
+      <mat-error *ngIf="!tenderHeaderForm.controls.description.valid && 
         (tenderHeaderForm.controls.description.dirty)" class="error">
         <div *ngIf="tenderHeaderForm.controls.description.errors.invalidMsg">
           {{tenderHeaderForm.controls.description.errors.invalidMsg}}
         </div>
-      </div>
-    </div>
+      </mat-error>
+    </mat-form-field>
 
+    <mat-grid-list cols="2" rowHeight="3:1">
+      <mat-grid-tile>
+        <div class="form-group">
+          <label>Open Date</label>
+          <mat-form-field>
+            <input matInput [matDatepicker]="openDtpicker" placeholder="Choose a date" formControlName="openDate">
+            <mat-datepicker-toggle matSuffix [for]="openDtpicker"></mat-datepicker-toggle>
+            <mat-datepicker #openDtpicker></mat-datepicker>
+            <mat-error *ngIf="!tenderHeaderForm.controls.openDate.valid && 
+                (tenderHeaderForm.controls.openDate.dirty)" class="error">
+              <div *ngIf="tenderHeaderForm.controls.openDate.errors.invalidMsg">
+                {{tenderHeaderForm.controls.openDate.errors.invalidMsg}}
+              </div>
+            </mat-error>
+          </mat-form-field>
 
-    <div class="form-group">
-      <label>Open Date</label>
-      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="openDate" ngbDatepicker #d1="ngbDatepicker"
+          <!-- <input class="form-control" placeholder="yyyy-mm-dd" formControlName="openDate" ngbDatepicker #d1="ngbDatepicker"
         (focus)="d1.toggle()" (dateSelect)="setQuoteOpenDate()">     
       <div *ngIf="!tenderHeaderForm.controls.openDate.valid && 
         (tenderHeaderForm.controls.openDate.dirty)" class="error">
         <div *ngIf="tenderHeaderForm.controls.openDate.errors.invalidMsg">
           {{tenderHeaderForm.controls.openDate.errors.invalidMsg}}
         </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Close date</label>
-      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="closeDate" ngbDatepicker #d2="ngbDatepicker"
-       [minDate]="tenderCloseMinDate" (focus)="d2.toggle()" (dateSelect)="setQuoteCloseDate()">
-      <div *ngIf="!tenderHeaderForm.controls.closeDate.valid && 
-        (tenderHeaderForm.controls.closeDate.dirty)" class="error">
-        <div *ngIf="tenderHeaderForm.controls.closeDate.errors.invalidMsg">
-          {{tenderHeaderForm.controls.closeDate.errors.invalidMsg}}
+      </div> -->
         </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Quote Start Date</label>
-      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteStartDate" ngbDatepicker
-        #d3="ngbDatepicker" [minDate]="quoteOpenMinDate" [maxDate]="quoteOpenMaxDate" (focus)="d3.toggle()">
-      <div *ngIf="!tenderHeaderForm.controls.quoteStartDate.valid && 
-        (tenderHeaderForm.controls.quoteStartDate.dirty)"
-        class="error">
-        <div *ngIf="tenderHeaderForm.controls.quoteStartDate.errors.invalidMsg">
-          {{tenderHeaderForm.controls.quoteStartDate.errors.invalidMsg}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-group">
+          <label>Close date</label>
+          <!-- <input class="form-control" placeholder="yyyy-mm-dd" formControlName="closeDate" ngbDatepicker #d2="ngbDatepicker"
+               [minDate]="tenderCloseMinDate" (focus)="d2.toggle()" (dateSelect)="setQuoteCloseDate()"> -->
+          <mat-form-field>
+            <input matInput [matDatepicker]="closeDtpicker" placeholder="Choose a date" formControlName="closeDate"
+              [min]="tenderCloseMinDate">
+            <mat-datepicker-toggle matSuffix [for]="closeDtpicker" [disabled]="!tenderHeaderForm.get('openDate').value">
+            </mat-datepicker-toggle>
+            <mat-datepicker #closeDtpicker></mat-datepicker>
+            <mat-error *ngIf="!tenderHeaderForm.controls.closeDate.valid && 
+                (tenderHeaderForm.controls.closeDate.dirty)" class="error">
+              <div *ngIf="tenderHeaderForm.controls.closeDate.errors.invalidMsg">
+                {{tenderHeaderForm.controls.closeDate.errors.invalidMsg}}
+              </div>
+            </mat-error>
+          </mat-form-field>
         </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Quote End Date</label>
-      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteEndDate" ngbDatepicker
-        #d4="ngbDatepicker" [minDate]="quoteCloseMinDate" [maxDate]="quoteCloseMaxDate" (focus)="d4.toggle()">
-      <div *ngIf="!tenderHeaderForm.controls.quoteEndDate.valid && 
-        (tenderHeaderForm.controls.quoteEndDate.dirty)"
-        class="error">
-        <div *ngIf="tenderHeaderForm.controls.quoteEndDate.errors.invalidMsg">
-          {{tenderHeaderForm.controls.quoteEndDate.errors.invalidMsg}}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-group">
+          <label>Quote Start Date</label>
+          <!-- <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteStartDate" ngbDatepicker
+                #d3="ngbDatepicker" [minDate]="quoteOpenMinDate" [maxDate]="quoteOpenMaxDate" (focus)="d3.toggle()"> -->
+          <mat-form-field>
+            <input matInput [matDatepicker]="qtOpenDtpicker" placeholder="Choose a date"
+              formControlName="quoteStartDate" [min]="tenderCloseMinDate">
+            <mat-datepicker-toggle matSuffix [for]="qtOpenDtpicker"
+              [disabled]="!tenderHeaderForm.get('openDate').value"></mat-datepicker-toggle>
+            <mat-datepicker #qtOpenDtpicker></mat-datepicker>
+            <mat-error *ngIf="!tenderHeaderForm.controls.quoteStartDate.valid && 
+                (tenderHeaderForm.controls.quoteStartDate.dirty)" class="error">
+              <div *ngIf="tenderHeaderForm.controls.quoteStartDate.errors.invalidMsg">
+                {{tenderHeaderForm.controls.quoteStartDate.errors.invalidMsg}}
+              </div>
+            </mat-error>
+          </mat-form-field>
         </div>
-      </div>
-    </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-group">
+          <label>Quote End Date</label>
+          <!-- <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteEndDate" ngbDatepicker
+                #d4="ngbDatepicker" [minDate]="quoteCloseMinDate" [maxDate]="quoteCloseMaxDate" (focus)="d4.toggle()"> -->
+          <mat-form-field>
+            <input matInput [matDatepicker]="qtClsDtpicker" placeholder="Choose a date" formControlName="quoteEndDate"
+              [min]="tenderCloseMinDate">
+            <mat-datepicker-toggle matSuffix [for]="qtClsDtpicker" [disabled]="!tenderHeaderForm.get('openDate').value">
+            </mat-datepicker-toggle>
+            <mat-datepicker #qtClsDtpicker></mat-datepicker>
+            <mat-error *ngIf="!tenderHeaderForm.controls.quoteEndDate.valid && 
+                (tenderHeaderForm.controls.quoteEndDate.dirty)" class="error">
+              <div *ngIf="tenderHeaderForm.controls.quoteEndDate.errors.invalidMsg">
+                {{tenderHeaderForm.controls.quoteEndDate.errors.invalidMsg}}
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
     <!--  [disabled]="tenderHeaderForm.invalid"  -->
-    <div *ngIf="tData.val == false">
-      <button mat-raised-button type="button" [disabled]="!tenderHeaderForm.valid" (click)="save()"
-        class="btn btn-danger">Save</button>
-    </div>
-    <div *ngIf="tData.val == true">
-      <button mat-raised-button type="button" [disabled]="!tenderHeaderForm.valid" (click)="update()"
-        class="btn btn-danger">Update</button>
-    </div>
-    <button mat-raised-button type="button" (click)="close()" class="btn btn-danger">Cancel</button>
-    </form>
-</div>
 
+    <div *ngIf="tData.value == false">
+      <button mat-button [disabled]="!tenderHeaderForm.valid" (click)="save()"
+        class="btn btn-danger pull-right">Save</button>
+    </div>
+    <div *ngIf="tData.value == true">
+      <button mat-button [disabled]="!tenderHeaderForm.valid" (click)="update()"
+        class="btn btn-danger pull-right">Update</button>
+    </div>
+    <button mat-button (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+  </form>
+</div>

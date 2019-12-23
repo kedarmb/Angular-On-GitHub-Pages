@@ -9,6 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 //
 import { HttpService } from '../../shared/core/service/http.service';
+import { HelperService } from 'app/shared/core/service/helper.service';
 
 @Component({
   selector: 'app-tender',
@@ -19,7 +20,9 @@ export class TenderComponent implements OnInit {
 
   displayedColumns: string[] = ['Client Name', 'Tender Name', 'Open Date', 'Close Date', 'Quote Start Date', 'Quote End Date', 'Actions'];
   tenders: Array<any> = [];
-  
+  orgList: any[];
+  ft: any;
+
 
 
 
@@ -28,12 +31,32 @@ export class TenderComponent implements OnInit {
     private router: Router, private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private httpServ: HttpService,
+    private hs: HelperService,
     public tenderModalDialog: MatDialog) {
-
+    console.log('TenderComponent instantiated');
   }
 
 
   ngOnInit() {
+    //
+    const id = setInterval(() => {
+      let arr = this.hs.getOrgList();
+      if (arr.length > 0) {
+        console.log('arr .. ', arr);
+        clearInterval(id);
+        this.getAllTenders();
+      }
+    }, 300)
+
+    // this.hs.getAllOrganization().subscribe((res) => {
+    //   this.orgList = (res.body as Array<any>).filter((item) => {
+    //     return item['orgType'][0] === 'Client';
+    //   });
+    //   
+
+    // }, (err) => {
+    //   console.log('err in fetching tender headers ', err)
+    // })
     // this.spinner.show();
     /* this.tenderService.getAll().subscribe((result) => {
       console.log('all tenders list fetched');
@@ -42,51 +65,64 @@ export class TenderComponent implements OnInit {
     }, (err) => {
       console.log(err);
     }) */
+
+  }
+  //
+  getAllTenders() {
     this.httpServ.getTenders().subscribe((result) => {
-      console.log('success in fetching tender headers ', result);
+      // console.log('success in fetching tender headers ', result);
       this.tenders = result.body as Array<any>;
+      this.ft = this.tenders.map(val => {
+        console.log('val is .... ', val.clientName);
+        const j = this.hs.findClientName(val.clientName);
+        return val.clientName = j;
+      })
+      console.log(this.ft)
     }, (err) => {
       console.log('err in fetching tender headers ', err)
     })
   }
-
-  delete(tender) {
-    this.tenderService.delete(tender).subscribe(() => {
-      /* this.tenderService.getAll().subscribe((tenders) => {
-        this.tenders = tenders;
-      }) */
-    })
-  }
-
   /** Public Method to Add new Tender Header or Edit existing Tender Header. For editing pass
    * respective tender data to the method.
    */
   openTenderHeaderDialog(data) {
-     const dialogRef = this.tenderModalDialog.open(TenderModalComponent, {
+    // console.log('data is .. ', data);
+    const dialogRef = this.tenderModalDialog.open(TenderModalComponent, {
       width: '550px',
       data: data,
-       disableClose: true
-     })
+      disableClose: true
+    })
     dialogRef.afterClosed().subscribe(response => {
       console.log('The dialog was closed ', response);
       if (response.status === 'close' || response.status === undefined) {
-        this.toastr.warning('Tender creation cncelled.', 'Cancelled');
+        this.toastr.warning('Tender creation cancelled.', 'Cancelled');
       }
       if (response.status === 'add') {
         console.log(response.data);
+        response.data.clientName = this.hs.findClientName(response.data.clientName);
         this.tenders.push(response.data);
       }
       if (response.status === 'update') {
         console.log(response.data);
+        this.getAllTenders();
+
       }
     });
   }
 
-  AddUpdateTender(val: boolean, data?: {}, index?: number) {
-    const update: { data: {}, val: boolean} = {data, val};
-    update.data = data;
-    update.val = val;
+  AddUpdateTender(val: boolean, tenderData?: {}, clients?: [], index?: number) {
+    // const update: { data: { clients: Array<any>[], tender: any }, val: boolean } = { data, val };
+    const update = { value: null, tender: null, indx: null };
+    //
+    //this.spinner.show();
+    update.value = val;
+    update.tender = tenderData;
+    update.indx = index;
+    //
     this.openTenderHeaderDialog(update);
+    //
+
+
   }
 
   viewTender(tender) {
@@ -99,6 +135,18 @@ export class TenderComponent implements OnInit {
   }
   quotes(tender) {
     this.router.navigateByUrl('/quote');
+  }
+  //
+  deleteTender(tenderData, index) {
+    // console.log(tenderData, index)
+    this.httpServ.deleteTenderById(tenderData._id).subscribe((res) => {
+      console.log('success deleting tender', res);
+      this.tenders.splice(index, 1);
+      this.toastr.info('Successfully deleted tender', 'Done');
+    }, (err) => {
+      console.log('error deleting ', err);
+      this.toastr.error('Could not delete tender', 'Error!');
+    })
   }
 
 }

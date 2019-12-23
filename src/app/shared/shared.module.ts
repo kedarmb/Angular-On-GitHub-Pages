@@ -15,8 +15,9 @@ import {
   MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule,
   MatButtonToggleModule, MatIconModule, MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule, MatSidenavModule,
   MatMenuModule, MatListModule, MatDividerModule, MatGridListModule, MatExpansionModule, MatTabsModule, MatStepperModule,
-  MatAutocompleteModule, MatDialogModule
+  MatAutocompleteModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
+// import { MatMomentDateModule } from '@angular/material-moment-adapter';
 // import { , MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LabourModalComponent } from './components/labour-modal/labour-modal.component';
@@ -33,7 +34,7 @@ const MaterialComponent = [
   MatGridListModule, MatExpansionModule,
   MatCardModule, MatTabsModule, MatStepperModule,
   MatFormFieldModule, MatInputModule, MatSelectModule,
-  MatAutocompleteModule, MatDialogModule];
+  MatAutocompleteModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule];
 
 @NgModule({
   declarations: [
@@ -79,6 +80,8 @@ const MaterialComponent = [
     NgbModule,
     MatToolbarModule,
     MaterialComponent,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   entryComponents: [
     TenderModalComponent,

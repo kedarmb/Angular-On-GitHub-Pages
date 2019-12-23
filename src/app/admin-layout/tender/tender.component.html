@@ -86,7 +86,7 @@
                                                     <i class="material-icons">edit</i>
                                                 </button>
                                                 <button mat-raised-button type="button" matTooltip="Remove"
-                                                    (click)="delete(tender)" [matTooltipPosition]="'above'"
+                                                    (click)="deleteTender(tender,index)" [matTooltipPosition]="'above'"
                                                     class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">close</i>
                                                 </button>
@@ -130,6 +130,9 @@
             </div>
         </div>
     </div>
+    <ngx-spinner type="square-loader" size="medium" color="#b8a5e8">
+        <p style="font-size: 20px; color: white; margin-top: 60px;">Please give us a moment, we are fetching a list of your clients...</p>
+    </ngx-spinner>
 </div>
 
 

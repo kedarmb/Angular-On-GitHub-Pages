@@ -1,6 +1,6 @@
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxSpinnerModule } from 'ngx-spinner';
+//
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -24,7 +24,6 @@ import { TagInputModule } from 'ngx-chips';
     imports: [
         TagInputModule,
         ToastrModule.forRoot(),
-        NgxSpinnerModule,
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
@@ -39,12 +38,12 @@ import { TagInputModule } from 'ngx-chips';
         AgmCoreModule.forRoot({
             apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
         }),
+        // NgxSpinnerModule
 
     ],
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        
     ],
 
     providers: [
