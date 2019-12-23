@@ -1,9 +1,7 @@
 <div class="main-content">
     <mat-toolbar color="primary">
-
-        <a (click)="addUser(false)">
-            <i class="material-icons">add</i>Add
-        </a>
+            <button mat-raised-button (click)="addUser(false)"><i class="material-icons">add</i>Add</button>
+       
     </mat-toolbar>
     <table class="mat_tab" mat-table [dataSource]="user" class="mat-elevation-z8">        
         <ng-container matColumnDef="Email">

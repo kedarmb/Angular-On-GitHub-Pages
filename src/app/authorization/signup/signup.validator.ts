@@ -43,11 +43,12 @@ export class SignupFormGroup extends FormGroup {
         super({
             orgName: new SignupFormControl('Organization Name', 'orgName', '', Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(30)])),
             // name: new SignupFormControl('Name','name','', Validators.compose([Validators.required])),
-            email: new SignupFormControl('Email', 'email', '', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])),
+            email: new SignupFormControl('Email', 'email', '', Validators.compose([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])),
             password:new SignupFormControl('Password','password','', Validators.compose([Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}'),Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')])),
              confirmPassword:new SignupFormControl('Confirm Password','confirmPassword','', Validators.compose([Validators.required]))
         })
     }
+    
 
     get parentalControls(): SignupFormControl[] {
 

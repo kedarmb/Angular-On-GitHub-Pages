@@ -4,7 +4,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthorizationRoutingModule } from './authorization.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule , MatCardModule,MatToolbarModule} from '@angular/material';
 
 
 @NgModule({
@@ -23,6 +23,8 @@ import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, M
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
+        MatCardModule,
+        MatToolbarModule,
     ],
     exports: [],
     providers: [],

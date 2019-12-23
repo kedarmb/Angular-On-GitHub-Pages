@@ -1,19 +1,7 @@
 .main-content {
     height: 100%;
     position: relative;
+    overflow-y: hidden;
 }
 
-.container-fluid {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 
-.card {
-    font-size: 14px;
-}
-
-.card .card-body {
-    padding: 0.9375rem 20px!important;
-}

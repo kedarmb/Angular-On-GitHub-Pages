@@ -4,49 +4,36 @@
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 body,
-html {
+html, .main-content {
 display: block;
 padding: 0;
 margin: 0;
 width: 100%;
 position: relative;
 height: 100%;
-font-family: 'Lato', sans-serif !important;
+ font-family: 'Lato', sans-serif !important;
 }
-
-body,
-html,
-tr,
-td {
-font-size: 14px;
-}
-
-html .sidebar .nav p {
-margin: 0;
-line-height: 1.8;
-font-size: 16px;
-}
-/*                                                                                                                         
-.table thead th {
-font-size: 16px;
-font-weight: 600;
-} */
-
-.ngb-dp-month {
-background: darkgray;
-}
-
 .main-panel .main-content {
 
 margin-left: -15px;
-margin-top: 0;
-/* padding: 20px 0px; */
-min-height: calc(100vh - 123px);
-}
 
+margin-top: 37px;
+
+
+// min-height: calc(100vh - 123px);
+}
 .sidebar {
 width: 220px;
 }
+.sidebar .logo .simple-text {
+ font-size: 16px!important;
+}
+
+html .sidebar .nav p {
+    margin: 0;
+    line-height: 1.8;
+      font-size: 16px;
+    }
 
 .sidebar li {
 width: 220px;
@@ -57,17 +44,23 @@ margin: 0;
 font-size: 14px !important;
 }
 
-.card-header {
-padding: 0;
-}
+
 
 .sidebar .nav li:first-child>a {
 color: red;
+color:#3f51b5;
 margin: 0 15px;
 }
-
+.sidebar .nav li:nth-child(6)>a {
+  
+border-bottom:1px solid darkgrey;
+border-radius: 0px;
+  
+    }
+    
 .sidebar .nav li:nth-child(2)>a {
 color: red;
+color:#3f51b5;
 }
 
 .sidebar .nav li:first-child.active>a,
@@ -84,10 +77,14 @@ background: darkgrey;
 
 .sidebar .nav li:first-child>a i {
 color: red;
+color:#3f51b5;
 }
-
+.sidebar[data-color=danger] li.active > a {
+    background-color: #3f51b5;
+}
 .sidebar .nav li:nth-child(2)>a i {
 color: red;
+color:#3f51b5;
 }
 
 .sidebar .sidebar-wrapper {
@@ -98,31 +95,38 @@ width: 220px;
 padding: 10px 15px;
 }
 
-/* .card-plain .card-header:not(.card-avatar) {
-margin-top: 20px;
-} */
 
 app-footer {
-width: calc(100% - 276px);
+width: calc(100% - 288px);//288px
 position: fixed;
 bottom: 0;
+z-index: 999;
+    margin: 0;
+   
 }
-/*                                                                                                                         
-.card-body {
-padding: 0px!important;
-} */
-
-/* .mat-raised-button:not([class*=mat-elevation-z]) {
-margin: 20px 0px;
-} */
 
 .mat-toolbar.mat-primary {
-margin-bottom: 40px;
-}
-.mat_tab{
-width: 100% !important;
+    
+margin-bottom: 20px;
 
 }
+
 .mat-raised-button:not([class*=mat-elevation-z]) {
 margin: 10px 0px;
+font-weight: 600;
+    
+}
+
+
+mat-card{
+    margin-top:100px;
+    overflow-y: hidden;
+}
+
+.mat-title{
+    margin:0;
+}
+.mat-header-cell {
+    font-size: 16px!important;
+    font-weight: 700;
 }
