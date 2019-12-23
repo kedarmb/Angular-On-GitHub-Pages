@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subject, merge, ReplaySubject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, tap, take, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, tap, takeUntil, take } from 'rxjs/operators';
 import { CrewService } from '../../shared/core/service/crew.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TenderService } from '../../shared/core/service/tender.service';
@@ -14,13 +14,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { isArray } from 'util';
 import { HttpService } from '../../shared/core/service/http.service';
-import { MatSelect } from '@angular/material/select';
+import { MatSelect } from '@angular/material';
 @Component({
     selector: 'app-view-tender',
     templateUrl: './view-tender.component.html',
     styleUrls: ['./view-tender.component.scss']
 })
-export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ViewTenderComponent implements OnInit {
 
     accordion = {};
 
@@ -48,7 +48,6 @@ export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     tender: Tender = new Tender();
-    // sections = [{ name: 'WATERMAIN' }, { name: 'RESOTRATION' }];
     model: any;
     searching = false;
     searchFailed = false;
@@ -525,9 +524,9 @@ export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
     viewer(item) {
         this.router.navigateByUrl('/pdf-viewer/' + item.id);
     }
-    /* addSection() {
-        this.sections.push({ name: 'Enter Section Name' });
-    } */
+    // addSection() {
+    //     this.sections.push({ name: 'Enter Section Name' });
+    // }
 }
 
 
