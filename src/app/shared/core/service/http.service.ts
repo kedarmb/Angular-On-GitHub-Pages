@@ -120,7 +120,7 @@ export class HttpService {
   public getTenderDetailById(id) {
     return this.httpClient.get(ApiUrl.tenderUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
-   
+
   public getMockLineItems() {
     return this.httpClient.get(ApiUrl.lineItemMock, { headers: this.getHeader(), observe: 'response' })
   }

@@ -42,11 +42,14 @@ export class OrganizationModalComponent implements OnInit {
   ngOnInit() {
     this.createOrganizationForm();
     if (this.data.val === true) {
-      const newVal = Object.assign({}, this.data.data)
-      delete newVal.__V
-      delete newVal.createDate
-      delete newVal.updateDate
-      this.organizationForm.setValue(newVal)
+      const newVal = Object.assign({}, this.data.data);
+      delete newVal.__V;
+      delete newVal.__v;
+      delete newVal.createDate;
+      delete newVal.updateDate;
+      delete newVal.createdBy;
+      delete newVal.organizationRef;
+      this.organizationForm.setValue(newVal);
     }
   }
   createOrganizationForm() {
@@ -64,7 +67,7 @@ export class OrganizationModalComponent implements OnInit {
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
       orgType: ['Prime'],
-      organizationRef: ['5dd5158b75de6156ccceb0ee'],
+      // organizationRef: ['5dd5158b75de6156ccceb0ee'],
       _id: [this.data._id]
     });
   }
@@ -86,7 +89,7 @@ export class OrganizationModalComponent implements OnInit {
       }, error => {
           this.toastr.error(error.error.message)
       }
-      ) 
+      )
   };
 
   update() {
