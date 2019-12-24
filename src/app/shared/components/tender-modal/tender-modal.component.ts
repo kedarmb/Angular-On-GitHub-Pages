@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn } from '@a
 import { regex } from '../../core/constant/index';
 import { Tender } from 'app/shared/core/model/tender.model';
 import * as moment from 'moment';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -25,11 +24,14 @@ import { ToastrService } from 'ngx-toastr';
 export class TenderModalComponent implements OnInit {
     tender: Tender = null;
     tenderHeaderForm: FormGroup;
+    tenderOpenMinDate: any;
     tenderCloseMinDate: any; // Tender close date must be atleast 5 days from tender open date
     quoteOpenMinDate: any;
-    quoteOpenMaxDate: any;
-    quoteCloseMinDate: any;
     quoteCloseMaxDate: any;
+    quoteCloseMinDate: any;
+    // quoteOpenMaxDate: any;
+    // quoteCloseMinDate: any;
+
     resData = {
         status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
         data: {}
@@ -43,7 +45,6 @@ export class TenderModalComponent implements OnInit {
         private httpServ: HttpService,
         private formBuider: FormBuilder,
         private hs: HelperService,
-        private spinner: NgxSpinnerService,
         private toastr: ToastrService,
     ) {
 
@@ -51,6 +52,8 @@ export class TenderModalComponent implements OnInit {
 
     ngOnInit() {
         console.log(this.tData);
+        // set quote open date to todays date
+        this.tenderOpenMinDate = moment().format();
         this.allClients = [...this.hs.getOrgList()];
         if (this.tData.value) {
             // this.dialogRef.componentInstance.data = {numbers: value};
@@ -59,7 +62,7 @@ export class TenderModalComponent implements OnInit {
 
             // this.injectedData.openDate = moment().toISOString(this.injectedData.openDate);
             this.injectedData.openDate = moment(this.injectedData.openDate).toISOString();
-            console.log(this.injectedData.openDate)
+            // console.log(this.injectedData.openDate)
             this.injectedData.closeDate = moment(this.injectedData.closeDate).toISOString();
             this.injectedData.quoteStartDate = moment(this.injectedData.quoteStartDate).toISOString();
             this.injectedData.quoteEndDate = moment(this.injectedData.quoteEndDate).toISOString();
@@ -75,8 +78,6 @@ export class TenderModalComponent implements OnInit {
 
     initializeForm() {
         this.tenderHeaderForm = this.formBuider.group({
-            // TODO: setup correct controls for populating this form.
-
             _id: [],
             clientName: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
             //
@@ -97,12 +98,21 @@ export class TenderModalComponent implements OnInit {
             );
         //
         this.tenderHeaderForm.get('openDate').valueChanges.subscribe(() => {
+            console.log('value changes invoked')
             this.setMinDate();
         })
         //
+        this.tenderHeaderForm.get('closeDate').valueChanges.subscribe(() => {
+            this.quoteCloseMaxDate = this.tenderHeaderForm.controls.closeDate.value;
+        });
+        //
+        this.tenderHeaderForm.get('quoteStartDate').valueChanges.subscribe(() => {
+            this.quoteCloseMinDate = this.tenderHeaderForm.controls.quoteStartDate.value;
+        });
+        //
         if (this.injectedData) {
             //
-            console.log(this.injectedData);
+            // console.log(this.injectedData);
             delete this.injectedData.itemRef;
             delete this.injectedData.sectionRef;
             delete this.injectedData.__v;
@@ -114,9 +124,6 @@ export class TenderModalComponent implements OnInit {
             delete this.injectedData.updatedBy;
             delete this.injectedData.organizationRef;
             //
-            // this.injectedData.clientName = this.hs.findClientID(this.injectedData.clientName);
-            // console.log(this.injectedData);
-            // 
             this.tenderHeaderForm.setValue(this.injectedData);
             // console.log(this.tenderHeaderForm.value);
         }
@@ -179,32 +186,32 @@ export class TenderModalComponent implements OnInit {
     }
 
     save() {
-        this.spinner.show();
-        console.log(this.tenderHeaderForm.value);
+        this.hs.showSpinner();
+        // console.log(this.tenderHeaderForm.value);
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
-        const tenderID = updateData._id;
+        // const tenderID = updateData._id;
         updateData.clientName = this.hs.findClientID(updateData.clientName);
         //
         this.httpServ.addNewTender(updateData).subscribe((res) => {
-            console.log('success in adding ', res);
+            // console.log('success in adding ', res);
             //
             if (res.status === 201) {
-                console.log('success in updating ', res);
+                // console.log('success in updating ', res);
                 this.resData.status = 'add';
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);
                 this.toastr.info(res.statusText);
-                this.spinner.hide();
+                this.hs.hideSpinner();
             }
         }, (err) => {
             console.log('err in adding ', err);
-            this.spinner.hide();
+            this.hs.hideSpinner();
         })
     }
 
     update() {
         // console.log(this.tenderHeaderForm.value);
-        this.spinner.show();
+        this.hs.showSpinner();
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         const tenderID = updateData._id;
         //
@@ -219,10 +226,10 @@ export class TenderModalComponent implements OnInit {
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);
                 this.toastr.info(res.statusText);
-                this.spinner.hide();
+                this.hs.hideSpinner();
             }
         }, (err) => {
-            this.spinner.hide();
+            this.hs.hideSpinner();
             console.log('err in updating ', err);
         })
     }

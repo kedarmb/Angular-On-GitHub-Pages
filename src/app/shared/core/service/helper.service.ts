@@ -27,7 +27,7 @@ export class HelperService {
     private spinner: NgxSpinnerService) {
     //
     this.getAllOrganization()
-    console.log('HelperService instantiated');
+    // console.log('HelperService instantiated');
     //
   }
 
@@ -35,17 +35,21 @@ export class HelperService {
     return this.orgList;
   }
 
-  public getAllOrganization() {
+  public showSpinner() {
     this.spinner.show();
+  }
+  public hideSpinner() {
+    this.spinner.hide();
+  }
+
+  public getAllOrganization() {
+    this.showSpinner();
     return this.httpClient.get(ApiUrl.orgUrl, { headers: this.getHeader(), observe: 'response' })
       .subscribe((res) => {
         console.log('total list ', res);
         this.orgList = (res.body as Array<any>).filter((item) => {
           return item['orgType'][0] === 'Client';
         });
-        this.spinner.hide();
-        // this.getAllTenders();
-
       }, (err) => {
         console.log('err in fetching tender headers ', err)
       })

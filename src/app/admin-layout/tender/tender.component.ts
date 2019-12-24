@@ -21,7 +21,6 @@ export class TenderComponent implements OnInit {
   displayedColumns: string[] = ['Client Name', 'Tender Name', 'Open Date', 'Close Date', 'Quote Start Date', 'Quote End Date', 'Actions'];
   tenders: Array<any> = [];
   orgList: any[];
-  ft: any;
 
 
 
@@ -40,31 +39,13 @@ export class TenderComponent implements OnInit {
   ngOnInit() {
     //
     const id = setInterval(() => {
-      let arr = this.hs.getOrgList();
+      const arr = this.hs.getOrgList();
       if (arr.length > 0) {
-        console.log('arr .. ', arr);
+        // console.log('arr .. ', arr);
         clearInterval(id);
         this.getAllTenders();
       }
     }, 300)
-
-    // this.hs.getAllOrganization().subscribe((res) => {
-    //   this.orgList = (res.body as Array<any>).filter((item) => {
-    //     return item['orgType'][0] === 'Client';
-    //   });
-    //   
-
-    // }, (err) => {
-    //   console.log('err in fetching tender headers ', err)
-    // })
-    // this.spinner.show();
-    /* this.tenderService.getAll().subscribe((result) => {
-      console.log('all tenders list fetched');
-      this.tenders = result;
-      // this.spinner.hide();
-    }, (err) => {
-      console.log(err);
-    }) */
 
   }
   //
@@ -72,14 +53,17 @@ export class TenderComponent implements OnInit {
     this.httpServ.getTenders().subscribe((result) => {
       // console.log('success in fetching tender headers ', result);
       this.tenders = result.body as Array<any>;
-      this.ft = this.tenders.map(val => {
-        console.log('val is .... ', val.clientName);
+      //
+      this.tenders.map(val => {
+        // console.log('val is .... ', val.clientName);
         const j = this.hs.findClientName(val.clientName);
-        return val.clientName = j;
+        val.clientName = j;
       })
-      console.log(this.ft)
+      //
+      this.hs.hideSpinner();
     }, (err) => {
-      console.log('err in fetching tender headers ', err)
+      console.log('err in fetching tender headers ', err);
+      this.hs.hideSpinner();
     })
   }
   /** Public Method to Add new Tender Header or Edit existing Tender Header. For editing pass
@@ -93,6 +77,7 @@ export class TenderComponent implements OnInit {
       disableClose: true
     })
     dialogRef.afterClosed().subscribe(response => {
+      //
       console.log('The dialog was closed ', response);
       if (response.status === 'close' || response.status === undefined) {
         this.toastr.warning('Tender creation cancelled.', 'Cancelled');
@@ -114,7 +99,6 @@ export class TenderComponent implements OnInit {
     // const update: { data: { clients: Array<any>[], tender: any }, val: boolean } = { data, val };
     const update = { value: null, tender: null, indx: null };
     //
-    //this.spinner.show();
     update.value = val;
     update.tender = tenderData;
     update.indx = index;
@@ -123,18 +107,6 @@ export class TenderComponent implements OnInit {
     //
 
 
-  }
-
-  viewTender(tender) {
-    // console.log(tender);
-    // tender._id = '5dde7f6bfc6b8a42441783ab';
-    this.router.navigateByUrl('view-tender/' + tender._id);
-  }
-  viewer(tender) {
-    this.router.navigateByUrl('pdf-viewer/' + tender._id);
-  }
-  quotes(tender) {
-    this.router.navigateByUrl('/quote');
   }
   //
   deleteTender(tenderData, index) {
@@ -148,47 +120,18 @@ export class TenderComponent implements OnInit {
       this.toastr.error('Could not delete tender', 'Error!');
     })
   }
+  //
+  viewTender(tender) {
+    // console.log(tender);
+    // tender._id = '5dde7f6bfc6b8a42441783ab';
+    this.router.navigateByUrl('view-tender/' + tender._id);
+  }
+  viewer(tender) {
+    this.router.navigateByUrl('pdf-viewer/' + tender._id);
+  }
+  quotes(tender) {
+    this.router.navigateByUrl('/quote');
+  }
+  //
 
 }
-
-
-/*
-open(item?) {
-    console.log(item)
-    const modalRef = this.modalService.open(TenderModalComponent, { centered: true });
-    modalRef.result.then(() => {
-      this.tenderService.getAll().subscribe((tenders) => {
-        this.toastr.info('Successfully added Tender', 'Congratulations.');
-        this.tenders = tenders;
-      })
-    }).catch (err => {
-  if (err === 0) {
-    this.toastr.warning('Tender creation cncelled.', 'Cancelled');
-  } else {
-    this.toastr.error('Could not add the new Tender. Please try again later', 'Sorry!');
-  }
-
-  console.log('modal cancelled ', err);
-})
-modalRef.componentInstance.tender = JSON.parse(JSON.stringify(item || new Tender()));
-  }
-  //============================//
-
-  editTender(item?) {
-    console.log(item);
-    const modalRef = this.modalService.open(TenderModalComponent, { centered: true });
-    //
-    modalRef.result.then(() => {
-      //
-    }).catch(err => {
-      if (err === 0) {
-        this.toastr.warning('Tender creation cncelled.', 'Cancelled');
-      } else {
-        this.toastr.error('Could not add the new Tender. Please try again later', 'Sorry!');
-      }
-
-      console.log('modal cancelled ', err);
-    })
-    modalRef.componentInstance.tender = item;
-  }
-*/

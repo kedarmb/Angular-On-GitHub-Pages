@@ -43,9 +43,10 @@
     <mat-grid-list cols="2" rowHeight="3:1">
       <mat-grid-tile>
         <div class="form-group">
-          <label>Open Date</label>
+          <mat-label>Open Date</mat-label>
           <mat-form-field>
-            <input matInput [matDatepicker]="openDtpicker" placeholder="Choose a date" formControlName="openDate">
+            <input matInput [matDatepicker]="openDtpicker" placeholder="Choose a date" formControlName="openDate"
+            [min]="tenderOpenMinDate">
             <mat-datepicker-toggle matSuffix [for]="openDtpicker"></mat-datepicker-toggle>
             <mat-datepicker #openDtpicker></mat-datepicker>
             <mat-error *ngIf="!tenderHeaderForm.controls.openDate.valid && 
@@ -54,28 +55,16 @@
                 {{tenderHeaderForm.controls.openDate.errors.invalidMsg}}
               </div>
             </mat-error>
-          </mat-form-field>
-
-          <!-- <input class="form-control" placeholder="yyyy-mm-dd" formControlName="openDate" ngbDatepicker #d1="ngbDatepicker"
-        (focus)="d1.toggle()" (dateSelect)="setQuoteOpenDate()">     
-      <div *ngIf="!tenderHeaderForm.controls.openDate.valid && 
-        (tenderHeaderForm.controls.openDate.dirty)" class="error">
-        <div *ngIf="tenderHeaderForm.controls.openDate.errors.invalidMsg">
-          {{tenderHeaderForm.controls.openDate.errors.invalidMsg}}
-        </div>
-      </div> -->
+          </mat-form-field>  
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="form-group">
-          <label>Close date</label>
-          <!-- <input class="form-control" placeholder="yyyy-mm-dd" formControlName="closeDate" ngbDatepicker #d2="ngbDatepicker"
-               [minDate]="tenderCloseMinDate" (focus)="d2.toggle()" (dateSelect)="setQuoteCloseDate()"> -->
+          <mat-label>Close date</mat-label>          
           <mat-form-field>
             <input matInput [matDatepicker]="closeDtpicker" placeholder="Choose a date" formControlName="closeDate"
               [min]="tenderCloseMinDate">
-            <mat-datepicker-toggle matSuffix [for]="closeDtpicker" [disabled]="!tenderHeaderForm.get('openDate').value">
-            </mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="closeDtpicker"></mat-datepicker-toggle>
             <mat-datepicker #closeDtpicker></mat-datepicker>
             <mat-error *ngIf="!tenderHeaderForm.controls.closeDate.valid && 
                 (tenderHeaderForm.controls.closeDate.dirty)" class="error">
@@ -86,16 +75,15 @@
           </mat-form-field>
         </div>
       </mat-grid-tile>
+      
       <mat-grid-tile>
         <div class="form-group">
-          <label>Quote Start Date</label>
-          <!-- <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteStartDate" ngbDatepicker
-                #d3="ngbDatepicker" [minDate]="quoteOpenMinDate" [maxDate]="quoteOpenMaxDate" (focus)="d3.toggle()"> -->
+          <mat-label>Quote Start Date</mat-label>
+          
           <mat-form-field>
             <input matInput [matDatepicker]="qtOpenDtpicker" placeholder="Choose a date"
-              formControlName="quoteStartDate" [min]="tenderCloseMinDate">
-            <mat-datepicker-toggle matSuffix [for]="qtOpenDtpicker"
-              [disabled]="!tenderHeaderForm.get('openDate').value"></mat-datepicker-toggle>
+              formControlName="quoteStartDate" [min]="tenderCloseMinDate" [max]="quoteCloseMaxDate">
+            <mat-datepicker-toggle matSuffix [for]="qtOpenDtpicker"></mat-datepicker-toggle>
             <mat-datepicker #qtOpenDtpicker></mat-datepicker>
             <mat-error *ngIf="!tenderHeaderForm.controls.quoteStartDate.valid && 
                 (tenderHeaderForm.controls.quoteStartDate.dirty)" class="error">
@@ -106,16 +94,15 @@
           </mat-form-field>
         </div>
       </mat-grid-tile>
+      
       <mat-grid-tile>
         <div class="form-group">
-          <label>Quote End Date</label>
-          <!-- <input class="form-control" placeholder="yyyy-mm-dd" formControlName="quoteEndDate" ngbDatepicker
-                #d4="ngbDatepicker" [minDate]="quoteCloseMinDate" [maxDate]="quoteCloseMaxDate" (focus)="d4.toggle()"> -->
+          <mat-label>Quote End Date</mat-label>
+          
           <mat-form-field>
-            <input matInput [matDatepicker]="qtClsDtpicker" placeholder="Choose a date" formControlName="quoteEndDate"
-              [min]="tenderCloseMinDate">
-            <mat-datepicker-toggle matSuffix [for]="qtClsDtpicker" [disabled]="!tenderHeaderForm.get('openDate').value">
-            </mat-datepicker-toggle>
+            <input matInput [matDatepicker]="qtClsDtpicker" placeholder="Choose a date" 
+            formControlName="quoteEndDate" [min]="quoteCloseMinDate" [max]="quoteCloseMaxDate">
+            <mat-datepicker-toggle matSuffix [for]="qtClsDtpicker"></mat-datepicker-toggle>
             <mat-datepicker #qtClsDtpicker></mat-datepicker>
             <mat-error *ngIf="!tenderHeaderForm.controls.quoteEndDate.valid && 
                 (tenderHeaderForm.controls.quoteEndDate.dirty)" class="error">
@@ -125,10 +112,10 @@
             </mat-error>
           </mat-form-field>
         </div>
-      </mat-grid-tile>
+      </mat-grid-tile>      
     </mat-grid-list>
 
-    <!--  [disabled]="tenderHeaderForm.invalid"  -->
+    
 
     <div *ngIf="tData.value == false">
       <button mat-button [disabled]="!tenderHeaderForm.valid" (click)="save()"
