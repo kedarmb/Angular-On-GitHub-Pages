@@ -96,20 +96,20 @@ export class TenderService {
                     {
                         name: 'string',
                         description: 'string',
-                        rate: 'string',
-                        type: 'string'
+                        hourlyRate: 'string',
+                        // type: 'string'
                     },
                     {
                         name: 'string',
                         description: 'string',
-                        rate: 'string',
-                        type: 'string'
+                        hourlyRate: 'string',
+                        // type: 'string'
                     },
                     {
                         name: 'string',
                         description: 'string',
-                        rate: 'string',
-                        type: 'string'
+                        hourlyRate: 'string',
+                        // type: 'string'
                     }
                 ],
                 equipments: [],
@@ -262,7 +262,6 @@ export class TenderService {
         //
 
         return this.http.post(createTenderURL, tender);
-
     }
 
     update(item) {

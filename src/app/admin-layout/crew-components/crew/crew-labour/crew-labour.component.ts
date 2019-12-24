@@ -1,8 +1,9 @@
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { HttpService } from 'app/shared/core/service/http.service';
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-modal.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTable } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-crew-labour',
@@ -10,10 +11,18 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./crew-labour.component.scss']
 })
 export class CrewLabourComponent implements OnInit {
-  displayedColumns: string[] = [ 'Name', 'Rate', 'Description', 'Type', 'Actions'];
+  displayedColumns: string[] = ['Name', 'Rate', 'Description', 'Actions'];
+  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
   valueChange: any;
-  labour
-  constructor(private modalService: MatDialog, private httpService: HttpService, private helperService: HelperService) { }
+  labour;
+  update = {
+    data: '',
+    val: ''
+  };
+  constructor(private modalService: MatDialog,
+    private httpService: HttpService,
+    private helperService: HelperService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getLabourData()
@@ -29,21 +38,51 @@ export class CrewLabourComponent implements OnInit {
         }
       },
       error => {
+        this.toastr.error(error.error.message)
         console.log(error);
       }
     )
   };
+  addLabour(val) {
+    this.update.val = val;
+    this.openModal();
+  }
+  updateLabour(val, data) {
+    this.update.val = val
+    this.update.data = data
+    this.openModal();
+  }
+
+  removeLabour(val, e) {
+    this.httpService.deleteLabour(val._id)
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+          this.labour.splice(e, 1)
+          this.table.renderRows();
+          this.toastr.success('Removed Successfully')
+        }
+      }, error => {
+        this.toastr.error(error.error.message)
+      })
+  }
 
 
-  openAddLabourModal() {
+  openModal() {
     const modalRef = this.modalService.open(LabourModalComponent, {
       height: 'auto',
-      width: '35%'
+      width: '35%', data: this.update, disableClose: true
     });
-    modalRef.afterClosed().subscribe((response) => {
-      console.log(response);
-      this.labour.push(response);
-
-    })
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+      }
+      if (response.status === 'add') {
+        this.labour.push(response.data);
+        this.table.renderRows();
+      }
+      if (response.status === 'update') {
+        this.getLabourData()
+        this.table.renderRows();
+      }
+    });
   }
 }
