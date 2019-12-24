@@ -1,4 +1,4 @@
-<div class="container">
+
     <form [formGroup]="userForm">
         <h1 mat-dialog-title align="center">Add User</h1>
         <div mat-dialog-content>
@@ -77,17 +77,17 @@
         </div>   
         <mat-dialog-actions class=" pull-right">
             <div *ngIf="data.val == false">
-                <button mat-raised-button type="button" [disabled]="!userForm.valid" (click)="save()"
-                    class="btn btn-danger">Save</button>
+                <button mat-raised-button  [disabled]="!userForm.valid" (click)="save()"
+                    color="primary">Save</button>
             </div>
             <div *ngIf="data.val == true">
-                <button mat-raised-button type="button" [disabled]="!userForm.valid" (click)="update()"
-                    class="btn btn-danger">Update</button>
+                <button mat-raised-button  [disabled]="!userForm.valid" (click)="update()"
+                    color="primary">Update</button>
             </div>
-            <button mat-raised-button type="button" (click)="close()" class="btn btn-danger">Cancel</button>
+            <button mat-raised-button  (click)="close()" color="primary">Cancel</button>
         </mat-dialog-actions>
     </form>
-</div>
+
                 <!-- <mat-dialog-actions class="pull-right">
                     <button mat-raised-button type="button" (click)="save()" class="btn btn-danger pull-right"
                         [disabled]="!userForm.valid">Save</button>

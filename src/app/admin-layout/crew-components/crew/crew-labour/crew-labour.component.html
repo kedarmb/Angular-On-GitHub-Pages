@@ -22,14 +22,18 @@
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element, let i=index">
-      <button mat-raised-button type="button" matTooltip="Edit Task" (click)="updateLabour(true, element)"
+        <i  (click)="updateLabour(true, element)" [matTooltipPosition]="'above'"  
+        class="material-icons" matTooltip="edit">edit</i>
+      <!-- <button mat-raised-button type="button" matTooltip="Edit Task" (click)="updateLabour(true, element)"
         [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
         <i class="material-icons">edit</i>
-      </button>
-      <button mat-raised-button type="button" matTooltip="Remove" (click)="removeLabour(element, i)"
+      </button> -->
+      <!-- <button mat-raised-button type="button" matTooltip="Remove" (click)="removeLabour(element, i)"
         [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
         <i class="material-icons">close</i>
-      </button>
+      </button> -->
+      <i (click)="removeLabour(element, i)" [matTooltipPosition]="'above'"  
+      class="material-icons" matTooltip="Remove" >close</i>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

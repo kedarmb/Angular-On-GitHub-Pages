@@ -136,8 +136,7 @@
 </div>
 
 
-<!-- 
-<div class="main-content">
+<!-- <div class="main-content">
 
         <mat-toolbar color="primary">
     
@@ -145,7 +144,15 @@
                 <i class="material-icons">add</i>Add
             </a>
         </mat-toolbar>
-      
+     
+                                     
+                                      
+
+                                      
+                                       
+                                     
+                                     
+                                       
                 <table mat-table [dataSource]="tenders" class="mat-elevation-z8">
     
                     
@@ -176,23 +183,35 @@
                     <ng-container matColumnDef="Actions">
                         <th mat-header-cell *matHeaderCellDef>Actions</th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-raised-button type="button" matTooltip="Edit Task"  [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                    <i class="material-icons">edit</i>
-                                </button>
-                            <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                    <i class="material-icons">close</i>
-                                </button>
-                            <button mat-raised-button type="button" matTooltip="Edit Tender Quotes" (click)="viewTender(tenders)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                    <i class="material-icons">exit_to_app</i>
-                                </button>
-                            <button mat-raised-button type="button" matTooltip="Upload Tender"   (click)="viewer(tenders)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                    <i class="material-icons">
-                                        cloud_upload
-                                    </i>
-                                </button>
-                            <button mat-raised-button type="button" matTooltip="Final Pricing of Tender"  [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                    <i class="material-icons">announcement</i>
-                                </button></td>
+                                <button mat-raised-button type="button" matTooltip="Edit Task"
+                                (click)="AddUpdateTender(true, tenders, index)" [matTooltipPosition]="'above'"
+                                class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">edit</i>
+                            </button>
+                            <button mat-raised-button type="button" matTooltip="Remove"
+                                (click)="deleteTender(tenders,index)" [matTooltipPosition]="'above'"
+                                class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <button mat-raised-button type="button" matTooltip="Edit Tender Quotes"
+                                (click)="viewTender(tenders)" [matTooltipPosition]="'above'"
+                                class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">exit_to_app</i>
+                            </button>
+                            <button mat-raised-button type="button" matTooltip="Upload Tender"
+                                (click)="viewer(tenders)" [matTooltipPosition]="'above'"
+                                class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">
+                                    cloud_upload
+                                </i>
+                            </button>
+                            <button mat-raised-button type="button"
+                                matTooltip="Final Pricing of Tender" (click)="quotes(tender)"
+                                [matTooltipPosition]="'above'"
+                                class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">announcement</i>
+                            </button>
+                            </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -213,4 +232,4 @@
     
     
     
-    </div> -->
+    </div>  -->

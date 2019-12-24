@@ -11,7 +11,7 @@ margin: 0;
 width: 100%;
 position: relative;
 height: 100%;
- font-family: 'Lato', sans-serif !important;
+font-family: 'Lato', sans-serif!important;
 }
 .main-panel .main-content {
 
@@ -113,6 +113,7 @@ margin-bottom: 20px;
 
 .mat-raised-button:not([class*=mat-elevation-z]) {
 margin: 10px 0px;
+margin: 7px 7px;
 font-weight: 600;
     
 }
@@ -127,6 +128,9 @@ mat-card{
     margin:0;
 }
 .mat-header-cell {
-    font-size: 16px!important;
+    font-size: 14px!important;
     font-weight: 700;
+}
+.marg{
+    margin-left: 6px;;
 }
