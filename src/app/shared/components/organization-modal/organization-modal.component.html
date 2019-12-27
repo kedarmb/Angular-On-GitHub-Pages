@@ -1,19 +1,17 @@
 <form [formGroup]="organizationForm">
     <h1 mat-dialog-title align="center">Add Organization</h1>
     <div mat-dialog-content>
-        <div class="col">
+        
             <mat-label>Organization</mat-label><span class="text-danger">*</span>
             <mat-form-field>
                 <input formControlName="name" matInput type="text">
             </mat-form-field>
-        </div>
-        <div class="col">
+      
             <mat-label>Street Address</mat-label><span class="text-danger">*</span>
             <mat-form-field>
                 <input formControlName="streetAddress" matInput type="text">
             </mat-form-field>
-        </div>
-        <div class="col">
+      
             <mat-label>Email</mat-label><span class="text-danger">*</span>
             <mat-form-field>
                 <input formControlName="contactEmail" matInput type="text">
@@ -24,8 +22,8 @@
                     {{organizationForm.controls.contactEmail.errors.invalidMsg}}
                 </small>
             </div>
-        </div>
-        <div class="col">
+      
+       
             <mat-label>Phone</mat-label><span class="text-danger">*</span>
             <mat-form-field>
                 <input formControlName="contactPhone" matInput type="text">
@@ -35,9 +33,9 @@
                 <small class="text-danger" *ngIf="organizationForm.controls.contactPhone.errors.invalidMsg">
                     {{organizationForm.controls.contactPhone.errors.invalidMsg}}
                 </small>
-            </div>
+          
         </div>
-        <div class="col">
+       
             <mat-label>Country<span class="text-danger">*</span></mat-label>
             <mat-form-field>
                 <select formControlName="country" matNativeControl required>
@@ -47,8 +45,8 @@
                     <option>USA</option>
                 </select>
             </mat-form-field>
-        </div>
-        <div class="col">
+      
+    
             <mat-label>Province <span class="text-danger">*</span></mat-label>
             <mat-form-field>
                 <select formControlName="province" matNativeControl required>
@@ -58,8 +56,8 @@
                     <option>California</option>
                 </select>
             </mat-form-field>
-        </div>
-        <div class="col">
+       
+      
             <mat-label>City <span class="text-danger">*</span></mat-label>
             <mat-form-field>
                 <select formControlName="city" matNativeControl required>
@@ -68,15 +66,15 @@
                     <option>New Delhi</option>
                 </select>
             </mat-form-field>
-        </div>
-        <div class="col">
+        
+     
             <mat-label>Service Type <span class="text-danger">*</span></mat-label>
             <tag-input formControlName="serviceType" [modelAsStrings]="true"></tag-input>
-        </div>
-        <div class="col">
+        
+     
             <mat-label>Service Area <span class="text-danger">*</span></mat-label>
             <tag-input formControlName="serviceArea" [modelAsStrings]="true"></tag-input>
-        </div>
+       
         <mat-dialog-actions class=" pull-right">
             <div *ngIf="data.val == false">
                 <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"

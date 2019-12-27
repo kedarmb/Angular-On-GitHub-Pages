@@ -18,7 +18,7 @@
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element, let i=index">
         <i (click)="updateEq(true, element)" [matTooltipPosition]="'above'"  
-        class="material-icons" matTooltip="edit">edit</i>
+        class="material-icons"  [ngStyle]="{'color':'blue'}" matTooltip="edit">edit</i>
       <!-- <button mat-raised-button type="button" matTooltip="Edit Task" (click)="updateEq(true, element)"
         [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
         <i class="material-icons">edit</i>
@@ -28,13 +28,13 @@
         <i class="material-icons">close</i>
       </button> -->
       <i (click)="removeEquipment(element, i)" [matTooltipPosition]="'above'"  
-      class="material-icons" matTooltip="Remove" >close</i>
+      class="material-icons"  [ngStyle]="{'color':'red'}"  matTooltip="Remove" >close</i>
       <!-- <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
         class="btn btn-danger btn-link btn-sm btn-just-icon">
         <i class="material-icons">exit_to_app</i>
       </button> -->
-      <i (click)="removeEquipment(element, i)" [matTooltipPosition]="'above'"  
-      class="material-icons" matTooltip="Remove" >exit_to_app</i>
+      <!-- <i (click)="removeEquipment(element, i)" [matTooltipPosition]="'above'"  
+      class="material-icons"  [ngStyle]="{'color':'red'}"  matTooltip="Remove" >exit_to_app</i> -->
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
