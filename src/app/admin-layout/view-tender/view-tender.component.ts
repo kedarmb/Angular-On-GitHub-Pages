@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subject, merge, ReplaySubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, tap, takeUntil, take } from 'rxjs/operators';
 import { CrewService } from '../../shared/core/service/crew.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TenderService } from '../../shared/core/service/tender.service';
-import { Tender } from '../../shared/core/model/tender.model';
+
+// import { Tender } from '../../shared/core/model/tender.model';
 import { TenderItem } from '../../shared/core/model/tender-item.model';
 import * as uuid from 'uuid';
 import { CrewModalComponent } from 'app/shared/components/crew-modal/crew-modal.component';
@@ -15,12 +14,17 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 import { isArray } from 'util';
 import { HttpService } from '../../shared/core/service/http.service';
 import { MatSelect } from '@angular/material';
+//
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import _ from 'lodash';
+import { SectionModalComponent } from '../../shared/components/section-modal/section-modal.component'
 @Component({
     selector: 'app-view-tender',
     templateUrl: './view-tender.component.html',
     styleUrls: ['./view-tender.component.scss']
 })
-export class ViewTenderComponent implements OnInit {
+export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
 
     accordion = {};
 
@@ -47,23 +51,19 @@ export class ViewTenderComponent implements OnInit {
         }
     }
 
-    tender: Tender = new Tender();
+    // tender: Tender = new Tender();
     model: any;
     searching = false;
     searchFailed = false;
     states = [];
-    displayedColumns: string[] = ['ItemNo', 'SpecNo', 'ItemName', 'Description',
-        'Unit', 'Unit-Price', 'Quantity', 'TotalPrice'];
-    lineItems: any;
+    /* displayedColumns: string[] = ['ItemNo', 'SpecNo', 'ItemName', 'Description',
+        'Unit', 'Unit-Price', 'Quantity', 'TotalPrice'];*/
+    lineItems: any = [];
 
     //
-    sections = [
-        { name: '', id: '' },
-        /* { name: 'Watermain', id: '1' },
-        { name: 'Restoration', id: '2' },
-        { name: 'Some Other', id: '3' },
-        { name: 'Another Section', id: '4' }, */
-    ];
+    tenderID: any;
+    sections = [];
+    loadedSections = [];
     public sectionMultiCtrl: FormControl = new FormControl();
 
     /** control for the MatSelect filter keyword multi-selection */
@@ -72,34 +72,30 @@ export class ViewTenderComponent implements OnInit {
     /** list of sections filtered by search keyword */
     public filteredSectionsMulti: ReplaySubject<any> = new ReplaySubject<any>(1);
 
-    @ViewChild('multiSelect', { static: true }) multiSelect: MatSelect;
+    @ViewChild('multiSelect', { static: false }) multiSelectWidget: MatSelect;
+    widgetRef: any;
 
     /** Subject that emits when the component has been destroyed. */
     protected _onDestroy = new Subject<void>();
 
-
-    @ViewChild('instance', { static: true })
-    instance: NgbTypeahead;
-
     focus$ = new Subject<string>();
     click$ = new Subject<string>();
     //
-    masterForm: FormGroup;
-    // lineItemsForm: FormGroup;
 
-    constructor(/* private modalService: NgbModal,  */private crewService: CrewService,
+
+    constructor(private crewService: CrewService,
         private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,
-        private tenderService: TenderService, private router: Router, public dialog: MatDialog,
-        private httpServ: HttpService) {
+        private router: Router, public dialog: MatDialog,
+        private httpServ: HttpService, private spinner: NgxSpinnerService,
+        public sectionModalDialog: MatDialog, private toastr: ToastrService,
+        private changeDetector: ChangeDetectorRef) {
         //
         this.activatedRoute.params.subscribe((params) => {
+            console.log('view tender params ', params);
+            this.tenderID = params.id;
             this.fetchInitialSections();
             return;
-            this.httpServ.getMockLineItems().subscribe((data) => {
-                console.log('success fetching MOCK lineitems ', data);
-            }, (err) => {
-                console.log('failed to load mock line items ', err);
-            })
+            /* */
 
             // console.log('param ', params);
             // this.tenderService.getTenderById
@@ -123,52 +119,116 @@ export class ViewTenderComponent implements OnInit {
             //         console.log('Error fetching tender details ', err);
             //     })
         })
-        // this.crewService.getAll().subscribe((crews) => {
-        //     crews.map((crew) => {
-        //         this.crews[crew.name] = crew;
-        //         this.states.push(crew.name);
-        //     })
-        // });
     }
 
     fetchInitialSections() {
+        this.spinner.show();
         this.httpServ.getSections().subscribe((res) => {
             console.log('success fetching seactions ', res);
             this.sections = res.body as Array<any>;
+            console.log(this.sections);
             // load the initial bank list
+            this.spinner.hide();
             this.filteredSectionsMulti.next(this.sections.slice());
         }, (err) => {
+            this.spinner.hide();
             console.log('error fetching sections ', err);
         })
     }
     ngOnInit() {
-        // this.sectionMultiCtrl.setValue([this.sections[0]]);
-
-        /* // load the initial bank list
-        this.filteredSectionsMulti.next(this.sections.slice()); */
-
         // listen for search field value changes
         this.multiFilterCtrl.valueChanges
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => {
                 this.filtersectionsMulti();
             });
+
+        this.sectionMultiCtrl.valueChanges.subscribe(val => this.widgetRef = val)
     }
 
     ngAfterViewInit() {
+        console.log(this.multiSelectWidget)
         this.setInitialValue();
     }
 
     ngOnDestroy() {
+        console.log(this.multiSelectWidget)
         this._onDestroy.next();
         this._onDestroy.complete();
     }
 
 
+    onSectionSelect() {
+        console.log('selection event captured ');
+        //
+        // console.log(this.sectionMultiCtrl.value);
+
+
+
+        const diff = _.difference(this.sectionMultiCtrl.value, this.loadedSections);
+        if (diff[0]) {
+            const id = diff[0]._id;
+            console.log(diff, id);
+            this.spinner.show();
+            this.httpServ.getLineItems(id).subscribe((data) => {
+                console.log('success fetching lineitems ', data);
+                if (data.status === 200) {
+                    this.lineItems = data.body;
+                    this.spinner.hide();
+                    this.changeDetector.detectChanges();
+                    this.widgetRef = this.multiSelectWidget;
+                    this.multiSelectWidget.close();
+                }
+
+            }, (err) => {
+                console.log('failed to load line items ', err);
+                this.spinner.hide();
+            })
+
+        }
+        console.log('form selection changed');
+        // to load line items-
+
+    }
+    //
+    addSection() {
+        // this
+        const dialogRef = this.sectionModalDialog.open(SectionModalComponent, {
+            width: '550px',
+            data: this.tenderID,
+            disableClose: true
+        })
+        //
+        dialogRef.afterClosed().subscribe(response => {
+            console.log('The dialog was closed ', response);
+            // con
+            if (response.status === 'close' || response.status === undefined) {
+                this.toastr.warning('Section creation cancelled.', 'Cancelled');
+            }
+            if (response.status === 'add') {
+                console.log(response.data);
+                // response.data.clientName = this.hs.findClientName(response.data.clientName);
+                // this.sections.push(response.data);
+                // this.sectionMultiCtrl.setValue(response.data);
+                this.fetchInitialSections();
+            }
+            if (response.status === 'update') {
+                console.log(response.data);
+                // this.getAllTenders();
+
+            }
+        })
+    }
+    //
+    fetchLineItemsById() {
+
+    }
+
     /**
    * Sets the initial value after the filteredsections are loaded initially
    */
     protected setInitialValue() {
+
         this.filteredSectionsMulti
             .pipe(take(1), takeUntil(this._onDestroy))
             .subscribe(() => {
@@ -177,12 +237,20 @@ export class ViewTenderComponent implements OnInit {
                 // the form control (i.e. _initializeSelection())
                 // this needs to be done after the filteredsections are loaded initially
                 // and after the mat-option elements are available
+                if (this.multiSelectWidget) {
+                    console.log(this.sections)
+                    this.multiSelectWidget.compareWith = (a, b) => {
+                        console.log(this.multiSelectWidget)
+                        console.log(a, b);
+                        return a && b && a.tenderRef === b.tenderRef;
+                    }
+                }
 
-                this.multiSelect.compareWith = (a, b) => a && b && a.tenderRef === b.tenderRef;
             });
     }
 
     protected filtersectionsMulti() {
+
         if (!this.sections) {
             return;
         }
@@ -199,17 +267,16 @@ export class ViewTenderComponent implements OnInit {
             this.sections.filter(bank => bank.name.toLowerCase().indexOf(search) > -1)
         );
     }
-    getMasterForm() {
+    /* getMasterForm() {
         // console.log()
         this.masterForm = this.formBuilder.group({
             items: this.formBuilder.array([])
             // this.formBuilder.array([this.generateLineItemsControls()])
         })
-    }
+    } */
 
-    createLineItemForm() {
+    /* createLineItemForm() {
         this.tender.items.forEach((item, index) => {
-
             const lineItemFormArr = this.masterForm.get('items') as FormArray;
             lineItemFormArr.push(this.createItemCtrl(item));
             //
@@ -219,49 +286,40 @@ export class ViewTenderComponent implements OnInit {
                 //
                 subItemNode.push(this.createSublineItemsCtrls(subItem));
                 //
-                /* subCnt.subitems.forEach((subItem, subIndex) => {
-                    //
-                    // console.log('subItem is ', subItem);
-                    const subItemsNode: FormArray = ((<FormArray>(<FormArray>lineItemFormArr.controls[index].get('subcontractors'))
-                        .controls[subCntIndex].get('subitems')));
-                    //
-                    subItemsNode.push(this.createSubItemsCtrls(subItem));
-                }) */
-
             })
 
-            /* item.equipments.forEach((equipment, equipIndex) => {
-                const equipmentNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('equipments'));
-                equipmentNode.push(this.createEquipmentControls(equipment))
-            }) */
+            // item.equipments.forEach((equipment, equipIndex) => {
+            //     const equipmentNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('equipments'));
+            //     equipmentNode.push(this.createEquipmentControls(equipment))
+            // })
             //
-            /* item.labours.forEach((labour, labourIndex) => {
-                const labourNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('labours'));
-                labourNode.push(this.createLaboursControls(labour));
-            }) */
+            // item.labours.forEach((labour, labourIndex) => {
+            //     const labourNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('labours'));
+            //     labourNode.push(this.createLaboursControls(labour));
+            // })
         })
         // console.log(this.masterForm)
         this.masterForm.get('items')['controls'].map((item) => {
             // console.log(item)
-            /* item.get('equipments')['controls'].map(eq => {
-                // console.log(eq)
-            },
-                item.get('subcontractors')['controls'].map(sub => {
-                    // console.log(sub)
-                    // console.log(item)
-                    sub.get('subitems')['controls'].map(subItem => {
-                        //
-                    })
-                })
-            ) */
+            // item.get('equipments')['controls'].map(eq => {
+            //     // console.log(eq)
+            // },
+            //     item.get('subcontractors')['controls'].map(sub => {
+            //         // console.log(sub)
+            //         // console.log(item)
+            //         sub.get('subitems')['controls'].map(subItem => {
+            //             //
+            //         })
+            //     })
+            // )
         }
         )
-    }
+    } */
 
 
 
 
-    createItemCtrl(element) {
+    /* createItemCtrl(element) {
         return this.formBuilder.group({
             itemNo: [element.itemNo],
             specNo: [element.specNo],
@@ -288,7 +346,7 @@ export class ViewTenderComponent implements OnInit {
             quantity: [element.quantity],
             totalPrice: [element.totalPrice]
         })
-    }
+    } */
     //
     /* createSubContCtrls(element) {
         // console.log('createSubContCtrls', element);
@@ -349,7 +407,7 @@ export class ViewTenderComponent implements OnInit {
         this.accordion[index] = !this.accordion[index]
     }
 
-    delete(item) {
+    /* delete(item) {
         this.tender.items = this.tender.items.filter((v) => {
             if (v.id === item.id) {
                 return false;
@@ -357,15 +415,15 @@ export class ViewTenderComponent implements OnInit {
                 return true;
             }
         })
-    }
+    } */
 
-    add() {
+    /* add() {
         const tenderItem = new TenderItem();
         tenderItem.id = uuid.v4();
         this.tender.items.unshift(tenderItem);
-    }
+    } */
 
-    addLineItem() {
+    /* addLineItem() {
         const subIlineItm = {
             id: '',
             name: '',
@@ -406,7 +464,7 @@ export class ViewTenderComponent implements OnInit {
             })
         }
 
-    }
+    } */
 
     /* addSubitem(item) {
         item.subitems.unshift({ name: '', unitPrice: 0, quantity: 0, totalPrice: 0 });

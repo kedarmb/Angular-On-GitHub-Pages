@@ -34,7 +34,7 @@ export const ApiUrl = {
   UserUrl: urlCreator('/user'),
   sectionUrl: urlCreator('/section'),
   tenderUrl: urlCreator('/tender'),
-  lineItemMock: urlCreator('/item'),  // this is only for testing purposes. Real data to fetch with ID
+  lineItems: urlCreator('/item'),  // this is only for testing purposes. Real data to fetch with ID
   equipmentUrl: urlCreator('/equipment'),
   crewUrl: urlCreator('/crew'),
   lineItemUrl: urlCreator('/item'),

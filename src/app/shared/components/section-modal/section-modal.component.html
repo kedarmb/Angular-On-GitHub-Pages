@@ -1,0 +1,23 @@
+<div class="modal-body">
+    <form [formGroup]="sectionForm" novalidate >
+        <mat-form-field>
+            <mat-label for="name">Section name</mat-label>
+            <input matInput formControlName="name" placeholder="type in section name">
+            <!-- <mat-error *ngIf="!sectionForm.controls.name.valid && 
+                (sectionForm.controls.name.dirty)" class="error">
+                <div *ngIf="sectionForm.controls.name.errors.invalidMsg">
+                    {{sectionForm.controls.name.errors.invalidMsg}}
+                </div>
+            </mat-error> -->
+        </mat-form-field>
+        <div>
+            <button mat-button [disabled]="!sectionForm.valid" (click)="save()"
+                class="btn btn-danger pull-right">Save</button>
+        </div>
+        <!-- <div *ngIf="tData.value == true">
+            <button mat-button [disabled]="!sectionForm.valid" (click)="update()"
+                class="btn btn-danger pull-right">Update</button>
+        </div> -->
+        <button mat-button (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+    </form>
+</div>

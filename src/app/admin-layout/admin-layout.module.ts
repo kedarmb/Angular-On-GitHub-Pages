@@ -67,6 +67,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 //
 import { MatTableModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { TenderItemComponent } from './view-tender/tender-item/tender-item.component';
 
 
 @NgModule({
@@ -127,7 +128,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     FullcalenderComponent,
     PdfViewerComponent,
     CrewEquipmentComponent,
-    CrewLabourComponent
+    CrewLabourComponent,
+    TenderItemComponent
   ]
 })
 

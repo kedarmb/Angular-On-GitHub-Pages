@@ -23,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LabourModalComponent } from './components/labour-modal/labour-modal.component';
 import { MatCardModule } from '@angular/material/card';
 import { EllipsisPipe } from './pipe/ellipsis.pipe';
+import { SectionModalComponent } from './components/section-modal/section-modal.component';
 
 //
 const MaterialComponent = [
@@ -46,7 +47,8 @@ const MaterialComponent = [
     UserModalComponent,
     NotifySubcontractorComponent,
     LabourModalComponent,
-    EllipsisPipe
+    EllipsisPipe,
+    SectionModalComponent
   ],
   exports: [
     EllipsisPipe,
@@ -91,7 +93,8 @@ const MaterialComponent = [
     EquipmentsModalComponent,
     UserModalComponent,
     LabourModalComponent,
-    NotifySubcontractorComponent
+    NotifySubcontractorComponent,
+    SectionModalComponent
   ]
 })
 

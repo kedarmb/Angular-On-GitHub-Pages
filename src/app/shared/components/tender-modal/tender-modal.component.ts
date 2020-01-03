@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -45,7 +46,7 @@ export class TenderModalComponent implements OnInit {
         private httpServ: HttpService,
         private formBuider: FormBuilder,
         private hs: HelperService,
-        private toastr: ToastrService,
+        private toastr: ToastrService, private spinner: NgxSpinnerService
     ) {
 
     }
@@ -186,7 +187,7 @@ export class TenderModalComponent implements OnInit {
     }
 
     save() {
-        this.hs.showSpinner();
+        this.spinner.show();
         // console.log(this.tenderHeaderForm.value);
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         // const tenderID = updateData._id;
@@ -211,7 +212,7 @@ export class TenderModalComponent implements OnInit {
 
     update() {
         // console.log(this.tenderHeaderForm.value);
-        this.hs.showSpinner();
+        // this.hs.showSpinner();
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         const tenderID = updateData._id;
         //

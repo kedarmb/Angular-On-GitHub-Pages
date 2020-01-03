@@ -35,15 +35,8 @@ export class HelperService {
     return this.orgList;
   }
 
-  public showSpinner() {
-    this.spinner.show();
-  }
-  public hideSpinner() {
-    this.spinner.hide();
-  }
-
   public getAllOrganization() {
-    this.showSpinner();
+    this.spinner.show();
     return this.httpClient.get(ApiUrl.orgUrl, { headers: this.getHeader(), observe: 'response' })
       .subscribe((res) => {
         console.log('total list ', res);
@@ -150,7 +143,4 @@ export class HelperService {
     }
     return result;
   }
-
-
-
 }

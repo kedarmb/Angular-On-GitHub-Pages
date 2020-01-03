@@ -130,9 +130,13 @@ export class HttpService {
   public deleteTenderById(id) {
     return this.httpClient.delete(ApiUrl.tenderUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
-  public getMockLineItems() {
-    return this.httpClient.get(ApiUrl.lineItemMock, { headers: this.getHeader(), observe: 'response' })
+  public getLineItems(id) {
+    return this.httpClient.get(ApiUrl.lineItems + '/' + id, { headers: this.getHeader(), observe: 'response' })
   }
+  /* TENDER SECTION */
 
+  public createNewSection(body) {
+    return this.httpClient.post(ApiUrl.sectionUrl, body, { headers: this.getHeader(), observe: 'response' });
+  }
 }
 

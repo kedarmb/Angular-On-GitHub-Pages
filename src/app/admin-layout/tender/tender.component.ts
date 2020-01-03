@@ -60,10 +60,11 @@ export class TenderComponent implements OnInit {
         val.clientName = j;
       })
       //
-      this.hs.hideSpinner();
+      // this.hs.hideSpinner();
+      this.spinner.hide();
     }, (err) => {
       console.log('err in fetching tender headers ', err);
-      this.hs.hideSpinner();
+      this.spinner.hide();
     })
   }
   /** Public Method to Add new Tender Header or Edit existing Tender Header. For editing pass
