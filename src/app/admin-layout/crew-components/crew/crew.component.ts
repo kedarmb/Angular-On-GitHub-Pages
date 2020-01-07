@@ -3,7 +3,6 @@ import { CrewEquipmentComponent } from './crew-equipment/crew-equipment.componen
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbMarkDisabled } from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model';
 import { CrewModalComponent } from '../../../shared/components/crew-modal/crew-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Crew, Engineer } from '../../../shared/core/model/crew.model';
 import { CrewService } from '../../../shared/core/service/crew.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,15 +13,14 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { FormControl, FormArray, Validators } from '@angular/forms';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-// import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CrewItemService } from '../../../shared/core/service/crew-item.service';
-// import { ActivatedRoute, Router } from '@angular/router';
 // import { Crew, Engineer } from '../../../shared/core/model/crew.model';
 // import { CrewService } from '../../../shared/core/service/crew.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete, MatTable, MatDialog } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-crew',
   templateUrl: './crew.component.html',
@@ -41,11 +39,17 @@ import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from
   ]
 })
 export class CrewComponent implements OnInit {
-
+  displayedColumns: string[] = ['Name', 'Description', 'Equipment', 'Labour', 'Actions'];
+  data: any = {};
   laboursData; // holds data from labours get api
   equipmentsData; // holds data from equipment get api
-  crew: Crew;
+  crew;
   createCrewForm: FormGroup; // form variable
+  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+  update = {
+    data: '',
+    val: ''
+  };
 
   public chipSelectedLabour: Engineer[] = [];
   public chipSelectedEquipment: any = [];
@@ -65,20 +69,20 @@ export class CrewComponent implements OnInit {
 
 
 
-  crews: Crew[];
-  httpService: any;
   organizationForm: any;
-  activeModal: any;
   valueChange: any;
   currentState = 'initial';
   public show = false;
   public buttonName = 'Show';
 
-  constructor(private modalService: NgbModal, private crewService: CrewService, private router: Router,
+  constructor( private crewService: CrewService,
+    private router: Router,
     private crewItemService: CrewItemService,
     private activateRoute: ActivatedRoute,
     private hs: HelperService,
-    private formBuilder: FormBuilder) {
+    private http: HttpService,
+    private toastr: ToastrService,
+    private modalService: MatDialog) {
     this.hs.equipmentData.subscribe((response) => {
       this.equipmentsData = response
     }, error => {
@@ -89,43 +93,36 @@ export class CrewComponent implements OnInit {
     }, error => {
       // console.log(error)
     })
-    this.activateRoute.params.subscribe((params) => {
-      this.crew = JSON.parse(JSON.stringify(this.crewService.getCrewById(params['id']) || new Crew()));
-    })
-    }
+    // this.activateRoute.params.subscribe((params) => {
+    //   this.crew = JSON.parse(JSON.stringify(this.crewService.getCrewById(params['_id'])));
+    // })
+  }
 
   ngOnInit() {
-    this.initCrewForm();
-      this.filteredEquipment = this.createCrewForm.get('equipment').valueChanges.pipe(
-        startWith(null),
-        map(equipment => this.hs.filterOnValueChange(equipment, this.equipmentsData, this.chipSelectedEquipment)));
+    this.getCrews();
+    // const newVal = Object.assign({}, this.data.data)
+    // delete newVal.__V
+    // delete newVal.createDate
+    // delete newVal.updateDate
+    // this.createCrewForm.setValue(newVal)
+    // this.filteredEquipment = this.createCrewForm.get('equipment').valueChanges.pipe(
+    //   startWith(null),
+    //   map(equipment => this.hs.filterOnValueChange(equipment, this.equipmentsData, this.chipSelectedEquipment)));
 
-        this.filteredLabour = this.createCrewForm.get('labour').valueChanges.pipe(
-          startWith(null),
-          map(labour => this.hs.filterOnValueChange(labour, this.laboursData, this.chipSelectedLabour)))
-  }
-  initCrewForm() {
-    this.createCrewForm = this.formBuilder.group({
-      crewname: ['', [Validators.required]],
-      crewdescription: ['', [Validators.required]],
-      equipment: this.formBuilder.control([]),
-      labour: this.formBuilder.control([]),
-    });
+    // this.filteredLabour = this.createCrewForm.get('labour').valueChanges.pipe(
+    //   startWith(null),
+    //   map(labour => this.hs.filterOnValueChange(labour, this.laboursData, this.chipSelectedLabour)))
   }
 
-  cancel() {
-    this.router.navigateByUrl('/crew');
-  }
-  save() {
-    this.createCrewForm.controls.equipment.setValue(this.chipSelectedEquipment)
-    this.createCrewForm.controls.labour.setValue(this.chipSelectedLabour)
-    // console.log(this.createCrewForm)
-    this.chipSelectedEquipment.map((val) => {
-      const a = Object.assign({ _id: val._id })
-      const b = Object.values(a)
-      return b
-    })
-
+  getCrews() {
+    this.http.getAllCrews()
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+          this.crew = response.body;
+        }
+      }, error => {
+        console.log('error:', error);
+      });
   }
 
   public addLabour(event: MatChipInputEvent): void {
@@ -202,14 +199,14 @@ export class CrewComponent implements OnInit {
   private resetInputs(elCtrl, inputCtrl) {
     // clear input element
     elCtrl.nativeElement.value = '';
-    // clear control value and trigger engineerControl.valueChanges event 
+    // clear control value and trigger engineerControl.valueChanges event
     inputCtrl.setValue(null);
   }
 
   private selectLabourByName(engineerName) {
     const foundEngineer = this.laboursData.filter(engineer => {
       // console.log(engineer)
-      return engineer.name == engineerName
+      return engineer.name === engineerName
     });
     // console.log(foundEngineer)
     // console.log(engineerName)
@@ -233,7 +230,7 @@ export class CrewComponent implements OnInit {
   private selectEquipmentByName(engineerName) {
     const foundEngineer = this.equipmentsData.filter(engineer => {
       // console.log(engineer)
-      return engineer.name == engineerName
+      return engineer.name === engineerName
     });
     if (foundEngineer.length) {
       //
@@ -251,9 +248,8 @@ export class CrewComponent implements OnInit {
     }
   }
 
-  toggle() {
+  /*toggle() {
     this.show = !this.show;
-
     // CHANGE THE NAME OF THE BUTTON.
     if (this.show) {
       this.buttonName = 'Hide';
@@ -261,15 +257,15 @@ export class CrewComponent implements OnInit {
       this.buttonName = 'Show';
     }
   }
-
+*/
   changeState() {
     this.currentState = this.currentState === 'initial' ? 'final' : 'initial';
   }
   getCrewData() {
-    this.httpService.labour(this.organizationForm.value).subscribe(
+    this.http.createLabour(this.organizationForm.value).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.activeModal.close('closed');
+          // this.activeModal.close('closed');
           this.valueChange.emit(response.status);
         }
       },
@@ -279,16 +275,73 @@ export class CrewComponent implements OnInit {
     )
   };
 
-  open(crew?) {
-    const modalRef = this.modalService.open(CrewModalComponent, { centered: true, size: 'lg' });
+  openModal() {
+    const modalRef = this.modalService.open(CrewModalComponent, {
+      height: 'auto',
+      width: '35%', data: this.update, disableClose: true
+    });
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+        console.log(response.data);
+      }
+      if (response.status === 'add') {
+        console.log(response);
+        this.crew.push(response.data);
+        this.table.renderRows();
+      }
+      if (response.status === 'update') {
+        console.log(response.data);
+        this.getCrews()
+        this.table.renderRows();
+      }
+    });
   }
-  delete(crew) {
-    this.crewService.delete(crew).subscribe(() => {
-      this.crewService.getAll().subscribe((crews) => {
-        this.crews = crews;
-      });
-    })
+
+
+  /*
+  openModal() {
+    const modalRef = this.modalService.open(CrewModalComponent, {
+      height: 'auto',
+      width: '35%', data: this.update, disableClose: true
+    });
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+        console.log(response.data);
+      }
+      if (response.status === 'add') {
+        console.log(response);
+        this.crew.push(response.data);
+        this.table.renderRows();
+      }
+      if (response.status === 'update') {
+        console.log(response.data);
+        this.getCrews()
+        this.table.renderRows();
+      }
+    });
   }
+  */
+  /*Add crew(modal opens)*/
+  addCrew(val) {
+    this.update.val = val
+    this.openModal();
+  }
+
+  updateCrew(val, data) {
+    this.update.val = val
+    this.update.data = data
+    this.openModal();
+  }
+  // open(crew?) {
+  //   const modalRef = this.modalService.open(CrewModalComponent, { centered: true, size: 'lg' });
+  // }
+  // delete(crew) {
+  //   this.crewService.delete(crew).subscribe(() => {
+  //     this.crewService.getAll().subscribe((crews) => {
+  //       this.crew = crews;
+  //     });
+  //   })
+  // }
 
   getLabour(crew) {
 
@@ -320,17 +373,23 @@ export class CrewComponent implements OnInit {
     return str;
   }
 
-  edit(crew) {
-    this.router.navigateByUrl('/create-crew/' + crew.id);
-  }
-  openAddEquipmentModal() {
-    const modalRef = this.modalService.open(EquipmentsModalComponent, { centered: true });
+  removeCrew(val, e) {
+    this.crew.splice(e, 1)
+    this.table.renderRows();
+    this.http.deleteCrewTemplate(val._id)
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+        }
+      }, error => {
+          this.toastr.error(error.error.message)
+        })
   }
 }
 
-
-
-// 
+  // openAddEquipmentModal() {
+  //   const modalRef = this.modalService.open(EquipmentsModalComponent, { centered: true });
+  // }
+//
 //
 //
 //

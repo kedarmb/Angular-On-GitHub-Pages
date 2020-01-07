@@ -135,6 +135,23 @@ export class HttpService {
   }
   /* TENDER SECTION */
 
+  /* Crew Template */
+  public deleteCrewTemplate(id: string) {
+    return this.httpClient.delete(ApiUrl.crewTemplateUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
+  }
+  public createCrewTemplate(body) {
+    return this.httpClient.post(ApiUrl.crewTemplateUrl + '/', body, { headers: this.getHeader(), observe: 'response' });
+  }
+  public updateCrewTemplate(body, id) {
+    return this.httpClient.put(ApiUrl.crewTemplateUrl + '/' + id, body, { headers: this.getHeader(), observe: 'response' });
+  }
+  public getAllCrews() {
+    return this.httpClient.get(ApiUrl.crewTemplateUrl, { headers: this.getHeader(), observe: 'response' });
+  }
+
+  public getByIdCrewTemplate(id) {
+    return this.httpClient.get(ApiUrl.crewTemplateUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
+  }
   public createNewSection(body) {
     return this.httpClient.post(ApiUrl.sectionUrl, body, { headers: this.getHeader(), observe: 'response' });
   }

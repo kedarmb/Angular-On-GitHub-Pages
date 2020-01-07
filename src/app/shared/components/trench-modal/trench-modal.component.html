@@ -1,3 +1,120 @@
-<p>
-  trench-modal works!
-</p>
+<form *ngIf="trenchCalForm" [formGroup]="trenchCalForm">
+
+  <div class="hr">
+    <span>Calculation Name</span>
+  </div>
+
+  <mat-form-field>
+    <input matInput formControlName="name" placeholder="Calculation name" type="text">
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Bedding Length</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="beddingLength" placeholder="Bedding Length" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Bedding Width</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="beddingWidth" placeholder="Bedding Width" type="text">
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Bedding Height</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="beddingHeight" placeholder="Bedding Height" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Bedding Volume</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="beddingVolume" placeholder="Bedding Volume" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Pipe Diameter</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="pipeDiameter" placeholder="Pipe Diameter" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Pipe Volume</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="pipeVolume" placeholder="Pipe Volume" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Effective Volume</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="effectiveVolume" placeholder="Effective Volume" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Density Bedding</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="densityBedding" placeholder="Density Bedding" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Bedding Weight</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="beddingWeight" placeholder="Bedding Weight" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Backfill Length</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="backfillLength" placeholder="Backfill Length" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Backfill Width</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="backfillWidth" placeholder="Backfill Width" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Backfill Height</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="backfillHeight" placeholder="Backfill Height" type="text"> 
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Backfill Volume</span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="backfillVolume" placeholder="Backfill Volume" type="text"> 
+  </mat-form-field>
+
+<div class="hr">
+  <span>Backfill Density</span>
+</div>
+<mat-form-field>
+  <input matInput formControlName="backfillDensity" placeholder="Backfill Density" type="text"> 
+</mat-form-field>
+
+<div class="hr">
+  <span>Backfill Weight</span>
+</div>
+<mat-form-field>
+  <input matInput formControlName="backfillWeight" placeholder="Backfill Weight" type="text"> 
+</mat-form-field>
+  <button mat-raised-button type="button" [disabled]="!trenchCalForm.valid" (click)="save()"
+    color="primary">Save</button>
+  <button mat-raised-button type="button" [disabled]="!trenchCalForm.valid" (click)="updateCrew()"
+    color="primary">Update</button>
+  <button mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
+</form>

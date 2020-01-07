@@ -18,6 +18,7 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { MedicalComprehendComponent } from './medical-comprehend/medical-comprehend.component';
 import { FullcalenderComponent } from './fullcalender/fullcalender.component';
 import { NgModule } from '@angular/core';
+import { TrenchCalculationComponent } from './trench-calculation/trench-calculation.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'organization', component: OrganizationComponent },
@@ -36,11 +37,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps', component: MapsComponent },
     { path: 'notifications', component: NotificationsComponent },
     { path: 'user', component: UserComponent },
-    { path: 'fullcalender', component: FullcalenderComponent }
+    { path: 'fullcalender', component: FullcalenderComponent },
+    { path: 'calculation', component: TrenchCalculationComponent }
     // { path: 'upgrade', component: UpgradeComponent },
     // { path: 'typography', component: TypographyComponent },
     // { path: 'icons', component: IconsComponent },
-    // { path: 'calculation', component: CalculationComponent },
     // { path: 'settings', component: SettingsComponent },
 
 

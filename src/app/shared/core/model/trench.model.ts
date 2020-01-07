@@ -1,10 +1,27 @@
 export class Trench {
-    height = 0;
-    width = 0;
-    length = 0;
-    cubeVolume = 0;
-    diameter = 0;
-    pipeVolume = 0;
-    totalVolume = 0;
-    remaningVolume = 0;
+    calculationName: string;
+    beddingLength:  string;
+    beddingWidth:  string;
+    beddingHeight:  string;
+    beddingVolume:  string;
+    pipeDiameter: string;
+    pipeVolume:  string;
+    effectiveVolume: string;
+    densityBedding:  string;
+    beddingWeight:  string;
+    backfillLength:  string;
+    backfillWidth:  string;
+    backfillHeight:  string;
+    backfillVolume:  string;
+    backfillDensity: string;
+    backfullWeight: string;
 }
+    // height: string;
+    // width: string;
+    // length: string;
+    // cubeVolume: string;
+    // diameter: string;
+    // pipeVolume: string;
+    // totalVolume: string;
+    // remaningVolume: string;
+// }

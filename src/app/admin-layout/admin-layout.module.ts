@@ -67,11 +67,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 //
 import { MatTableModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { TrenchCalculationComponent } from './trench-calculation/trench-calculation.component';
+// import { NgxTagsInputModule } from 'ngx-tags-input';
 import { TenderItemComponent } from './view-tender/tender-item/tender-item.component';
 
 
 @NgModule({
   imports: [
+    // NgxTagsInputModule,
     CommonModule,
     AdminLayoutRoutesModule,
     FormsModule,

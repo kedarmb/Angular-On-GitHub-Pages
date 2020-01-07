@@ -1,13 +1,62 @@
+<form *ngIf="createCrewForm" [formGroup]="createCrewForm">
 
-<div class="modal-body">
+  <div class="hr">
+    <span>Crew Name</span>
+  </div>
+
+  <mat-form-field>
+    <input matInput formControlName="name" placeholder="Crew name" type="text">
+  </mat-form-field>
+
+  <div class="hr">
+    <span>Description</span>
+  </div>
+
+  <mat-form-field>
+    <textarea matInput formControlName="description" placeholder="Enter Description" type="text"></textarea>
+  </mat-form-field>
+
+
+  <div class="hr">
+    <span>labour</span>
+  </div>
+  <mat-form-field>
+    <textarea matInput [readonly]="true" formControlName="labours" placeholder="labours" type="text"></textarea>
+  </mat-form-field>
+  <div class="hr">
+    <span>equipment</span>
+  </div>
+  <mat-form-field>
+    <textarea matInput [readonly]="true" formControlName="equipments" type="text"></textarea>
+  </mat-form-field>
+
+  <mat-dialog-actions class=" pull-right">
+    <div *ngIf="data.val == false">
+      <button mat-raised-button type="button" [disabled]="!createCrewForm.valid" (click)="save()"
+        color="primary">Save</button>
+    </div>
+    <div *ngIf="data.val == true">
+      <button mat-raised-button type="button" [disabled]="!createCrewForm.valid" (click)="updateCrew()"
+        color="primary">Update</button>
+    </div>
+    <button mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
+  </mat-dialog-actions>
+</form>
+
+
+
+
+
+
+<!-- <div class="modal-body">
   <div class="row">
     <div class="col-6">
       <div class="card">
         <div class="card-header card-header-tabs card-header-warning">
           <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
-              <span class="nav-tabs-title">Labour:</span>
-             <!-- <ul class="nav nav-tabs" data-tabs="tabs">
+              <span class="nav-tabs-title">Labour:</span> -->
+            <!-- <ul class="nav nav-tabs" data-tabs="tabs">
                 <li class="nav-item">
                   <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
                     <i class="material-icons">bug_report</i> Bugs
@@ -27,7 +76,7 @@
                   </a>
                 </li>
               </ul>-->
-            </div>
+            <!-- </div>
           </div>
         </div>
         <div class="card-body">
@@ -65,7 +114,7 @@
         <div class="card-header card-header-tabs card-header-warning">
           <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
-              <span class="nav-tabs-title">EQUIPMENT</span>
+              <span class="nav-tabs-title">EQUIPMENT</span> -->
               <!-- <ul class="nav nav-tabs" data-tabs="tabs">
                  <li class="nav-item">
                    <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
@@ -86,7 +135,7 @@
                    </a>
                  </li>
                </ul>-->
-            </div>
+            <!-- </div>
           </div>
         </div>
         <div class="card-body">
@@ -123,4 +172,4 @@
   </div>
   <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
   <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button>
-</div>
+</div> -->

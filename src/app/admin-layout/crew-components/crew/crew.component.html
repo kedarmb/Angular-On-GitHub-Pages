@@ -1,164 +1,48 @@
 <div class="main-content">
 
-        <mat-toolbar color="primary">
-                <button mat-raised-button  (click)="toggle()"><i class="material-icons">add</i>Add Crew</button>
-               
-            </mat-toolbar>
-
-        <mat-tab-group>
-            <mat-tab>
-                <!-- <div>
-                    <button mat-raised-button routerLink="/create-crew"> Add Crew </button>
-                </div> -->
-                <ng-template mat-tab-label>Crew</ng-template>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="mainTable" class="table table-hover">
-    
-                            <thead class="">
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Description
-                                </th>
-    
-                                <th>
-                                    Equipment
-                                </th>
-                                <th>
-                                    Labour
-                                </th>
-                                <th>
-                                    Actions
-                                </th>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let crew of crews;let index=index;">
-    
-                                    <td>
-                                        {{crew.name}}
-                                    </td>
-                                    <td>
-                                        {{crew.description}}
-                                    </td>
-                                    <td>
-                                        {{getLabour(crew)}}
-                                    </td>
-                                    <td>
-                                        {{getEquipment(crew)}}
-                                    </td>
-    
-                                    <td class="td-actions">
-                                        <button mat-raised-button type="button" matTooltip="Edit Task" (click)="edit(crew)"
-                                            [matTooltipPosition]="'above'"
-                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button mat-raised-button type="button" matTooltip="Remove" (click)="delete(crew)"
-                                            [matTooltipPosition]="'above'"
-                                            class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- <button (click)="toggle()">{{buttonName}}</button> -->
-                <div   *ngIf="show" [@EnterLeave]="'flyIn'">
-                 
-                    <form class="w-50" *ngIf="createCrewForm" [formGroup]="createCrewForm" (ngSubmit)="save()">
-                       
-                             
-                            <div class="hr">
-                                    <span>Crew Name</span>
-                                </div>
-                    
-                                <mat-form-field>
-                                    <input matInput formControlName="crewname" placeholder="Crew name" name="crewname" type="text">
-                                </mat-form-field>
-                             
-                        
-                                <div class="hr">
-                                        <span>Description</span>
-                                    </div>
-                        
-                          
-                                <mat-form-field>
-                                    <textarea matInput formControlName="crewdescription" placeholder="Enter Description" type="text"
-                                        name="crewdescription"></textarea>
-                                </mat-form-field>
-                               
-                          
-                            <div class="hr">
-                                <span>labour</span>
-                            </div>
-                
-                         
-                            <mat-form-field>
-                                <mat-chip-list #chipLabourList>
-                                    <mat-chip *ngFor="let labour of chipSelectedLabour" [selectable]=true [removable]=true
-                                        (removed)="removeLabour(labour)">
-                                        {{labour.name}}
-                                        <mat-icon matChipRemove>X</mat-icon>
-                                    </mat-chip>
-                                    <input placeholder="Your labour" #LabourInput formControlName="labour" [matAutocomplete]="Lauto"
-                                        [matChipInputFor]="chipLabourList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                        [matChipInputAddOnBlur]=true (matChipInputTokenEnd)="addLabour($event)">
-                                </mat-chip-list>
-                                <mat-autocomplete #Lauto="matAutocomplete" (optionSelected)="labourSelected($event)">
-                                    <mat-option *ngFor="let thisLabourName of filteredLabour | async" [value]="thisLabourName">
-                                        {{thisLabourName}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
-                    
-                          <div class="hr">
-                                <span>equipment</span>
-                            </div> 
-                            <mat-form-field>
-                                <mat-chip-list #chipEquipmentList>
-                                    <mat-chip *ngFor="let equipment of chipSelectedEquipment" [selectable]=true [removable]=true
-                                        (removed)="removeEquipment(equipment)">
-                                        {{equipment.name}}
-                                        <mat-icon matChipRemove>X</mat-icon>
-                                    </mat-chip>
-                                    <input placeholder="Your equipment" #EquipmentInput formControlName="equipment"
-                                        [matAutocomplete]="Eauto" [matChipInputFor]="chipEquipmentList"
-                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]=true
-                                        (matChipInputTokenEnd)="addEquipment($event)">
-                                </mat-chip-list>
-                                <mat-autocomplete #Eauto="matAutocomplete" (optionSelected)="equipmentSelected($event)">
-                                    <mat-option *ngFor="let thisequipmentName of filteredEquipment | async" [value]="thisequipmentName">
-                                        {{thisequipmentName}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
-                            <mat-action-row>
-                            
-                                  
-                   
-                    
-                        <button mat-raised-button  [disabled]="createCrewForm.invalid" color="primary" class="pull-right">
-                            Save
-                        </button>
-                        <button mat-raised-button color="primary" class="pull-right" (click)="cancel()">Cancel
-                        </button>
-                    </mat-action-row>
-                    </form>
-                </div>
-            </mat-tab>
-            <mat-tab>
-               
-                <ng-template mat-tab-label>Equipments</ng-template>
-                <app-crew-equipment></app-crew-equipment>
-            </mat-tab>
-            <mat-tab>
-                
-                <ng-template mat-tab-label>Labour</ng-template>
-                <app-crew-labour></app-crew-labour>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
+    <mat-toolbar color="primary">
+        <button mat-raised-button (click)="addCrew(false)"><i class="material-icons">add</i>Add Crew</button>
+    </mat-toolbar>
+    <mat-tab-group>
+        <mat-tab *ngIf="crew">
+            <ng-template mat-tab-label>Crew</ng-template>
+            <table class="mat_tab" mat-table [dataSource]="crew" class="mat-elevation-z8">
+                <ng-container matColumnDef="Name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Description">
+                    <th mat-header-cell *matHeaderCellDef>Description</th>
+                    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Equipment">
+                    <th mat-header-cell *matHeaderCellDef>Equipment</th>
+                    <td mat-cell *matCellDef="let element"> {{element.equipments}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Labour">
+                    <th mat-header-cell *matHeaderCellDef>Labour</th>
+                    <td mat-cell *matCellDef="let element"> {{element.labours}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let element, let i=index">
+                        <i (click)="updateCrew(true, element)" [matTooltipPosition]="'above'" class="material-icons" 
+                        [ngStyle]="{'color':'blue'}" matTooltip="edit">edit</i>
+                        <i (click)="removeCrew(element, i)" [matTooltipPosition]="'above'" class="material-icons"
+                            [ngStyle]="{'color':'red'}" matTooltip="Remove">close</i>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <!-- <div *ngIf="show" [@EnterLeave]="'flyIn'"></div> -->
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>Equipments</ng-template>
+            <app-crew-equipment></app-crew-equipment>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>Labour</ng-template>
+            <app-crew-labour></app-crew-labour>
+        </mat-tab>
+    </mat-tab-group>
+</div>

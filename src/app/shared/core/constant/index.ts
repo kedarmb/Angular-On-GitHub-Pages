@@ -2,7 +2,7 @@ import { environment } from 'environments/environment';
 
 export const API_URL = ' https://smartbid-api.herokuapp.com/v1';
 export const regex = {
- 
+
 nameReg: /^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/,
 alphaNumeric: '',
 alphaFive: '',
@@ -36,7 +36,7 @@ export const ApiUrl = {
   tenderUrl: urlCreator('/tender'),
   lineItems: urlCreator('/item'),  // this is only for testing purposes. Real data to fetch with ID
   equipmentUrl: urlCreator('/equipment'),
-  crewUrl: urlCreator('/crew'),
+  crewTemplateUrl: urlCreator('/crewTemplate'),
   lineItemUrl: urlCreator('/item'),
   subItemUrl: urlCreator('/subitem'),
   loginUrl: urlCreator('/auth/login'),
