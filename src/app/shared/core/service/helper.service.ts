@@ -90,12 +90,18 @@ export class HelperService {
     // console.log(this.orgList, id)
     const client = this.orgList.find(item => item._id === id)
     // console.log(client);
-    //  console.log(client.name + ' ......' + client);
-    return client.name;
+    if (client !== undefined) {
+      console.log('corresponding client is .. ', client);
+    }
+    // console.log(client);
+    console.log('------------------------')
+    if (client !== undefined) {
+      return client.name;
+    } else if (client === undefined) {
+      return 'N. Available'
+    }
+
   }
-
-
-
 
 
   private filterEngineer(engineerList: Engineer[], engineerName: String): String[] {

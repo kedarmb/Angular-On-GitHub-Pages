@@ -86,10 +86,6 @@ export class HttpService {
     return this.httpClient.post(ApiUrl.createAcc + '/', body, { headers: this.getHeader(), observe: 'response' });
   }
 
-  /* getTendersItems() {
-    return this.httpClient.get(`https://5d98bdd161c84c00147d7173.mockapi.io/tenderitems`);
-  } */
-
   public delUser(id: string) {
     return this.httpClient.delete(ApiUrl.UserUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }

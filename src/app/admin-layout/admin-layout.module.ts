@@ -119,7 +119,7 @@ import { TenderItemComponent } from './view-tender/tender-item/tender-item.compo
     OrganizationComponent,
     MedicalComprehendComponent,
     UserComponent,
-
+    TrenchCalculationComponent,
     CreateTenderItemComponent,
     AutoAdjustDirective,
     CrewComponent,

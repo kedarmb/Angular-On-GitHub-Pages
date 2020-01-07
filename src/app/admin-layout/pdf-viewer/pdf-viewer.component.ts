@@ -25,9 +25,9 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
-      this.tenderService.getTenderById(params.id).subscribe((tender) => {
-        this.tender = tender;
-      })
+      // this.tenderService.getTenderById(params.id).subscribe((tender) => {
+      //   this.tender = tender;
+      // })
     })
   }
   ngAfterViewInit(): void {

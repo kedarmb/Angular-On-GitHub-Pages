@@ -55,7 +55,7 @@ export class TenderComponent implements OnInit {
       this.tenders = result.body as Array<any>;
       //
       this.tenders.map(val => {
-        // console.log('val is .... ', val.clientName);
+        console.log('_id is .... ', val.clientName);
         const j = this.hs.findClientName(val.clientName);
         val.clientName = j;
       })

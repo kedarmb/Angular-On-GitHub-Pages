@@ -202,11 +202,12 @@ export class TenderModalComponent implements OnInit {
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);
                 this.toastr.info(res.statusText);
-                this.hs.hideSpinner();
+                // this.hs.hideSpinner();
+                this.spinner.hide();
             }
         }, (err) => {
             console.log('err in adding ', err);
-            this.hs.hideSpinner();
+            this.spinner.hide();
         })
     }
 
@@ -227,10 +228,12 @@ export class TenderModalComponent implements OnInit {
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);
                 this.toastr.info(res.statusText);
-                this.hs.hideSpinner();
+                // this.hs.hideSpinner();
+                this.spinner.hide();
             }
         }, (err) => {
-            this.hs.hideSpinner();
+            // this.hs.hideSpinner();
+            this.spinner.hide();
             console.log('err in updating ', err);
         })
     }

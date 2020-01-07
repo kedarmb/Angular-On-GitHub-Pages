@@ -1,133 +1,65 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
-import { Observable, Subject, merge, ReplaySubject } from 'rxjs';
-import { NgbModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit, Input} from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TenderService } from '../../../shared/core/service/tender.service';
-import { Tender } from '../../../shared/core/model/tender.model';
+import { HttpService } from 'app/shared/core/service/http.service';
 
 @Component({
   selector: 'app-tender-item',
   templateUrl: './tender-item.component.html',
   styleUrls: ['./tender-item.component.scss']
 })
-export class TenderItemComponent implements OnInit, OnChanges {
-
+export class TenderItemComponent implements OnInit {
   @Input() tenderData: any;
-  //
-  lineitemdata
   displayedColumns: string[] = ['ItemNo', 'SpecNo', 'ItemName', 'Description',
     'Unit', 'Unit-Price', 'Quantity', 'TotalPrice'];
-  //
-  tender: Tender = new Tender();
-  lineItems: any;
+  masterForm: FormGroup; // var to store form
+  tender; // model instance
   lineItemsArr: any;
-  masterForm: FormGroup;
-  accordion: any = {};
-  // lineItemsForm: FormGroup;
+  collapse: any = {}; // stores value for collapse
+  lineItemTotal: any;
 
   constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService,
-    private tenderService: TenderService) { }
+    private ts: TenderService, private httpService: HttpService) { }
 
   ngOnInit() {
-    // console.log('ngOnInit >> got items: ', this.tenderData.items);
-    // console.log('ngOnInit >> got sections: ', this.tenderData.sec);
     this.getMasterForm();
+    this.getCrewData()
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // console.log('ngOnChanges >> got items: ', this.tenderData.items);
-    // console.log('ngOnChanges >> got sections: ', this.tenderData.sec);
-    console.log(this.tenderData.widget)
-    //
-  }
-
+  // creating masterform
   getMasterForm() {
-    // console.log()
     this.masterForm = this.formBuilder.group({
       items: this.formBuilder.array([])
-      // this.formBuilder.array([this.generateLineItemsControls()])
     })
   }
+
+  // this adds data to html of form group and its array
   createLineItemForm() {
     this.tenderData.items.forEach((item, index) => {
       const lineItemFormArr = this.masterForm.get('items') as FormArray;
-      lineItemFormArr.push(this.createItemCtrl(item));
-      //
+      lineItemFormArr.push(this.ts.createItemCtrl(item));
       item.subitems.forEach((subItem, subItemIndex) => {
-        // console.log((<FormArray>lineItemFormArr.controls[index].get('subcontractors')));
         const subItemNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('subitems'))
-        //
-        subItemNode.push(this.createSublineItemsCtrls(subItem));
-        //
+        subItemNode.push(this.ts.createSublineItemsCtrls(subItem));
       })
 
-      // item.equipments.forEach((equipment, equipIndex) => {
-      //     const equipmentNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('equipments'));
-      //     equipmentNode.push(this.createEquipmentControls(equipment))
-      // })
-      //
-      // item.labours.forEach((labour, labourIndex) => {
-      //     const labourNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('labours'));
-      //     labourNode.push(this.createLaboursControls(labour));
-      // })
-    })
-    // console.log(this.masterForm)
-    this.masterForm.get('items')['controls'].map((item) => {
-      // console.log(item)
-      // item.get('equipments')['controls'].map(eq => {
-      //     // console.log(eq)
-      // },
-      //     item.get('subcontractors')['controls'].map(sub => {
-      //         // console.log(sub)
-      //         // console.log(item)
-      //         sub.get('subitems')['controls'].map(subItem => {
-      //             //
-      //         })
-      //     })
-      // )
-    }
-    )
-  }
-  createItemCtrl(element) {
-    return this.formBuilder.group({
-      itemNo: [element.itemNo],
-      specNo: [element.specNo],
-      itemName: [element.itemName],
-      description: [element.description],
-      unit: [element.unit],
-      unitPrice: [element.unitPrice],
-      quantity: [element.quantity],
-      totalPrice: [element.totalPrice],
-      // trench: [element.trench],
-      subitems: this.formBuilder.array([])
-      // subcontractors: this.formBuilder.array([]),
-      // equipments: this.formBuilder.array([]),
-      // labours: this.formBuilder.array([])
     })
   }
 
-  createSublineItemsCtrls(element?) {
-    return this.formBuilder.group({
-      id: [element.id],
-      name: [element.name],
-      unit: [element.unit],
-      unitPrice: [element.unitPrice],
-      quantity: [element.quantity],
-      totalPrice: [element.totalPrice]
-    })
-  }
-
-  addLineItem() {
-    const subIlineItm = {
+  getEmptySublineItem() {
+    const subIlineItm = this.formBuilder.group({
       // id: '',
       name: '',
       unit: '',
       unitPrice: '',
       quantity: '',
       totalPrice: ''
-    }
-    //
+    })
+    return subIlineItm
+  }
+  addLineItem() {
+    // adds dummy values to form
     const lineItm = this.formBuilder.group({
       itemNo: [''],
       specNo: [''],
@@ -137,56 +69,131 @@ export class TenderItemComponent implements OnInit, OnChanges {
       unitPrice: [''],
       quantity: [''],
       totalPrice: [''],
-      subitems: this.formBuilder.array([this.createSublineItemsCtrls(subIlineItm)])
+      subitems: this.formBuilder.array([this.ts.createSublineItemsCtrls(this.getEmptySublineItem())])
     });
-    //
     const lineItemsArr = this.masterForm.get('items') as FormArray;
-    
-    // lineItemsArr.insert(0, lineItm);
     lineItemsArr.push(lineItm);
-    console.log(lineItemsArr);
-    //
-    // console.log(this.tenderData.items);
-    /* if (!this.tenderData.items) {
-      console.log(this.tenderData);
-      this.tenderData.items = [];
-      this.tenderData.items.push(lineItm);
-    } */
+    // console.log(lineItemsArr);
+  }
 
 
+  // to calculate line items fro form
+  calculateLineitem(i) {
+    let total: any;
+    const ctrl = this.masterForm.get('items')['controls'][i]
+    total = ctrl.get('quantity').value * ctrl.get('unitPrice').value;
+    if (!total) {
+      total = 0;
+    }
+    ctrl.get('totalPrice').patchValue(total)
   }
-  //
-  toggleCollapse(index) {
-    console.log(index);
-    this.accordion[index] = !this.accordion[index]
-    console.log(this.accordion);
-  }
-  add() {
-    /* if (!this.masterForm) {
-      this.getMasterForm();
-    } */
 
-    this.addLineItem();
-    console.log(this.masterForm)
+  // to calculate subline items fro form
+  calculatesubLineitem(i, j) {
+    let subTotal: any;
+    const ctrl = this.masterForm.get('items')['controls'][i];
+    const subCtrl = ctrl.get('subitems')['controls'][j];
+    subTotal = subCtrl.get('unitPrice').value * subCtrl.get('quantity').value;
+    if (!subTotal) {
+      subTotal = 0;
+    }
+    subCtrl.get('totalPrice').patchValue(subTotal)
   }
-  //
-  save() {
-    if (this.tender._id) {
-      this.tenderService.update(this.tender).subscribe(() => {
-        this.tenderService.getTenderById(this.tender._id).subscribe((tender) => {
-          // this.tender = tender;
-        })
+
+  allLineItemCost(i) {
+    console.log('hello', i)
+    let allTotal: any;
+    const ctrl = this.masterForm.get('items');
+    let subCtrlVal;
+    const K = ctrl.value.map(val => {
+      val.subitems.map(subval => {
+        subCtrlVal = subval.totalPrice;
+        // console.log(subCtrlVal);
       })
-    } else {
-      this.tenderService.add(this.tender).subscribe(() => {
-        this.tenderService.getTenderById(this.tender._id).subscribe((tender) => {
-          // this.tender = tender;
-        })
+      return val.totalPrice
+    })
+    const l = ctrl.value.map(val => {
+      const sIVal = val.subitems.map(subval => {
+        return subCtrlVal = subval.totalPrice;
       })
+      if (sIVal.length > 1) {
+        const slt = sIVal.reduce((valSi: any, index: any) => {
+          return valSi + index;
+        })
+      }
+      // console.log(slt)
+      return sIVal;
+    })
+    console.log(l.flat());
+    if (l.length == 0 && K.length == 0) {
+      this.lineItemTotal = 0;
+    }
+    if (l.length !== 0 && K.length !== 0) {
+
+      let lineTotal = K.reduce((val, index) => {
+        return val + index;
+      })
+      // console.log(ctrl.value[])
+      let subLineTotal;
+      let slt
+      subLineTotal = l.flat().reduce((val, index) => {
+        return val + index;
+      })
+      slt = subLineTotal = + subLineTotal;
+     
+      const lt = lineTotal = + lineTotal;
+      this.lineItemTotal = lt + slt;
+    }
+    if (!allTotal) {
+      allTotal = 0;
     }
 
   }
-  //
+  // toggles colapse of line item so show subline item
+  toggleCollapse(index) {
+    this.collapse[index] = !this.collapse[index]
+  }
+
+  // adds line item to masterform from html
+  add() {
+    this.addLineItem();
+    console.log(this.masterForm.value)
+  }
+  removeLineItem(i) {
+    const ctrl = this.masterForm.get('items') as FormArray;
+    ctrl.removeAt(i);
+  }
+
+  save() {
+    if (this.tender._id) {
+      /* this.tenderService.update(this.tender).subscribe(() => {
+        this.tenderService.getTenderById(this.tender._id).subscribe((tender) => {
+          // this.tender = tender;
+        })
+      }) */
+    } else {
+      /* this.tenderService.add(this.tender).subscribe(() => {
+        this.tenderService.getTenderById(this.tender._id).subscribe((tender) => {
+          // this.tender = tender;
+        })
+      }) */
+      console.log(this.masterForm.value);
+    }
+  }
+
+  addSubLineItem(i) {
+    const ctrl = this.masterForm.get('items')['controls'][i];
+    const subCtrl = ctrl.get('subitems') as FormArray;
+    subCtrl.push(this.getEmptySublineItem());
+  }
+
+  removeSublineItem(i, j) {
+    const ctrl = this.masterForm.get('items')['controls'][i];
+    const subCtrl = ctrl.get('subitems') as FormArray;
+    console.log(ctrl);
+    subCtrl.removeAt(j);
+  }
+
   delete(item) {
     this.tender.items = this.tender.items.filter((v) => {
       if (v.id === item.id) {
@@ -196,5 +203,16 @@ export class TenderItemComponent implements OnInit, OnChanges {
       }
     })
   }
-
-} // end of class
+  getCrewData() {
+    this.httpService.getAllCrews()
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+          console.log(response.body)
+        }
+      },
+        error => {
+          console.log(error);
+        }
+      )
+  };
+}

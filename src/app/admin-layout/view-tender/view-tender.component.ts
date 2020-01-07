@@ -18,7 +18,8 @@ import { MatSelect } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import _ from 'lodash';
-import { SectionModalComponent } from '../../shared/components/section-modal/section-modal.component'
+import { SectionModalComponent } from '../../shared/components/section-modal/section-modal.component';
+import {TenderItemComponent} from './tender-item/tender-item.component'
 @Component({
     selector: 'app-view-tender',
     templateUrl: './view-tender.component.html',
