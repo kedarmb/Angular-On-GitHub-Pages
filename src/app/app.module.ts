@@ -19,9 +19,11 @@ import { LayoutModule } from './layout/layout.module';
 import { MatCardModule } from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
 import { TagInputModule } from 'ngx-chips';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     imports: [
+        NgxSpinnerModule,
         TagInputModule,
         ToastrModule.forRoot(),
         BrowserAnimationsModule,

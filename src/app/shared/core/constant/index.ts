@@ -40,7 +40,8 @@ export const ApiUrl = {
   lineItemUrl: urlCreator('/item'),
   subItemUrl: urlCreator('/subitem'),
   loginUrl: urlCreator('/auth/login'),
-  createAcc: authUrlCreator('/auth/register')
+  createAcc: authUrlCreator('/auth/register'),
+  createTrench: authUrlCreator('/trench')
 }
 
 function urlCreator(actionName: string): string {

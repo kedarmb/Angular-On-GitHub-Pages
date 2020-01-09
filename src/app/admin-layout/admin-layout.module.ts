@@ -105,6 +105,7 @@ import { TenderItemComponent } from './view-tender/tender-item/tender-item.compo
     MatIconModule,
     NgxMatSelectSearchModule,
     NgxSpinnerModule
+    
   ],
   declarations: [
     DashboardComponent,

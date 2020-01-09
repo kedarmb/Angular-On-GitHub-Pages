@@ -23,8 +23,7 @@ export class TrenchCalculationComponent implements OnInit {
     val: ''
   };
   constructor(private modalService: MatDialog,
-    private changeDetectorRefs: ChangeDetectorRef,
-    private httpService: HttpService, private router: Router,
+    private httpService: HttpService,
     private toastr: ToastrService) { }
 
   ngOnInit() {

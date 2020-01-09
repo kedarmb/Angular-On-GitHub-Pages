@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
@@ -36,8 +37,11 @@ export class OrganizationModalComponent implements OnInit {
     private toastr: ToastrService,
     private fb: FormBuilder,
     private helperService: HelperService,
-    private dialogRef: MatDialogRef<any>
-  ) { }
+    private dialogRef: MatDialogRef<any>,
+    private spinner: NgxSpinnerService
+  ) { 
+    this.spinner.hide();
+  }
 
   ngOnInit() {
     this.createOrganizationForm();

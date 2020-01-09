@@ -4,17 +4,21 @@
         
             <mat-label>Organization</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="name" matInput type="text">
+                <input formControlName="name" type="text">
+            </mat-form-field>
+            <mat-label>Organization Type</mat-label><span class="text-danger">*</span>
+            <mat-form-field>
+                <input formControlName="orgType" disabled  type="text">
             </mat-form-field>
       
             <mat-label>Street Address</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="streetAddress" matInput type="text">
+                <input formControlName="streetAddress" type="text">
             </mat-form-field>
       
             <mat-label>Email</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="contactEmail" matInput type="text">
+                <input formControlName="contactEmail" type="text">
             </mat-form-field>
             <div *ngIf="!organizationForm.controls.contactEmail.valid && (organizationForm.controls.contactEmail.dirty || organizationForm.controls.contactEmail.touched)"
                 class="error">
@@ -22,11 +26,9 @@
                     {{organizationForm.controls.contactEmail.errors.invalidMsg}}
                 </small>
             </div>
-      
-       
             <mat-label>Phone</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="contactPhone" matInput type="text">
+                <input formControlName="contactPhone" type="text">
             </mat-form-field>
             <div *ngIf="!organizationForm.controls.contactPhone.valid && (organizationForm.controls.contactPhone.dirty || organizationForm.controls.contactPhone.touched)"
                 class="error">
