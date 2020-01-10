@@ -29,21 +29,26 @@ export class TrenchCalculationComponent implements OnInit {
   ngOnInit() {
     this.getTrench()
   }
-  getTrench(){
-
+  getTrench() {
+    this.httpService.getAllTrenches()
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+          this.trenchCal = response.body;
+        }
+      }, error => {
+        console.log('44:', error);
+      });
   }
 
   addTrench(val) {
     this.update.val = val
-    // this.openModal();
   }
   updateTrench(val, data) {
     this.update.val = val
     this.update.data = data
-    // this.openModal();
   }
   removeTrench(val, e) {
-    this.httpService.deleteOrganization(val._id)
+    this.httpService.deleteTrenchUrl(val._id)
       .subscribe((response: any) => {
         if (response.status === 200) {
           this.trenchCal.splice(e, 1)

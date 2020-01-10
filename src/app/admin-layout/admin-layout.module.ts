@@ -70,6 +70,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { TrenchCalculationComponent } from './trench-calculation/trench-calculation.component';
 // import { NgxTagsInputModule } from 'ngx-tags-input';
 import { TenderItemComponent } from './view-tender/tender-item/tender-item.component';
+import { from } from 'rxjs';
 
 
 @NgModule({
@@ -133,7 +134,8 @@ import { TenderItemComponent } from './view-tender/tender-item/tender-item.compo
     PdfViewerComponent,
     CrewEquipmentComponent,
     CrewLabourComponent,
-    TenderItemComponent
+    TenderItemComponent,
+    TrenchCalculationComponent
   ]
 })
 

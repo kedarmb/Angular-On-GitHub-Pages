@@ -68,7 +68,7 @@ export class TrenchModalComponent implements OnInit {
     this.trenchForm.get('beddingVolume').patchValue(this.beddingVol.toFixed(2));
     this.trenchForm.get('backfillLength').patchValue(this.trenchForm.get('beddingLength').value);
     this.trenchForm.get('backfillWidth').patchValue(this.trenchForm.get('beddingWidth').value);
-   
+
   }
 
   backfillVolCalc() {
@@ -114,7 +114,7 @@ export class TrenchModalComponent implements OnInit {
     } else {
       this.toastr.show('please complete Bedding volume calculation');
     }
-    
+
   }
 
   backfillWeightCalc() {
@@ -129,7 +129,7 @@ export class TrenchModalComponent implements OnInit {
   finalVolumeCalc() {
     if (this.pipeVol && this.beddingVol) {
       this.effectiveVolume = this.pipeVol - this.beddingVol;
-      
+
       this.trenchForm.get('effectiveVolume').patchValue(this.effectiveVolume.toFixed(2));
     }
   }
@@ -141,6 +141,24 @@ export class TrenchModalComponent implements OnInit {
     // this.trenchForm.beddingWidth) * this.trenchForm.backfillDensity
     // }
   }
+
+  save() {
+    const finalVal = this.trenchForm.value
+    delete finalVal._id;
+    delete finalVal.updateDate;
+    this.httpService.createTrenchUrl(finalVal)
+      .subscribe((response: any) => {
+        if (response.status === 201) {
+          this.resData.status = 'add';
+          this.resData.data = response.body.trenchForm;
+          this.toastr.success(response.statusText)
+        }
+      }, error => {
+        this.toastr.error(error.error.message)
+      }
+      )
+  };
+
   removeTrench(val, e) {
     this.httpService.deleteOrganization(val._id)
       .subscribe((response: any) => {

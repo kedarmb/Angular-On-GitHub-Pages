@@ -155,7 +155,22 @@ export class HttpService {
   public createTrenchCalculation(body) {
     return this.httpClient.post(ApiUrl.sectionUrl, body, { headers: this.getHeader(), observe: 'response' });
   }
+  /*Trench Calculation TrenchUrl */
+  public deleteTrenchUrl(id: string): Observable<any> {
+    return this.httpClient.delete(ApiUrl.trenchUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
+  }
+  public createTrenchUrl(body): Observable<any> {
+    return this.httpClient.post(ApiUrl.trenchUrl + '/', body, { headers: this.getHeader(), observe: 'response' });
+  }
+  public updateTrenchUrl(body, id): Observable<any> {
+    return this.httpClient.put(ApiUrl.trenchUrl + '/' + id, body, { headers: this.getHeader(), observe: 'response' });
+  }
+  public getAllTrenches(): Observable<any> {
+    return this.httpClient.get(ApiUrl.trenchUrl, { headers: this.getHeader(), observe: 'response' });
+  }
 
-  
+  public getByIdTrenchUrl(id) {
+    return this.httpClient.get(ApiUrl.trenchUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
+  }
 }
 
