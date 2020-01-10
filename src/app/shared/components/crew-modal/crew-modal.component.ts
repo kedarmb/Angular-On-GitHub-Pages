@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import {CrewItemService} from '../../core/service/crew-item.service';
 import {CrewItem} from '../../core/model/crew-item.model';
@@ -9,6 +10,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { Crew } from 'app/shared/core/model/crew.model';
+import { stringify } from 'querystring';
 @Component({
   selector: 'app-crew-modal',
   templateUrl: './crew-modal.component.html',
@@ -24,17 +26,36 @@ export class CrewModalComponent implements OnInit {
   };
 
   crew: Crew[];
-  labours: CrewItem[];
-  equipments: CrewItem[];
+  equipmentsData: any;
+
+  laboursData: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
     private formBuilder: FormBuilder,
-    private helperService: HelperService,
+    private hs: HelperService,
     private httpService: HttpService,
+    private spinner:NgxSpinnerService,
     private dialogRef: MatDialogRef<any>,
     private toastr: ToastrService,
-    private crewItemService: CrewItemService) { }
+    private crewItemService: CrewItemService) {
+    this.hs.equipmentData.subscribe((response) => {
+      this.spinner.show();
+      this.equipmentsData = response
+      console.log(response)
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
+    })
+    this.hs.labourData.subscribe((response) => {
+      this.spinner.show();
+      this.laboursData = response;
+      console.log(response)
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
+    })
+     }
 
   ngOnInit() {
     this.crewForm();
@@ -45,21 +66,15 @@ export class CrewModalComponent implements OnInit {
       delete newVal.updateDate
       this.createCrewForm.setValue(newVal)
     }
-    this.crewItemService.getAllEquipments().subscribe((equipments) => {
-      this.equipments = equipments;
-    })
-    this.crewItemService.getAllLabour().subscribe((labours) => {
-      this.labours = labours;
-    })
-  }
 
+  }
   crewForm() {
       this.createCrewForm = this.formBuilder.group({
         _id: [''],
         name: ['', [Validators.required]],
         description: ['', [Validators.required]],
-        equipments: ['5dccfd16f6022c8c5080d247'],
-        labours: ['5dccfd16f6022c8c5080d247']
+        equipments: [],
+        labours: []
       });
   }
 
@@ -69,6 +84,8 @@ export class CrewModalComponent implements OnInit {
   }
 
   save() {
+    console.log(this.createCrewForm.get('equipments').value);
+    console.log(this.createCrewForm.get('labours').value);
     const finalVal = this.createCrewForm.value
     delete finalVal._id;
     delete finalVal.updateDate;
