@@ -64,6 +64,7 @@ import { CrewEquipmentComponent } from './crew-components/crew/crew-equipment/cr
 import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-labour.component';
 //
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgProgressModule } from '@ngx-progressbar/core';
 //
 import { MatTableModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -105,8 +106,8 @@ import { from } from 'rxjs';
     MatAutocompleteModule,
     MatIconModule,
     NgxMatSelectSearchModule,
-    NgxSpinnerModule
-    
+    NgxSpinnerModule,
+    NgProgressModule
   ],
   declarations: [
     DashboardComponent,

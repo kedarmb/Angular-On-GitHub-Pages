@@ -148,7 +148,7 @@ export class ViewTenderComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        console.log(this.multiSelectWidget)
+        console.log('multiSelectWidget is ', this.multiSelectWidget)
         this.setInitialValue();
     }
 

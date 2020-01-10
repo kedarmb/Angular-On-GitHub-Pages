@@ -21,10 +21,7 @@ export class TenderComponent implements OnInit {
   displayedColumns: string[] = ['Client Name', 'Tender Name', 'Open Date', 'Close Date', 'Quote Start Date', 'Quote End Date', 'Actions'];
   tenders: Array<any> = [];
   orgList: any[];
-
-
-
-
+  //
   constructor(private modalService: NgbModal,
     private tenderService: TenderService,
     private router: Router, private toastr: ToastrService,
@@ -53,6 +50,7 @@ export class TenderComponent implements OnInit {
     this.httpServ.getTenders().subscribe((result) => {
       // console.log('success in fetching tender headers ', result);
       this.tenders = result.body as Array<any>;
+      console.log(this.tenders)
       //
       this.tenders.map(val => {
         console.log('_id is .... ', val.clientName);

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TenderService } from '../../../shared/core/service/tender.service';
 import { HttpService } from 'app/shared/core/service/http.service';
+import { NgProgressComponent, NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-tender-item',
@@ -18,11 +19,22 @@ export class TenderItemComponent implements OnInit {
   lineItemsArr: any;
   collapse: any = {}; // stores value for collapse
   lineItemTotal: any;
-
-  constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService,
+  crewList: any[];
+  progressRef: NgProgressRef;
+  //
+ /*  private ELEMENT_DATA = [
+    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' }
+  ]; */
+  // crewCtrl = new FormControl(null, []);
+  constructor(private formBuilder: FormBuilder,
+    private progress: NgProgress, private spinner: NgxSpinnerService,
     private ts: TenderService, private httpService: HttpService) { }
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
+    this.progressRef.start();
     this.getMasterForm();
     this.getCrewData()
   }
@@ -69,14 +81,13 @@ export class TenderItemComponent implements OnInit {
       unitPrice: [''],
       quantity: [''],
       totalPrice: [''],
-      subitems: this.formBuilder.array([this.ts.createSublineItemsCtrls(this.getEmptySublineItem())])
+      subitems: this.formBuilder.array([this.ts.createSublineItemsCtrls(this.getEmptySublineItem())]),
+      crewRef: ['']
     });
     const lineItemsArr = this.masterForm.get('items') as FormArray;
     lineItemsArr.push(lineItm);
     // console.log(lineItemsArr);
   }
-
-
   // to calculate line items fro form
   calculateLineitem(i) {
     let total: any;
@@ -140,7 +151,7 @@ export class TenderItemComponent implements OnInit {
         return val + index;
       })
       slt = subLineTotal = + subLineTotal;
-     
+
       const lt = lineTotal = + lineTotal;
       this.lineItemTotal = lt + slt;
     }
@@ -204,10 +215,14 @@ export class TenderItemComponent implements OnInit {
     })
   }
   getCrewData() {
+    console.log('getCrewData invoked...')
     this.httpService.getAllCrews()
       .subscribe((response: any) => {
+        // console.log(response);
         if (response.status === 200) {
-          console.log(response.body)
+          this.crewList = response.body;
+          console.log(this.crewList)
+          this.progressRef.complete();
         }
       },
         error => {

@@ -1,11 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import Organization from '../model/organization.model';
-import { of } from 'rxjs';
-import { Tender } from '../model/tender.model';
-import { uuid } from '../../../../../node_modules/uuid';
-import { API_URL } from '../constant/index';
-import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -240,12 +233,17 @@ export class TenderService {
         return this.formBuilder.group({
             itemNo: [element.itemNo],
             specNo: [element.specNo],
-            itemName: [element.itemName],
+            name: [element.itemName],
             description: [element.description],
             unit: [element.unit],
             unitPrice: [element.unitPrice],
             quantity: [element.quantity],
             totalPrice: [element.totalPrice],
+            crewRef: [element.crewRef],
+            tenderRef: [element.tenderRef],
+            sectionRef: [element.sectionRef],
+            quoteRef: [element.quoteRef],
+            createdBy: [element.cretedBy],
             subitems: this.formBuilder.array([])
         })
     }
@@ -253,6 +251,12 @@ export class TenderService {
     createSublineItemsCtrls(element?) {
         return this.formBuilder.group({
             // id: [element.id],
+            quoteRef: [element.quoteRef],
+            itemRef: [element.itemRef],
+            description: [element.description],
+            specNo: [element.specNo],
+            organizationRef: [element.organizationRef],
+            createdBy: [element.createdBy],
             name: [element.name],
             unit: [element.unit],
             unitPrice: [element.unitPrice],
@@ -260,5 +264,5 @@ export class TenderService {
             totalPrice: [element.totalPrice]
         })
     }
-  
+
 }
