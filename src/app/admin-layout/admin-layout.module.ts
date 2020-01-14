@@ -72,6 +72,8 @@ import { TrenchCalculationComponent } from './trench-calculation/trench-calculat
 // import { NgxTagsInputModule } from 'ngx-tags-input';
 import { TenderItemComponent } from './view-tender/tender-item/tender-item.component';
 import { from } from 'rxjs';
+import {ContextMenuModule} from 'ngx-contextmenu';
+import {DndModule} from 'ngx-drag-drop';
 
 
 @NgModule({
@@ -107,7 +109,9 @@ import { from } from 'rxjs';
     MatIconModule,
     NgxMatSelectSearchModule,
     NgxSpinnerModule,
-    NgProgressModule
+    NgProgressModule,
+    DndModule,
+    ContextMenuModule.forRoot()
   ],
   declarations: [
     DashboardComponent,

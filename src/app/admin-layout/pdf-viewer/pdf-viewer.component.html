@@ -1,80 +1,123 @@
-<div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
-  <ul class="nav">
-    <li  class="nav-item">
-      <a class="nav-link">
-        <div class="form-group">
-          <label>itemNo</label>
-          <input type="text" name="itemNo" [(ngModel)]="tenderItem.itemNo" class="form-control"/>
-        </div>
-      </a>
-    </li>
-    <li  class="nav-item">
-      <a class="nav-link">
-        <div class="form-group">
-          <label>specNo</label>
-          <input type="text" name="specNo" [(ngModel)]="tenderItem.specNo" class="form-control"/>
-        </div>
-      </a>
-    </li>
-    <li  class="nav-item">
-      <a class="nav-link">
-        <div class="form-group">
-          <label>itemName</label>
-          <input type="text" name="itemName" [(ngModel)]="tenderItem.itemName" class="form-control"/>
-        </div>
-      </a>
-    </li>
-    <li  class="nav-item">
-      <a class="nav-link">
-        <div class="form-group">
-          <label>Description</label>
-          <textarea type="text" class="form-control" appAutoAdjust name="description"  [(ngModel)]="tenderItem.description"></textarea>
-        </div>
-      </a>
-    </li>
-    <li  class="nav-item">
-      <a class="nav-link">
-        <div class="form-group">
-          <label>Unit</label>
-          <input type="text" name="unit" [(ngModel)]="tenderItem.unit" class="form-control"/>
-        </div>
-      </a>
-    </li>
-    <li  class="nav-item">
-      <a class="nav-link">
-        <div class="form-group">
-          <label>Quantity</label>
-          <input type="text" name="quantity" [(ngModel)]="tenderItem.quantity" class="form-control"/>
-        </div>
-      </a>
-    </li>
-    <li  class="nav-item">
-      <a class="nav-link">
-        <div class="form-group">
-          <label>Unit Price</label>
-          <input type="text" name="unitPrice" [(ngModel)]="tenderItem.unitPrice" class="form-control"/>
-        </div>
-      </a>
-    </li>
-    <li  class="nav-item text-center" >
-      <button mat-raised-button type="submit" (click)="cancel()" class="btn btn-danger">Cancel</button>
-      <button mat-raised-button type="submit" (click)="save()" class="btn btn-danger">Save</button>
-    </li>
-
-  </ul>
-
-</div>
 <div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
+    <div class="container-fluid">
 
-      <div class="col-md-12">
-        <input type="file" (change)="setPreviewFromFile($event.target.files)"/>
-        <pdf-viewer [src]="pdfSrc"
-                    [render-text]="true" (text-layer-rendered)="textLayerRendered($event)" [original-size]="true" [fit-to-page]="true" [zoom]="1.5"
-                    style="display: block;"
-        ></pdf-viewer>
-      </div>
+        <div class="row">
+            <div class="col-md-12" [hidden]="show">
+                <input type="file" (change)="setPreviewFromFile($event.target.files)"/>
+                <button class="btn btn-danger btn-sm" *ngIf="!loading" (click)="toggle()">SHOW TABLE</button>
+                <div *ngIf="loading" class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <pdf-viewer [src]="pdfSrc"
+                            [render-text]="true" (after-load-complete)="afterLoadComplete($event)"
+                            (text-layer-rendered)="textLayerRendered($event)" [original-size]="true"
+                            [fit-to-page]="true" [zoom]="1.5"
+                            style="display: block;"
+                ></pdf-viewer>
+            </div>
+            <div class="col-md-12" [hidden]="!show">
+
+              <button class="btn btn-danger btn-sm" (click)="toggle()">SHOW PDF</button>
+                <ng-container *ngFor="let table of tableResult;let tableIndex=index;">
+                    <table *ngIf="showTable(table)" class="table table-bordered my-3">
+                        <tbody>
+                        <ng-container *ngFor="let row of table;let rowIndex=index;">
+                            <tr *ngIf="rowIndex===0">
+                                <td class="position-relative">
+                                   <div class="label"> SECTION </div>
+                                   <textarea [(ngModel)]="sections[tableIndex]" style="height:20%;font-weight:bold;font-size:15px;" rows="1"></textarea>
+                                </td>
+                                <td [attr.colspan]="row.length-1" class="position-relative">
+                                    <ul class="list-inline">
+                                        <li>
+                                            <a (click)="saveTable($event,tableIndex)"><i class="fa fa-save icon"></i></a>
+                                        </li>
+                                        <li>
+                                            <a (click)="fillTable($event,table)"><i class="fa fa-plus icon"></i></a>
+                                        </li>
+                                        <li>
+                                            <a (click)="delete($event,tableIndex)"><i class="fa fa-close icon"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr *ngIf="rowIndex===0">
+                                <ng-container *ngFor="let column of row;let columnIndex=index;">
+                                    <td style="padding:0;">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-danger dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                               {{headers[tableIndex][columnIndex]}}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('itemNo')===-1" (click)="setHeader($event,'itemNo',tableIndex,columnIndex)">item No</a>
+                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('specNo')===-1" (click)="setHeader($event,'specNo',tableIndex,columnIndex)">Spec No</a>
+                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('itemName')===-1" (click)="setHeader($event,'itemName',tableIndex,columnIndex)">Item Name</a>
+                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('description')===-1" (click)="setHeader($event,'description',tableIndex,columnIndex)">Description</a>
+                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('unit')===-1" (click)="setHeader($event,'unit',tableIndex,columnIndex)">Unit</a>
+                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('quantity')===-1" (click)="setHeader($event,'quantity',tableIndex,columnIndex)">Quantity</a>
+                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('total')===-1" (click)="setHeader($event,'total',tableIndex,columnIndex)">total</a>
+                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('unitPrice')===-1" (click)="setHeader($event,'unitPrice',tableIndex,columnIndex)">Unit Price</a>
+                                                <a class="dropdown-item" href="#" (click)="setHeader($event,'',tableIndex,columnIndex)">Blank</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                        <tr *ngFor="let row of table;let rowIndex=index;">
+                            <td *ngFor="let column of row;let columnIndex=index;" class="position-relative"
+                                dndDropzone
+                                (dndDragover)="onDragover($event)"
+                                (dndDrop)="onDrop($event,tableIndex,rowIndex,columnIndex)" [contextMenu]="basicMenu"
+                                [contextMenuSubject]="{table:tableIndex,row:rowIndex,column:columnIndex}">
+                                <div style="visibility: hidden">
+                                  {{column}}
+                                </div>
+                                <div [dndDraggable]="draggable.data" class="editable-text"
+                                     [dndEffectAllowed]="draggable.effectAllowed"
+                                     [dndDisableIf]="draggable.disable"
+                                     (dndStart)="onDragStart($event,tableIndex,rowIndex,columnIndex)"
+                                     (dndCopied)="onDraggableCopied($event)"
+                                     (dndLinked)="onDraggableLinked($event)"
+                                     (dndMoved)="onDraggableMoved($event)"
+                                     (dndCanceled)="onDragCanceled($event)"
+                                     (dndEnd)="onDragEnd($event,tableIndex,rowIndex,columnIndex)"
+                                >
+                                    <textarea [(ngModel)]="column" (blur)="handleChange(column,tableIndex,rowIndex,columnIndex)"></textarea>
+
+                                </div>
+
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+            <context-menu>
+                <ng-template contextMenuItem (execute)="deleteTable($event)">
+                    DELETE TABLE
+                </ng-template>
+                <ng-template contextMenuItem (execute)="deleteRow($event)">
+                    DELETE ROW
+                </ng-template>
+                <ng-template contextMenuItem (execute)="insertRowBefore($event)">
+                    ADD ROW BEFORE
+                </ng-template>
+                <ng-template contextMenuItem (execute)="insertRowAfter($event)">
+                    ADD ROW AFTER
+                </ng-template>
+                <ng-template contextMenuItem (execute)="deleteColumn($event)">
+                    DELETE COLUMN
+                </ng-template>
+                <ng-template contextMenuItem (execute)="addColumnBefore($event)">
+                    ADD COLUMN BEFORE
+                </ng-template>
+                <ng-template contextMenuItem (execute)="addColumnAfter($event)">
+                    ADD COLUMN AFTER
+                </ng-template>
+            </context-menu>
+        </div>
     </div>
-  </div>
 </div>
