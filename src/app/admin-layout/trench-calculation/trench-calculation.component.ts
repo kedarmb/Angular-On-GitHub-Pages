@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatDialog } from '@angular/material';
 import { HttpService } from 'app/shared/core/service/http.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { TrenchModalComponent } from 'app/shared/components/trench-modal/trench-modal.component';
 
 @Component({
   selector: 'app-trench-calculation',

@@ -1,6 +1,6 @@
 import { HttpService } from 'app/shared/core/service/http.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CrewModalComponent } from '../../../shared/components/crew-modal/crew-modal.component';
+import { CrewModalComponent } from '../../shared/components/crew-modal/crew-modal.component';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { MatTable, MatDialog } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';

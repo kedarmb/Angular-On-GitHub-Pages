@@ -1,3 +1,4 @@
+import { TenderCompairComponent } from './tender-compair/tender-compair.component';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -10,8 +11,8 @@ import { TenderitemComponent } from './tenderitem/tenderitem.component';
 import { ViewTenderComponent } from './view-tender/view-tender.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
-import { CrewComponent } from './crew-components/crew/crew.component';
-import { CreateCrewComponent } from './crew-components/create-crew/create-crew.component';
+import { CrewComponent } from './crew/crew.component';
+// import { CreateCrewComponent } from './crew-components/create-crew/create-crew.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { UserComponent } from './user/user.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
@@ -26,8 +27,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'comprehend', component: MedicalComprehendComponent },
     { path: 'pdf-viewer/:id', component: PdfViewerComponent },
     { path: 'crew', component: CrewComponent },
-    { path: 'create-crew', component: CreateCrewComponent },
-    { path: 'create-crew/:id', component: CreateCrewComponent },
+    // { path: 'create-crew', component: '' },
+    // { path: 'create-crew/:id', component:'' },
     { path: 'create-tenderitem', component: CreateTenderItemComponent },
     { path: 'view-tender/:id', component: ViewTenderComponent },
     { path: 'tender', component: TenderComponent },
@@ -38,7 +39,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications', component: NotificationsComponent },
     { path: 'user', component: UserComponent },
     { path: 'fullcalender', component: FullcalenderComponent },
-    { path: 'calculation', component: TrenchCalculationComponent }
+    { path: 'calculation', component: TrenchCalculationComponent },
+    { path: 'compair', component: TenderCompairComponent }
     // { path: 'upgrade', component: UpgradeComponent },
     // { path: 'typography', component: TypographyComponent },
     // { path: 'icons', component: IconsComponent },

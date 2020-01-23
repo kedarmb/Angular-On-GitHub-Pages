@@ -1,11 +1,8 @@
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
-
-
 import { AdminLayoutRoutes, AdminLayoutRoutesModule } from './admin-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -26,7 +23,7 @@ import {
   MatExpansionModule,
   MatTabsModule,
   MatToolbarModule,
-  MatListModule,
+  MatListModule,  
   MatCheckboxModule,
   MatGridListModule,
   MatCardModule,
@@ -47,8 +44,7 @@ import { UserComponent } from './user/user.component';
 
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { AutoAdjustDirective } from '../shared/directive/auto-adjust.directive';
-import { CrewComponent } from './crew-components/crew/crew.component';
-import { CreateCrewComponent } from './crew-components/create-crew/create-crew.component';
+import { CrewComponent } from './crew/crew.component';
 import { DateConverterPipe } from '../shared/pipe/date-converter.pipe';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -60,18 +56,16 @@ import { ChartsModule } from 'ng2-charts';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { MedicalComprehendComponent } from './medical-comprehend/medical-comprehend.component';
 import { FullcalenderComponent } from './fullcalender/fullcalender.component';
-import { CrewEquipmentComponent } from './crew-components/crew/crew-equipment/crew-equipment.component';
-import { CrewLabourComponent } from './crew-components/crew/crew-labour/crew-labour.component';
-//
+import { CrewEquipmentComponent } from './crew/crew-equipment/crew-equipment.component';
+import { CrewLabourComponent } from './crew/crew-labour/crew-labour.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgProgressModule } from '@ngx-progressbar/core';
-//
 import { MatTableModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { TrenchCalculationComponent } from './trench-calculation/trench-calculation.component';
 // import { NgxTagsInputModule } from 'ngx-tags-input';
 import { TenderItemComponent } from './view-tender/tender-item/tender-item.component';
-import { from } from 'rxjs';
+import { TenderCompairComponent } from './tender-compair/tender-compair.component';
 import {ContextMenuModule} from 'ngx-contextmenu';
 import {DndModule} from 'ngx-drag-drop';
 
@@ -130,9 +124,7 @@ import {DndModule} from 'ngx-drag-drop';
     CreateTenderItemComponent,
     AutoAdjustDirective,
     CrewComponent,
-    CreateCrewComponent,
     DateConverterPipe,
-
     PdfViewerComponent,
     AnalyticsComponent,
     FullcalenderComponent,
@@ -140,7 +132,8 @@ import {DndModule} from 'ngx-drag-drop';
     CrewEquipmentComponent,
     CrewLabourComponent,
     TenderItemComponent,
-    TrenchCalculationComponent
+    TrenchCalculationComponent,
+    TenderCompairComponent,
   ]
 })
 

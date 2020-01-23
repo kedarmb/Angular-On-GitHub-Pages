@@ -68,7 +68,6 @@ export class TrenchModalComponent implements OnInit {
     this.trenchForm.get('beddingVolume').patchValue(this.beddingVol.toFixed(2));
     this.trenchForm.get('backfillLength').patchValue(this.trenchForm.get('beddingLength').value);
     this.trenchForm.get('backfillWidth').patchValue(this.trenchForm.get('beddingWidth').value);
-
   }
 
   backfillVolCalc() {
@@ -114,7 +113,6 @@ export class TrenchModalComponent implements OnInit {
     } else {
       this.toastr.show('please complete Bedding volume calculation');
     }
-
   }
 
   backfillWeightCalc() {
@@ -129,7 +127,6 @@ export class TrenchModalComponent implements OnInit {
   finalVolumeCalc() {
     if (this.pipeVol && this.beddingVol) {
       this.effectiveVolume = this.pipeVol - this.beddingVol;
-
       this.trenchForm.get('effectiveVolume').patchValue(this.effectiveVolume.toFixed(2));
     }
   }

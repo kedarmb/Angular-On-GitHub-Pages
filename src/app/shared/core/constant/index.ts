@@ -41,6 +41,7 @@ export const ApiUrl = {
   subItemUrl: urlCreator('/subitem'),
   loginUrl: urlCreator('/auth/login'),
   createAcc: authUrlCreator('/auth/register'),
+  createTrench: authUrlCreator('/trench'),
   trenchUrl: authUrlCreator('/trench')
 }
 
