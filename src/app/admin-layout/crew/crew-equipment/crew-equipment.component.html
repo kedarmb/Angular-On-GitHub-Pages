@@ -1,6 +1,7 @@
 <!-- <div class="card-body"> -->
 
 <button mat-raised-button (click)="addEq(false)"> Add Equipment </button>
+  <div class="table-responsive">
 <table mat-table [dataSource]="equipments" class="mat-elevation-z8">
   <ng-container matColumnDef="Name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -39,3 +40,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+</div>

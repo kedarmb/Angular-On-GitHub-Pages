@@ -4,21 +4,26 @@
         
             <mat-label>Organization</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="name" type="text">
+                <input formControlName="name" matInput type="text">
             </mat-form-field>
             <mat-label>Organization Type</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="orgType" disabled  type="text">
+                <mat-select formControlName="orgType">
+                    <mat-option value="prime">prime</mat-option>
+                    <mat-option value="client" name="client">client</mat-option>
+                    <mat-option value="sub" name="sub">sub</mat-option>
+                </mat-select>
+                <!-- <input formControlName="orgType" matInput disabled  type="text"> -->
             </mat-form-field>
       
             <mat-label>Street Address</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="streetAddress" type="text">
+                <input formControlName="streetAddress" matInput type="text">
             </mat-form-field>
       
             <mat-label>Email</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="contactEmail" type="text">
+                <input formControlName="contactEmail" matInput type="text">
             </mat-form-field>
             <div *ngIf="!organizationForm.controls.contactEmail.valid && (organizationForm.controls.contactEmail.dirty || organizationForm.controls.contactEmail.touched)"
                 class="error">
@@ -28,7 +33,7 @@
             </div>
             <mat-label>Phone</mat-label><span class="text-danger">*</span>
             <mat-form-field>
-                <input formControlName="contactPhone" type="text">
+                <input formControlName="contactPhone" matInput type="text">
             </mat-form-field>
             <div *ngIf="!organizationForm.controls.contactPhone.valid && (organizationForm.controls.contactPhone.dirty || organizationForm.controls.contactPhone.touched)"
                 class="error">

@@ -3,6 +3,7 @@
             <button mat-raised-button (click)="addUser(false)"><i class="material-icons">add</i>Add</button>
        
     </mat-toolbar>
+    <div class="table-responsive">
     <table class="mat_tab" mat-table [dataSource]="user" class="mat-elevation-z8">        
         <ng-container matColumnDef="Email">
             <th mat-header-cell *matHeaderCellDef>Email</th>
@@ -48,4 +49,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+</div>
 </div>

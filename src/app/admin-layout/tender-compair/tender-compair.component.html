@@ -1,118 +1,81 @@
-<div class="mt-8 tender col-12">
-    <mat-tab-group>
-        <mat-tab label="First">
-            <div class="col-12 " *ngFor="let section of tender.sections">
-                <h3 class="h3">{{section.name}}</h3>
-                <!-- <hr> -->
-
-                <ng-container *ngFor="let item of section.lineItems">
-                    <div class="bg-light p-1 mb">
-                        <h4 class="h4, mt-0 mb-1 px-1">{{item.name}}</h4>
-                        <mat-chip-list class="">
-                            <span class="mb-3 mr-2 badge badge-primary"> Spec No : <span>{{item.specNo}}</span></span>
-                            <span class="mb-3 mr-2 badge badge-secondary"> Item No :<span> {{item.itemNo}}</span></span>
-                            <span class="mb-3 mr-2 badge badge-info"> Quantity :<span> {{item.quantity}}</span></span>
-                        </mat-chip-list>
-                        <div class="row-h-scroll">
-                            <div class="col-2-5 mb-3" *ngFor="let quote of item.lineItemTotal">
-                                <mat-card class="example-card mt-0">
-                                    <span class="card-title mb-1">{{quote.quoteSub}}</span>
-                                    <mat-card-content>
-                                        <p class="mb-1">Unit Price: {{quote.unitPrice}}</p>
-                                        <p class="mb-1">Total Price: {{quote.totalPrice}}</p>
-                                        <mat-checkbox></mat-checkbox>
-                                    </mat-card-content>
-                                </mat-card>
-                            </div>
+<mat-tab-group class="tender mt-5">
+    <mat-tab label="First">
+        <div class="col-12">
+        <div  class="bg-white mt-4" *ngFor="let section of tender.sections">
+            <h3 class="px-3 pt-2 mb-0">{{section.name}}</h3>
+            <ng-container *ngFor="let item of section.lineItems">
+                <div class="bg-light m-3">
+                    <mat-chip-list class="m-1">
+                        <span class="mb-3 mr-2 badge badge-warning">{{item.name}}</span>
+                        <span class="mb-3 mr-2 badge badge-primary"> Spec No :
+                            <span>{{item.specNo}}</span></span>
+                        <span class="mb-3 mr-2 badge badge-secondary"> Item No :<span>
+                                {{item.itemNo}}</span></span>
+                        <span class="mb-3 mr-2 badge badge-info"> Quantity :<span>
+                                {{item.quantity}}</span></span>
+                    </mat-chip-list>
+                    <div class="row-h-scroll">
+                        <div class="col-2-5 mb-3" *ngFor="let quote of item.lineItemTotal">
+                            <mat-card class="example-card mt-0">
+                                <span class="card-title mb-1">{{quote.quoteSub}}</span>
+                                <mat-card-content>
+                                    <p class="mb-1">Unit Price: {{quote.unitPrice}}</p>
+                                    <p class="mb-1">Total Price: {{quote.totalPrice}}</p>
+                                    <mat-checkbox></mat-checkbox>
+                                </mat-card-content>
+                            </mat-card>
                         </div>
                     </div>
-                </ng-container>
-            </div>
-        </mat-tab>
-        <mat-tab label="Second">
-            <!-- <ng-container *ngFor="let section of tender.sections">
-                <h3 class="h3">{{section.name}}</h3>
-                <ng-container *ngFor="let item of section.lineItems">
-                    <h4 class="h4, mt-0 mb-1">{{item.name}}</h4>
-                    <mat-chip-list>
-                        <span class="mb-3 mr-2 badge badge-primary"> Spec No : <span>{{item.specNo}}</span></span>
-                        <span class="mb-3 mr-2 badge badge-secondary"> Item No :<span> {{item.itemNo}}</span></span>
-                        <span class="mb-3 mr-2 badge badge-info"> Quantity :<span> {{item.quantity}}</span></span>
-                    </mat-chip-list>
-                    <table class="table table-striped">
-
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>
-                                    Contractor name
-                                </th>
-                                <th>
-                                    Unit Price
-                                </th>
-                                <th>
-                                    Total Price
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let quote of item.lineItemTotal">
-                                <td colspan="1">
-                                    <mat-checkbox> </mat-checkbox>
-                                </td>
-                                <td>
-                                    {{quote.quoteSub}}
-                                </td>
-                                <td>
-                                    {{quote.unitPrice}}
-                                </td>
-                                <td>
-                                    {{quote.totalPrice}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </ng-container>
-            </ng-container> -->
-            <div class="col-12">
-
-                <mat-card class="mt-4" *ngFor="let section of tender.sections">
-                    <mat-card-header>
-                        <mat-card-title>{{section.name}}</mat-card-title>
-                        <!-- <mat-card-subtitle>Subtitle</mat-card-subtitle> -->
-                    </mat-card-header>
-                   <mat-card-content>
-                            <ng-container *ngFor="let item of section.lineItems">
-                                <div class="bg-light p-1 mb-3">
-                                    <h4 class="h4, mt-0 mb-1">{{item.name}}</h4>
-                                    <mat-chip-list>
-                                        <span class="mb-3 mr-2 badge badge-primary"> Spec No :
-                                            <span>{{item.specNo}}</span></span>
-                                        <span class="mb-3 mr-2 badge badge-secondary"> Item No :<span>
-                                                {{item.itemNo}}</span></span>
-                                        <span class="mb-3 mr-2 badge badge-info"> Quantity :<span>
-                                                {{item.quantity}}</span></span>
-                                    </mat-chip-list>
-                                    <table class="table table-responsive table-striped">
-                                        <tr>
-                                            <th>Contractor name</th>
-                                            <td colspan="3" *ngFor="let quote of item.lineItemTotal">{{quote.quoteSub}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Unit Price</th>
-                                            <td colspan="3" *ngFor="let quote of item.lineItemTotal">{{quote.unitPrice}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total Price</th>
-                                            <td colspan="3" *ngFor="let quote of item.lineItemTotal">{{quote.totalPrice}}</td>
-                                        </tr>
-                                    </table>
-                                    </div>
-                            </ng-container>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
-
-</div>
+                </div>
+            </ng-container>
+            <h4 class="mt-2 px-3">Section Total: 500</h4>
+        </div >
+        <button mat-raised-button type="button" class="m-2" color="primary">save</button>
+    </div>
+    </mat-tab>
+    <mat-tab label="Second">
+        <div class="col-12">
+            <mat-card class="mt-4" *ngFor="let section of tender.sections">
+                <mat-card-header>
+                    <mat-card-title>{{section.name}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <ng-container *ngFor="let item of section.lineItems">
+                        <div class="bg-light p-1 mb-3">
+                            <mat-chip-list>
+                                <span class="mb-3 mr-2 badge badge-warning">{{item.name}}</span>
+                                <span class="mb-3 mr-2 badge badge-primary"> Spec No
+                                    :<span>{{item.specNo}}</span></span>
+                                <span class="mb-3 mr-2 badge badge-secondary"> Item No
+                                    :<span>{{item.itemNo}}</span></span>
+                                <span class="mb-3 mr-2 badge badge-info"> Quantity
+                                    :<span>{{item.quantity}}</span></span>
+                            </mat-chip-list>
+                            <div class="table-responsive">
+                                <table class="table table-responsive table-striped">
+                                    <tr>
+                                        <th>Contractor name</th>
+                                        <td colspan="3" *ngFor="let quote of item.lineItemTotal">{{quote.quoteSub}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Unit Price</th>
+                                        <td colspan="3" *ngFor="let quote of item.lineItemTotal">{{quote.unitPrice}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Price</th>
+                                        <td colspan="3" *ngFor="let quote of item.lineItemTotal">
+                                            {{quote.totalPrice}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <h4 class="mt-2 px-1">Section Total: 500</h4>
+                </mat-card-content>
+            </mat-card>
+            <button mat-raised-button type="button" class="m-2" color="primary">save</button>
+        </div>
+    </mat-tab>
+</mat-tab-group>

@@ -3,6 +3,7 @@
     <mat-toolbar color="primary">
         <button mat-raised-button (click)="addCrew(false)"><i class="material-icons">add</i>Add Crew</button>
     </mat-toolbar>
+    <div class="table-responsive">
     <mat-tab-group>
         <mat-tab *ngIf="crew">
             <ng-template mat-tab-label>Crew</ng-template>
@@ -45,4 +46,5 @@
             <app-crew-labour></app-crew-labour>
         </mat-tab>
     </mat-tab-group>
+    </div>
 </div>
