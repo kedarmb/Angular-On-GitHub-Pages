@@ -229,6 +229,51 @@ export class TenderService {
     // ];
     constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     }
+
+    initSectionCtrl() {
+        return this.formBuilder.group({
+            name: [''],
+            totalPrice: [''],
+            lineItems: this.formBuilder.array([])
+        })
+    }
+    initLineItemCtrl() {
+        return this.formBuilder.group({
+            specNo: [''],
+            itemNo: [''],
+            name: [''],
+            description: [''],
+            unit: [''],
+            quantity: [''],
+            totalPrice: [''],
+            subLineItems: this.formBuilder.array([])
+            //
+            /* quoteRef: [''],
+            itemRef: [''],
+            description: [''],
+            specNo: [''],
+            organizationRef: [''],
+            createdBy: [''],
+            name: [''],
+            unit: [''],
+            unitPrice: [''],
+            quantity: [''], */
+
+        })
+    }
+    initSubLineItemCtrl() {
+
+    }
+    getEmptySublineItem() {
+        return this.formBuilder.group({
+            // id: '',
+            name: '',
+            unit: '',
+            unitPrice: '',
+            quantity: '',
+            totalPrice: ''
+        })
+    }
     createItemCtrl(element) {
         return this.formBuilder.group({
             itemNo: [element.itemNo],
@@ -243,7 +288,7 @@ export class TenderService {
             tenderRef: [element.tenderRef],
             sectionRef: [element.sectionRef],
             quoteRef: [element.quoteRef],
-            createdBy: [element.cretedBy],
+            // createdBy: [element.cretedBy],
             subitems: this.formBuilder.array([])
         })
     }
@@ -264,5 +309,8 @@ export class TenderService {
             totalPrice: [element.totalPrice]
         })
     }
+    //
+
+
 
 }

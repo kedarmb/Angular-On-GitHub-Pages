@@ -19,7 +19,17 @@ import { MatCardModule } from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
 import { TagInputModule } from 'ngx-chips';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { HttpService } from './shared/core/service/http.service';
+import { HelperService } from './shared/core/service/helper.service';
+import { AppInitService } from './shared/core/service/app-init.service';
+//
 
+export function initializeApp1(appInitService: AppInitService) {
+    return (): Promise<any> => {
+        console.log('app initialized');
+        return appInitService.init();
+    }
+}
 @NgModule({
     imports: [
         NgxSpinnerModule,
@@ -53,6 +63,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         CrewService,
         SpeechRecognitionService,
         SearchSubscriberService,
+        HttpService,
+        HelperService,
+        /* AppInitService,
+        { provide: APP_INITIALIZER, useFactory: initializeApp1, deps: [AppInitService], multi: true } */
     ],
     bootstrap: [AppComponent],
 })

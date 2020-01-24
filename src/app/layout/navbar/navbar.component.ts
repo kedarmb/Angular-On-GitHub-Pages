@@ -34,6 +34,8 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
       this.listTitles = ROUTES.filter(listTitle => listTitle);
+      console.log('list titles are : ', this.listTitles);
+      //
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {
@@ -133,7 +135,8 @@ export class NavbarComponent implements OnInit {
               return this.listTitles[item].title;
           }
       }
-      return 'Dashboard';
+    //   return 'Dashboard';
+      return '';
     }
 
 

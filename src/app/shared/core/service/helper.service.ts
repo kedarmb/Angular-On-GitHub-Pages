@@ -16,43 +16,59 @@ export class HelperService {
   // labourData: any;
   equipmentData = new BehaviorSubject<any>('');
   labourData = new BehaviorSubject<any>('');
-  equipmentStore: any;
-  labourStore: any
+  equipmentStore: any[] = [];
+  labourStore: any[] = [];
   //
   orgList: any[] = [];
+  allEquipList: any[] = [];
+  allLabourList: any[] = [];
+  //
+  filteredOrgList: any[] = [];
 
   private allowFreeTextAddEngineer = false;
   public chipSelectedEngineers: Engineer[] = [];
+  equipments: any;
   constructor(private httpService: HttpService, private httpClient: HttpClient,
     private spinner: NgxSpinnerService) {
     //
-    this.getAllOrganization()
+    // this.getAllOrganization()
     // console.log('HelperService instantiated');
+    // this.getEquipmentData();
     //
+
   }
 
-  public getOrgList() {
-    return this.orgList;
+
+
+  setOrgList() {
+    // console.log('set ------ org ---- list');
+    const orgData = JSON.parse(localStorage.getItem('orgList'));
+    const _orgList = (orgData as Array<any>).filter((item) => {
+      return item['orgType'][0] === 'Client';
+    });
+    this.orgList = _orgList;
+  }
+  setEqupmentList() {
+    this.allEquipList = JSON.parse(localStorage.getItem('equipList'));
+  }
+  setLabourList() {
+    this.allLabourList = JSON.parse(localStorage.getItem('labourList'));
   }
 
-  public getAllOrganization() {
-    this.spinner.show();
-    return this.httpClient.get(ApiUrl.orgUrl, { headers: this.getHeader(), observe: 'response' })
-      .subscribe((res) => {
-        console.log('total list ', res);
-        this.orgList = (res.body as Array<any>).filter((item) => {
-          return item['orgType'][0] === 'Client';
-        });
-      }, (err) => {
-        console.log('err in fetching tender headers ', err)
-      })
+  getFromLocalStorage(param) {
+    return localStorage.getItem(param);
   }
+
+  setInLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
   getHeader() {
     return new HttpHeaders()
       .set('Content-Type', 'application/json; charset=utf-8')
       .set('Accept', 'application/json; charset=utf-8');
   }
-  getLabourData(data) {
+  labourDataForChip(data) {
     this.labourStore = data.map((ev) => {
       return Object.assign({ _id: ev._id, name: ev.name })
     })
@@ -60,17 +76,11 @@ export class HelperService {
     console.log(this.labourStore)
 
   }
-  getEquipmentData(data) {
-    // console.log(data)
-    this.equipmentStore = data.map((ev) => {
-      return Object.assign({ _id: ev._id, name: ev.name })
-    })
-    this.equipmentData.next(this.equipmentStore);
-  }
 
   customPatternValid(patternParam: any): ValidatorFn {
     return (control: FormControl) => {
       const regexp: RegExp = patternParam.pattern;
+      control.value.match()
       if (control.value && !control.value.match(regexp)) {
         return {
           invalidMsg: patternParam.msg
@@ -91,10 +101,10 @@ export class HelperService {
     const client = this.orgList.find(item => item._id === id)
     // console.log(client);
     if (client !== undefined) {
-      console.log('corresponding client is .. ', client);
+      // console.log('corresponding client is .. ', client);
     }
     // console.log(client);
-    console.log('------------------------')
+    // console.log('------------------------')
     if (client !== undefined) {
       return client.name;
     } else if (client === undefined) {
@@ -103,6 +113,24 @@ export class HelperService {
 
   }
 
+  findLabourObj(id) {
+    const labour = this.allLabourList.find(item => item._id === id);
+    // console.log(id, '    labor obj    ', this.allLabourList);
+    if (labour !== undefined) {
+      return labour;
+    } else if (labour === undefined) {
+      // return 'N. Available'
+    }
+  }
+  findEqipObj(id){
+    const equip = this.allEquipList.find(item => item._id === id);
+    // console.log(id, '    labor obj    ', this.allEquipList);
+    if (equip !== undefined) {
+      return equip;
+    } else if (equip === undefined) {
+      // return 'N. Available'
+    }
+  }
 
   private filterEngineer(engineerList: Engineer[], engineerName: String): String[] {
     let filteredEngineerList: Engineer[] = [];
@@ -149,4 +177,19 @@ export class HelperService {
     }
     return result;
   }
+  //
+  /* getEquipmentData() {
+    this.httpService.getAllEquipment()
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+          this.equipments = response.body
+          console.log(response.body);
+          this.equipmentData.next(this.equipmentStore);
+        }
+      },
+        error => {
+          console.log(error);
+        }
+      )
+  }; */
 }

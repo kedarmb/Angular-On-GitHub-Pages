@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TenderService } from '../../shared/core/service/tender.service';
-import { Tender } from '../../shared/core/model/tender.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TenderModalComponent } from 'app/shared/components/tender-modal/tender-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-//
+import { MatDialog } from '@angular/material/dialog';
 import { HttpService } from '../../shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
 
@@ -22,9 +18,7 @@ export class TenderComponent implements OnInit {
   tenders: Array<any> = [];
   orgList: any[];
   //
-  constructor(private modalService: NgbModal,
-    private tenderService: TenderService,
-    private router: Router, private toastr: ToastrService,
+  constructor(private router: Router, private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private httpServ: HttpService,
     private hs: HelperService,
@@ -35,14 +29,14 @@ export class TenderComponent implements OnInit {
 
   ngOnInit() {
     //
-    const id = setInterval(() => {
-      const arr = this.hs.getOrgList();
+    /* const id = setInterval(() => {
+      const arr = this.hs.getFromLocalStorage('orgList');
       if (arr.length > 0) {
         // console.log('arr .. ', arr);
-        clearInterval(id);
-        this.getAllTenders();
-      }
-    }, 300)
+        clearInterval(id);      }
+    }, 300) */
+    this.spinner.show();
+    this.getAllTenders();
 
   }
   //
@@ -50,10 +44,13 @@ export class TenderComponent implements OnInit {
     this.httpServ.getTenders().subscribe((result) => {
       // console.log('success in fetching tender headers ', result);
       this.tenders = result.body as Array<any>;
-      console.log(this.tenders)
+      console.log(this.tenders);
+      this.hs.setOrgList();
+      this.hs.setEqupmentList();
+      this.hs.setLabourList();
       //
       this.tenders.map(val => {
-        console.log('_id is .... ', val.clientName);
+        // console.log('_id is .... ', val.clientName);
         const j = this.hs.findClientName(val.clientName);
         val.clientName = j;
       })
@@ -121,9 +118,9 @@ export class TenderComponent implements OnInit {
   }
   //
   viewTender(tender) {
-    // console.log(tender);
+    console.log(tender);
     // tender._id = '5dde7f6bfc6b8a42441783ab';
-    this.router.navigateByUrl('view-tender/' + tender._id);
+    this.router.navigateByUrl('view-tender/', { state: tender });
   }
   viewer(tender) {
     this.router.navigateByUrl('pdf-viewer/' + tender._id);

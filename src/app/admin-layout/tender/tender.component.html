@@ -1,29 +1,21 @@
 <div class="main-content">
     <div class="container-fluid">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <div>
+                    <button mat-raised-button (click)="AddUpdateTender(false)">
+                        <mat-icon>add</mat-icon>
+                        Add Tender
+                    </button>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-plain">
-                    <div class="card-header">
-                        <div class="card">
-                            <div class="card-header card-header-tabs card-header-danger">
-                                <div class="nav-tabs-navigation">
-                                    <div class="nav-tabs-wrapper">
-
-                                        <ul class="nav nav-tabs" data-tabs="tabs">
-                                            <li class="nav-item">
-                                                <a mat-button class="nav-link active" (click)="AddUpdateTender(false)" href="#profile"
-                                                    data-toggle="tab">
-                                                    <i class="material-icons">add</i> ADD
-                                                    <div class="ripple-container"></div>
-                                                </a>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div class="card-header">                        
                         <div class="card-body" *ngIf="tenders">
                             <div class="table-responsive">
                                 <table id="mainTable" class="table table-hover">

@@ -7,6 +7,7 @@ import { LabourModalComponent } from 'app/shared/components/labour-modal/labour-
 import { MatDialog, MatTable } from '@angular/material';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 // import { ToastrService } from 'ngx-toastr/toastr/toastr.service';
 
 @Component({
@@ -22,21 +23,30 @@ export class CrewEquipmentComponent implements OnInit {
     val: ''
   };
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+  equipmentsData: any;
+  laboursData: any;
   constructor(private modalService: MatDialog,
     private toastr: ToastrService,
     private httpService: HttpService,
-    private helperService: HelperService,
-    private router: Router) { }
+    private hs: HelperService,
+    private router: Router,
+    private spinner: NgxSpinnerService) {
+    console.log('helper service ..');
+    //
+    this.equipmentsData = JSON.parse(this.hs.getFromLocalStorage('equipList'));
+    this.laboursData = JSON.parse(this.hs.getFromLocalStorage('labourList'));
+  }
 
   ngOnInit() {
     this.getEquipmentData()
   }
   getEquipmentData() {
+    // this.equipments = this.equipmentsData
     this.httpService.getAllEquipment()
       .subscribe((response: any) => {
         if (response.status === 200) {
           this.equipments = response.body
-          this.helperService.getEquipmentData(this.equipments);
+          this.hs.setInLocalStorage('equipList', this.equipments);
           console.log(response.body);
         }
       },
@@ -44,6 +54,7 @@ export class CrewEquipmentComponent implements OnInit {
           console.log(error);
         }
       )
+
   };
   openModal() {
     const modalRef = this.modalService.open(EquipmentsModalComponent, {
@@ -55,6 +66,7 @@ export class CrewEquipmentComponent implements OnInit {
       }
       if (response.status === 'add') {
         this.equipments.push(response.data);
+        this.hs.setInLocalStorage('equipList', this.equipments);
         this.table.renderRows();
       }
       if (response.status === 'update') {
@@ -77,7 +89,8 @@ export class CrewEquipmentComponent implements OnInit {
     this.httpService.deleteEquipment(val._id)
       .subscribe((response: any) => {
         if (response.status === 200) {
-          this.equipments.splice(e, 1)
+          this.equipments.splice(e, 1);
+          this.hs.setInLocalStorage('equipList', this.equipments);
           this.table.renderRows();
           this.toastr.success('Removed Successfully')
         }

@@ -34,6 +34,7 @@ export const ApiUrl = {
   UserUrl: urlCreator('/user'),
   sectionUrl: urlCreator('/section'),
   tenderUrl: urlCreator('/tender'),
+  tendersUrl: urlCreator('/tender'),
   lineItems: urlCreator('/item'),  // this is only for testing purposes. Real data to fetch with ID
   equipmentUrl: urlCreator('/equipment'),
   crewTemplateUrl: urlCreator('/crewTemplate'),

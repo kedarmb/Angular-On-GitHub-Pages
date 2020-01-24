@@ -55,7 +55,7 @@ export class TenderModalComponent implements OnInit {
         console.log(this.tData);
         // set quote open date to todays date
         this.tenderOpenMinDate = moment().format();
-        this.allClients = [...this.hs.getOrgList()];
+        this.allClients = [...(JSON.parse(this.hs.getFromLocalStorage('orgList')))];
         if (this.tData.value) {
             // this.dialogRef.componentInstance.data = {numbers: value};
             // this.tData.data.openDate = moment().toISOString(this.tData.data.openDate);

@@ -1,16 +1,19 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { TenderService } from '../../../shared/core/service/tender.service';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { NgProgressComponent, NgProgressRef, NgProgress } from '@ngx-progressbar/core';
+import { MatDialog } from '@angular/material';
+import { CrewModalComponent } from '../../../shared/components/crew-modal/crew-modal.component';
+import { ToastrService } from 'ngx-toastr';
+import { HelperService } from 'app/shared/core/service/helper.service';
+
 
 @Component({
   selector: 'app-tender-item',
   templateUrl: './tender-item.component.html',
   styleUrls: ['./tender-item.component.scss']
 })
-export class TenderItemComponent implements OnInit {
+export class TenderItemComponent implements OnInit, OnChanges {
   @Input() tenderData: any;
   displayedColumns: string[] = ['ItemNo', 'SpecNo', 'ItemName', 'Description',
     'Unit', 'Unit-Price', 'Quantity', 'TotalPrice'];
@@ -21,73 +24,109 @@ export class TenderItemComponent implements OnInit {
   lineItemTotal: any;
   crewList: any[];
   progressRef: NgProgressRef;
+  crewObj = {}
   //
- /*  private ELEMENT_DATA = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' }
-  ]; */
-  // crewCtrl = new FormControl(null, []);
-  constructor(private formBuilder: FormBuilder,
-    private progress: NgProgress, private spinner: NgxSpinnerService,
-    private ts: TenderService, private httpService: HttpService) { }
+  update = {
+    data: '',
+    val: ''
+  };
+  //
+  constructor(private formBuilder: FormBuilder, private modalService: MatDialog,
+    private progress: NgProgress, private httpService: HttpService, private hs: HelperService,
+    private toastr: ToastrService) {
+    //
+  }
 
   ngOnInit() {
     this.progressRef = this.progress.ref('myProgress');
     this.progressRef.start();
-    this.getMasterForm();
-    this.getCrewData()
+    this.getCrews();
+  }
+
+  ngOnChanges() {
+    console.log('ngAfterViewInit ::: tender data in child component ', this.tenderData);
+    this.initMasterForm();
   }
 
   // creating masterform
-  getMasterForm() {
+  initMasterForm() {
     this.masterForm = this.formBuilder.group({
-      items: this.formBuilder.array([])
+      _id: [''],
+      clientName: [''],
+      name: [''],
+      description: [''],
+      openDate: [''],
+      closeDate: [''],
+      quoteStartDate: [''],
+      quoteEndDate: [''],
+      sections: this.formBuilder.array([this.initSectionCtrl()])
     })
+    console.log(this.masterForm);
   }
 
-  // this adds data to html of form group and its array
-  createLineItemForm() {
-    this.tenderData.items.forEach((item, index) => {
-      const lineItemFormArr = this.masterForm.get('items') as FormArray;
-      lineItemFormArr.push(this.ts.createItemCtrl(item));
-      item.subitems.forEach((subItem, subItemIndex) => {
-        const subItemNode: FormArray = (<FormArray>lineItemFormArr.controls[index].get('subitems'))
-        subItemNode.push(this.ts.createSublineItemsCtrls(subItem));
-      })
-
+  initSectionCtrl() {
+    return this.formBuilder.group({
+      name: [''],
+      totalPrice: [''],
+      lineItems: this.formBuilder.array([this.initLineItemCtrl()])
     })
   }
-
-  getEmptySublineItem() {
-    const subIlineItm = this.formBuilder.group({
-      // id: '',
-      name: '',
-      unit: '',
-      unitPrice: '',
-      quantity: '',
-      totalPrice: ''
-    })
-    return subIlineItm
-  }
-  addLineItem() {
-    // adds dummy values to form
-    const lineItm = this.formBuilder.group({
-      itemNo: [''],
+  initLineItemCtrl() {
+    return this.formBuilder.group({
       specNo: [''],
-      itemName: [''],
+      itemNo: [''],
+      name: [''],
       description: [''],
       unit: [''],
       unitPrice: [''],
       quantity: [''],
       totalPrice: [''],
-      subitems: this.formBuilder.array([this.ts.createSublineItemsCtrls(this.getEmptySublineItem())]),
-      crewRef: ['']
-    });
-    const lineItemsArr = this.masterForm.get('items') as FormArray;
-    lineItemsArr.push(lineItm);
-    // console.log(lineItemsArr);
+      subLineItems: this.formBuilder.array([this.initSubLineItemCtrl()]),
+      crewItemRef: [''],
+      trenchRef: ['']
+    })
   }
+  initSubLineItemCtrl() {
+    return this.formBuilder.group({
+      name: [''],
+      unit: [''],
+      quantity: [''],
+      unitPrice: [''],
+      totalPrice: [''],
+      quoteSub: ['']
+
+    })
+  }
+  //
+  __addSection() {
+    const sectionsArr = this.masterForm.get('sections') as FormArray;
+    const newSection = this.initSectionCtrl();
+    sectionsArr.push(newSection);
+  }
+  __addLineItem(sectionRef) {
+    const _lineItem = this.initLineItemCtrl();
+    const lineItemArr = sectionRef.get('lineItems') as FormArray;
+    lineItemArr.push(_lineItem);
+  }
+  __removeLineItem(sectionRef, indx) {
+    const lineItemArr = sectionRef.get('lineItems') as FormArray;
+    if (lineItemArr.length === 1) {
+      this.toastr.warning('At least one line item shoud stay', 'Action denied');
+      return;
+    }
+    lineItemArr.removeAt(indx);
+  }
+
+  __addSubLineItem(lineItemRef) {
+    const _sublineItem = this.initSubLineItemCtrl();
+    const sublineItemArr = lineItemRef.get('subLineItems') as FormArray;
+    sublineItemArr.push(_sublineItem);
+  }
+  __removeSubLineItem(lineItemRef, indx) {
+    const sublineItemArr = lineItemRef.get('subLineItems') as FormArray;
+    sublineItemArr.removeAt(indx);
+  }
+
   // to calculate line items fro form
   calculateLineitem(i) {
     let total: any;
@@ -136,7 +175,7 @@ export class TenderItemComponent implements OnInit {
       return sIVal;
     })
     console.log(l.flat());
-    if (l.length == 0 && K.length == 0) {
+    if (l.length === 0 && K.length === 0) {
       this.lineItemTotal = 0;
     }
     if (l.length !== 0 && K.length !== 0) {
@@ -165,16 +204,6 @@ export class TenderItemComponent implements OnInit {
     this.collapse[index] = !this.collapse[index]
   }
 
-  // adds line item to masterform from html
-  add() {
-    this.addLineItem();
-    console.log(this.masterForm.value)
-  }
-  removeLineItem(i) {
-    const ctrl = this.masterForm.get('items') as FormArray;
-    ctrl.removeAt(i);
-  }
-
   save() {
     if (this.tender._id) {
       /* this.tenderService.update(this.tender).subscribe(() => {
@@ -191,34 +220,39 @@ export class TenderItemComponent implements OnInit {
       console.log(this.masterForm.value);
     }
   }
-
-  addSubLineItem(i) {
-    const ctrl = this.masterForm.get('items')['controls'][i];
-    const subCtrl = ctrl.get('subitems') as FormArray;
-    subCtrl.push(this.getEmptySublineItem());
+  onCrewSelect(evt) {
+    console.log(evt);
+    this.crewObj = evt.value;
   }
-
-  removeSublineItem(i, j) {
-    const ctrl = this.masterForm.get('items')['controls'][i];
-    const subCtrl = ctrl.get('subitems') as FormArray;
-    console.log(ctrl);
-    subCtrl.removeAt(j);
+  addNewCrew(lineItemRef, index) {
+    // console.log(lineItemRef.get('crewItemRef') as FormControl);
+    this.openCrewAddModal(lineItemRef, index);
   }
-
-  delete(item) {
-    this.tender.items = this.tender.items.filter((v) => {
-      if (v.id === item.id) {
-        return false;
-      } else {
-        return true;
+  openCrewAddModal(lineItemRef, i) {
+    const modalRef = this.modalService.open(CrewModalComponent, {
+      height: 'auto',
+      width: '35%',
+      data: this.update,
+      disableClose: true
+    });
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+        console.log(response.data);
       }
-    })
+      if (response.status === 'add') {
+        const crewCtrl = lineItemRef.get('crewItemRef') as FormControl;
+        this.crewObj = response.data;
+        crewCtrl.setValue(response.data);
+        console.log(response);
+      }
+    });
   }
-  getCrewData() {
-    console.log('getCrewData invoked...')
+
+  //
+  getCrews() {
     this.httpService.getAllCrews()
       .subscribe((response: any) => {
-        // console.log(response);
+        console.log(response);
         if (response.status === 200) {
           this.crewList = response.body;
           console.log(this.crewList)

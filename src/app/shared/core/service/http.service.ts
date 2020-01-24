@@ -36,7 +36,7 @@ export class HttpService {
     return this.httpClient.get(ApiUrl.equipmentUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
 
-  public  createLabour(body): Observable<any> {
+  public createLabour(body): Observable<any> {
     return this.httpClient.post(ApiUrl.LabourUrl, body, { headers: this.getHeader(), observe: 'response' });
   }
 
@@ -109,12 +109,16 @@ export class HttpService {
   }
   /** Public method to return the list of Tender Headers */
   public getTenders(): Observable<any> {
-    return this.httpClient.get(ApiUrl.tenderUrl, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.get(ApiUrl.tenderUrl + '/0/0', { headers: this.getHeader(), observe: 'response' });
   }
 
   /** Public method to Fetch single record of Tender */
   public getTenderDetailById(id): Observable<any> {
     return this.httpClient.get(ApiUrl.tenderUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
+  }
+  public fetchSingleTenderById(id): Observable<any> {
+    console.log(ApiUrl.tendersUrl);
+    return this.httpClient.get(ApiUrl.tendersUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
 
   public addNewTender(body): Observable<any> {
@@ -173,4 +177,3 @@ export class HttpService {
     return this.httpClient.get(ApiUrl.trenchUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
 }
-

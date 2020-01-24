@@ -25,16 +25,18 @@ export class CrewLabourComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.getLabourData()
+    // this.getLabourData()
+    this.labour = JSON.parse(this.helperService.getFromLocalStorage('labourList'));
   }
 
   getLabourData() {
     this.httpService.getAllLabour().subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.labour = response.body
+          this.labour = response.body;
+          this.helperService.setInLocalStorage('labourList', this.labour);
           console.log(response.body);
-          this.helperService.getLabourData(this.labour);
+          this.helperService.labourDataForChip(this.labour);
         }
       },
       error => {
@@ -45,11 +47,13 @@ export class CrewLabourComponent implements OnInit {
   };
   addLabour(val) {
     this.update.val = val;
+    console.log('updateLabour', this.update);
     this.openModal();
   }
   updateLabour(val, data) {
-    this.update.val = val
-    this.update.data = data
+    this.update.val = val;
+    this.update.data = data;
+    console.log('updateLabour', this.update);
     this.openModal();
   }
 
@@ -58,6 +62,7 @@ export class CrewLabourComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === 200) {
           this.labour.splice(e, 1)
+          this.helperService.setInLocalStorage('labourList', this.labour);
           this.table.renderRows();
           this.toastr.success('Removed Successfully')
         }
@@ -77,6 +82,7 @@ export class CrewLabourComponent implements OnInit {
       }
       if (response.status === 'add') {
         this.labour.push(response.data);
+        this.helperService.setInLocalStorage('labourList', this.labour);
         this.table.renderRows();
       }
       if (response.status === 'update') {

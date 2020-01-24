@@ -1,312 +1,249 @@
 <ng-progress id="myProgress" [thick]="true" [spinner]="false"></ng-progress>
-<!-- (started)="onStarted()" (completed)="onCompleted()" -->
 
-<div class="table-responsive" *ngIf="tenderData.widget != undefined">
-    <!-- *ngIf="tenderData.items !== null" -->
+<div class="table-responsive">
     <ng-container>
-        <button mat-button (click)="save()">Save</button>
-        <div>
-            <form [formGroup]="masterForm" *ngIf="masterForm">
-                <div formArrayName="items">
-                    <table class="table table-bordered">
-                        <!-- <caption class="section"><textarea type="text" class="form-control watermain"
-                            appAutoAdjust></textarea>
-                    </caption> -->
+        <div *ngIf="masterForm">
+            <form [formGroup]="masterForm">
+                <div formArrayName="sections">
+                    <ng-container *ngFor="let section of masterForm.get('sections').controls; let secindx = index;" [formGroupName]="secindx">
 
-                        <thead class=" text-primary">
-                            <th>
-                                Select
-                            </th>
-                            <th>
-                                Item No
-                            </th>
-                            <th>
-                                Spec No
-                            </th>
-                            <th>
-                                Item Name
-                            </th>
+                        <mat-toolbar>
+                            <span><textarea type="text" class="t-area" formControlName="name" placeholder="section name goes here"></textarea></span>
+                            <span class="toolbar-spacer"></span>
+                            <button mat-icon-button color="warn" matTooltip="delete section">
+                                <mat-icon>remove_circle</mat-icon>
+                            </button>
+                        </mat-toolbar>
+                        <div formArrayName="lineItems">
+                            <table class="table table-bordered">
+                                <thead class=" text-primary">
+                                    <th>
+                                        Item No
+                                    </th>
+                                    <th>
+                                        Spec No
+                                    </th>
+                                    <th>
+                                        Item Name
+                                    </th>
 
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Unit
-                            </th>
-                            <th>
-                                Quantity
-                            </th>
-                            <th>
-                                Unit Price
-                            </th>
-                            <th>
-                                Total Price
-                            </th>
-                            <th>
-                                Actions
-                            </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Unit
+                                    </th>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th>
+                                        Unit Price
+                                    </th>
+                                    <th>
+                                        Total Price
+                                    </th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let lineItem of section.get('lineItems').controls; let lindx = index; let last = last" [formGroupName]="lindx">
+                                        <tr>
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="itemNo"></textarea>
+                                            </td>
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="specNo"></textarea>
+                                            </td>
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="name"></textarea>
+                                            </td>
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="description"></textarea>
+                                            </td>
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="unit"></textarea>
+                                            </td>
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
+                                            </td>
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="quantity"></textarea>
+                                            </td>
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="totalPrice" [readonly]="true"></textarea>
+                                            </td>
+                                            <td class="td-actions width-15">
+                                                <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">remove_red_eye</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="save line item" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">save</i>
+                                                </button>
+                                                <button mat-raised-button type="button" (click)="__removeLineItem(section, lindx)" matTooltip="remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="expand" (click)="toggleCollapse(lindx)" [matTooltipPosition]="'above'" *ngIf="!collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">expand_more</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="less" (click)="toggleCollapse(lindx)" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">expand_less</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="add line item" [matTooltipPosition]="'above'" (click)="__addLineItem(section)" *ngIf="last" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">add_box</i>
+                                                </button>
+                                            </td>
+                                        </tr>
 
-                        </thead>
+                                        <tr [ngbCollapse]="!collapse[lindx]">
+                                            <td colspan="11" class="collapse-body">
+                                                <ng-container>
+                                                    <mat-accordion>
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Subline Items
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
+                                                            <div for="subline_items_part">
+                                                                <table class="table table-condensed">
+                                                                    <thead>
+                                                                        <th>Name</th>
+                                                                        <th>Unit</th>
+                                                                        <th>Unit Price</th>
+                                                                        <th>Quantity</th>
+                                                                        <th>Total Price</th>
+                                                                        <th>
+                                                                            <a data-toggle="tab" (click)="__addSubLineItem(lineItem)">
+                                                                                <i class="material-icons">add</i>
+                                                                            </a>
+                                                                        </th>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <ng-container formArrayName="subLineItems">
+                                                                            <tr *ngFor="let sItem of lineItem.get('subLineItems').controls; let slindx = index" [formGroupName]="slindx">
+                                                                                <td>
+                                                                                    <textarea type="text" class="form-control" formControlName="name"></textarea>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <textarea type="text" class="form-control" formControlName="unit"></textarea>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <textarea type="text" class="form-control" formControlName="quantity"></textarea>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <textarea type="text" class="form-control" formControlName="totalPrice"></textarea>
+                                                                                </td>
+                                                                                <td class="td-actions width-10">
+                                                                                    <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)">
+                                                                                        <i class="material-icons">close</i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td>Sub Total</td>
+                                                                                <td>####</td>
+                                                                            </tr>
+                                                                        </ng-container>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </mat-expansion-panel>
 
-                        <tbody>
-                            <ng-container *ngFor="let item of masterForm.get('items').controls; let i = index" [formGroupName]="i">
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Crew
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
 
-                                <tr>
-                                    <td class="width-2 text-center">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="" checked>
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </td>
+                                                            <div for="crew_details_form">
+                                                                <mat-grid-list cols="4" rowHeight="2em" rowHeight="2em">
+                                                                    <mat-grid-tile colspan="1" rowspan="1">
+                                                                        <mat-form-field>
+                                                                            <mat-label>select crew..</mat-label>
 
-                                    <td class="width-2">
-                                        <textarea type="text" class="form-control" formControlName="itemNo">
-                                        </textarea>
-                                    </td>
-                                    <td class="width-10">
-                                        <textarea type="text" class="form-control" formControlName="specNo">
-                                        </textarea></td>
-                                    <td class="width-20">
-                                        <textarea type="text" class="form-control" formControlName="itemName">
-                                        </textarea>
-                                    </td>
-                                    <td class="width-25">
-                                        <textarea type="text" class="form-control" formControlName="description">
-                                        </textarea>
-                                    </td>
-                                    <td class="width-2">
-                                        <textarea type="text" class="form-control" formControlName="unit">
-                                        </textarea>
-                                    </td>
-                                    <td class="width-5">
-                                        <textarea type="text" class="form-control" (keyup)="calculateLineitem(i); allLineItemCost(i)" formControlName="quantity">
-                                    </textarea>
-                                    </td>
-                                    <td class="width-5">
-                                        <textarea type="text" class="form-control" (keyup)="calculateLineitem(i); allLineItemCost(i)" formControlName="unitPrice">
-                                    </textarea>
-                                    </td>
-                                    <td class="width-5">
-                                        <textarea type="text" class="form-control" [readonly]="true" formControlName="totalPrice">
-                                    </textarea>
-                                    </td>
+                                                                            <mat-select formControlName="crewItemRef" (selectionChange)="onCrewSelect($event)">
+                                                                                <mat-option>--</mat-option>
+                                                                                <div *ngIf="crewList">
+                                                                                    <mat-option *ngFor="let crew of crewList" [value]="crew">
+                                                                                        {{crew.name}}
+                                                                                    </mat-option>
+                                                                                </div>
+                                                                            </mat-select>
+                                                                        </mat-form-field>
+                                                                    </mat-grid-tile>
+                                                                    <mat-grid-tile colspan="3" rowspan="1">
+                                                                        <button mat-raised-button color="primary" (click)="addNewCrew(lineItem, lindx)">Create New Crew</button>
+                                                                    </mat-grid-tile>
+                                                                </mat-grid-list>
 
-                                    <td class="td-actions width-15">
-                                        <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">remove_red_eye</i>
-                                        </button>
-                                        <button mat-raised-button type="button" (click)="removeLineItem(); allLineItemCost(i)" matTooltip="remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                        <button mat-raised-button type="button" matTooltip="expand" (click)="toggleCollapse(i)" [matTooltipPosition]="'above'" *ngIf="!collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">expand_more</i>
-                                        </button>
-                                        <button mat-raised-button type="button" matTooltip="less" (click)="toggleCollapse(i)" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                            <i class="material-icons">expand_less</i>
-                                        </button>
-                                    </td>
-                                </tr>
-
-                                <tr [ngbCollapse]="!collapse[i]">
-                                    <td colspan="11" class="collapse-body">
-                                        <ng-container>
-                                            <mat-accordion>
-                                                <mat-expansion-panel>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            Subline Items
-                                                        </mat-panel-title>
-                                                    </mat-expansion-panel-header>
-                                                    <div for="subline_items_form">
-                                                        <table class="table table-condensed">
-                                                            <thead>
-                                                                <th>Name</th>
-                                                                <th>Unit</th>
-                                                                <th>Unit Price</th>
-                                                                <th>Quantity</th>
-                                                                <th>Total Price</th>
-                                                                <th>
-                                                                    <a data-toggle="tab" (click)="addSubLineItem(i)">
-                                                                        <i class="material-icons">add</i>
-                                                                    </a>
-                                                                </th>
-                                                            </thead>
-
-                                                            <tbody>
-                                                                <ng-container formArrayName="subitems">
-                                                                    <tr *ngFor="let sItem of item.get('subitems').controls; let j = index;" [formGroupName]="j">
-
-                                                                        <td>
-                                                                            <textarea type="text" class="form-control" formControlName="name">
-                                                                                                                                </textarea>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea type="text" class="form-control" formControlName="unit">
-                                                                                                                                    </textarea>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea type="text" class="form-control" formControlName="unitPrice" (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)">
-                                                                                                                                </textarea>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)">
-                                                                                                                                </textarea>
-                                                                        </td>
-                                                                        <td>
-                                                                            <textarea type="text" class="form-control" formControlName="totalPrice" [readonly]="true">
-                                                                                                                                </textarea>
-                                                                        </td>
-                                                                        <td class="td-actions width-10">
-                                                                            <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="removeSublineItem(i,j);  allLineItemCost(i)">
-
-                                                                                <i class="material-icons">close</i>
-                                                                            </button>
-
-                                                                        </td>
-
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td>Sub Total</td>
-                                                                        <td>####</td>
-                                                                    </tr>
-
-                                                                </ng-container>
-                                                            </tbody>
-
-                                                        </table>
-                                                    </div>
-                                                </mat-expansion-panel>
-
-                                                <mat-expansion-panel>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            Crew
-                                                        </mat-panel-title>
-                                                    </mat-expansion-panel-header>
-                                                    <div for="crew_details_form">
-                                                        <mat-grid-list cols="4" rowHeight="2em" rowHeight="2em">
-                                                            <mat-grid-tile colspan="1" rowspan="1">
-                                                                <mat-form-field>
-                                                                    <mat-label>select crew..</mat-label>
-                                                                    <mat-select formControlName="crewRef">
-                                                                        <mat-option>--</mat-option>
-                                                                        <div *ngIf="crewList">
-                                                                            <mat-option *ngFor="let crew of crewList" [value]="crew">
-                                                                                {{crew.name}}
-                                                                            </mat-option>
+                                                                <div>
+                                                                    <div>
+                                                                        <div class="row">
+                                                                            <div class="col-6" *ngFor="let item of crewObj.labours">
+                                                                                <mat-card>
+                                                                                    <ul>
+                                                                                        <li> Labour : <span style="font-weight: bold;">{{hs.findLabourObj(item).name}}</span></li>
+                                                                                        <li> Hourly Cost: <span style="font-weight: bold;">{{hs.findLabourObj(item).hourlyRate}}</span></li>
+                                                                                        <li> Required Hrs
+                                                                                            <input placeholder="key in" type="text">
+                                                                                        </li>
+                                                                                        <li> Total Cost </li>
+                                                                                    </ul>
+                                                                                </mat-card>
+                                                                            </div>
+                                                                            <div class="col-6" *ngFor="let item of crewObj.equipments">
+                                                                                <mat-card>
+                                                                                    <ul>
+                                                                                        <li> Equipment : <span style="font-weight: bold;">{{hs.findEqipObj(item).name}}</span></li>
+                                                                                        <li> Hourly Cost: <span style="font-weight: bold;">{{hs.findEqipObj(item).hourlyRate}}</span></li>
+                                                                                        <li> Required Hrs
+                                                                                            <input placeholder="key in" type="text">
+                                                                                        </li>
+                                                                                        <li> Total Cost </li>
+                                                                                    </ul>
+                                                                                </mat-card>
+                                                                            </div>
                                                                         </div>
-                                                                    </mat-select>
-                                                                </mat-form-field>
-                                                            </mat-grid-tile>
-                                                            <mat-grid-tile colspan="3" rowspan="1">
-                                                                <button mat-raised-button color="primary">Create New
-                                                                    Crew</button>
-                                                            </mat-grid-tile>
-                                                        </mat-grid-list>
+                                                                    </div>
 
-                                                        <div>
-                                                            <div>
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        <mat-card>
-                                                                            <ul>
-                                                                                <li> Labour Name </li>
-                                                                                <li> Labour Hourly Cost:</li>
-                                                                                <li> Required Hrs
-                                                                                    <input placeholder="key in" type="text">
-                                                                                </li>
-                                                                                <li> Total Cost </li>
-                                                                            </ul>
-                                                                        </mat-card>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <mat-card>
-                                                                            <ul>
-                                                                                <li> Equipment Name</li>
-                                                                                <li> Equipment Hourly Cost:</li>
-                                                                                <li> Required Hrs
-                                                                                    <input placeholder="key in" type="text">
-                                                                                </li>
-                                                                                <li> Total Cost </li>
-                                                                            </ul>
-                                                                        </mat-card>
-                                                                    </div>
-                                                                    <hr>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        <mat-card>
-                                                                            <ul>
-                                                                                <li> Labour Name</li>
-                                                                                <li> Labour Hourly Cost:</li>
-                                                                                <li> Required Hrs
-                                                                                    <!-- <mat-form-field> -->
-                                                                                        <input placeholder="key in" type="text">
-                                                                                    <!-- </mat-form-field> -->
-                                                                                </li>
-                                                                                <li> Total Cost</li>
-                                                                            </ul>
-                                                                        </mat-card>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <mat-card>
-                                                                            <ul>
-                                                                                <li> Equipment Name</li>
-                                                                                <li> Equipment Hourly Cost:</li>
-                                                                                <li> Required Hrs
-                                                                                    <input placeholder="key in" type="text">
-                                                                                </li>
-                                                                                <li> Total Cost </li>
-                                                                            </ul>
-                                                                        </mat-card>
-                                                                    </div>
-                                                                    <hr>
                                                                 </div>
                                                             </div>
 
-                                                        </div>
-                                                    </div>
-                                                </mat-expansion-panel>
+                                                        </mat-expansion-panel>
 
-                                                <mat-expansion-panel>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            Trench
-                                                        </mat-panel-title>
-                                                    </mat-expansion-panel-header>
-                                                    <div for="trench_details_form">Content goes here</div>
-                                                </mat-expansion-panel>
-                                            </mat-accordion>
-                                        </ng-container>
-                                    </td>
-                                </tr>
-
-                            </ng-container>
-                            <tr>
-                                <td colspan="10" class="text-right">Line Items Total</td>
-                                <td colspan="2" class="text-left">{{lineItemTotal}}</td>
-                            </tr>
-                        </tbody>
-                        <div>
+                                                        <mat-expansion-panel>
+                                                            <mat-expansion-panel-header>
+                                                                <mat-panel-title>
+                                                                    Trench
+                                                                </mat-panel-title>
+                                                            </mat-expansion-panel-header>
+                                                            <div for="trench_details_form">Content goes here</div>
+                                                        </mat-expansion-panel>
+                                                    </mat-accordion>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
                         </div>
-                    </table>
+                    </ng-container>
+
                 </div>
             </form>
         </div>
     </ng-container>
 
-    <ng-container *ngIf="tenderData.widget.length != 0">
-        <button (click)="add()">add line Item</button>
+    <ng-container>
+
     </ng-container>
 
-</div>
-<div *ngIf="!tenderData.widget">
-    Please select a section to view data...
 </div>

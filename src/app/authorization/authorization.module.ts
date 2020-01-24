@@ -4,7 +4,17 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule , MatCardModule,MatToolbarModule} from '@angular/material';
+import {
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatToolbarModule
+} from '@angular/material';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -17,7 +27,7 @@ import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, M
         ReactiveFormsModule,
         CommonModule,
         AuthorizationRoutingModule,
-                MatButtonModule,
+        MatButtonModule,
         MatRippleModule,
         MatFormFieldModule,
         MatInputModule,
@@ -25,6 +35,7 @@ import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, M
         MatTooltipModule,
         MatCardModule,
         MatToolbarModule,
+        NgxSpinnerModule
     ],
     exports: [],
     providers: [],

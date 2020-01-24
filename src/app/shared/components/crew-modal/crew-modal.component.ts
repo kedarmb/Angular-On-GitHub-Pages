@@ -1,7 +1,7 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import {CrewItemService} from '../../core/service/crew-item.service';
-import {CrewItem} from '../../core/model/crew-item.model';
+import { CrewItemService } from '../../core/service/crew-item.service';
+import { CrewItem } from '../../core/model/crew-item.model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HelperService } from '../../core/service/helper.service';
 import { regex, errorMsg } from '../../core/constant/index';
@@ -35,11 +35,17 @@ export class CrewModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private hs: HelperService,
     private httpService: HttpService,
-    private spinner:NgxSpinnerService,
+    private spinner: NgxSpinnerService,
     private dialogRef: MatDialogRef<any>,
     private toastr: ToastrService,
     private crewItemService: CrewItemService) {
-    this.hs.equipmentData.subscribe((response) => {
+
+      console.log('crew modal constructor');
+
+    this.equipmentsData = JSON.parse(this.hs.getFromLocalStorage('equipList'));
+    this.laboursData = JSON.parse(this.hs.getFromLocalStorage('labourList'));
+
+    /* this.hs.equipmentData.subscribe((response) => {
       this.spinner.show();
       this.equipmentsData = response
       console.log(response)
@@ -54,11 +60,12 @@ export class CrewModalComponent implements OnInit {
       this.spinner.hide();
     }, error => {
       this.spinner.hide();
-    })
-     }
+    }) */
+  }
 
   ngOnInit() {
     this.crewForm();
+    console.log('data in crew modal:  ', this.data);
     if (this.data.val === true) {
       const newVal = Object.assign({}, this.data.data)
       delete newVal.__V
@@ -69,13 +76,13 @@ export class CrewModalComponent implements OnInit {
 
   }
   crewForm() {
-      this.createCrewForm = this.formBuilder.group({
-        _id: [''],
-        name: ['', [Validators.required]],
-        description: ['', [Validators.required]],
-        equipments: [],
-        labours: []
-      });
+    this.createCrewForm = this.formBuilder.group({
+      _id: [''],
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      equipments: [],
+      labours: []
+    });
   }
 
   close() {
@@ -84,8 +91,8 @@ export class CrewModalComponent implements OnInit {
   }
 
   save() {
-    console.log(this.createCrewForm.get('equipments').value);
-    console.log(this.createCrewForm.get('labours').value);
+    // console.log(this.createCrewForm.get('equipments').value);
+    // console.log(this.createCrewForm.get('labours').value);
     const finalVal = this.createCrewForm.value
     delete finalVal._id;
     delete finalVal.updateDate;

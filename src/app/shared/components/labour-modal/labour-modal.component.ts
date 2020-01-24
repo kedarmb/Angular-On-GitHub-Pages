@@ -38,10 +38,10 @@ export class LabourModalComponent implements OnInit {
     this.createLabourForm();
     if (this.data.val === true) {
       const newVal = Object.assign({}, this.data.data)
-      delete newVal.__V
-      delete newVal.createDate
-      delete newVal.updateDate
-      this.labourForm.setValue(newVal)
+      delete newVal.__v;
+      delete newVal.createDate;
+      delete newVal.updateDate;
+      this.labourForm.patchValue(newVal);
     }
   }
 
@@ -50,7 +50,8 @@ export class LabourModalComponent implements OnInit {
       _id: [''],
       name: ['', [Validators.required,
       this.helperService.customPatternValid({ pattern: regex.nameReg, msg: String(errorMsg.requiredField) })]],
-      hourlyRate: ['', [Validators.required, this.helperService.customPatternValid({ msg: String(errorMsg.requiredField) })]],
+      hourlyRate: ['', [Validators.required]],
+      // ,      this.helperService.customPatternValid({ msg: String(errorMsg.requiredField) })]
       description: ['', [Validators.required]],
     });
   }
