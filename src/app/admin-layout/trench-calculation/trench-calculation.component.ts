@@ -1,3 +1,4 @@
+import { TrenchModalComponent } from './../../shared/components/trench-modal/trench-modal.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatDialog } from '@angular/material';
 import { HttpService } from 'app/shared/core/service/http.service';
