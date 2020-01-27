@@ -1,4 +1,4 @@
-import { TenderCompairComponent } from './tender-compair/tender-compair.component';
+import { TenderCompareComponent } from './tender/tender-compare/tender-compare.component';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -8,7 +8,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 // import { UpgradeComponent } from '../upgrade/upgrade.component';
 import { TenderComponent } from './tender/tender.component';
 import { TenderitemComponent } from './tenderitem/tenderitem.component';
-import { ViewTenderComponent } from './view-tender/view-tender.component';
+import { ViewTenderComponent } from './tender/tender-quote/view-tender.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { CrewComponent } from './crew/crew.component';
@@ -40,7 +40,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user', component: UserComponent },
     { path: 'fullcalender', component: FullcalenderComponent },
     { path: 'calculation', component: TrenchCalculationComponent },
-    { path: 'compair', component: TenderCompairComponent }
+    { path: 'compair', component: TenderCompareComponent }
     // { path: 'upgrade', component: UpgradeComponent },
     // { path: 'typography', component: TypographyComponent },
     // { path: 'icons', component: IconsComponent },

@@ -81,7 +81,7 @@
                                                     <i class="material-icons">save</i>
                                                 </button>
                                                 <button mat-raised-button type="button" (click)="__removeLineItem(section, lindx)" matTooltip="remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">close</i>
+                                                    <i class="material-icons">minimize</i>
                                                 </button>
                                                 <button mat-raised-button type="button" matTooltip="expand" (click)="toggleCollapse(lindx)" [matTooltipPosition]="'above'" *ngIf="!collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">expand_more</i>
@@ -114,9 +114,9 @@
                                                                         <th>Quantity</th>
                                                                         <th>Total Price</th>
                                                                         <th>
-                                                                            <a data-toggle="tab" (click)="__addSubLineItem(lineItem)">
-                                                                                <i class="material-icons">add</i>
-                                                                            </a>
+                                                                            <button mat-raised-button type="button" matTooltip="add sub-line item" [matTooltipPosition]="'above'" (click)="__addSubLineItem(lineItem)" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                                                <i class="material-icons">add_box</i>
+                                                                            </button>
                                                                         </th>
                                                                     </thead>
                                                                     <tbody>
@@ -138,8 +138,11 @@
                                                                                     <textarea type="text" class="form-control" formControlName="totalPrice"></textarea>
                                                                                 </td>
                                                                                 <td class="td-actions width-10">
-                                                                                    <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)">
-                                                                                        <i class="material-icons">close</i>
+                                                                                    <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)" matTooltip="remove sub-line item">
+                                                                                        <i class="material-icons">minimize</i>
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-primary btn-link btn-sm btn-just-icon" matTooltip="save sub-line item">
+                                                                                        <i class="material-icons">save</i>
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>

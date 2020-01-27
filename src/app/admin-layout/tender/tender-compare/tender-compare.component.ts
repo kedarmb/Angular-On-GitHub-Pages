@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-tender-compair',
-  templateUrl: './tender-compair.component.html',
-  styleUrls: ['./tender-compair.component.scss'],
+  selector: 'app-tender-compare',
+  templateUrl: './tender-compare.component.html',
+  styleUrls: ['./tender-compare.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TenderCompairComponent implements OnInit {
+export class TenderCompareComponent implements OnInit {
   tender = {
     'name': 'tender Pipe line laying',
     'clientRef': '',

@@ -36,7 +36,7 @@ import {
 
 import { TenderComponent } from './tender/tender.component';
 import { TenderitemComponent } from './tenderitem/tenderitem.component';
-import { ViewTenderComponent } from './view-tender/view-tender.component';
+import { ViewTenderComponent } from './tender/tender-quote/view-tender.component';
 import { EditInputComponent } from './edit-input/edit-input.component';
 import { OrganizationComponent } from './organization/organization.component';
 
@@ -65,8 +65,8 @@ import { MatTableModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { TrenchCalculationComponent } from './trench-calculation/trench-calculation.component';
 // import { NgxTagsInputModule } from 'ngx-tags-input';
-import { TenderItemComponent } from './view-tender/tender-item/tender-item.component';
-import { TenderCompairComponent } from './tender-compair/tender-compair.component';
+import { TenderItemComponent } from './tender/tender-quote/tender-item/tender-item.component';
+import { TenderCompareComponent } from './tender/tender-compare/tender-compare.component';
 import {ContextMenuModule} from 'ngx-contextmenu';
 import {DndModule} from 'ngx-drag-drop';
 
@@ -134,7 +134,7 @@ import {DndModule} from 'ngx-drag-drop';
     CrewLabourComponent,
     TenderItemComponent,
     TrenchCalculationComponent,
-    TenderCompairComponent,
+    TenderCompareComponent,
   ]
 })
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TenderCompairComponent } from './tender-compair.component';
+import { TenderCompareComponent } from './tender-compare.component';
 
-describe('TenderCompairComponent', () => {
-  let component: TenderCompairComponent;
-  let fixture: ComponentFixture<TenderCompairComponent>;
+describe('TenderCompareComponent', () => {
+  let component: TenderCompareComponent;
+  let fixture: ComponentFixture<TenderCompareComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TenderCompairComponent ]
+      declarations: [ TenderCompareComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TenderCompairComponent);
+    fixture = TestBed.createComponent(TenderCompareComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

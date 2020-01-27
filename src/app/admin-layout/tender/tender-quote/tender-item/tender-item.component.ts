@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { HttpService } from 'app/shared/core/service/http.service';
+import { HttpService } from '../../../../shared/core/service/http.service';
 import { NgProgressComponent, NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 import { MatDialog } from '@angular/material';
-import { CrewModalComponent } from '../../../shared/components/crew-modal/crew-modal.component';
+import { CrewModalComponent } from '../../../../shared/components/crew-modal/crew-modal.component';
 import { ToastrService } from 'ngx-toastr';
-import { HelperService } from 'app/shared/core/service/helper.service';
+import { HelperService } from '../../../../shared/core/service/helper.service';
 
 
 @Component({
@@ -94,7 +94,6 @@ export class TenderItemComponent implements OnInit, OnChanges {
       unitPrice: [''],
       totalPrice: [''],
       quoteSub: ['']
-
     })
   }
   //

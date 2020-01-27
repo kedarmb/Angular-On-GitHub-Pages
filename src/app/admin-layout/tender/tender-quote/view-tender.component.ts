@@ -1,24 +1,24 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subject, merge, ReplaySubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, tap, takeUntil, take } from 'rxjs/operators';
-import { CrewService } from '../../shared/core/service/crew.service';
+import { CrewService } from '../../../shared/core/service/crew.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 // import { Tender } from '../../shared/core/model/tender.model';
-import { TenderItem } from '../../shared/core/model/tender-item.model';
+import { TenderItem } from '../../../shared/core/model/tender-item.model';
 import * as uuid from 'uuid';
 import { CrewModalComponent } from 'app/shared/components/crew-modal/crew-modal.component';
 import { NotifySubcontractorComponent } from 'app/shared/components/notify-subcontractor/notify-subcontractor.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { isArray } from 'util';
-import { HttpService } from '../../shared/core/service/http.service';
+import { HttpService } from '../../../shared/core/service/http.service';
 import { MatSelect } from '@angular/material';
 //
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import _ from 'lodash';
-import { SectionModalComponent } from '../../shared/components/section-modal/section-modal.component';
+import { SectionModalComponent } from '../../../shared/components/section-modal/section-modal.component';
 import { TenderItemComponent } from './tender-item/tender-item.component'
 @Component({
     selector: 'app-view-tender',
