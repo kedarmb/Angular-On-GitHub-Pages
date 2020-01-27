@@ -7,7 +7,6 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="col-6">
       <div class="mat-title"> Bedding Volume Calculation</div>
@@ -26,13 +25,13 @@
         </div>
         <div class="col-6">
           <mat-form-field>
-            <input matInput formControlName="beddingHeight" (keyup)="beddingVolCalc()" placeholder="Bedding Height"
+            <input matInput formControlName="beddingHeight" placeholder="Bedding Height"
               type="text">
           </mat-form-field>
         </div>
         <div class="col-6">
           <mat-form-field>
-            <input matInput formControlName="densityBedding" (keyup)="beddingWeightCalc()" placeholder="Density Bedding"
+            <input matInput formControlName="densityBedding" placeholder="Density Bedding"
               type="text">
           </mat-form-field>
         </div>
@@ -45,27 +44,27 @@
 
         <div class="col-6">
           <mat-form-field>
-            <input matInput formControlName="backfillLength" (keyup)="backfillVolCalc()" placeholder="Backfill Length"
+            <input matInput formControlName="backfillLength" placeholder="Backfill Length"
               type="text">
           </mat-form-field>
 
         </div>
         <div class="col-6">
           <mat-form-field>
-            <input matInput formControlName="backfillWidth" (keyup)="backfillVolCalc()" placeholder="Backfill Width"
+            <input matInput formControlName="backfillWidth" placeholder="Backfill Width"
               type="text">
           </mat-form-field>
 
         </div>
         <div class="col-6">
           <mat-form-field>
-            <input matInput formControlName="backfillHeight" (keyup)="backfillVolCalc()" placeholder="Backfill Height"
+            <input matInput formControlName="backfillHeight" placeholder="Backfill Height"
               type="text">
           </mat-form-field>
         </div>
         <div class="col-6">
           <mat-form-field>
-            <input matInput formControlName="backfillDensity" (keyup)="backfillWeightCalc()"
+            <input matInput formControlName="backfillDensity"
               placeholder="Backfill Density" type="text">
           </mat-form-field>
         </div>
@@ -83,10 +82,10 @@
     <div class="col-4">
       <div class="mat-title"> Pipe Volume Calculation</div>
       <mat-form-field>
-        <input matInput formControlName="pipeHeight" (keyup)="pipeVolumeCalc()" placeholder="Pipe height" type="text">
+        <input matInput formControlName="pipeHeight" placeholder="Pipe height" type="text">
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="pipeDiameter" (keyup)="pipeVolumeCalc()" placeholder="Pipe Diameter"
+        <input matInput formControlName="pipeDiameter" placeholder="Pipe Diameter"
           type="text">
       </mat-form-field>
     </div>
@@ -106,15 +105,14 @@
         </div>
         <div class="col-6">
           <p><label>Effective Volume: </label>{{this.trenchForm.value.effectiveVolume || 0}}</p>
+          
         </div>
       </div>
     </div>
   </div>
   <h3 class="mat-title"> Final Calculations</h3>
-
-  <button mat-raised-button type="button" [disabled]="!trenchForm.valid" (click)="save()"  color="primary">Save</button>
-  <button mat-raised-button type="button" [disabled]="!trenchForm.valid" 
-    color="primary">Update</button>
-    <button mat-raised-button type="button" color="primary">Cancel</button>
-  <!-- </div> -->
+  <button mat-raised-button type="button" color="primary" (click)="calculate()">Calculate</button>
+  <button mat-raised-button type="button" (click)="save()" [disabled]="!trenchForm.valid" color="primary">Save</button>
+  <button mat-raised-button type="button" (click)="updateTrenchCalculation()" [disabled]="!trenchForm.valid" color="primary">Update</button>
+  <button mat-raised-button type="button" color="primary" (click)="close()">Cancel</button>
 </form>

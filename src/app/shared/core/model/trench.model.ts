@@ -14,7 +14,9 @@ export class Trench {
     backfillHeight:  string;
     backfillVolume:  string;
     backfillDensity: string;
-    backfullWeight: string;
+    backfillWeight: string;
+    // lengthUnit: string;
+    // weightUnit: string;
 }
     // height: string;
     // width: string;

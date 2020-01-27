@@ -9,13 +9,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./trench-calculation.component.scss']
 })
 export class TrenchCalculationComponent implements OnInit {
+
   displayedColumns: string[] = ['Name', 'Bedding Length', 'Bedding Width', 'Bedding Height', 'Bedding Volume', 'Pipe Diameter',
                                 'Pipe Volume', 'Effective Volume', 'Density Bedding', 'Bedding Weight', 'Backfill Length',
                                 'Backfill Weight', 'Actions']
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
   trenchCal;
-
+  valueChange: any;
+  data: any = [];
   update = {
     data: '',
     val: ''
@@ -34,16 +36,41 @@ export class TrenchCalculationComponent implements OnInit {
           this.trenchCal = response.body;
         }
       }, error => {
-        console.log('44:', error);
+        console.log('error:', error);
       });
   }
-
-  addTrench(val) {
-    this.update.val = val
+  openModal() {
+    const modalRef = this.modalService.open(TrenchModalComponent, {
+      data: this.update, disableClose: true
+    });
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+        console.log(response.data);
+      }
+      if (response.status === 'add') {
+        console.log(response);
+        this.trenchCal.push(response.data);
+        this.table.renderRows();
+      }
+      if (response.status === 'update') {
+        console.log(response.data);
+        this.getTrench()
+        this.table.renderRows();
+      }
+    });
   }
+
+  renderModal() {
+    this.getTrench()
+    this.table.renderRows();
+    console.log('rendered table');
+
+  }
+
   updateTrench(val, data) {
     this.update.val = val
     this.update.data = data
+    this.openModal();
   }
   removeTrench(val, e) {
     this.httpService.deleteTrenchUrl(val._id)

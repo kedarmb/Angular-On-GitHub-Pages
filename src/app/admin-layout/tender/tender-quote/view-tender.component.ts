@@ -94,7 +94,8 @@ export class ViewTenderComponent implements OnInit {
     notify() {
         //
         const dialogRef = this.dialog.open(NotifySubcontractorComponent, {
-            width: '350px'/* ,
+            height: '50%',
+            width: '850px'/* ,
             data: { name: this.name, animal: this.animal } */
         });
         //

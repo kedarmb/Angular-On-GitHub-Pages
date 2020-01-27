@@ -166,7 +166,7 @@ export class HttpService {
   public createTrenchUrl(body): Observable<any> {
     return this.httpClient.post(ApiUrl.trenchUrl + '/', body, { headers: this.getHeader(), observe: 'response' });
   }
-  public updateTrenchUrl(body, id): Observable<any> {
+  public updateTrench(body, id): Observable<any> {
     return this.httpClient.put(ApiUrl.trenchUrl + '/' + id, body, { headers: this.getHeader(), observe: 'response' });
   }
   public getAllTrenches(): Observable<any> {

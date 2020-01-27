@@ -8,6 +8,6 @@ export default class Organization {
     serviceArea: string;
     province: string;
     country: string;
-    type: number;
+    orgType: string;
     city: string;
 }

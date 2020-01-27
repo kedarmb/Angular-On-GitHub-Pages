@@ -1,9 +1,7 @@
 <div class="main-content">
+
 <mat-tab-group>
         <mat-tab>
-            <!-- <mat-toolbar color="primary">
-                <button mat-raised-button (click)="addTrench(false)"><i class="material-icons">add</i>Add</button>
-            </mat-toolbar> -->
             <ng-template mat-tab-label>Trench Calculation</ng-template>
             <table class="mat_tab" mat-table [dataSource]="trenchCal" class="mat-elevation-z8">
                 <ng-container matColumnDef="Name">
@@ -73,13 +71,12 @@
                 <ng-container matColumnDef="Actions">
                     <th mat-header-cell *matHeaderCellDef>Actions</th>
                     <td mat-cell *matCellDef="let element, let i=index">
-            
+
                         <i (click)="updateTrench(true, element)" [matTooltipPosition]="'above'" class="material-icons"
                             [ngStyle]="{'color':'blue'}" matTooltip="edit">edit</i>
             
                         <i (click)="removeTrench(element, i)" [matTooltipPosition]="'above'" class="material-icons"
                             [ngStyle]="{'color':'red'}" matTooltip="Remove">close</i>
-            
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -87,7 +84,8 @@
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>Trench Calculator</ng-template>
-            <app-trench-modal></app-trench-modal>
+            <!-- <app-trench-modal (trenchData)="renderModal()"></app-trench-modal> -->
+            <app-trench-modal (trenchData)="renderModal()"></app-trench-modal>
         </mat-tab>
 </mat-tab-group>
 </div>
