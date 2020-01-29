@@ -1,8 +1,16 @@
 
 <div class="main-content">
-<div class="col-md-4 offset-4">
+        <mat-grid-list cols = "3" rowHeight = "">
+                <mat-grid-tile 
+                [colspan] = "1"
+                [rowspan] = "1">
+                </mat-grid-tile>
+                <mat-grid-tile 
+                [colspan] = "1"
+                [rowspan] = "1">
+<!-- <div class="col-md-4 offset-4"> -->
 
-<mat-card class="example-card">
+<mat-card>
     <mat-toolbar color="primary">
   <div class="mat-subheading">Sign Up</div> 
  </mat-toolbar>
@@ -57,15 +65,60 @@
                     
                 </select>
             </mat-form-field>
-
-                    <p>Already have an Account?<a class="marg" routerLink="/login">LOGIN</a></p>
-            
+           
+                   <p>Already have an Account?<a class="mr-l" routerLink="/login">LOGIN</a></p>
+          
         
-            <button mat-raised-button type="submit" [disabled]="!registrationForm.valid" class=" pull-right" color="primary">Create Profile</button>
-            <div class="clearfix"></div>
+            <button mat-raised-button type="submit" [disabled]="!registrationForm.valid"  color="primary">Create Profile</button> 
+           
+            <div  fxLayout="row" fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="flex-start">
+                   
+                <p>Already have an Account?<a class="mr-l" routerLink="/login">LOGIN</a></p>
+            </div>
+            <div  fxLayout="row" fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="flex-end">
+                  
+                    <button mat-raised-button type="submit" [disabled]="!registrationForm.valid"  color="primary">Create Profile</button>
+         
+       
+    </div>
         </form>
+     
     </mat-card-content>
     
     </mat-card>
+</mat-grid-tile>
+               
+</mat-grid-list>
+<!-- </div> -->
 </div>
-</div>
+ <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+ <!-- <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="40px" fxLayoutAlign="center">
+        <div fxFlex="0%">
+          <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg">
+        </div>
+        <div fxFlex="0%">
+          <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/LTLE4QGRVQ.jpg">
+        </div>
+        <div fxFlex fxFlexOffset="100px"  fxFlexOffset.xs="0">
+          <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R926LU1YEA.jpg">
+        </div>
+        <div fxFlex="0%">
+          <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/U9PP3KXXY2.jpg">
+        </div>
+    </div>
+     
+      <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="40px" fxLayoutAlign="center">
+            <div fxFlex="10%">
+              <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg">
+            </div>
+            <div fxFlex="20%">
+              <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/LTLE4QGRVQ.jpg">
+            </div>
+            <div  fxFlex="30%">
+              <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R926LU1YEA.jpg">
+            </div >
+            <div fxFlex="40%">
+              <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/U9PP3KXXY2.jpg">
+            </div>
+            
+          </div> -->

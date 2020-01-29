@@ -1,6 +1,4 @@
-// .card .card-body {
-//     padding: 0.9375rem 20px!important;
-// }
+
 mat-card-footer {
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
 }
@@ -9,7 +7,24 @@ mat-card-body {
     background: #f9f9f9;
 }
 
-mat-card-header,
-mat-toolbar {
-    background: linear-gradient(60deg, #ffa726, #fb8c00);
+
+
+.card-header {
+    background: #a9a9a9;
+    overflow-y: visible;
+    height: auto;
+}
+.tab-cell-styl th, td{
+    width:100%;
+}
+.bg-red{
+color: #ff9800;
+    // color:#fff;
+    // padding: 2px 5px;
+}
+.color{
+    color:blue;
+}
+.card-title{
+    color:#fff;
 }

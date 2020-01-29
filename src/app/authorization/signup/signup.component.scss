@@ -1,7 +1,12 @@
+// .main-content {
+//     height: 100%;
+//     position: relative;
+//     overflow-y: hidden;
+// }
+
 .main-content {
     height: 100%;
     position: relative;
-    overflow-y: hidden;
+    overflow-y: hidden!important;
+    margin-top:100px;
 }
-
-

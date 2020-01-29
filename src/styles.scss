@@ -1,169 +1,171 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap");
+@import "flatpickr/dist/flatpickr.css";
 body,
-html, .main-content {
-display: block;
-padding: 0;
-margin: 0;
-width: 100%;
-position: relative;
-height: 100%;
-font-family: 'Lato', sans-serif!important;
+html,
+.main-content {
+	font-family: "Lato", sans-serif !important;
 }
-.main-panel .main-content {
-
-margin-left: -15px;
-
-margin-top: 37px;
-
-
+.main-content {
+	margin-top: 38px !important;
+    padding: 30px 15px;
+   // min-height: calc(100vh - 89px);
+ 	height:calc(100% - 57px);
+	display: block;
+	padding: 30px 15px 0 15px;
+	width: 100%;
+	// position: relative;
+	}
+.perfect-scrollbar-on {
+	.main-panel{
+		max-height: 100%;
+	}
 
 }
+.main-panel {
+	height:100%;
+  width: calc(100% - 221px)!important;
+}
+// 	.main-content {
+// 		margin-left: -15px;
+// 	}
+// }
 .sidebar {
-width: 220px;
+	width: 220px;
+	.logo {
+		.simple-text {
+			font-size: 16px !important;
+		}
+	}
+	li {
+		width: 220px;
+	}
+	.nav {
+		li {
+			&:first-child {
+				& > a {
+					color: red;
+					color: #3f51b5;
+					margin: 0 15px;
+					i {
+						color: red;
+						color: #3f51b5;
+					}
+				}
+			}
+			&:nth-child(6) {
+				& > a {
+					border-bottom: 1px solid darkgrey;
+					border-radius: 0px;
+				}
+			}
+			&:nth-child(2) {
+				& > a {
+					color: red;
+					color: #3f51b5;
+					i {
+						color: red;
+						color: #3f51b5;
+					}
+				}
+			}
+		}
+	}
+	.sidebar-wrapper {
+		width: 220px;
+	}
 }
-.sidebar .logo .simple-text {
- font-size: 16px!important;
+html {
+	.sidebar {
+		.nav {
+			p {
+				margin: 0;
+				line-height: 1.8;
+				font-size: 16px;
+			}
+		}
+	}
 }
-
-html .sidebar .nav p {
-    margin: 0;
-    line-height: 1.8;
-      font-size: 16px;
-    }
-
-.sidebar li {
-width: 220px;
+.sidebar .nav li:first-child.active > a,
+.sidebar .nav li:nth-child(2).active > a {
+	color: #fff;
+	background: darkgrey;
 }
-
-footer p {
-margin: 0;
-font-size: 14px !important;
+.sidebar .nav li:first-child.active > a i,
+.sidebar .nav li:nth-child(2).active > a i {
+	color: #fff;
+	background: darkgrey;
 }
-
-
-
-.sidebar .nav li:first-child>a {
-color: red;
-color:#3f51b5;
-margin: 0 15px;
+.sidebar[data-color="danger"] {
+	li {
+		&.active {
+			& > a {
+				background-color: #3f51b5;
+			}
+		}
+	}
 }
-.sidebar .nav li:nth-child(6)>a {
-  
-border-bottom:1px solid darkgrey;
-border-radius: 0px;
-  
-    }
-    
-.sidebar .nav li:nth-child(2)>a {
-color: red;
-color:#3f51b5;
+.nav-tabs {
+	.nav-item {
+		.nav-link {
+			padding: 10px 15px;
+		}
+	}
 }
-
-.sidebar .nav li:first-child.active>a,
-.sidebar .nav li:nth-child(2).active>a {
-color: #fff;
-background: darkgrey;
+.mat-table {
+	overflow: auto;
 }
-
-.sidebar .nav li:first-child.active>a i,
-.sidebar .nav li:nth-child(2).active>a i {
-color: #fff;
-background: darkgrey;
+.mat-datepicker-content {
+	.mat-calendar {
+		width: 219px !important;
+		height: 270px !important;
+	}
 }
-
-.sidebar .nav li:first-child>a i {
-color: red;
-color:#3f51b5;
+.material-icons {
+	margin-right: 8px;
+	font-size: 18px !important;
 }
-.sidebar[data-color=danger] li.active > a {
-    background-color: #3f51b5;
+table {
+	table-layout: fixed;
+	width: 100%;
 }
-.sidebar .nav li:nth-child(2)>a i {
-color: red;
-color:#3f51b5;
+mat-card {
+	overflow-y: hidden;
 }
-
-.sidebar .sidebar-wrapper {
-width: 220px;
-}
-
-.nav-tabs .nav-item .nav-link {
-padding: 10px 15px;
-}
-
-
-app-footer {
-width: calc(100% - 288px);
-position: fixed;
-bottom: 0;
-z-index: 999;
-    margin: 0;
-   
-}
-
-.mat-toolbar.mat-primary {
-   
-  
-margin-bottom: 20px;
-
-}
-table.mat-table {
- 
-    border-spacing: 0;
-   
-}
-
-.mat-raised-button:not([class*=mat-elevation-z]) {
-   
-    margin-right: 8px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-  
-    font-weight: 600;
-
-    
-}
-
-
-mat-card{
-    margin-top:100px;
-    overflow-y: hidden;
-}
-
-.mat-title{
-    margin:0;
+.mat-title {
+	margin: 0;
 }
 .mat-header-cell {
-    font-size: 14px!important;
-    font-weight: 700;
+	font-size: 14px !important;
+	font-weight: 700;
 }
-.marg{
-    margin-left: 6px;;
+.mr-l {
+	margin-left: 6px;
 }
-   
-  .mat-table{
-    overflow: auto;
-  }
-
-
-table {
-    width: 100%;
-    table-layout: fixed;
-  }
-  .mat-datepicker-content .mat-calendar {
-    width:263px;
-    height:299px;
-    width: 219px!important;
-    height: 270px!important;
-   
+.mat-raised-button {
+	&:not([class*="mat-elevation-z"]) {
+		margin-right: 8px;
+		margin-top: 8px;
+		margin-bottom: 8px;
+		font-weight: 600;
+	}
 }
-
-.material-icons {
-    margin-right: 8px;
-    font-size:18px!important;
+.mat-toolbar {
+	&.mat-primary {
+		margin-bottom: 20px;
+	}
 }
- 
+.tab-cell-styl th,
+td {
+	overflow: hidden;
+	width: 220px !important;
+	word-wrap: break-word !important;
+	white-space: nowrap;
+}
+.card {
+	height: 100%;
+}
+.mat-grid-tile {
+	.mat-figure {
+		display: block !important;
+	}
+}

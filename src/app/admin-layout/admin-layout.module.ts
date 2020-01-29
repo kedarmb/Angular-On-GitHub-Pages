@@ -2,8 +2,11 @@ import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from 'angularx-flatpickr';
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
-import { AdminLayoutRoutes, AdminLayoutRoutesModule } from './admin-layout.routing';
+import { AdminLayoutRoutesModule } from './admin-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { TableListComponent } from './table-list/table-list.component';
@@ -11,6 +14,7 @@ import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 // import { UpgradeComponent } from '../upgrade/upgrade.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 
@@ -60,15 +64,15 @@ import { FullcalenderComponent } from './fullcalender/fullcalender.component';
 import { CrewEquipmentComponent } from './crew/crew-equipment/crew-equipment.component';
 import { CrewLabourComponent } from './crew/crew-labour/crew-labour.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { NgProgressModule } from '@ngx-progressbar/core';
 import { MatTableModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { TrenchCalculationComponent } from './trench-calculation/trench-calculation.component';
 // import { NgxTagsInputModule } from 'ngx-tags-input';
 import { TenderItemComponent } from './tender/tender-quote/tender-item/tender-item.component';
 import { TenderCompareComponent } from './tender/tender-compare/tender-compare.component';
-import {ContextMenuModule} from 'ngx-contextmenu';
-import {DndModule} from 'ngx-drag-drop';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { DndModule } from 'ngx-drag-drop';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 
 @NgModule({
@@ -90,7 +94,7 @@ import {DndModule} from 'ngx-drag-drop';
     PdfViewerModule,
     FileUploadModule,
     ChartsModule,
-    FullCalendarModule,
+  
     MatTabsModule,
     MatListModule,
     MatCheckboxModule,
@@ -104,6 +108,12 @@ import {DndModule} from 'ngx-drag-drop';
     MatIconModule,
     NgxMatSelectSearchModule,
     NgxSpinnerModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    // FlexLayoutModule
     NgProgressModule,
     DndModule,
     ContextMenuModule.forRoot()

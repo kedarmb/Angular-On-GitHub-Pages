@@ -75,7 +75,8 @@
                 </div>
             </div>
         </div>   
-        <mat-dialog-actions class=" pull-right">
+        <div fxLayoutAlign="flex-end" fxLayout.xs="column"  fxLayout="row">
+        <mat-dialog-actions >
             <div *ngIf="data.val == false">
                 <button mat-raised-button  [disabled]="!userForm.valid" (click)="save()"
                     color="primary">Save</button>
@@ -86,6 +87,7 @@
             </div>
             <button mat-raised-button  (click)="close()" color="primary">Cancel</button>
         </mat-dialog-actions>
+    </div>
     </form>
 
                 <!-- <mat-dialog-actions class="pull-right">

@@ -16,10 +16,13 @@ export class HelperService {
   // labourData: any;
   equipmentData = new BehaviorSubject<any>('');
   labourData = new BehaviorSubject<any>('');
-  equipmentStore: any[] = [];
-  labourStore: any[] = [];
+  // cal_eve = new BehaviorSubject<any>('');
+  equipmentStore: any;
+  labourStore: any
   //
   orgList: any[] = [];
+  tender_even = [{}]
+
   allEquipList: any[] = [];
   allLabourList: any[] = [];
   //
@@ -39,6 +42,13 @@ export class HelperService {
   }
 
 
+  getTenterEven(tender_even){
+    this.tender_even = tender_even
+  }
+
+  setTenderEven(){
+    return this.tender_even
+  }
 
   setOrgList() {
     // console.log('set ------ org ---- list');
@@ -73,8 +83,8 @@ export class HelperService {
       return Object.assign({ _id: ev._id, name: ev.name })
     })
     this.labourData.next(this.labourStore);
+  
     console.log(this.labourStore)
-
   }
 
   customPatternValid(patternParam: any): ValidatorFn {
