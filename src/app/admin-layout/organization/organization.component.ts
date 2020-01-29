@@ -1,88 +1,94 @@
 import { ToastrService } from 'ngx-toastr';
-import { filter } from 'rxjs/operators';
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild, Optional } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrganizationModalComponent } from '../../shared/components/organization-modal/organization-modal.component';
-import Organization from '../../shared/core/model/organization.model';
 import { HttpService } from '../../shared/core/service/http.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource, MatTable } from '@angular/material/table';
-
+import { MatTable } from '@angular/material/table';
 @Component({
     selector: 'app-organization',
     templateUrl: './organization.component.html',
     styleUrls: ['./organization.component.scss']
 })
+
 export class OrganizationComponent implements OnInit {
-    displayedColumns: string[] = ['Name', 'Email', 'Phone', 'Street Address', 'Service Type',
-                                                                        'ServiceArea', 'province', 'Country', 'City', 'Actions'];
-    @ViewChild(MatTable, {static: false}) table: MatTable<any>;
+    displayedColumns: string[] = ['Name', 'Email', 'Phone', 'Type', 'Street Address', 'Service Type',
+        'ServiceArea', 'province', 'Country', 'City', 'Actions'];
+    @ViewChild(MatTable, { static: false }) table: MatTable<any>;
     organizations;
     update = {
         data: '',
-        val: ''
+        val: '',
+        id: ''
     };
 
     constructor(private modalService: MatDialog,
-        private changeDetectorRefs: ChangeDetectorRef,
         private httpService: HttpService, private router: Router,
         private toastr: ToastrService) { }
+
     ngOnInit() {
         this.getOrganization()
     }
+
     getOrganization() {
         this.httpService.getAllOrganization()
             .subscribe((response: any) => {
                 if (response.status === 200) {
-                    this.organizations = response.body;
+                    this.organizations = response.body.reverse();
+                    console.log(this.organizations)
                 }
             }, error => {
-                  this.toastr.error(error.error.message)
+                this.toastr.error(error.error.message)
             })
     }
 
     openModal() {
         const modalRef = this.modalService.open(OrganizationModalComponent, {
             height: 'auto',
-            width: '35%', data: this.update , disableClose: true
+            width: '35%', data: this.update, disableClose: true
         });
         modalRef.afterClosed().subscribe(response => {
-            if (response.status === 'close'  || response.status === undefined) {
+            if (response.status === 'close' || response.status === undefined) {
             }
             if (response.status === 'add') {
-                this.organizations.push(response.data);
+                this.organizations.unshift(response.data);
                 this.table.renderRows();
             }
             if (response.status === 'update') {
-                this.getOrganization()
+                this.organizations[response.id] = response.data;
+                console.log(response)
                 this.table.renderRows();
             }
         });
     }
+
     addOrg(val) {
         this.update.val = val
         this.openModal();
     }
-    updateOrg(val, data) {
+
+    updateOrg(val, data, id?) {
+        console.log(data)
         this.update.val = val
         this.update.data = data
+        this.update.id = id
         this.openModal();
     }
+
     removeOrg(val, e) {
         this.httpService.deleteOrganization(val._id)
-        .subscribe((response: any) => {
-            if (response.status === 200) {
-                this.organizations.splice(e, 1)
-                this.table.renderRows();
-                this.toastr.success('Removed Successfully')
+            .subscribe((response: any) => {
+                if (response.status === 200) {
+                    this.organizations.splice(e, 1)
+                    this.table.renderRows();
+                    this.toastr.success('Removed Successfully')
                 }
             }, error => {
-                  this.toastr.error(error.error.message)
+                this.toastr.error(error.error.message)
             })
     }
+
     viewTender() {
         this.router.navigateByUrl('view-tender');
     }
-
 }

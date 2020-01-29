@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
 import { EllipsisPipe } from './pipe/ellipsis.pipe';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SectionModalComponent } from './components/section-modal/section-modal.component';
+import { ReverseArrayPipe } from './pipe/reverse-array.pipe';
 
 //
 const MaterialComponent = [
@@ -48,7 +49,8 @@ const MaterialComponent = [
     NotifySubcontractorComponent,
     LabourModalComponent,
     EllipsisPipe,
-    SectionModalComponent
+    SectionModalComponent,
+    ReverseArrayPipe
   ],
   exports: [
     EllipsisPipe,

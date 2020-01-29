@@ -1,15 +1,13 @@
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
-import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Organization from 'app/shared/core/model/organization.model';
 import { HttpService } from 'app/shared/core/service/http.service';
-import { CountriesService } from 'app/shared/core/service/countries.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { regex, errorMsg } from 'app/shared/core/constant';
-import { MatDialog, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { updateLocale } from 'moment';
+import { MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-organization-modal',
@@ -27,7 +25,8 @@ export class OrganizationModalComponent implements OnInit {
   cityInfo: any[] = [];
   resData = {
     status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
-    data: ''
+    data: '',
+    id: ''
   };
 
   constructor(
@@ -53,6 +52,9 @@ export class OrganizationModalComponent implements OnInit {
       delete newVal.updateDate;
       delete newVal.createdBy;
       delete newVal.organizationRef;
+      delete newVal.createdDate;
+      delete newVal.updatedDate;
+      console.log(newVal);
       this.organizationForm.setValue(newVal);
     }
   }
@@ -102,6 +104,8 @@ export class OrganizationModalComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === 201) {
           this.resData.status = 'update';
+          this.resData.data = response.body;
+          this.resData.id = this.data.id
           this.dialogRef.close(this.resData);
           this.toastr.success(response.statusText)
         }
