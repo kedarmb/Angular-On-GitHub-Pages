@@ -20,6 +20,7 @@ import { MedicalComprehendComponent } from './medical-comprehend/medical-compreh
 import { FullcalenderComponent } from './fullcalender/fullcalender.component';
 import { NgModule } from '@angular/core';
 import { TrenchCalculationComponent } from './trench-calculation/trench-calculation.component';
+import { TenderBidComponent } from './tender/tender-bid/tender-bid.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'organization', component: OrganizationComponent },
@@ -40,7 +41,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user', component: UserComponent },
     { path: 'fullcalender', component: FullcalenderComponent },
     { path: 'calculation', component: TrenchCalculationComponent },
-    { path: 'compair', component: TenderCompareComponent }
+    { path: 'compair', component: TenderCompareComponent },
+    { path: 'bid', component: TenderBidComponent }
     // { path: 'upgrade', component: UpgradeComponent },
     // { path: 'typography', component: TypographyComponent },
     // { path: 'icons', component: IconsComponent },

@@ -36,7 +36,6 @@ export class NotifySubcontractorComponent implements OnInit {
     if (e.target.checked) {
       orgData.push(new FormControl(e.target.value));
     } else {
-      console.log('return:', e.target.value);
       orgData.value.map((item: FormControl, i) => {
         if (item === e.target.value) {
           orgData.removeAt(i);
@@ -51,9 +50,7 @@ export class NotifySubcontractorComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === 200) {
           const organizations = response.body;
-          console.log(organizations)
           this.organizations = organizations.filter((obj) => {
-            console.log('obj', obj);
             if (obj.orgType[0] === 'Sub') {
               return obj
             }
@@ -70,7 +67,6 @@ export class NotifySubcontractorComponent implements OnInit {
 
   close() {
     this.subContDialogueRef.close(this.data);
-    console.log('dialog closed ', this.data)
   }
 
 }

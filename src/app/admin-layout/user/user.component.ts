@@ -62,6 +62,7 @@ export class UserComponent implements OnInit {
       }
     });
   }
+  
   addUser(val) {
     this.update.val = val
     this.openModal();

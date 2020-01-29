@@ -70,9 +70,10 @@ import { TrenchCalculationComponent } from './trench-calculation/trench-calculat
 // import { NgxTagsInputModule } from 'ngx-tags-input';
 import { TenderItemComponent } from './tender/tender-quote/tender-item/tender-item.component';
 import { TenderCompareComponent } from './tender/tender-compare/tender-compare.component';
+import {ContextMenuModule} from 'ngx-contextmenu';
+import {DndModule} from 'ngx-drag-drop';
+import { TenderBidComponent } from './tender/tender-bid/tender-bid.component';
 import { NgProgressModule } from '@ngx-progressbar/core';
-import { DndModule } from 'ngx-drag-drop';
-import { ContextMenuModule } from 'ngx-contextmenu';
 
 
 @NgModule({
@@ -94,7 +95,7 @@ import { ContextMenuModule } from 'ngx-contextmenu';
     PdfViewerModule,
     FileUploadModule,
     ChartsModule,
-  
+
     MatTabsModule,
     MatListModule,
     MatCheckboxModule,
@@ -145,6 +146,7 @@ import { ContextMenuModule } from 'ngx-contextmenu';
     TenderItemComponent,
     TrenchCalculationComponent,
     TenderCompareComponent,
+    TenderBidComponent,
   ]
 })
 
