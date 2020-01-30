@@ -16,7 +16,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./crew-equipment.component.scss']
 })
 export class CrewEquipmentComponent implements OnInit {
-  displayedColumns: string[] = ['Name', 'Rate', 'Description', 'Actions'];
+  displayedColumns: string[] = ['Name', 'Description', 'Actions'];
   equipments;
   update = {
     data: '',

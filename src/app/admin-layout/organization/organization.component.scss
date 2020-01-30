@@ -1,12 +1,6 @@
     .main-content{
         .table-responsive{
             height: calc(100% - 40px);
-            overflow-y: scroll;
+            overflow-y: auto;
         }
     }
-// .main-content{
-//     overflow-y: hidden !important;
-//     position: relative !important;
-//     height:100% !important;
-//     width:1150px !important;
-// }

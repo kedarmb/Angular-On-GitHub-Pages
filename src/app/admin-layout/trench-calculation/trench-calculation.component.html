@@ -1,9 +1,10 @@
 <div class="main-content">
-
-<mat-tab-group>
-        <mat-tab>
+    <mat-tab-group class="body-with-tab">
+        <mat-tab label="First"> 
+            
             <ng-template mat-tab-label>Trench Calculation</ng-template>
-            <table class="mat_tab" mat-table [dataSource]="trenchCal" class="mat-elevation-z8">
+            <div class="table-responsive">
+            <table class="mat_tab" mat-table [dataSource]="trenchCal" class="mat-elevation-z8 tab-cell-styl">
                 <ng-container matColumnDef="Name">
                     <th mat-header-cell *matHeaderCellDef>Calculation Name</th>
                     <td mat-cell *matCellDef="let element"> {{element.calculationName}} </td>
@@ -81,11 +82,103 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Trench Calculator">    
+        <div class="col-12">
+            <app-trench-modal (trenchData)="renderModal()"></app-trench-modal> 
+        </div> 
+    </mat-tab>
+      </mat-tab-group>
+<!-- 
+<mat-tab-group class="body-with-tab">
+        <mat-tab>
+            <ng-template mat-tab-label>Trench Calculation</ng-template>
+            <div class="table-responsive">
+            <table class="mat_tab" mat-table [dataSource]="trenchCal" class="mat-elevation-z8 tab-cell-styl">
+                <ng-container matColumnDef="Name">
+                    <th mat-header-cell *matHeaderCellDef>Calculation Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.calculationName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Bedding Length">
+                    <th mat-header-cell *matHeaderCellDef>Bedding Length</th>
+                    <td mat-cell *matCellDef="let element"> {{element.beddingLength}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Bedding Width">
+                    <th mat-header-cell *matHeaderCellDef>Bedding Width</th>
+                    <td mat-cell *matCellDef="let element"> {{element.beddingHeight}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Bedding Height">
+                    <th mat-header-cell *matHeaderCellDef>Bedding Height</th>
+                    <td mat-cell *matCellDef="let element"> {{element.beddingHeight}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Bedding Volume">
+                    <th mat-header-cell *matHeaderCellDef>Bedding Volume</th>
+                    <td mat-cell *matCellDef="let element"> {{element.beddingVolume}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Pipe Diameter">
+                    <th mat-header-cell *matHeaderCellDef>Pipe Diameter</th>
+                    <td mat-cell *matCellDef="let element"> {{element.pipeDiameter}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Effective Volume">
+                    <th mat-header-cell *matHeaderCellDef>Effective Volume</th>
+                    <td mat-cell *matCellDef="let element"> {{element.beddingHeight}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Pipe Volume">
+                    <th mat-header-cell *matHeaderCellDef> Pipe Volume</th>
+                    <td mat-cell *matCellDef="let element"> {{element.pipeVolume}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Density Bedding">
+                    <th mat-header-cell *matHeaderCellDef>Density Bedding</th>
+                    <td mat-cell *matCellDef="let element"> {{element.densityBedding}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Bedding Weight">
+                    <th mat-header-cell *matHeaderCellDef> Bedding Weight </th>
+                    <td mat-cell *matCellDef="let element"> {{element.beddingWeight}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Backfill Length">
+                    <th mat-header-cell *matHeaderCellDef> Backfill Length </th>
+                    <td mat-cell *matCellDef="let element"> {{element.backfillLength}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Backfill Width">
+                    <th mat-header-cell *matHeaderCellDef> Backfill Width </th>
+                    <td mat-cell *matCellDef="let element"> {{element.backfillWidth}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Backfill Height">
+                    <th mat-header-cell *matHeaderCellDef> Backfill Height </th>
+                    <td mat-cell *matCellDef="let element"> {{element.backfillHeight}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Backfill Volume">
+                    <th mat-header-cell *matHeaderCellDef> Backfill Volume </th>
+                    <td mat-cell *matCellDef="let element"> {{element.backfillVolume}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Backfill Density">
+                    <th mat-header-cell *matHeaderCellDef> Backfill Density </th>
+                    <td mat-cell *matCellDef="let element"> {{element.backfillDensity}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Backfill Weight">
+                    <th mat-header-cell *matHeaderCellDef> Backfill Weight </th>
+                    <td mat-cell *matCellDef="let element"> {{element.backfillWeight}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let element, let i=index">
+
+                        <i (click)="updateTrench(true, element)" [matTooltipPosition]="'above'" class="material-icons"
+                            [ngStyle]="{'color':'blue'}" matTooltip="edit">edit</i>
+            
+                        <i (click)="removeTrench(element, i)" [matTooltipPosition]="'above'" class="material-icons"
+                            [ngStyle]="{'color':'red'}" matTooltip="Remove">close</i>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>Trench Calculator</ng-template>
-            <!-- <app-trench-modal (trenchData)="renderModal()"></app-trench-modal> -->
             <app-trench-modal (trenchData)="renderModal()"></app-trench-modal>
         </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
 </div>

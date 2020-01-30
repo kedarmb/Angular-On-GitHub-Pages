@@ -41,7 +41,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user', component: UserComponent },
     { path: 'fullcalender', component: FullcalenderComponent },
     { path: 'calculation', component: TrenchCalculationComponent },
-    { path: 'compair', component: TenderCompareComponent },
+    { path: 'compare',  component: TenderCompareComponent },
     { path: 'bid', component: TenderBidComponent }
     // { path: 'upgrade', component: UpgradeComponent },
     // { path: 'typography', component: TypographyComponent },

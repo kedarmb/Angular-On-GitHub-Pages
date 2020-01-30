@@ -1,8 +1,10 @@
 <div class="main-content">
-    <mat-toolbar color="primary">
-            <button mat-raised-button (click)="addUser(false)"><i class="material-icons">add</i>Add</button>
-    </mat-toolbar>
-    <div class="table-responsive">
+    <div class="sb-toolbar">
+        <a  (click)="addUser(false)"><i class="material-icons"  matTooltip="Add User">add</i></a>
+         
+    </div>
+    
+    <div class="table-responsive border-top">
     <table class="mat_tab" mat-table [dataSource]="user" class="mat-elevation-z8">        
         <ng-container matColumnDef="Email">
             <th mat-header-cell *matHeaderCellDef>Email</th>

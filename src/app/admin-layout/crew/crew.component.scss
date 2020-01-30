@@ -16,10 +16,20 @@ background: #f9f9f9;
 padding: 3.1375rem 20px;
 
 }
-// th, td{
-//     overflow: hidden;
-//     width: 180px!important;
-//     word-wrap: break-word!important;
-    
-//     white-space: nowrap;
-//   }
+.mat-tab-label.mat-tab-label-active {
+    color: red;
+}
+
+th,
+td {
+  overflow: hidden;
+  width: 500px ;
+  word-wrap: break-word ;
+  white-space: nowrap;
+}
+.main-content{
+	.table-responsive{
+		height: 100% ;
+		overflow-y: auto;
+	}
+}

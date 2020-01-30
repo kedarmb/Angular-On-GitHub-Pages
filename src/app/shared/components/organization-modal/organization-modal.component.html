@@ -81,37 +81,18 @@
      
             <mat-label>Service Area <span class="text-danger">*</span></mat-label>
             <tag-input formControlName="serviceArea" [modelAsStrings]="true"></tag-input>
-       
-        <mat-dialog-actions class=" pull-right">
-            <div *ngIf="data.val == false">
-                <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
-                color="primary">Save</button>
-            </div>
-            <div *ngIf="data.val == true">
-                <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="update()"
-                color="primary">Update</button>
-            </div>
-            <button mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
-        </mat-dialog-actions>
-    </div>
-</form> -->
-
-     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++= -->
-     <div fxLayoutAlign="flex-end" fxLayout.xs="column"  fxLayout="row">
-<mat-dialog-actions >
-       
-        <div *ngIf="data.val == false" >
-            <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
-            color="primary">Save</button>
         </div>
-        <div *ngIf="data.val == true" >
-            <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="update()"
-            color="primary">Update</button>
-        </div>
-   
-        <button  mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
+    </form> 
     
-
-   </mat-dialog-actions> 
-</div>
+     <mat-dialog-actions class=" pull-right">
+         <div *ngIf="data.val == false">
+             <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
+             color="primary">Save</button>
+         </div>
+         <div *ngIf="data.val == true">
+             <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="update()"
+             color="primary">Update</button>
+         </div>
+         <button mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
+     </mat-dialog-actions>
 

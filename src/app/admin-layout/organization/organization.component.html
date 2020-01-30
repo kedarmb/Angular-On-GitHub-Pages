@@ -1,9 +1,9 @@
 <div class="main-content">
-    <mat-toolbar color="primary">
-            <button mat-raised-button (click)="addOrg(false)"><i class="material-icons">add</i>Add</button>
-       
-    </mat-toolbar>
-    <div class="table-responsive">
+    <div class=" sb-toolbar">
+            <a  (click)="addOrg(false)"><i class="material-icons"  matTooltip="Add Organization">add</i></a>
+             
+        </div>
+    <div class="table-responsive border border-left-0 border-bottom-0 border-right-0">
         
         <table class="mat_tab" mat-table [dataSource]="organizations" class="mat-elevation-z8  tab-cell-styl">
             <ng-container matColumnDef="Name">

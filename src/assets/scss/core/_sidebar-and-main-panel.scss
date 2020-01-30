@@ -10,9 +10,8 @@
     bottom: 0;
     left: 0;
     z-index: 2;
-    width: 260px;
+    width: 220px;
     background: $white-color;
-    @include shadow-big();
     .caret {
         display: inline-block;
         width: 0;
@@ -43,7 +42,7 @@
         position: relative;
         height: calc(100vh - 75px);
         overflow: auto;
-        width: 260px;
+        width: 220px;
         z-index: 4;
         padding-bottom: 30px;
         .dropdown .dropdown-backdrop {
@@ -184,7 +183,7 @@
         padding-right: 10px;
         text-transform: capitalize;
         font-size: $font-paragraph - 1;
-        padding: 10px 15px;
+        padding: 4px 15px;
     }
     .sidebar-background {
         position: absolute;
@@ -212,6 +211,7 @@
         margin: 0;
         display: block;
         position: relative;
+        background: $white;
         z-index: 4;
         &:after {
             content: '';
@@ -323,12 +323,13 @@
 .main-panel {
     position: relative;
     float: right;
+	height: 100%;
     width: $sidebar-width;
     @include transition (0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1));
     .main-content {
         margin-top: 70px;
-        padding: 30px 15px;
-        min-height: calc(100vh - 123px);
+        padding: 0 0 0 15px;
+        height: calc(100% - 71px);
     }
     .footer {
         border-top: 1px solid #e7e7e7;

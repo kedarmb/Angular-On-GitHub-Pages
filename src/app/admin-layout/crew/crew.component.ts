@@ -2,15 +2,19 @@ import { HttpService } from 'app/shared/core/service/http.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CrewModalComponent } from '../../shared/components/crew-modal/crew-modal.component';
 import { HelperService } from 'app/shared/core/service/helper.service';
-import { MatTable, MatDialog } from '@angular/material';
+import { MatTable, MatDialog, MatTabChangeEvent } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CrewEquipmentComponent } from './crew-equipment/crew-equipment.component';
+import { CrewLabourComponent } from './crew-labour/crew-labour.component';
 @Component({
   selector: 'app-crew',
   templateUrl: './crew.component.html',
   styleUrls: ['./crew.component.scss'],
  })
 export class CrewComponent implements OnInit {
+  @ViewChild(CrewEquipmentComponent, {static: false}) eq: CrewEquipmentComponent;
+  @ViewChild(CrewLabourComponent, {static: false}) lb:CrewLabourComponent;
   displayedColumns: string[] = ['Name', 'Description', 'Equipment', 'Labour', 'Actions'];
   data: any = {};
   laboursData; // holds data from labours get api
@@ -21,6 +25,7 @@ export class CrewComponent implements OnInit {
     data: '',
     val: ''
   };
+  titleButton='Add Crew'
   valueChange: any;
   public show = false;
   public buttonName = 'Show';
@@ -81,7 +86,13 @@ export class CrewComponent implements OnInit {
       }
     });
   }
+  addEquipment(){
+    this.eq.addEq(false);
+  }
+  addLabour(){
+    this.lb.addLabour(false);
 
+  }
   addCrew(val) {
     this.update.val = val
     this.openModal();
@@ -104,5 +115,18 @@ export class CrewComponent implements OnInit {
       }, error => {
           this.toastr.error(error.error.message)
         })
+  }
+  onTabChange(e: MatTabChangeEvent){
+    console.log(e);
+    if(e.index==0){
+      console.log()
+      this.titleButton = 'Add Crew'
+    }
+    if(e.index==1){
+      this.titleButton = 'Add Equipment'
+    }
+    if(e.index==2){
+      this.titleButton = 'Add labour'
+    }
   }
 }
