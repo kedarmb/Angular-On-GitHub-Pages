@@ -30,38 +30,7 @@
             
             </tbody>
         </table>
+        <button mat-raised-button type="button" class="pull-right m-2" color="primary">save</button>
     </div>
 
 </div>
-
-
-<!-- 
-<mat-tab-group class="tender mt-5">
-    <mat-tab label="First">
-        <div class="col-12">
-            <div class="bg-white mt-4" *ngFor="let section of tenderBid.sections">
-                <h3 class="px-3 pt-2 mb-0">{{section.name}}</h3>
-                <ng-container *ngFor="let item of section.lineItems">
-                    <div class="bg-light m-3">
-                        <mat-chip-list class="m-1">
-                            <span class="mb-3 mr-2 badge badge-warning">{{item.name}}</span>
-                            <span class="mb-3 mr-2 badge badge-primary"> Spec No :
-                                <span>{{item.specNo}}</span></span>
-                            <span class="mb-3 mr-2 badge badge-secondary"> Item No :<span>
-                                    {{item.itemNo}}</span></span>
-                            <span class="mb-3 mr-2 badge badge-info"> Quantity :<span>
-                                    {{item.quantity}}</span></span>
-                            <span class="mb-3 mr-2 badge badge-info"> Unit cost :<span>
-                                    {{item.unitCost}}</span></span>
-                            <span class="mb-3 mr-2 badge badge-info"> Total cost :<span>
-                                    {{item.totalCost}}</span></span>
-                        </mat-chip-list>
-                    </div>
-                </ng-container>
-                <h4 class="mt-2 px-3">Section Total: 500</h4>
-            </div>
-            <button mat-raised-button type="button" class="m-2" color="primary">save</button>
-        </div>
-    </mat-tab>
-    <mat-tab label="Second"></mat-tab>
-</mat-tab-group> -->
