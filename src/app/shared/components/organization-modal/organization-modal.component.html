@@ -1,98 +1,86 @@
 <form [formGroup]="organizationForm">
     <h1 mat-dialog-title align="center">Add Organization</h1>
     <div mat-dialog-content>
-        
-            <mat-label>Organization</mat-label><span class="text-danger">*</span>
-            <mat-form-field>
-                <input formControlName="name" matInput type="text">
-            </mat-form-field>
-            <mat-label>Organization Type</mat-label><span class="text-danger">*</span>
-            <mat-form-field>
-                <mat-select formControlName="orgType">
-                    <mat-option value="Prime">Prime</mat-option>
-                    <mat-option value="Client" name="Client">Client</mat-option>
-                    <mat-option value="Sub" name="Sub">Sub</mat-option>
-                </mat-select>
-                <!-- <input formControlName="orgType" matInput disabled  type="text"> -->
-            </mat-form-field>
-      
-            <mat-label>Street Address</mat-label><span class="text-danger">*</span>
-            <mat-form-field>
-                <input formControlName="streetAddress" matInput type="text">
-            </mat-form-field>
-      
-            <mat-label>Email</mat-label><span class="text-danger">*</span>
-            <mat-form-field>
-                <input formControlName="contactEmail" matInput type="text">
-            </mat-form-field>
-            <div *ngIf="!organizationForm.controls.contactEmail.valid && (organizationForm.controls.contactEmail.dirty || organizationForm.controls.contactEmail.touched)"
-                class="error">
-                <small class="text-danger" *ngIf="organizationForm.controls.contactEmail.errors.invalidMsg">
-                    {{organizationForm.controls.contactEmail.errors.invalidMsg}}
-                </small>
-            </div>
-            <mat-label>Phone</mat-label><span class="text-danger">*</span>
-            <mat-form-field>
-                <input formControlName="contactPhone" matInput type="text">
-            </mat-form-field>
-            <div *ngIf="!organizationForm.controls.contactPhone.valid && (organizationForm.controls.contactPhone.dirty || organizationForm.controls.contactPhone.touched)"
-                class="error">
-                <small class="text-danger" *ngIf="organizationForm.controls.contactPhone.errors.invalidMsg">
-                    {{organizationForm.controls.contactPhone.errors.invalidMsg}}
-                </small>
-          
-        </div>
-       
-            <mat-label>Country<span class="text-danger">*</span></mat-label>
-            <mat-form-field>
-                <select formControlName="country" matNativeControl required>
-                    <option></option>
-                    <option>Canada</option>
-                    <option>India</option>
-                    <option>USA</option>
-                </select>
-            </mat-form-field>
-      
-    
-            <mat-label>Province <span class="text-danger">*</span></mat-label>
-            <mat-form-field>
-                <select formControlName="province" matNativeControl required>
-                    <option></option>
-                    <option>Ontario</option>
-                    <option>San Jose</option>
-                    <option>California</option>
-                </select>
-            </mat-form-field>
-       
-      
-            <mat-label>City <span class="text-danger">*</span></mat-label>
-            <mat-form-field>
-                <select formControlName="city" matNativeControl required>
-                    <option>Toranto</option>
-                    <option>Las Vegas</option>
-                    <option>New Delhi</option>
-                </select>
-            </mat-form-field>
-        
-     
-            <mat-label>Service Type <span class="text-danger">*</span></mat-label>
-            <tag-input formControlName="serviceType" [modelAsStrings]="true"></tag-input>
-        
-     
-            <mat-label>Service Area <span class="text-danger">*</span></mat-label>
-            <tag-input formControlName="serviceArea" [modelAsStrings]="true"></tag-input>
-        </div>
-    </form> 
-    
-     <mat-dialog-actions class=" pull-right">
-         <div *ngIf="data.val == false">
-             <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
-             color="primary">Save</button>
-         </div>
-         <div *ngIf="data.val == true">
-             <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="update()"
-             color="primary">Update</button>
-         </div>
-         <button mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
-     </mat-dialog-actions>
 
+        <mat-label>Organization</mat-label><span class="text-danger">*</span>
+        <mat-form-field>
+            <input formControlName="name" matInput type="text">
+        </mat-form-field>
+        <mat-label>Organization Type</mat-label><span class="text-danger">*</span>
+        <mat-form-field>
+            <mat-select formControlName="orgType">
+                <mat-option *ngFor="let org of orgs" [value]="org.name" name='org.name'>{{org.name}}</mat-option>
+            </mat-select>
+            <!-- <input formControlName="orgType" matInput disabled  type="text"> -->
+        </mat-form-field>
+
+        <mat-label>Street Address</mat-label><span class="text-danger">*</span>
+        <mat-form-field>
+            <input formControlName="streetAddress" matInput type="text">
+        </mat-form-field>
+
+        <mat-label>Email</mat-label><span class="text-danger">*</span>
+        <mat-form-field>
+            <input formControlName="contactEmail" matInput type="text">
+        </mat-form-field>
+        <div *ngIf="!organizationForm.controls.contactEmail.valid && (organizationForm.controls.contactEmail.dirty || organizationForm.controls.contactEmail.touched)"
+            class="error">
+            <small class="text-danger" *ngIf="organizationForm.controls.contactEmail.errors.invalidMsg">
+                {{organizationForm.controls.contactEmail.errors.invalidMsg}}
+            </small>
+        </div>
+        <mat-label>Phone</mat-label><span class="text-danger">*</span>
+        <mat-form-field>
+            <input formControlName="contactPhone" matInput type="text">
+        </mat-form-field>
+        <div *ngIf="!organizationForm.controls.contactPhone.valid && (organizationForm.controls.contactPhone.dirty || organizationForm.controls.contactPhone.touched)"
+            class="error">
+            <small class="text-danger" *ngIf="organizationForm.controls.contactPhone.errors.invalidMsg">
+                {{organizationForm.controls.contactPhone.errors.invalidMsg}}
+            </small>
+        </div>
+
+        <mat-label>Country<span class="text-danger">*</span></mat-label>
+        <mat-form-field>
+            <select formControlName="country" #cntry matNativeControl required (change)="getStates(cntry.value)">
+                <option [value]="country.id" *ngFor="let country of countries">{{country.name}}</option>
+            </select>
+        </mat-form-field>
+
+
+        <mat-label>Province <span class="text-danger">*</span></mat-label>
+        <mat-form-field  >
+            <select formControlName="province" #st matNativeControl required (change)="getCity(st.value)">
+                <option></option>
+                <option [value]="state.id" *ngFor="let state of states">{{state.name}}</option>
+                
+            </select>
+        </mat-form-field>
+        
+        <mat-label>City <span class="text-danger">*</span></mat-label>
+        <mat-form-field>
+            <select formControlName="city" matNativeControl required>
+                <option></option>
+                <option [value]="city.id" *ngFor="let city of cities">{{city.name}}</option>
+            </select>
+        </mat-form-field>
+
+        <mat-label>Service Type <span class="text-danger">*</span></mat-label>
+        <tag-input formControlName="serviceType" [modelAsStrings]="true"></tag-input>
+
+        <mat-label>Service Area <span class="text-danger">*</span></mat-label>
+        <tag-input formControlName="serviceArea" [modelAsStrings]="true"></tag-input>
+    </div>
+</form>
+
+<mat-dialog-actions class=" pull-right">
+    <div *ngIf="data.val == false">
+        <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
+            color="primary">Save</button>
+    </div>
+    <div *ngIf="data.val == true">
+        <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="update()"
+            color="primary">Update</button>
+    </div>
+    <button mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
+</mat-dialog-actions>

@@ -53,3 +53,8 @@ function authUrlCreator(actionName: string): string {
   return `${environment.baseURL}${actionName}`;
 };
 
+export const orgType = [
+  {name: 'Client'},
+  {name: 'Sub'},
+  {name: 'Prime'}
+]

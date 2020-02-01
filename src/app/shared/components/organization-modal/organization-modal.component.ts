@@ -1,6 +1,5 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Organization from 'app/shared/core/model/organization.model';
@@ -8,7 +7,9 @@ import { HttpService } from 'app/shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { regex, errorMsg } from 'app/shared/core/constant';
 import { MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-
+import csc from 'country-state-city';
+import { ICountry, IState, ICity } from 'country-state-city'
+import {orgType } from '../../core/constant/index';
 @Component({
   selector: 'app-organization-modal',
   templateUrl: './organization-modal.component.html',
@@ -28,6 +29,10 @@ export class OrganizationModalComponent implements OnInit {
     data: '',
     id: ''
   };
+  orgs = orgType;
+  countries: ICountry[] = [];
+  states: IState[] = [];
+  cities: ICity[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -38,7 +43,8 @@ export class OrganizationModalComponent implements OnInit {
     private helperService: HelperService,
     private dialogRef: MatDialogRef<any>,
     private spinner: NgxSpinnerService
-  ) { 
+  ) {
+    this.countries = csc.getAllCountries();
     this.spinner.hide();
   }
 
@@ -54,9 +60,23 @@ export class OrganizationModalComponent implements OnInit {
       delete newVal.organizationRef;
       delete newVal.createdDate;
       delete newVal.updatedDate;
-      console.log(newVal);
+      this.states.push(this.getStateById(newVal.province));
+      this.cities.push(this.getCityById(newVal.city));
       this.organizationForm.setValue(newVal);
     }
+    console.log(this.orgs)
+  }
+  getStateById(e) {
+    return csc.getStateById(e)
+  }
+  getCityById(e) {
+    return csc.getCityById(e)
+  }
+  getStates(e): any {
+    this.states = csc.getStatesOfCountry(e);
+  }
+  getCity(e) {
+    this.cities = csc.getCitiesOfState(e);
   }
   createOrganizationForm() {
     this.organizationForm = this.fb.group({
@@ -73,10 +93,10 @@ export class OrganizationModalComponent implements OnInit {
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
       orgType: ['Prime'],
-      // organizationRef: ['5dd5158b75de6156ccceb0ee'],
       _id: [this.data._id]
     });
   }
+
   close() {
     this.resData.status = 'close';
     this.dialogRef.close(this.resData);
@@ -93,7 +113,7 @@ export class OrganizationModalComponent implements OnInit {
           this.toastr.success(response.statusText)
         }
       }, error => {
-          this.toastr.error(error.error.message)
+        this.toastr.error(error.error.message)
       }
       )
   };
@@ -105,13 +125,15 @@ export class OrganizationModalComponent implements OnInit {
         if (response.status === 201) {
           this.resData.status = 'update';
           this.resData.data = response.body;
+          console.log(this.resData.data)
           this.resData.id = this.data.id
+          console.log(this.resData.id)
           this.dialogRef.close(this.resData);
           this.toastr.success(response.statusText)
         }
       },
         error => {
-            this.toastr.error(error.error.message)
+          this.toastr.error(error.error.message)
         }
       )
   }

@@ -35,7 +35,6 @@ export class OrganizationComponent implements OnInit {
             .subscribe((response: any) => {
                 if (response.status === 200) {
                     this.organizations = response.body.reverse();
-                    console.log(this.organizations)
                 }
             }, error => {
                 this.toastr.error(error.error.message)
@@ -55,9 +54,9 @@ export class OrganizationComponent implements OnInit {
                 this.table.renderRows();
             }
             if (response.status === 'update') {
-                this.organizations[response.id] = response.data;
-                console.log(response)
                 this.table.renderRows();
+                this.organizations[response.id] = response.data;
+                console.log(this.organizations[response.id])
             }
         });
     }
@@ -68,10 +67,10 @@ export class OrganizationComponent implements OnInit {
     }
 
     updateOrg(val, data, id?) {
-        console.log(data)
         this.update.val = val
         this.update.data = data
         this.update.id = id
+        console.log(this.organizations[id])
         this.openModal();
     }
 

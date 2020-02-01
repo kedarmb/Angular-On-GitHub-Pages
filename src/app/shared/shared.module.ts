@@ -25,6 +25,9 @@ import { EllipsisPipe } from './pipe/ellipsis.pipe';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SectionModalComponent } from './components/section-modal/section-modal.component';
 import { ReverseArrayPipe } from './pipe/reverse-array.pipe';
+import { CityNamePipe } from './pipe/city-name.pipe';
+import { CountryNamePipe } from './pipe/country-name.pipe';
+import { StateNamePipe } from './pipe/state-name.pipe';
 
 //
 const MaterialComponent = [
@@ -50,10 +53,17 @@ const MaterialComponent = [
     LabourModalComponent,
     EllipsisPipe,
     SectionModalComponent,
-    ReverseArrayPipe
+    ReverseArrayPipe,
+    CityNamePipe,
+    CountryNamePipe,
+    StateNamePipe
   ],
   exports: [
     EllipsisPipe,
+    ReverseArrayPipe,
+    CityNamePipe,
+    CountryNamePipe,
+    StateNamePipe,
     TagInputModule,
     TenderModalComponent,
     TrenchModalComponent,
