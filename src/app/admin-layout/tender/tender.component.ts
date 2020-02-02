@@ -17,6 +17,7 @@ export class TenderComponent implements OnInit {
   displayedColumns: string[] = ['Client Name', 'Tender Name', 'Open Date', 'Close Date', 'Quote Start Date', 'Quote End Date', 'Actions'];
   tenders: Array<any> = [];
   orgList: any[];
+  feMsg: string;
   //
   constructor(private router: Router, private toastr: ToastrService,
     private spinner: NgxSpinnerService,
@@ -28,32 +29,34 @@ export class TenderComponent implements OnInit {
 
 
   ngOnInit() {
-    //
-    /* const id = setInterval(() => {
-      const arr = this.hs.getFromLocalStorage('orgList');
-      if (arr.length > 0) {
-        // console.log('arr .. ', arr);
-        clearInterval(id);      }
-    }, 300) */
+    this.hs.setOrgId();
     this.spinner.show();
     this.getAllTenders();
 
   }
   //
   getAllTenders() {
-    this.httpServ.getTenders().subscribe((result) => {
+    this.feMsg = 'Loading your list of tenders..'
+    const appendStr = '/0/0';
+    // const appendStr = '/orgId/' + this.hs.getOrgId() + '/0/0';
+    // console.log('appended string is ', appendStr);
+    this.httpServ.getTenders(appendStr).subscribe((result) => {
       // console.log('success in fetching tender headers ', result);
       this.tenders = result.body as Array<any>;
+      // this.tenders.splice(1);
+      if (this.tenders.length < 1) {
+        this.feMsg = 'You do not have any listed tender now..'
+      }
       console.log(this.tenders);
       this.hs.setOrgList();
       this.hs.setEqupmentList();
       this.hs.setLabourList();
       //
-      this.tenders.map(val => {
+      /* this.tenders.map(val => {
         // console.log('_id is .... ', val.clientName);
         const j = this.hs.findClientName(val.clientName);
         val.clientName = j;
-      })
+      }) */
       //
       // this.hs.hideSpinner();
       this.spinner.hide();

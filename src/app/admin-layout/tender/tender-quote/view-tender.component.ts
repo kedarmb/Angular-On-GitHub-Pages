@@ -52,19 +52,32 @@ export class ViewTenderComponent implements OnInit {
             const paramData = window.history.state;
             this.tenderID = paramData._id;
             console.log('view tenderID ', this.tenderID);
+            
+            this.setDataforQuotePage(paramData);
             // this.fetchInitialSections();
-            this.fetchSingleTender();
+            /// this.fetchSingleTender();
             return;
         })
     }
+
+    setDataforQuotePage(data) {
+        // delete data.createdAt;
+        // delete data.updatedAt;
+        delete data.navigationId;
+        // delete data.headerLevelNotifiedSubs;
+        console.log(data)
+        this.responseData = data;
+    }
+
     /** Fetch tender detail <new schema> by ID  */
-    fetchSingleTender() {
+    /* fetchSingleTender() {
         this.spinner.show();
         this.httpServ.fetchSingleTenderById(this.tenderID).subscribe((response) => {
             this.spinner.hide();
             if (response.status === 200) {
                 //
                 const rawData = Object.assign({}, response.body);
+                delete rawData.headerLevelNotifiedSubs;
                 delete rawData.itemRef;
                 delete rawData.sectionRef;
                 delete rawData.createDate;
@@ -74,14 +87,15 @@ export class ViewTenderComponent implements OnInit {
                 delete rawData.__v;
                 //
                 this.responseData = rawData;
-                // console.log(this.responseData);
+                // console.log('print id:  ');
+                // this.responseData.map(item => console.log(item._id));
             }
         },
             (err) => {
                 this.spinner.hide();
-                console.log(err);
+                console.log('fetchSingleTenderById .. ', err);
             })
-    }
+    } */
 
     ngOnInit() {
         //

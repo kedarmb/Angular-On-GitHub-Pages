@@ -3,19 +3,19 @@ import { environment } from 'environments/environment';
 export const API_URL = ' https://smartbid-api.herokuapp.com/v1';
 export const regex = {
 
-nameReg: /^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/,
-alphaNumeric: '',
-alphaFive: '',
-alphaThirty: '',
-emailReg:
-// tslint:disable-next-line: max-line-length
-/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-organizationName: '',
+  nameReg: /^[a-zA-Z0-9](.*[a-zA-Z0-9])?$/,
+  alphaNumeric: '',
+  alphaFive: '',
+  alphaThirty: '',
+  emailReg:
+    // tslint:disable-next-line: max-line-length
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  organizationName: '',
   alphabetOnly: /^[A-Za-z]+$/, // should not contain numbers & special Charecters,
   phoneNumber: /([0-9\s\-]{7,})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/,
 
   passwordPattern:
-  '(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{8,}'
+    '(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{8,}'
 };
 export const errorMsg = {
   email: 'Email address is not valid',
@@ -29,16 +29,19 @@ export const errorMsg = {
 
 export const ApiUrl = {
   baseUrl: environment.baseURL,
+
+
   LabourUrl: urlCreator('/labour'),
+  equipmentUrl: urlCreator('/equipment'),
+  //
   orgUrl: urlCreator('/organization'),
+  labourEquipment: urlCreator('/labourequipment'),
   UserUrl: urlCreator('/user'),
   sectionUrl: urlCreator('/section'),
   tenderUrl: urlCreator('/tender'),
   tendersUrl: urlCreator('/tender'),
-  lineItems: urlCreator('/item'),  // this is only for testing purposes. Real data to fetch with ID
-  equipmentUrl: urlCreator('/equipment'),
+  lineItemUrl: urlCreator('/line-item'),  // this is only for testing purposes. Real data to fetch with ID 
   crewTemplateUrl: urlCreator('/crewTemplate'),
-  lineItemUrl: urlCreator('/item'),
   subItemUrl: urlCreator('/subitem'),
   loginUrl: urlCreator('/auth/login'),
   createAcc: authUrlCreator('/auth/register'),

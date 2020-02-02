@@ -81,13 +81,13 @@ console.log(z);
   }
 
   getAllTenders() {
-    this.httpServ.getTenders().subscribe((result) => {
+    /* this.httpServ.getTenders().subscribe((result) => {
     this.tenders = result.body as Array<any>;
     this.tendersnew = this.tenders.slice(0, 3);
     console.log('------------------', this.tendersnew)
     }, (err) => {
       console.log('err in fetching tender headers ', err);
-    })
+    }) */
   }
 }
 

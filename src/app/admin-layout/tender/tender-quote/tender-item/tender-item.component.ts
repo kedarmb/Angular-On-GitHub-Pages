@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material';
 import { CrewModalComponent } from '../../../../shared/components/crew-modal/crew-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { HelperService } from '../../../../shared/core/service/helper.service';
+import { TenderService } from '../../../../shared/core/service/tender.service';
+
 
 
 @Component({
@@ -33,25 +35,38 @@ export class TenderItemComponent implements OnInit, OnChanges {
   //
   constructor(private formBuilder: FormBuilder, private modalService: MatDialog,
     private progress: NgProgress, private httpService: HttpService, private hs: HelperService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService, private ts: TenderService) {
     //
   }
 
   ngOnInit() {
-    this.progressRef = this.progress.ref('myProgress');
-    this.progressRef.start();
+    // this.progressRef = this.progress.ref('myProgress');
+    // this.progressRef.start();
     this.getCrews();
   }
 
   ngOnChanges() {
-    console.log('ngAfterViewInit ::: tender data in child component ', this.tenderData);
-    this.initMasterForm();
+    // console.log('ngAfterViewInit ::: tender data in child component ', this.tenderData);
+    if (this.masterForm == null) {
+      this.initMasterForm();
+    }
+    if (this.tenderData !== undefined) {
+      /* console.log(this.tenderData);
+      this.masterForm.patchValue(this.tenderData); */
+      if (this.tenderData.sections.length <= 0) {
+        // open blank master form
+      } else {
+        // set value to the form
+        // this.masterForm.setControl('sections', this.tenderData.sections);
+        this.createSectionsOnGet();
+      }
+    }
   }
 
   // creating masterform
   initMasterForm() {
     this.masterForm = this.formBuilder.group({
-      _id: [''],
+      _id: [null],
       clientName: [''],
       name: [''],
       description: [''],
@@ -59,35 +74,52 @@ export class TenderItemComponent implements OnInit, OnChanges {
       closeDate: [''],
       quoteStartDate: [''],
       quoteEndDate: [''],
+      headerLevelNotifiedSubs: [''],
+      createdBy: [null],
+      updatedBy: [null],
+      organizationRef: [null],
+      // sections:[''],
+      createdAt: [''],
+      updatedAt: [''],
       sections: this.formBuilder.array([this.initSectionCtrl()])
     })
-    console.log(this.masterForm);
+    // console.log(this.masterForm);
   }
 
   initSectionCtrl() {
     return this.formBuilder.group({
+      _id: [null],
       name: [''],
-      totalPrice: [''],
+      sectionTotalPrice: [''],
       lineItems: this.formBuilder.array([this.initLineItemCtrl()])
     })
   }
   initLineItemCtrl() {
     return this.formBuilder.group({
+      _id: [null],
       specNo: [''],
       itemNo: [''],
-      name: [''],
+      itemName: [''],
       description: [''],
-      unit: [''],
-      unitPrice: [''],
-      quantity: [''],
-      totalPrice: [''],
-      subLineItems: this.formBuilder.array([this.initSubLineItemCtrl()]),
-      crewItemRef: [''],
-      trenchRef: ['']
+      unit: [],
+      unitPrice: [null],
+      quantity: [null],
+      trench: [''],
+      crew: [''],
+      notifiedSubs: [null],
+      selectedSub: [null],
+      lineItemCrewLabourItems: [null],
+      lineTotalPrice: [null],
+      subLineItems: [null],
+      // totalPrice: [''],
+      // subLineItems: this.formBuilder.array([this.initSubLineItemCtrl()]),
+      crewItemRef: [null],
+      trenchRef: [null]
     })
   }
   initSubLineItemCtrl() {
     return this.formBuilder.group({
+      _id: [null],
       name: [''],
       unit: [''],
       quantity: [''],
@@ -96,6 +128,92 @@ export class TenderItemComponent implements OnInit, OnChanges {
       quoteSub: ['']
     })
   }
+  //
+  createSectionsOnGet() {
+    const sections_array = this.masterForm.get('sections') as FormArray;
+    // remove the empty element already created:
+    sections_array.removeAt(0);
+    //
+    // console.log(this.tenderData.sections);
+    this.tenderData.sections.forEach(sectionRef => {
+      // console.log('sectionRef is ', sectionRef);
+      //
+      sections_array.push(this.formBuilder.group({
+        _id: sectionRef._id,
+        name: sectionRef.name,
+        // lineItems: this.createLineItemsOnGet(sectionRef)
+        lineItems: this.createLineItemForm(sectionRef)
+      }))
+    });
+  }
+  createLineItemForm(sectionRef) {
+    // console.log('sectionRef:  ', sectionRef.lineItems as FormArray);
+    let lineItemFormArr: FormArray = sectionRef.lineItems as FormArray;
+    lineItemFormArr = this.formBuilder.array([]);
+    //
+    sectionRef.lineItems.forEach((item) => {
+      lineItemFormArr.push(this.ts.createItemCtrl(item));
+      //
+      let subItemNode: FormArray = item.subLineItems as FormArray;
+      subItemNode = new FormArray([]);
+      //
+      item.subLineItems.forEach((subItem) => {
+        // console.log(subItem)
+        subItemNode.push(this.ts.createSublineItemsCtrls(subItem));
+        console.log('subItemNode is :  ', subItemNode);
+      })
+      //
+    })
+    // console.log(lineItemFormArr);
+    return lineItemFormArr;
+  }
+ 
+  /* createLineItemsOnGet(sectionRef) {
+    const line_items_array = new FormArray([]);
+    //
+    sectionRef.lineItems.forEach(lineItem => {
+      //
+      line_items_array.push(this.formBuilder.group({
+        _id: lineItem._id,
+        specNo: lineItem.specNo,
+        itemNo: lineItem.itemNo,
+        itemName: lineItem.itemName,
+        description: lineItem.description,
+        unit: lineItem.unit,
+        unitPrice: lineItem.unitPrice,
+        quantity: lineItem.quantity,
+        trench: lineItem.trench,
+        crew: lineItem.crew,
+        notifiedSubs: lineItem.notifiedSubs,
+        selectedSub: lineItem.selectedSub,
+        lineItemCrewLabourItems: lineItem.lineItemCrewLabourItems,
+        lineTotalPrice: lineItem.lineTotalPrice,
+        crewItemRef: lineItem.crewItemRef,
+        trenchRef: lineItem.trenchRef,
+        subLineItems: this.createSubLineItemsOnGet(lineItem)
+      }))
+    })
+    return line_items_array;
+  }
+  
+  createSubLineItemsOnGet(lineItemRef) {
+    const sub_line_array = new FormArray([]);
+    lineItemRef.subLineItems.forEach(subLineItem => {
+      //
+      sub_line_array.push(this.formBuilder.group({
+        //
+        _id: subLineItem._id,
+        name: subLineItem.name,
+        unit: subLineItem.unit,
+        quantity: subLineItem.quantity,
+        unitPrice: subLineItem.unitPrice,
+        // totalPrice: subLineItem.totalPrice,
+        subLineTotalPrice: subLineItem.subLineTotalPrice,
+        quoteSub: subLineItem.quoteSub
+      }))
+    })
+    return sub_line_array;
+  } */
   //
   __addSection() {
     const sectionsArr = this.masterForm.get('sections') as FormArray;
@@ -106,6 +224,29 @@ export class TenderItemComponent implements OnInit, OnChanges {
     const _lineItem = this.initLineItemCtrl();
     const lineItemArr = sectionRef.get('lineItems') as FormArray;
     lineItemArr.push(_lineItem);
+  }
+
+  // saves a single line item
+  saveLineItem(sectionRef, indx) {
+    // /v1/line-item/tender/:tenderId/section/:sectionId
+    // TODO: to add section ID with checking on the append string
+    const id = this.tenderData._id;
+    console.log(this.tenderData._id);
+    const _lineItm = (sectionRef.get('lineItems') as FormArray).at(indx).value;
+    const appendStr = '/tender/' + id + '/section/' + '9e2f4d4ade8a06001ea71e91';
+    // trim the payload with necessary key-values for line item only
+    const payload = this.hs.pickChosenProps(_lineItm, 'specNo', 'itemNo', 'itemName', 'description', 'unit', 'unitPrice', 'quantity')
+    // console.log(sectionRef.value.name);
+    payload['name'] = sectionRef.value.name;
+    console.log('final pay load is ', payload);
+    //
+    // return;
+    this.httpService.saveLineItem(appendStr, payload).subscribe((response) => {
+      console.log('save line itm ', response);
+    },
+      (err) => {
+        console.log('save line itm ERR ', err);
+      })
   }
   __removeLineItem(sectionRef, indx) {
     const lineItemArr = sectionRef.get('lineItems') as FormArray;
@@ -251,11 +392,11 @@ export class TenderItemComponent implements OnInit, OnChanges {
   getCrews() {
     this.httpService.getAllCrews()
       .subscribe((response: any) => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
           this.crewList = response.body;
-          console.log(this.crewList)
-          this.progressRef.complete();
+          // console.log(this.crewList)
+          // this.progressRef.complete();
         }
       },
         error => {

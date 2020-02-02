@@ -52,10 +52,12 @@ export class TenderModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.tData);
+        console.log('tData is:   ', this.tData);
         // set quote open date to todays date
         this.tenderOpenMinDate = moment().format();
-        this.allClients = [...(JSON.parse(this.hs.getFromLocalStorage('orgList')))];
+        // this.allClients = [...(JSON.parse(this.hs.getFromLocalStorage('orgList')))];
+        this.filterOrgListToClients([...(JSON.parse(this.hs.getFromLocalStorage('orgList')))]);
+        //
         if (this.tData.value) {
             // this.dialogRef.componentInstance.data = {numbers: value};
             // this.tData.data.openDate = moment().toISOString(this.tData.data.openDate);
@@ -68,18 +70,25 @@ export class TenderModalComponent implements OnInit {
             this.injectedData.quoteStartDate = moment(this.injectedData.quoteStartDate).toISOString();
             this.injectedData.quoteEndDate = moment(this.injectedData.quoteEndDate).toISOString();
             //
-            // this.tenderModalRef.componentInstance.data = inputData
-            // console.log('tracing val  ', this.injectedData);
+            
+
         }
 
         this.initializeForm();
         //
+    }
+    // function to filter out only CLIENT type organization
+    filterOrgListToClients(list) {
+        this.allClients = list.filter(item => item.orgType[0] === 'Client');
+        // console.log(this.allClients);
     }
 
 
     initializeForm() {
         this.tenderHeaderForm = this.formBuider.group({
             _id: [],
+            headerLevelNotifiedSubs: [''],
+            sections: [''],
             clientName: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
             //
             name: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
@@ -113,7 +122,7 @@ export class TenderModalComponent implements OnInit {
         //
         if (this.injectedData) {
             //
-            // console.log(this.injectedData);
+            console.log(this.injectedData);
             delete this.injectedData.itemRef;
             delete this.injectedData.sectionRef;
             delete this.injectedData.__v;
@@ -125,6 +134,9 @@ export class TenderModalComponent implements OnInit {
             delete this.injectedData.updatedBy;
             delete this.injectedData.organizationRef;
             //
+            delete this.injectedData.createdAt;
+            delete this.injectedData.updatedAt;
+            //
             this.tenderHeaderForm.setValue(this.injectedData);
             // console.log(this.tenderHeaderForm.value);
         }
@@ -134,6 +146,7 @@ export class TenderModalComponent implements OnInit {
 
     private filteredClients(value: string): any {
         const filterValue = value.toLowerCase();
+        console.log(filterValue);
         // console.log(this.allClients.filter(client => client.name.toLowerCase().indexOf(filterValue) === 0))
         return this.allClients.filter(client => client.name.toLowerCase().indexOf(filterValue) === 0);
     }
@@ -190,9 +203,12 @@ export class TenderModalComponent implements OnInit {
         this.spinner.show();
         // console.log(this.tenderHeaderForm.value);
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
+        updateData.organizationRef = this.hs.getOrgId();
         // const tenderID = updateData._id;
         updateData.clientName = this.hs.findClientID(updateData.clientName);
         //
+        console.log('updateData is :   ', updateData);
+        // return;
         this.httpServ.addNewTender(updateData).subscribe((res) => {
             // console.log('success in adding ', res);
             //
@@ -202,7 +218,6 @@ export class TenderModalComponent implements OnInit {
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);
                 this.toastr.info(res.statusText);
-                // this.hs.hideSpinner();
                 this.spinner.hide();
             }
         }, (err) => {
@@ -221,18 +236,16 @@ export class TenderModalComponent implements OnInit {
         updateData.clientName = this.hs.findClientID(updateData.clientName);
         //
         this.httpServ.updateTender(tenderID, updateData).subscribe((res) => {
-
+            // TODO: to check consistent status code
             if (res.status === 201) {
                 console.log('success in updating ', res);
                 this.resData.status = 'update';
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);
                 this.toastr.info(res.statusText);
-                // this.hs.hideSpinner();
                 this.spinner.hide();
             }
         }, (err) => {
-            // this.hs.hideSpinner();
             this.spinner.hide();
             console.log('err in updating ', err);
         })

@@ -19,7 +19,6 @@ export class HttpService {
   }
 
   public updateEquipment(data, id): Observable<any> {
-
     return this.httpClient.put(ApiUrl.equipmentUrl + '/' + id, data, { headers: this.getHeader(), observe: 'response' });
   }
 
@@ -57,7 +56,11 @@ export class HttpService {
   public getByIdLabour(id): Observable<any> {
     return this.httpClient.get(ApiUrl.LabourUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
-
+ 
+  public getAllLabourEquipment(): Observable<any> {
+    return this.httpClient.get('assets/labourequipmentdata.json', { headers: this.getHeader(), observe: 'response' });
+    // return this.httpClient.get(ApiUrl.labourEquipment + '/0/0', { headers: this.getHeader(), observe: 'response' });
+  }
   public login(data): Observable<any> {
     return this.httpClient.post(ApiUrl.loginUrl + '/', data, { headers: this.getHeader(), observe: 'response' });
   }
@@ -108,8 +111,8 @@ export class HttpService {
     return this.httpClient.get(ApiUrl.sectionUrl, { headers: this.getHeader(), observe: 'response' });
   }
   /** Public method to return the list of Tender Headers */
-  public getTenders(): Observable<any> {
-    return this.httpClient.get(ApiUrl.tenderUrl + '/0/0', { headers: this.getHeader(), observe: 'response' });
+  public getTenders(appendStr): Observable<any> {
+    return this.httpClient.get(ApiUrl.tenderUrl + appendStr, { headers: this.getHeader(), observe: 'response' });
   }
 
   /** Public method to Fetch single record of Tender */
@@ -132,7 +135,10 @@ export class HttpService {
   }
 
   public getLineItems(id): Observable<any> {
-    return this.httpClient.get(ApiUrl.lineItems + '/' + id, { headers: this.getHeader(), observe: 'response' })
+    return this.httpClient.get(ApiUrl.lineItemUrl + '/' + id, { headers: this.getHeader(), observe: 'response' })
+  }
+  public saveLineItem(appendStr, payload) {
+    return this.httpClient.post(ApiUrl.lineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
   }
   /* TENDER SECTION */
 

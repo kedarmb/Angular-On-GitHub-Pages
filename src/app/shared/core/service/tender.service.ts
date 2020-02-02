@@ -1,232 +1,12 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormArray } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TenderService {
-    // array: Tender[] = [
-    //     {
-    //         _id: '5dde7f6bfc6b8a42441783ab',
-    //         openDate: '2019-07-07T00:00:00+00:00',
-    //         closeDate: '2010-08-22T00:00:00+00:00',
-    //         quoteStartDate: '2010-07-11T00:00:00+00:00',
-    //         quoteEndDate: '2010-07-18T00:00:00+00:00',
-    //         tenderName: 'Real time Generating',
-    //         clientName: 'Aaskash Builder Pvt Ltd',
-    //         items: [{
-    //             id: '105',
-    //             itemNo: 'A-1',
-    //             specNo: 'PW.2 OPSS 442 SP',
-    //             crew: 'Crew1',
-    //             trench: {
-    //                 height: 10,
-    //                 width:
-    //                     10,
-    //                 length:
-    //                     10,
-    //                 cubeVolume:
-    //                     1000,
-    //                 diameter:
-    //                     20,
-    //                 pipeVolume:
-    //                     10,
-    //                 totalVolume:
-    //                     100,
-    //                 remaningVolume:
-    //                     0
-    //             },
-    //             itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
-    //             labours: [],
-    //             equipments: [],
-    //             subcontractors: [],
-    //             subitems: [
-    //                 { id: '1', name: 'Cement', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 },
-    //                 { id: '2', name: 'Gloves', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 },
-    //                 { id: '3', name: 'IRON', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 }],
-    //             description:
-    //                 'a) Supply and Installation of Proposed 600mm Diameter AWWA ' +
-    //                 'C301 CPP Watermain on Mayfield Road (Sta. 12+772.3 to Sta.13+656.8) [Dwg. 68331-D to 68335-D]',
-    //             unit:
-    //                 'm',
-    //             unitPrice:
-    //                 0,
-    //             totalPrice:
-    //                 0,
-    //             quantity:
-    //                 896.6
-    //         },
-    //         {
-    //             id: '106',
-    //             itemNo:
-    //                 'A-2',
-    //             specNo:
-    //                 'PW.2 OPSS 442 SP',
-    //             crew:
-    //                 'Crew2',
-    //             trench:
-    //             {
-    //                 height: 10,
-    //                 width:
-    //                     10,
-    //                 length:
-    //                     10,
-    //                 cubeVolume:
-    //                     1000,
-    //                 diameter:
-    //                     20,
-    //                 pipeVolume:
-    //                     10,
-    //                 totalVolume:
-    //                     100,
-    //                 remaningVolume:
-    //                     0
-    //             }
-    //             ,
-    //             itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
-    //             labours: [
-    //                 {
-    //                     name: 'string',
-    //                     description: 'string',
-    //                     hourlyRate: 'string',
-    //                     // type: 'string'
-    //                 },
-    //                 {
-    //                     name: 'string',
-    //                     description: 'string',
-    //                     hourlyRate: 'string',
-    //                     // type: 'string'
-    //                 },
-    //                 {
-    //                     name: 'string',
-    //                     description: 'string',
-    //                     hourlyRate: 'string',
-    //                     // type: 'string'
-    //                 }
-    //             ],
-    //             equipments: [],
-    //             subcontractors: [],
-    //             subitems:
-    //                 [
-    //                     { id: '1', name: 'Cement', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 },
-    //                     { id: '2', name: 'Gloves', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 },
-    //                     { id: '3', name: 'IRON', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 }],
-    //             description:
-    //                 'a) Supply and Installation of Proposed 600mm Diameter AWWA ' +
-    //                 'C301 CPP Watermain on Mayfield Road (Sta. 12+772.3 to Sta.13+656.8) [Dwg. 68331-D to 68335-D]',
-    //             unit:
-    //                 'm',
-    //             unitPrice:
-    //                 0,
-    //             totalPrice:
-    //                 0,
-    //             quantity:
-    //                 896.6
-    //         }
-    //             ,
-    //         {
-    //             id: '107',
-    //             itemNo:
-    //                 'A-3',
-    //             specNo:
-    //                 'PW.2 OPSS 442 SP',
-    //             crew:
-    //                 'Crew3',
-    //             trench:
-    //             {
-    //                 height: 10,
-    //                 width:
-    //                     10,
-    //                 length:
-    //                     10,
-    //                 cubeVolume:
-    //                     1000,
-    //                 diameter:
-    //                     20,
-    //                 pipeVolume:
-    //                     10,
-    //                 totalVolume:
-    //                     100,
-    //                 remaningVolume:
-    //                     0
-    //             }
-    //             ,
-    //             itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
-    //             labours: [],
-    //             equipments: [],
-    //             subcontractors: [],
-    //             subitems:
-    //                 [
-    //                     { id: '1', name: 'Cement', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 },
-    //                     { id: '2', name: 'Gloves', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 },
-    //                     { id: '3', name: 'IRON', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 }],
-    //             description:
-    //                 'a) Supply and Installation of Proposed 600mm Diameter AWWA ' +
-    //                 'C301 CPP Watermain on Mayfield Road (Sta. 12+772.3 to Sta.13+656.8) [Dwg. 68331-D to 68335-D]',
-    //             unit:
-    //                 'm',
-    //             unitPrice:
-    //                 0,
-    //             totalPrice:
-    //                 0,
-    //             quantity:
-    //                 896.6
-    //         }
-    //             ,
-    //         {
-    //             id: '108',
-    //             itemNo:
-    //                 'A-4',
-    //             specNo:
-    //                 'PW.2 OPSS 442 SP',
-    //             crew:
-    //                 'Crew4',
-    //             trench:
-    //             {
-    //                 height: 10,
-    //                 width:
-    //                     10,
-    //                 length:
-    //                     10,
-    //                 cubeVolume:
-    //                     1000,
-    //                 diameter:
-    //                     20,
-    //                 pipeVolume:
-    //                     10,
-    //                 totalVolume:
-    //                     100,
-    //                 remaningVolume:
-    //                     0
-    //             }
-    //             ,
-    //             itemName: 'Construction of Watermain, including Temporary Connections for Flushing:',
-    //             labours: [],
-    //             equipments: [],
-    //             subcontractors: [],
-    //             subitems:
-    //                 [
-    //                     { id: '1', name: 'Cement', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 },
-    //                     { id: '2', name: 'Gloves', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 },
-    //                     { id: '3', name: 'IRON', unit: 'm', unitPrice: 10, quantity: 10, totalPrice: 100 }],
-    //             description:
-    //                 'a) Supply and Installation of Proposed 600mm Diameter AWWA ' +
-    //                 'C301 CPP Watermain on Mayfield Road (Sta. 12+772.3 to Sta.13+656.8) [Dwg. 68331-D to 68335-D]',
-    //             unit:
-    //                 'm',
-    //             unitPrice:
-    //                 0,
-    //             totalPrice:
-    //                 0,
-    //             quantity:
-    //                 896.6
-    //         }
-    //         ]
-
-    //     }
-
-    // ];
+   
     constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     }
 
@@ -274,43 +54,77 @@ export class TenderService {
             totalPrice: ''
         })
     }
+    /* createSectionControls() {
+        const sections_array = this.masterForm.get('sections') as FormArray;
+        this.tenderData.sections.forEach(sectionRef => {
+            //
+            sections_array.push(this.formBuilder.group({
+                _id: sectionRef._id,
+                name: sectionRef.name,
+                lineItems: this.createLineItemsOnGet(sectionRef)
+            }))
+        });
+    } */
     createItemCtrl(element) {
         return this.formBuilder.group({
-            itemNo: [element.itemNo],
-            specNo: [element.specNo],
-            name: [element.itemName],
-            description: [element.description],
-            unit: [element.unit],
-            unitPrice: [element.unitPrice],
-            quantity: [element.quantity],
-            totalPrice: [element.totalPrice],
-            crewRef: [element.crewRef],
-            tenderRef: [element.tenderRef],
-            sectionRef: [element.sectionRef],
-            quoteRef: [element.quoteRef],
+            _id: element._id,
+            specNo: element.specNo,
+            itemNo: element.itemNo,
+            itemName: element.itemName,
+            description: element.description,
+            unit: element.unit,
+            unitPrice: element.unitPrice,
+            quantity: element.quantity,
+            trench: element.trench,
+            crew: element.crew,
+            notifiedSubs: element.notifiedSubs,
+            selectedSub: element.selectedSub,
+            lineItemCrewLabourItems: element.lineItemCrewLabourItems,
+            lineTotalPrice: element.lineTotalPrice,
+            crewItemRef: element.crewItemRef,
+            trenchRef: element.trenchRef,
             // createdBy: [element.cretedBy],
-            subitems: this.formBuilder.array([])
+            subLineItems: this.formBuilder.array([this.createSublineItemsCtrls(element)])
         })
     }
 
-    createSublineItemsCtrls(element?) {
+    createSublineItemsCtrls(element) {
+    //     const sub_line_array = new FormArray([]);
+    //     element.subLineItems.forEach(subLineItem => {
+    //         console.log(subLineItem)
+    //         //
+    //         sub_line_array.push(this.formBuilder.group({
+    //             //
+    //             _id: subLineItem._id,
+    //             name: subLineItem.name,
+    //             unit: subLineItem.unit,
+    //             unitPrice: subLineItem.unitPrice,
+    //             // totalPrice: subLineItem.totalPrice,
+    //             subLineTotalPrice: subLineItem.subLineTotalPrice,
+    //             // quoteSub: element.quoteSub,
+    //             subContrctorId: subLineItem.subContrctorId
+    //         }))
+
+    //     })
+    //     console.log(sub_line_array)
+    //     console.log(element)
+    //     return sub_line_array;
+    // //
+
+    // Tarang+Arup's code old
+        console.log('element  ?? ', element);
         return this.formBuilder.group({
-            // id: [element.id],
-            quoteRef: [element.quoteRef],
-            itemRef: [element.itemRef],
-            description: [element.description],
-            specNo: [element.specNo],
-            organizationRef: [element.organizationRef],
-            createdBy: [element.createdBy],
-            name: [element.name],
-            unit: [element.unit],
-            unitPrice: [element.unitPrice],
-            quantity: [element.quantity],
-            totalPrice: [element.totalPrice]
+            _id: element._id,
+            name: element.name,
+            unit: element.unit,
+            quantity: element.quantity,
+            unitPrice: element.unitPrice,
+            // totalPrice: subLineItem.totalPrice,
+            subLineTotalPrice: element.subLineTotalPrice,
+            // quoteSub: element.quoteSub,
+            subContrctorId: element.subContrctorId
         })
-    }
-    //
-
+}
 
 
 }

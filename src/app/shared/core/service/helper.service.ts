@@ -27,20 +27,24 @@ export class HelperService {
   allLabourList: any[] = [];
   //
   filteredOrgList: any[] = [];
+  usersOrg: string;
 
   private allowFreeTextAddEngineer = false;
   public chipSelectedEngineers: Engineer[] = [];
   equipments: any;
   constructor(private httpService: HttpService, private httpClient: HttpClient,
     private spinner: NgxSpinnerService) {
-    //
-    // this.getAllOrganization()
-    // console.log('HelperService instantiated');
-    // this.getEquipmentData();
-    //
 
   }
 
+  setOrgId() {
+    // just update the Organization ID for the logged in user
+    const uData = JSON.parse(sessionStorage.getItem('userData'));
+    this.usersOrg = uData['organization'];
+  }
+  getOrgId() {
+    return this.usersOrg;
+  }
 
   getTenterEven(tender_even){
     this.tender_even = tender_even
@@ -132,7 +136,7 @@ export class HelperService {
       // return 'N. Available'
     }
   }
-  findEqipObj(id){
+  findEqipObj(id) {
     const equip = this.allEquipList.find(item => item._id === id);
     // console.log(id, '    labor obj    ', this.allEquipList);
     if (equip !== undefined) {
@@ -140,6 +144,16 @@ export class HelperService {
     } else if (equip === undefined) {
       // return 'N. Available'
     }
+  }
+
+  // generic helper function to return chosen key value pair from any given object
+  pickChosenProps(o, ...fields) {
+    return fields.reduce((a, x) => {
+      if (o.hasOwnProperty(x)) {
+        a[x] = o[x];
+      }
+      return a;
+    }, {});
   }
 
   private filterEngineer(engineerList: Engineer[], engineerName: String): String[] {

@@ -20,13 +20,13 @@ export class AppInitService {
       //
       const orgData = this.httpServ.getAllOrganization();
       // console.log('org data is ', orgData);
-      const equipData = this.httpServ.getAllEquipment();
+      // const equipData = this.httpServ.getAllEquipment();
       //
-      forkJoin([orgData, equipData]).subscribe(results => {
-        console.log('fork join resolved all ----');
-        console.log(results);
-        resolve(results);
-      })
+      // forkJoin([orgData, equipData]).subscribe(results => {
+      //   console.log('fork join resolved all ----');
+      //   console.log(results);
+      //   resolve(results);
+      // })
       //
     });
   }

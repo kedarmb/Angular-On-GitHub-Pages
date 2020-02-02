@@ -14,7 +14,7 @@
                                 <mat-icon>remove_circle</mat-icon>
                             </button>
                         </mat-toolbar>
-                        <div formArrayName="lineItems">
+                        <div formArrayName="lineItems" class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class=" text-primary">
                                     <th>
@@ -42,7 +42,7 @@
                                     <th>
                                         Total Price
                                     </th>
-                                    <th>
+                                    <th style="width: 200px;">
                                         Actions
                                     </th>
                                 </thead>
@@ -56,7 +56,7 @@
                                                 <textarea type="text" class="form-control" formControlName="specNo"></textarea>
                                             </td>
                                             <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="name"></textarea>
+                                                <textarea type="text" class="form-control" formControlName="itemName"></textarea>
                                             </td>
                                             <td class="width-2">
                                                 <textarea type="text" class="form-control" formControlName="description"></textarea>
@@ -71,13 +71,13 @@
                                                 <textarea type="text" class="form-control" formControlName="quantity"></textarea>
                                             </td>
                                             <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="totalPrice" [readonly]="true"></textarea>
+                                                <textarea type="text" class="form-control" formControlName="lineTotalPrice" [readonly]="true"></textarea>
                                             </td>
                                             <td class="td-actions width-15">
                                                 <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">remove_red_eye</i>
                                                 </button>
-                                                <button mat-raised-button type="button" matTooltip="save line item" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" (click)="saveLineItem(section, lindx)" matTooltip="save line item" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">save</i>
                                                 </button>
                                                 <button mat-raised-button type="button" (click)="__removeLineItem(section, lindx)" matTooltip="remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
@@ -113,7 +113,7 @@
                                                                         <th>Unit Price</th>
                                                                         <th>Quantity</th>
                                                                         <th>Total Price</th>
-                                                                        <th>
+                                                                        <th style="width: 200px;">
                                                                             <button mat-raised-button type="button" matTooltip="add sub-line item" [matTooltipPosition]="'above'" (click)="__addSubLineItem(lineItem)" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                                                 <i class="material-icons">add_box</i>
                                                                             </button>
@@ -122,29 +122,29 @@
                                                                     <tbody>
                                                                         <ng-container formArrayName="subLineItems">
                                                                             <tr *ngFor="let sItem of lineItem.get('subLineItems').controls; let slindx = index" [formGroupName]="slindx">
-                                                                                <td>
-                                                                                    <textarea type="text" class="form-control" formControlName="name"></textarea>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <textarea type="text" class="form-control" formControlName="unit"></textarea>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <textarea type="text" class="form-control" formControlName="quantity"></textarea>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <textarea type="text" class="form-control" formControlName="totalPrice"></textarea>
-                                                                                </td>
-                                                                                <td class="td-actions width-10">
-                                                                                    <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)" matTooltip="remove sub-line item">
-                                                                                        <i class="material-icons">minimize</i>
-                                                                                    </button>
-                                                                                    <button type="button" class="btn btn-primary btn-link btn-sm btn-just-icon" matTooltip="save sub-line item">
-                                                                                        <i class="material-icons">save</i>
-                                                                                    </button>
-                                                                                </td>
+                                                                                    <td>
+                                                                                        <textarea type="text" class="form-control" formControlName="name"></textarea>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <textarea type="text" class="form-control" formControlName="unit"></textarea>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <textarea type="text" class="form-control" formControlName="quantity"></textarea>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <textarea type="text" class="form-control" formControlName="subLineTotalPrice"></textarea>
+                                                                                    </td>
+                                                                                    <td class="td-actions width-10">
+                                                                                        <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)" matTooltip="remove sub-line item">
+                                                                                            <i class="material-icons">minimize</i>
+                                                                                        </button>
+                                                                                        <button type="button" class="btn btn-primary btn-link btn-sm btn-just-icon" matTooltip="save sub-line item">
+                                                                                            <i class="material-icons">save</i>
+                                                                                        </button>
+                                                                                    </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td></td>

@@ -29,7 +29,8 @@ export class TenderCompareComponent implements OnInit {
   }
 
   getAllTenders() {
-    return this.httpService.getTenders().subscribe((response) => {
+    const appendStr = '/0/0';
+    return this.httpService.getTenders(appendStr).subscribe((response) => {
       if (response.status === 200) {
         this.tenderCompare = response.body;
         console.log(this.tenderCompare)

@@ -43,6 +43,8 @@ export class LoginComponent implements OnInit {
       .subscribe((response: any) => {
         console.log('result of login response: ', response);
         if (response.status === 200) {
+          const uData = JSON.stringify(response.body.user)
+          sessionStorage.setItem('userData', uData);
           // this.router.navigateByUrl('/dashboard');
           this.loadInitData();
         }
@@ -57,17 +59,23 @@ export class LoginComponent implements OnInit {
   loadInitData() {
     const orgData = this.httpService.getAllOrganization();
     // console.log('org data is ', orgData);
-    const equipData = this.httpService.getAllEquipment();
-    const labourData = this.httpService.getAllLabour();
+    const labor_equip = this.httpService.getAllLabourEquipment();
+    // const labourData = this.httpService.getAllLabour();
     //
-    forkJoin([orgData, equipData, labourData]).subscribe(results => {
-      // console.log(results[0].body);
-      localStorage.setItem('orgList', JSON.stringify(results[0].body));
-      localStorage.setItem('equipList', JSON.stringify(results[1].body));
-      localStorage.setItem('labourList', JSON.stringify(results[2].body));
+    // TODO: handle exception if any API fails: implement graceful degradation
+    forkJoin([orgData, labor_equip]).subscribe(results => {
       //
-      this.spinner.hide();
-      this.router.navigateByUrl('/dashboard');
+      const allLabour = (results[1].body as Array<any>).filter(element => element.type === 'L');
+      const allEquip = (results[1].body as Array<any>).filter(element => element.type === 'E');
+      //
+      localStorage.setItem('orgList', JSON.stringify(results[0].body));
+      localStorage.setItem('equipList', JSON.stringify(allEquip));
+      localStorage.setItem('labourList', JSON.stringify(allLabour));
+      //
+      this.router.navigateByUrl('/dashboard').then(() => {
+        this.spinner.hide();
+      });
+
     })
   }
 }

@@ -10,12 +10,12 @@
                 </div>
             </mat-toolbar-row>
         </mat-toolbar>
-        
-        
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-plain">
-                    <div class="card-header">                        
+                    <div class="card-header">
                         <div class="card-body" *ngIf="tenders">
                             <div class="table-responsive">
                                 <table id="mainTable" class="table table-hover tab-cell-styl">
@@ -52,7 +52,7 @@
                                                 {{index + 1}}
                                             </td>
                                             <td>
-                                                {{tender.clientName}}
+                                                {{tender.clientName.name}}
                                             </td>
                                             <td>
                                                 {{tender.name}}
@@ -72,32 +72,21 @@
                                                 {{tender.quoteEndDate | date: 'dd/MM/yyyy'}}
                                             </td>
                                             <td class="td-actions width-15">
-                                                <button mat-raised-button type="button" matTooltip="Edit Task"
-                                                    (click)="AddUpdateTender(true, tender, index)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Edit Task" (click)="AddUpdateTender(true, tender, index)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">edit</i>
                                                 </button>
-                                                <button mat-raised-button type="button" matTooltip="Remove"
-                                                    (click)="deleteTender(tender,index)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Remove" (click)="deleteTender(tender,index)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">close</i>
                                                 </button>
-                                                <button mat-raised-button type="button" matTooltip="Edit Tender Quotes"
-                                                    (click)="viewTender(tender)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Edit Tender Quotes" (click)="viewTender(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">exit_to_app</i>
                                                 </button>
-                                                <button mat-raised-button type="button" matTooltip="Upload Tender"
-                                                    (click)="viewer(tender)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Upload Tender" (click)="viewer(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">
                                                         cloud_upload
                                                     </i>
                                                 </button>
-                                                <button mat-raised-button type="button"
-                                                    matTooltip="Final Pricing of Tender" (click)="quotes(tender)"
-                                                    [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Final Pricing of Tender" (click)="quotes(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">announcement</i>
                                                 </button>
                                             </td>
@@ -107,23 +96,20 @@
                             </div>
                         </div>
                         <div>
-                           
-
                         </div>
 
                     </div>
                 </div>
                 <div class="card card-plain" *ngIf="tenders?.length < 1">
                     <div class="card-header" style="text-align: center; margin-bottom: 60px;">
-                        <h2>Loading your list of tenders ..</h2>
+                        <h2>{{feMsg}}</h2>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
     </div>
-    <ngx-spinner type="line-spin-fade-rotating" size="medium" color="#b8a5e8">
+    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
         <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>
     </ngx-spinner>
 </div>
-

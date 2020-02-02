@@ -167,12 +167,12 @@ modalData: {
     console.log('jjjjjjjjjjjjjj', settenderobj);
   }
   getAllTenders() {
-    this.httpServ.getTenders().subscribe((result) => {
+    /* this.httpServ.getTenders().subscribe((result) => {
     this.tenders = result.body as Array<any>;
 
     }, (err) => {
       console.log('err in fetching tender headers ', err);
-    })
+    }) */
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
