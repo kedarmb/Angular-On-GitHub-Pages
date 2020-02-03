@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Inject, Optional, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject, Optional, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { HttpService } from 'app/shared/core/service/http.service';
@@ -17,6 +17,7 @@ import { Trench } from 'app/shared/core/model/trench.model';
 export class TrenchModalComponent implements OnInit {
   trenchForm: FormGroup;
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+  @Input() admin: boolean;
   @Output() public trenchData = new EventEmitter();
   formSubmitted = false;
   resData = {

@@ -112,7 +112,10 @@
   </div>
   <h3 class="mat-title"> Final Calculations</h3>
   <button mat-raised-button type="button" color="primary" (click)="calculate()">Calculate</button>
-  <button mat-raised-button type="button" (click)="save()" [disabled]="!trenchForm.valid" color="primary">Save</button>
-  <button mat-raised-button type="button" (click)="updateTrenchCalculation()" [disabled]="!trenchForm.valid" color="primary">Update</button>
-  <button mat-raised-button type="button" color="primary" (click)="close()">Cancel</button>
+  <div *ngIf="admin">
+    <button mat-raised-button type="button" (click)="save()" [disabled]="!trenchForm.valid " color="primary">Save</button>
+    <button mat-raised-button type="button" (click)="updateTrenchCalculation()" [disabled]="!trenchForm.valid"
+      color="primary">Update</button>
+    <button mat-raised-button type="button" color="primary" (click)="close()">Cancel</button>
+  </div>
 </form>

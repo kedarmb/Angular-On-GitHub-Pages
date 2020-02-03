@@ -15,7 +15,7 @@ export class TrenchCalculationComponent implements OnInit {
   displayedColumns: string[] = ['Name', 'Bedding Length', 'Bedding Width', 'Bedding Height', 'Bedding Volume', 'Pipe Diameter',
                                 'Pipe Volume', 'Effective Volume', 'Density Bedding', 'Bedding Weight', 'Backfill Length',
                                 'Backfill Weight', 'Actions']
-
+  isAdmin: true;
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
   trenchCal;
   valueChange: any;
