@@ -16,26 +16,50 @@
     <textarea matInput formControlName="description" placeholder="Enter Description" type="text"></textarea>
   </mat-form-field>
 
-   <div>
-    <tag-input  formControlName="equipments" [onlyFromAutocomplete]="true" [identifyBy]="'_id'"
-      [displayBy]="'name'">
-      <tag-input-dropdown [identifyBy]="'_id'" [displayBy]="'name'" [keepOpen]="false" [showDropdownIfEmpty]="true"
-        [autocompleteItems]="equipmentsData">
-      </tag-input-dropdown>
-    </tag-input>
+  <div class="row" formArrayName="equipments">
+    <ng-container *ngFor="let equipmentRow of createCrewForm.get('equipments').controls; let i = index;" [formGroupName]="i">
+      <div class="col-6">
+        <mat-form-field>
+          <mat-label>Equipments</mat-label>
+          <mat-select formControlName='name'>
+            <mat-option *ngFor="let eqpData of equipmentsData" [value]="eqpData.name">{{eqpData.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>{{equipmentsData.name}}
+      </div>
+      <div class="col-4">
+        <mat-form-field>
+          <input formControlName='hourlyRate' matInput placeholder="Hourly Rate" type='text'>
+        </mat-form-field>
+      </div>
+    </ng-container>
+    <div class=" sb-toolbar">
+      <a><i class="material-icons" (click)="__addEquipments()" matTooltip="Add equipment">add</i></a>
+    </div>
+    <a (click)="removeEquipment(equipmentRow)" matTooltip="Remove equipment"><i class="material-icons">minimize</i></a>
   </div>
-   <div>
-    <tag-input  formControlName="labours" [onlyFromAutocomplete]="true" [identifyBy]="'_id'"
-      [displayBy]="'name'">
-      <tag-input-dropdown [identifyBy]="'_id'" [displayBy]="'name'" [keepOpen]="false" [showDropdownIfEmpty]="true"
-        [autocompleteItems]="laboursData">
-      </tag-input-dropdown>
-    </tag-input>
+  <hr>
+
+  <div class="row" formArrayName="labours">
+    <ng-container *ngFor="let labourRow of createCrewForm.get('labours').controls; let i = index;" [formGroupName]="i">
+      <div class="col-6">
+        <mat-form-field>
+          <mat-label>Labours</mat-label>
+          <mat-select formControlName='name'>
+            <mat-option  *ngFor="let lbrData of laboursData" [value]="lbrData.name">{{lbrData.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field>
+          <input formControlName='hourlyRate' matInput placeholder="Hourly Rate" type='text'>
+        </mat-form-field>
+      </div>
+    </ng-container>
+        <div class=" sb-toolbar">
+          <a><i class="material-icons" (click)="__addLabours()" matTooltip="Add labour">add</i></a>
+        </div>
+        <a (click)="removeLabour(labourRow)" matTooltip="Remove labour"><i class="material-icons">minimize</i></a>
   </div>
-
-
-
-
 
   <mat-dialog-actions class=" pull-right">
     <div *ngIf="data.val == false">

@@ -11,4 +11,5 @@ export class Crew {
 export interface Engineer {
     name: string;
     _Id: number;
+    hourlyRate: number;
 }

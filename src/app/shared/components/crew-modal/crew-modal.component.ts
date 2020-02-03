@@ -2,7 +2,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { CrewItemService } from '../../core/service/crew-item.service';
 import { CrewItem } from '../../core/model/crew-item.model';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { HelperService } from '../../core/service/helper.service';
 import { regex, errorMsg } from '../../core/constant/index';
 import { MatDialogClose, MatDialogRef } from '@angular/material';
@@ -39,10 +39,13 @@ export class CrewModalComponent implements OnInit {
     private dialogRef: MatDialogRef<any>,
     private toastr: ToastrService,
     private crewItemService: CrewItemService) {
-
-      console.log('crew modal constructor');
+      
+    console.log('crew modal constructor');
+    
 
     this.equipmentsData = JSON.parse(this.hs.getFromLocalStorage('equipList'));
+    console.log("equipmentsData:", this.equipmentsData);
+    console.log("lllllllData:", this.laboursData);
     this.laboursData = JSON.parse(this.hs.getFromLocalStorage('labourList'));
 
     /* this.hs.equipmentData.subscribe((response) => {
@@ -80,9 +83,59 @@ export class CrewModalComponent implements OnInit {
       _id: [''],
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      equipments: [],
-      labours: []
+      // equipments: ['', Validators.required],
+      labours: this.formBuilder.array([this.labourRow()]),
+      equipments: this.formBuilder.array([this.equipmentRow()])
+      // price: ['', Validators.required]
     });
+  }
+
+
+  __addLabours() {
+    const labourArr = this.createCrewForm.get('labours') as FormArray;
+    const newLabour = this.labourRow();
+    labourArr.push(newLabour);
+  }
+  labourRow() {
+    return this.formBuilder.group({
+      name: [''],
+      hourlyRate: [''],
+    })
+  }
+
+  removeLabour(i: number) {
+    const control = <FormArray>this.createCrewForm.controls['labours'];
+
+    if (control.length === 1) {
+      this.toastr.warning('At least one labour should be there', 'Action denied');
+      return;
+    }
+    control.removeAt(i);
+  }
+
+
+  equipmentRow() {
+    return this.formBuilder.group({
+      name: [''],
+      hourlyRate: ['']
+    })
+  }
+
+  __addEquipments() {
+    const equipmentsArr = this.createCrewForm.get('equipments') as FormArray;
+    const newEquipment = this.equipmentRow();
+    equipmentsArr.push(newEquipment);
+  }
+
+  removeEquipment(i) {
+    const control = <FormArray>this.createCrewForm.controls['equipments'];
+
+    if (control.length === 1) {
+      this.toastr.warning('At least one equipment  should be there', 'Action denied');
+      return;
+    }
+
+    control.removeAt(i);
   }
 
   close() {

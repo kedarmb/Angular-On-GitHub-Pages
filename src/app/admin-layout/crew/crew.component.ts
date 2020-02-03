@@ -15,7 +15,7 @@ import { CrewLabourComponent } from './crew-labour/crew-labour.component';
 export class CrewComponent implements OnInit {
   @ViewChild(CrewEquipmentComponent, {static: false}) eq: CrewEquipmentComponent;
   @ViewChild(CrewLabourComponent, {static: false}) lb:CrewLabourComponent;
-  displayedColumns: string[] = ['Name', 'Description', 'Equipment', 'Labour', 'Actions'];
+  displayedColumns: string[] = ['Name', 'Description', 'Equipment', 'Equipment Rate', 'Labour', 'Labour Rate', 'Actions'];
   data: any = {};
   laboursData; // holds data from labours get api
   equipmentsData; // holds data from equipment get api
@@ -52,6 +52,8 @@ export class CrewComponent implements OnInit {
 
   ngOnInit() {
     this.getCrews();
+    console.log("getCrews():", this.getCrews());
+    
   }
 
   getCrews() {
@@ -86,12 +88,11 @@ export class CrewComponent implements OnInit {
       }
     });
   }
-  addEquipment(){
+  addEquipment() {
     this.eq.addEq(false);
   }
-  addLabour(){
+  addLabour() {
     this.lb.addLabour(false);
-
   }
   addCrew(val) {
     this.update.val = val
