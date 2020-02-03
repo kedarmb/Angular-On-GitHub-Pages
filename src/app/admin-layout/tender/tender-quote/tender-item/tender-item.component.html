@@ -83,10 +83,10 @@
                                                 <button mat-raised-button type="button" (click)="__removeLineItem(section, lindx)" matTooltip="remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">minimize</i>
                                                 </button>
-                                                <button mat-raised-button type="button" matTooltip="expand" (click)="toggleCollapse(lindx)" [matTooltipPosition]="'above'" *ngIf="!collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <!-- <button mat-raised-button type="button" matTooltip="expand" (click)="toggleCollapse(lindx)" [matTooltipPosition]="'above'" *ngIf="!collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">expand_more</i>
-                                                </button>
-                                                <button mat-raised-button type="button" matTooltip="less" (click)="toggleCollapse(lindx)" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                </button> -->
+                                                <button mat-raised-button type="button" matTooltip="less" (click)="collapse[lindx] = !collapse[lindx]" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">expand_less</i>
                                                 </button>
                                                 <button mat-raised-button type="button" matTooltip="add line item" [matTooltipPosition]="'above'" (click)="__addLineItem(section)" *ngIf="last" class="btn btn-danger btn-link btn-sm btn-just-icon">
@@ -107,21 +107,23 @@
                                                             </mat-expansion-panel-header>
                                                             <div for="subline_items_part">
                                                                 <table class="table table-condensed">
-                                                                    <thead>
-                                                                        <th>Name</th>
-                                                                        <th>Unit</th>
-                                                                        <th>Unit Price</th>
-                                                                        <th>Quantity</th>
-                                                                        <th>Total Price</th>
-                                                                        <th style="width: 200px;">
-                                                                            <button mat-raised-button type="button" matTooltip="add sub-line item" [matTooltipPosition]="'above'" (click)="__addSubLineItem(lineItem)" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                                                <i class="material-icons">add_box</i>
-                                                                            </button>
-                                                                        </th>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <ng-container formArrayName="subLineItems">
-                                                                            <tr *ngFor="let sItem of lineItem.get('subLineItems').controls; let slindx = index" [formGroupName]="slindx">
+                                                                    <div *ngIf="selectedSub">
+                                                                        <thead>
+                                                                            <th>Name</th>
+                                                                            <th>Unit</th>
+                                                                            <th>Unit Price</th>
+                                                                            <th>Quantity</th>
+                                                                            <th>Total Price</th>
+                                                                            <th style="width: 200px;">
+                                                                                <button mat-raised-button type="button" matTooltip="add sub-line item" [matTooltipPosition]="'above'" (click)="__addSubLineItem(lineItem)" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                                                    <i class="material-icons">add_box</i>
+                                                                                </button>
+                                                                            </th>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <ng-container formArrayName="subLineItems">
+
+                                                                                <tr *ngFor="let sItem of lineItem.get('subLineItems').controls; let slindx = index" [formGroupName]="slindx">
                                                                                     <td>
                                                                                         <textarea type="text" class="form-control" formControlName="name"></textarea>
                                                                                     </td>
@@ -141,20 +143,24 @@
                                                                                         <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)" matTooltip="remove sub-line item">
                                                                                             <i class="material-icons">minimize</i>
                                                                                         </button>
-                                                                                        <button type="button" class="btn btn-primary btn-link btn-sm btn-just-icon" matTooltip="save sub-line item">
+                                                                                        <button type="button" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="__saveSubLineItem(section, lineItem, slindx)" matTooltip="save sub-line item">
                                                                                             <i class="material-icons">save</i>
                                                                                         </button>
                                                                                     </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td>Sub Total</td>
-                                                                                <td>####</td>
-                                                                            </tr>
-                                                                        </ng-container>
-                                                                    </tbody>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                    <td>Sub Total</td>
+                                                                                    <td>####</td>
+                                                                                </tr>
+                                                                            </ng-container>
+                                                                        </tbody>
+                                                                    </div>
+                                                                    <div *ngIf="!selectedSub"> 
+                                                                        <h3>Select a Sub Contractor</h3>
+                                                                    </div>
                                                                 </table>
                                                             </div>
                                                         </mat-expansion-panel>
@@ -167,8 +173,8 @@
                                                             </mat-expansion-panel-header>
 
                                                             <div for="crew_details_form">
-                                                                <mat-grid-list cols="4" rowHeight="2em" rowHeight="2em">
-                                                                    <mat-grid-tile colspan="1" rowspan="1">
+                                                                <div class="row">
+                                                                    <div class="col-6">
                                                                         <mat-form-field>
                                                                             <mat-label>select crew..</mat-label>
 
@@ -181,11 +187,13 @@
                                                                                 </div>
                                                                             </mat-select>
                                                                         </mat-form-field>
-                                                                    </mat-grid-tile>
-                                                                    <mat-grid-tile colspan="3" rowspan="1">
+                                                                    </div>
+                                                                    <div class="col-6">
                                                                         <button mat-raised-button color="primary" (click)="addNewCrew(lineItem, lindx)">Create New Crew</button>
-                                                                    </mat-grid-tile>
-                                                                </mat-grid-list>
+                                                                        <button mat-raised-button color="primary" >Save</button>
+                                                                    </div>
+                                                                </div>
+
 
                                                                 <div>
                                                                     <div>
@@ -193,8 +201,8 @@
                                                                             <div class="col-6" *ngFor="let item of crewObj.labours">
                                                                                 <mat-card>
                                                                                     <ul>
-                                                                                        <li> Labour : <span style="font-weight: bold;">{{hs.findLabourObj(item).name}}</span></li>
-                                                                                        <li> Hourly Cost: <span style="font-weight: bold;">{{hs.findLabourObj(item).hourlyRate}}</span></li>
+                                                                                        <li> Labour : <span style="font-weight: bold;">{{item.name}}</span></li>
+                                                                                        <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
                                                                                         <li> Required Hrs
                                                                                             <input placeholder="key in" type="text">
                                                                                         </li>
@@ -205,8 +213,8 @@
                                                                             <div class="col-6" *ngFor="let item of crewObj.equipments">
                                                                                 <mat-card>
                                                                                     <ul>
-                                                                                        <li> Equipment : <span style="font-weight: bold;">{{hs.findEqipObj(item).name}}</span></li>
-                                                                                        <li> Hourly Cost: <span style="font-weight: bold;">{{hs.findEqipObj(item).hourlyRate}}</span></li>
+                                                                                        <li> Equipment : <span style="font-weight: bold;">{{item.name}}</span></li>
+                                                                                        <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
                                                                                         <li> Required Hrs
                                                                                             <input placeholder="key in" type="text">
                                                                                         </li>
@@ -228,7 +236,93 @@
                                                                     Trench
                                                                 </mat-panel-title>
                                                             </mat-expansion-panel-header>
-                                                            <div for="trench_details_form">Content goes here</div>
+                                                            <div for="trench_details_form">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <mat-form-field>
+                                                                            <mat-label>select trench..</mat-label>                                                                
+                                                                             <mat-select formControlName="trenchRef" (selectionChange)="onTrenchSelect($event)">
+                                                                                <mat-option>--</mat-option>
+                                                                                <div *ngIf="trenchList">
+                                                                                    <mat-option *ngFor="let trench of trenchList" [value]="trench">
+                                                                                        {{trench.calculationName}}
+                                                                                    </mat-option>
+                                                                                </div>
+                                                                            </mat-select> 
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <button mat-raised-button color="primary" (click)="addNewCrew(lineItem, lindx)">Create New Crew</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <mat-card *ngIf="trenchObj">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <div class="mat-title"> Bedding Volume Calculation</div>
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                {{'Bedding Length: '+trenchObj.beddingLength}}
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                {{'Bedding Width: '+trenchObj.beddingWidth}}                                                                                
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                {{'Bedding Height: '+trenchObj.beddingHeight}}                                                                                
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                {{'Bedding Density: '+trenchObj.densityBedding}}                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="mat-title"> Backfill Volume Calculation</div>
+                                                                        <div class="row">
+                                                                
+                                                                            <div class="col-6">   
+                                                                                {{'BK Fill Length: '+trenchObj.backfillLength}}                                                                
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                {{'BK Fill Width: '+trenchObj.backfillWidth}}
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                {{'BK Fill Height: '+trenchObj.backfillHeight}}                                                                                
+                                                                            </div>
+                                                                            <div class="col-6">                                                                                
+                                                                                {{'BK Fill Density: '+trenchObj.backfillDensity}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-4">
+                                                                        <div class="mat-title"> Pipe Volume Calculation</div>
+                                                                        <p>{{'Pipe Height: '+trenchObj.pipeHeight}}</p>
+                                                                        <p>{{'Pipe Dia: '+trenchObj.pipeDiameter}}</p>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <div class="mat-title"> Calculation Output</div>
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                Bedding Weight: {{trenchObj.beddingWeight || 0}}<br>
+                                                                                Bedding Volume: {{trenchObj.beddingVolume || 0}}
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                Backfill Volume: {{trenchObj.backfillVolume || 0}}<br>
+                                                                                Backfill Weight: {{trenchObj.backfillWeight || 0}}
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                               Pipe Volume: {{trenchObj.pipeVolume || 0}}<br>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                Effective Volume: {{trenchObj.effectiveVolume || 0}}<br>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </mat-card>
+
                                                         </mat-expansion-panel>
                                                     </mat-accordion>
                                                 </ng-container>

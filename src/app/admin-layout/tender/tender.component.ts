@@ -83,8 +83,9 @@ export class TenderComponent implements OnInit {
       }
       if (response.status === 'add') {
         console.log(response.data);
-        response.data.clientName = this.hs.findClientName(response.data.clientName);
-        this.tenders.push(response.data);
+        // response.data.clientName = this.hs.findClientName(response.data.clientName);
+        // this.tenders.push(response.data);
+        this.justGetTenders();
       }
       if (response.status === 'update') {
         console.log(response.data);
@@ -94,6 +95,17 @@ export class TenderComponent implements OnInit {
     });
   }
 
+  justGetTenders() {
+    const appendStr = '/0/0';
+    this.httpServ.getTenders(appendStr).subscribe((result) => {
+      this.tenders = result.body as Array<any>;
+      if (this.tenders.length < 1) {
+        this.feMsg = 'You do not have any listed tender now..'
+      }
+    }, (err) => {
+      console.log('err in fetching tender headers ', err);
+    })
+  }
   AddUpdateTender(val: boolean, tenderData?: {}, clients?: [], index?: number) {
     // const update: { data: { clients: Array<any>[], tender: any }, val: boolean } = { data, val };
     const update = { value: null, tender: null, indx: null };

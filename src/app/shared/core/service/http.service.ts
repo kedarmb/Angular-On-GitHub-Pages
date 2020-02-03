@@ -56,7 +56,7 @@ export class HttpService {
   public getByIdLabour(id): Observable<any> {
     return this.httpClient.get(ApiUrl.LabourUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
- 
+
   public getAllLabourEquipment(): Observable<any> {
     return this.httpClient.get('assets/labourequipmentdata.json', { headers: this.getHeader(), observe: 'response' });
     // return this.httpClient.get(ApiUrl.labourEquipment + '/0/0', { headers: this.getHeader(), observe: 'response' });
@@ -137,8 +137,12 @@ export class HttpService {
   public getLineItems(id): Observable<any> {
     return this.httpClient.get(ApiUrl.lineItemUrl + '/' + id, { headers: this.getHeader(), observe: 'response' })
   }
-  public saveLineItem(appendStr, payload) {
+  public saveLineItem(appendStr, payload): Observable<any> {
     return this.httpClient.post(ApiUrl.lineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
+  }
+
+  public saveSubLineItem(appendStr, payload): Observable<any> {
+    return this.httpClient.post(ApiUrl.sublineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
   }
   /* TENDER SECTION */
 
@@ -178,8 +182,16 @@ export class HttpService {
   public getAllTrenches(): Observable<any> {
     return this.httpClient.get(ApiUrl.trenchUrl, { headers: this.getHeader(), observe: 'response' });
   }
+  public getAllTrenchesForOrg(): Observable<any> {
+    return this.httpClient.get(ApiUrl.trenchForOrg, { headers: this.getHeader(), observe: 'response' });
+  }
 
   public getByIdTrenchUrl(id) {
     return this.httpClient.get(ApiUrl.trenchUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
+  }
+  //
+  public getNotifiedSubs(tenderID) {
+    const URL = ApiUrl.notifiedSubsUrl + tenderID + '/headerlevelNotifySub/tender';
+    return this.httpClient.get(URL, { headers: this.getHeader(), observe: 'response' });
   }
 }

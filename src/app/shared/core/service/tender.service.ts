@@ -84,7 +84,8 @@ export class TenderService {
             crewItemRef: element.crewItemRef,
             trenchRef: element.trenchRef,
             // createdBy: [element.cretedBy],
-            subLineItems: this.formBuilder.array([this.createSublineItemsCtrls(element)])
+            // subLineItems: this.formBuilder.array([])
+            subLineItems: this.formBuilder.array([this.createSublineItemsCtrls(element.subLineItems)])
         })
     }
 
@@ -112,7 +113,6 @@ export class TenderService {
     // //
 
     // Tarang+Arup's code old
-        console.log('element  ?? ', element);
         return this.formBuilder.group({
             _id: element._id,
             name: element.name,

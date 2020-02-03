@@ -27,6 +27,8 @@ import { TenderItemComponent } from './tender-item/tender-item.component'
 })
 export class ViewTenderComponent implements OnInit {
 
+    // @ViewChild(TenderItemComponent, { static: false }) tender_item_c: TenderItemComponent;
+
     accordion = {};
     crews = {}
     model: any;
@@ -40,7 +42,14 @@ export class ViewTenderComponent implements OnInit {
     loadedSections = [];
 
     responseData: any;
-
+    //
+    notifiedSubList: any;
+    selectedVal: any;
+    /* foods = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' }
+    ]; */
 
     constructor(private activatedRoute: ActivatedRoute,
         private router: Router, public dialog: MatDialog,
@@ -52,12 +61,28 @@ export class ViewTenderComponent implements OnInit {
             const paramData = window.history.state;
             this.tenderID = paramData._id;
             console.log('view tenderID ', this.tenderID);
-            
+            this.getNotifiedSubsList();
             this.setDataforQuotePage(paramData);
             // this.fetchInitialSections();
             /// this.fetchSingleTender();
             return;
         })
+    }
+    getNotifiedSubsList() {
+        this.httpServ.getNotifiedSubs(this.tenderID).subscribe((res) => {
+            console.log('getNotifiedSubs success', res);
+            if (res.status === 200) {
+                this.notifiedSubList = res.body['headerLevelNotifiedSubs'];
+            }
+        },
+            (err) => {
+                console.log('getNotifiedSubs err', err);
+            })
+    }
+
+    subSelection(subCont) {
+        console.log(subCont);
+        this.selectedVal = subCont;
     }
 
     setDataforQuotePage(data) {

@@ -43,10 +43,15 @@ export const ApiUrl = {
   lineItemUrl: urlCreator('/line-item'),  // this is only for testing purposes. Real data to fetch with ID 
   crewTemplateUrl: urlCreator('/crewTemplate'),
   subItemUrl: urlCreator('/subitem'),
+  sublineItemUrl: urlCreator('/subline-item'),
   loginUrl: urlCreator('/auth/login'),
   createAcc: authUrlCreator('/auth/register'),
   createTrench: authUrlCreator('/trench'),
-  trenchUrl: authUrlCreator('/trench')
+  trenchUrl: authUrlCreator('/trench'),
+  trenchForOrg: authUrlCreator('/trench/getAll/0/0'),
+  //
+  // GET /notified-subcontractors/ passing the tenderId.
+  notifiedSubsUrl: authUrlCreator('/tender/')
 }
 
 function urlCreator(actionName: string): string {

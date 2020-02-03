@@ -70,7 +70,7 @@ export class TenderModalComponent implements OnInit {
             this.injectedData.quoteStartDate = moment(this.injectedData.quoteStartDate).toISOString();
             this.injectedData.quoteEndDate = moment(this.injectedData.quoteEndDate).toISOString();
             //
-            
+
 
         }
 
@@ -87,8 +87,8 @@ export class TenderModalComponent implements OnInit {
     initializeForm() {
         this.tenderHeaderForm = this.formBuider.group({
             _id: [],
-            headerLevelNotifiedSubs: [''],
-            sections: [''],
+            headerLevelNotifiedSubs: [],
+            sections: [],
             clientName: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
             //
             name: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
@@ -232,6 +232,9 @@ export class TenderModalComponent implements OnInit {
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         const tenderID = updateData._id;
         //
+        updateData.headerLevelNotifiedSubs = []
+        updateData.sections = []
+
         console.log(updateData)
         updateData.clientName = this.hs.findClientID(updateData.clientName);
         //
