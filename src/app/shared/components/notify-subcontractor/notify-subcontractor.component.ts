@@ -62,6 +62,21 @@ export class NotifySubcontractorComponent implements OnInit {
   }
 
   submitForm() {
+    const finalVal = this.inviteSub.value
+    // const tId = this._id;
+    // delete finalVal._id;
+    // delete finalVal.updateDate;
+    this.httpService.inviteSubContractor(finalVal)
+      .subscribe((response: any) => {
+        if (response.status === 201) {
+          // this.resData.status = 'add';
+          // this.resData.data = response.body;
+          // this.toastr.success(response.statusText)
+        }
+      }, error => {
+        this.toastr.error(error.error.message)
+      }
+      )
     console.log(this.inviteSub.value)
   }
 

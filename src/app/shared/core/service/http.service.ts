@@ -194,4 +194,8 @@ export class HttpService {
     const URL = ApiUrl.notifiedSubsUrl + tenderID + '/headerlevelNotifySub/tender';
     return this.httpClient.get(URL, { headers: this.getHeader(), observe: 'response' });
   }
+  /* Invite sub contractor */
+  public inviteSubContractor(body) {
+    return this.httpClient.post(ApiUrl.inviteSubUrl  + '/', body, { headers: this.getHeader(), observe: 'response' });
+  }
 }

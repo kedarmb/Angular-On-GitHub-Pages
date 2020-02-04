@@ -130,7 +130,7 @@ export class ViewTenderComponent implements OnInit {
         this.router.navigateByUrl('/tender');
     }
     //
-    notify() {
+    notifySubC() {
         //
         const dialogRef = this.dialog.open(NotifySubcontractorComponent, {
             height: '50%',

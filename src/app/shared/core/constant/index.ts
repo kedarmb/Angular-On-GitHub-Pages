@@ -51,7 +51,8 @@ export const ApiUrl = {
   trenchForOrg: authUrlCreator('/trench/getAll/0/0'),
   //
   // GET /notified-subcontractors/ passing the tenderId.
-  notifiedSubsUrl: authUrlCreator('/tender/')
+  notifiedSubsUrl: authUrlCreator('/tender/'),
+  inviteSubUrl: authUrlCreator('/tender/headerlevelNotifySub')
 }
 
 function urlCreator(actionName: string): string {
