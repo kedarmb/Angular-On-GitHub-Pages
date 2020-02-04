@@ -4,10 +4,9 @@
         <a *ngIf="titleButton === 'Add labour'" (click)="addLabour(false)" > <i class="material-icons"  matTooltip="{{titleButton}}">add</i></a>
         <a *ngIf="titleButton === 'Add Equipment'"(click)="addEquipment()"><i class="material-icons"  matTooltip="{{titleButton}}">add</i></a>
     </div>
-    
     <mat-tab-group  class="body-with-tab" (selectedTabChange)="onTabChange($event)">
         <mat-tab label="First">  <ng-template  mat-tab-label>Crew</ng-template>
-            <div class="table-responsive border border-left-0 border-bottom-0 border-right-0">
+            <div class="table-responsive  border-top">
             <table class="mat_tab" mat-table [dataSource]="crew" class="mat-elevation-z8">
                 <ng-container matColumnDef="Name">
                     <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -59,10 +58,10 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
             </div>
-        </mat-tab>
+         </mat-tab>
         <mat-tab label="Equipments"> 
             <div class="table-responsive">
-        <app-crew-equipment></app-crew-equipment>
+           <app-crew-equipment></app-crew-equipment>
             </div>    
         </mat-tab>
         <mat-tab label="Labour"> 
@@ -70,5 +69,6 @@
             <app-crew-labour></app-crew-labour>
         </div> 
         </mat-tab>
-    </mat-tab-group>
+      </mat-tab-group>
     </div>
+    

@@ -25,7 +25,7 @@ export class CrewLabourComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.getLabourData()
+   this.getLabourData();
     this.labour = JSON.parse(this.helperService.getFromLocalStorage('labourList'));
   }
 

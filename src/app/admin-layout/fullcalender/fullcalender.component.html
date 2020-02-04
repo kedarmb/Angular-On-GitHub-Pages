@@ -98,7 +98,7 @@
       <br /><br /><br />
       
       <h3>
-        Edit events
+        Edit tender dates
         <button class="btn btn-primary pull-right" (click)="addEvent()">
           Add new
         </button>
@@ -109,11 +109,16 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th>Title</th>
               <!-- <th>Primary color</th>
+          
               <th>Secondary color</th> -->
+              <!-- <th>Title</th>
               <th>Starts at</th>
               <th>Ends at</th>
+              <th>Remove</th> -->
+              <th>TenderName</th>
+              <th> QuoteStart</th>
+              <th> QuoteEnd</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -124,7 +129,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  [(ngModel)]="event.title"
+                [(ngModel)]="event.title" 
                   placeholder="New Event"
                   (keyup)="refresh.next()"
                 />

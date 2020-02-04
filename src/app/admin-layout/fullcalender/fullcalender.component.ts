@@ -146,7 +146,8 @@ modalData: {
   public tender_events: any = {
     start: Date,
     end:  Date,
-    title: String,
+     title: String,
+     TenderName: String,
     color: colors.red,
     allDay: true,
     resizable: {

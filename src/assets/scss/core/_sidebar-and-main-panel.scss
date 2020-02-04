@@ -33,7 +33,7 @@
         margin-left: 13px;
         margin-right: 15px;
         img {
-            width: 35px;
+         
             top: 16px;
             position: absolute;
         }
@@ -183,7 +183,7 @@
         padding-right: 10px;
         text-transform: capitalize;
         font-size: $font-paragraph - 1;
-        padding: 4px 15px;
+        padding: 6px 15px;
     }
     .sidebar-background {
         position: absolute;
@@ -207,7 +207,8 @@
         }
     }
     .logo {
-        padding: 15px 0px;
+        // padding: 15px 0px;
+        padding: 29px 0px;
         margin: 0;
         display: block;
         position: relative;

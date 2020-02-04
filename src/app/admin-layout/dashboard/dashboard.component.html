@@ -2,90 +2,69 @@
 
 
 <div class="main-content">
-   <!-- {{mess}} -->
         <mat-tab-group>
                 <mat-tab label="Active Tenders">
-                   
                     <mat-grid-list [gutterSize]="'10px'" cols="3">
-                           
-                            <div *ngFor = 'let t of tendersnew' class="card-category">
-                        <mat-grid-tile>
-                           
-                            <div class="card card-chart">
-                    
-                                <div class="card-header card-header-warning">
-                                    <h4 class="card-title">{{t.name}}+{{t.clientName}}</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-category">
-                                       
-                                        <ul style="list-style-type: none;padding:8px;">
-                                            <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
-                                             <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
-                                             <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
-                                             </ul>
-        
-                                            </div>
-                                </div>
+                        <div *ngFor = 'let t of tendersnew' class="card-category">
+                    <mat-grid-tile>
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h4 class="card-title">{{t.name}}+{{t.clientName}}</h4>
                             </div>
-                           
-                        </mat-grid-tile>
-                    </div>
-                    </mat-grid-list>         
-    <mat-grid-list [gutterSize]="'10px'" cols="2">
-        <mat-grid-tile>
-            <div class="card card-chart">
-
-                <div class="card-header ">
-                    <h4 class="card-title">Client Name + Tender Name</h4>
-                </div>
-                <div class="card-body" style="overflow-y:auto;">
-                    <div  *ngFor = 'let t of tenders' class="card-category">
-                       <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
-                          <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
-                           <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
-                           <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
-                           </ul>
+                            <div class="card-body">
+                                <div class="card-category">
+                                    <ul style="list-style-type: none;padding:8px;">
+                                        <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
+                                         <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
+                                         <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
+                                         </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-grid-tile>
                         </div>
-                   
-                </div>
-                <div class="card-footer">
-                    <div class="stats">
-                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                        </mat-grid-list>         
+        <mat-grid-list [gutterSize]="'10px'" cols="2">
+            <mat-grid-tile>
+                <div class="card card-chart">
+                    <div class="card-header ">
+                        <h4 class="card-title">Client Name + Tender Name</h4>
                     </div>
-                </div>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="card card-chart">
-
-                <div class="card-header">
-                    <h4 class="card-title">Tender Name with Description and status</h4>
-                </div>
-                <div class="card-body" style="overflow-y:auto;">
-                        <div *ngFor = 'let t of tenders' class="card-category">
+                    <div class="card-body" style="overflow-y:auto;">
+                        <div  *ngFor = 'let t of tenders' class="card-category">
                            <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
-                                <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
-                               <li >Description: <span class="color" > {{t.description}}</span></li>
-                               <li >Status: <span class="color" > {{t.status}}</span></li>
-                             
+                              <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
+                               <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
+                               <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
                                </ul>
                             </div>
-                       
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i> updated 4 minutes ago
+                            </div>
+                        </div>
                     </div>
-                <div class="card-footer">
-                    <div class="stats">
-                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                    </div>
-                </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h4 class="card-title">Tender Name with Description and status</h4>
+                        </div>
+                        <div class="card-body" style="overflow-y:auto;">
+                                <div *ngFor = 'let t of tenders' class="card-category">
+                                   <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
+                                        <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
+                                       <li >Description: <span class="color" > {{t.description}}</span></li>
+                                       <li >Status: <span class="color" > {{t.status}}</span></li>
+                                    </ul>
+                                 </div>
+                                </div>
             </div>
         </mat-grid-tile>
-       
     </mat-grid-list>
     <mat-grid-list [gutterSize]="'10px'" cols="2">
-     
         <mat-grid-tile colspan="1">
-
             <div class="card">
                 <div class="card-header ">
                     <h4 class="card-title">List of Similar Bids/Tenders in the past</h4>
@@ -98,7 +77,6 @@
                             <th>ID</th>
                             <th>Title</th>
                             <th>Body</th>
-                            <!-- <th>Sub Contractors</th> -->
                         </thead>
                         <tbody>
                             <tr *ngFor="let product of data">
@@ -106,21 +84,14 @@
                                     <td>{{product.id}}</td>
                                     <td >{{product.title}}</td>
                                 <td>{{product.body}}</td>
-                                <!-- <td>{{product.subcontractors}}</td> -->
                             </tr>
-                           
-                               
-                                   
-                               
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </mat-grid-tile>
         <mat-grid-tile>
                 <div class="card card-chart">
-    
                     <div class="card-header ">
                         <h4 class="card-title">List of all tenders with a summary of progress</h4>
                     </div>
@@ -129,24 +100,41 @@
                                <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
                                     <li >Tender Name:  <span class="color" > {{t.name}}</span></li>
                                    <li >Progress: <span class="color" > {{t.status}}</span></li>
-                                 
-                                 
-                                   </ul>
-                                </div>
-                            </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                </ul>
+                             </div>
+                         </div>
                         </div>
-                    </div>
-                </div>
-            </mat-grid-tile>
-    </mat-grid-list>
+                    </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+        <mat-tab label="Calendar">
+        <app-fullcalender></app-fullcalender>
+        </mat-tab>
+        </mat-tab-group>
+    </div> 
+                           
+                               
+                                   
+                               
+                   
+                           
+                           
+                    
+                                       
+        
+                           
 
-</mat-tab>
-<mat-tab label="Calendar">
-<app-fullcalender></app-fullcalender>
-</mat-tab>
-</mat-tab-group>
+                   
 
-</div> 
+                             
+                       
+                                 
+       
+     
+
+
+    
+                                 
+                                 
+                   
+

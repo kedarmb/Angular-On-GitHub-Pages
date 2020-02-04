@@ -1,22 +1,11 @@
 <div class="main-content">
     <div class="col-md-4 offset-4">
-
         <mat-card class="example-card">
-
-
             <mat-toolbar color="primary">
-                <!-- <h4 class="h4-all">Login</h4> -->
                 <div class="mat-title">Login</div>
-
-
             </mat-toolbar>
-
-
-
             <mat-card-content>
                 <form [formGroup]="loginForm" novalidate (ngSubmit)="submit()">
-
-
                     <mat-form-field class="example-full-width">
                         <input formControlName="email" matInput placeholder="Email" type="text">
                     </mat-form-field>
@@ -25,43 +14,52 @@
                             {{loginForm.controls.email.errors.invalidMsg}}
                         </div>
                     </div>
-
-
-
-
-
                     <mat-form-field class="example-full-width">
                         <input matInput formControlName="password" type="password" placeholder="Password">
-
                     </mat-form-field>
                     <div *ngIf="!loginForm.controls.password.valid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)" class="error">
-
                     </div>
-
-
-
-
-                    <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Role" disabled value="Prime Contractor">
+                    <mat-form-field>
+                        <mat-label>Role</mat-label>
+                        <select matNativeControl required>
+                          <option value="volvo">Prime Contractor</option>
+                          <option value="saab">Sub Contractor</option>
+                        </select>
                     </mat-form-field>
-
-
                     Don't have account ? <a class="marg" routerLink="/signup">SIGNUP</a>
-
-
-
-
                     <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary" class=" pull-right">login
                     </button>
-                    <!-- <button mat-raised-button   type="submit" class="float-lg-right" disabled="loginForm.invalid" color="primary">login</button> -->
                     <div class="clearfix"></div>
                 </form>
             </mat-card-content>
-
         </mat-card>
     </div>
-
 </div>
-<ngx-spinner type="cog" size="medium" color="#b8a5e8">
+
+<ngx-spinner type="square-loader" size="medium" color="#b8a5e8">
     <p style="font-size: 20px; color: white; margin-top: 60px;">Please give us a moment, while we validate your credentials </p>
 </ngx-spinner>
+
+                        
+
+             
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+                        
+
+
+
+

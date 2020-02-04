@@ -6,28 +6,27 @@ html,
   font-family: "Lato", sans-serif !important;
   background-color: #ffffff;
 }
+
 .main-panel {
   .main-content {
 	.sb-toolbar{
 		padding:10px 5px;
-		
 	}
 	.body-with-tab{
 		height: calc(100% - 41px);
-		
 	}
   }
 }
+
 .sidebar {
 .sidebar-wrapper {
   background: #fff;
 }
 }
+
 tr:hover {background-color:#f5f5f5;}
 
 .sidebar {
-
-  
   .logo {
     .simple-text {
       font-size: 16px !important;
@@ -43,8 +42,12 @@ tr:hover {background-color:#f5f5f5;}
           color: red;
           color: #3f51b5;
           margin: 0 15px;
-          i {
-            color: red;
+          // i {
+          //   color: red;
+          //   color: #3f51b5;
+          // }
+          .img-links{
+               color: red;
             color: #3f51b5;
           }
         }
@@ -59,7 +62,8 @@ tr:hover {background-color:#f5f5f5;}
         & > a {
           color: red;
           color: #3f51b5;
-          i {
+          //i,
+          .img-links {
             color: red;
             color: #3f51b5;
           }
@@ -71,10 +75,11 @@ tr:hover {background-color:#f5f5f5;}
     width: 220px;
   }
 }
+
 html {
   .sidebar {
     .nav {
-      p {
+      p,span {
         margin: 0;
         line-height: 1.8;
         font-size: 16px;
@@ -82,16 +87,19 @@ html {
     }
   }
 }
+
 .sidebar .nav li:first-child.active > a,
 .sidebar .nav li:nth-child(2).active > a {
   color: #fff;
   background: darkgrey;
 }
+
 .sidebar .nav li:first-child.active > a i,
 .sidebar .nav li:nth-child(2).active > a i {
   color: #fff;
   background: darkgrey;
 }
+
 .sidebar[data-color="danger"] {
   li {
     &.active {
@@ -101,6 +109,7 @@ html {
     }
   }
 }
+
 .nav-tabs {
   .nav-item {
     .nav-link {
@@ -108,36 +117,49 @@ html {
     }
   }
 }
+
 .mat-table {
   overflow: auto;
 }
+
 .mat-datepicker-content {
   .mat-calendar {
     width: 219px !important;
     height: 270px !important;
   }
 }
-.material-icons {
-  margin-right: 8px;
-  font-size: 18px !important;
+// .material-icons{
+//   margin-right: 8px;
+//   font-size: 18px !important;
+// }
+
+.img-links {
+  margin-right: 25px;
+  
 }
+
 table {
   table-layout: fixed;
   width: 100%;
 }
+
 mat-card {
   overflow-y: hidden;
 }
+
 .mat-title {
   margin: 0;
 }
+
 .mat-header-cell {
   font-size: 14px !important;
   font-weight: 700;
 }
+
 .mr-l {
   margin-left: 6px;
 }
+
 .mat-raised-button {
   &:not([class*="mat-elevation-z"]) {
     margin-right: 8px;
@@ -146,11 +168,13 @@ mat-card {
     font-weight: 600;
   }
 }
+
 .mat-toolbar {
   &.mat-primary {
     margin-bottom: 20px;
   }
 }
+
 .tab-cell-styl th,
 td {
   overflow: hidden;
@@ -158,9 +182,11 @@ td {
   word-wrap: break-word !important;
   white-space: nowrap;
 }
+
 .card {
   height: 100%;
 }
+
 .mat-grid-tile {
   .mat-figure {
     display: block !important;

@@ -1,124 +1,80 @@
 
 <div class="main-content">
-        <mat-grid-list cols = "3" rowHeight = "">
-                <mat-grid-tile 
-                [colspan] = "1"
-                [rowspan] = "1">
-                </mat-grid-tile>
-                <mat-grid-tile 
-                [colspan] = "1"
-                [rowspan] = "1">
-<!-- <div class="col-md-4 offset-4"> -->
+  <div class="col-md-4 offset-4">
+    <mat-card>
+        <mat-toolbar color="primary">
+      <div class="mat-subheading">Sign Up</div> 
+     </mat-toolbar>
+        <mat-card-content>
+                <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
+            
+               <mat-form-field class="example-full-width">
+                            <input formControlName="orgName" matInput placeholder=" Organization Name*" type="text">
+                        </mat-form-field>
+                        <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['orgName'].touched) && registrationForm.controls['orgName'].invalid">
+                            <li *ngFor="let error of registrationForm.controls['orgName'].getValidationMessages()">
+                                {{error}}
+                            </li>
+                        </ul>
+    
+                        <mat-form-field class="example-full-width">
+                            
+                            <input formControlName="email" matInput placeholder="Email*" type="text">
+                        </mat-form-field>
+                        <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['email'].touched) && registrationForm.controls['email'].invalid">
+                            <li *ngFor="let error of registrationForm.controls['email'].getValidationMessages()">
+                                {{error}}
+                            </li>
+                        </ul>
+                        <mat-form-field class="example-full-width">
+                            <input matInput formControlName="password" placeholder="Password*" type="password">
+                        </mat-form-field>
+                        <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['password'].touched) && registrationForm.controls['password'].invalid">
+                            <li *ngFor="let error of registrationForm.controls['password'].getValidationMessages()">
+                                {{error}}
+                            </li>
+                        </ul>
+                        <mat-form-field class="example-full-width">
+                            <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm Password*">
+                            <i class="fa fa-info pull-right" matTooltip="Should be Same as Password" [matTooltipPosition]="position.value" aria-hidden="true"></i>
+                        </mat-form-field>
+                        <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['confirmPassword'].touched) && registrationForm.controls['confirmPassword'].invalid">
+                            <li *ngFor="let error of registrationForm.controls['confirmPassword'].getValidationMessages()">
+                                {{error}}
+                            </li>
+                        </ul>
+                        <mat-form-field>
+                            <mat-label>Type</mat-label>
+                            <select matNativeControl required>
+                                <option value="prime">Prime Contractor</option>
+                            <option value="sub">Sub Contractor</option> 
+                          </select>
+                      </mat-form-field>
+                      <p>Already have an Account?<a class="mr-l" routerLink="/login">LOGIN</a></p>
+                      <div  fxLayout="row" fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="flex-end">
+                        <button mat-raised-button type="submit" [disabled]="!registrationForm.valid"  color="primary">Create Profile</button>
+                      </div>
+                          </form>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                  </div>
+                       
+                      
+                  
+                                
+       
 
-<mat-card>
-    <mat-toolbar color="primary">
-  <div class="mat-subheading">Sign Up</div> 
- </mat-toolbar>
-    <mat-card-content>
-            <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
-        
-           <mat-form-field class="example-full-width">
-                        <input formControlName="orgName" matInput placeholder=" Organization Name*" type="text">
-                    </mat-form-field>
-                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['orgName'].touched) && registrationForm.controls['orgName'].invalid">
-                        <li *ngFor="let error of registrationForm.controls['orgName'].getValidationMessages()">
-                            {{error}}
-                        </li>
-                    </ul>
-
-                    <mat-form-field class="example-full-width">
-                        
-                        <input formControlName="email" matInput placeholder="Email*" type="text">
-                    </mat-form-field>
-                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['email'].touched) && registrationForm.controls['email'].invalid">
-                        <li *ngFor="let error of registrationForm.controls['email'].getValidationMessages()">
-                            {{error}}
-                        </li>
-                    </ul>
 
             
-                    <mat-form-field class="example-full-width">
-                        <input matInput formControlName="password" placeholder="Password*" type="password">
-                    </mat-form-field>
-                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['password'].touched) && registrationForm.controls['password'].invalid">
-                        <li *ngFor="let error of registrationForm.controls['password'].getValidationMessages()">
-                            {{error}}
-                        </li>
-                    </ul>
 
                 
-                    <mat-form-field class="example-full-width">
-                        <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm Password*">
-                        <i class="fa fa-info pull-right" matTooltip="Should be Same as Password" [matTooltipPosition]="position.value" aria-hidden="true"></i>
-                    </mat-form-field>
-                    <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['confirmPassword'].touched) && registrationForm.controls['confirmPassword'].invalid">
-                        <li *ngFor="let error of registrationForm.controls['confirmPassword'].getValidationMessages()">
-                            {{error}}
-                        </li>
-                    </ul>
 
-            <mat-form-field>
-                <mat-label>Type</mat-label>
-                <select matNativeControl required>
-                    <option value="volvo">Prime Contractor</option>
-                <option value="saab">Sub Contractor</option> 
-                    
-                </select>
-            </mat-form-field>
            
-                   <p>Already have an Account?<a class="mr-l" routerLink="/login">LOGIN</a></p>
           
         
-            <button mat-raised-button type="submit" [disabled]="!registrationForm.valid"  color="primary">Create Profile</button> 
-           
-            <div  fxLayout="row" fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="flex-start">
-                   
-                <p>Already have an Account?<a class="mr-l" routerLink="/login">LOGIN</a></p>
-            </div>
-            <div  fxLayout="row" fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="flex-end">
+      
                   
-                    <button mat-raised-button type="submit" [disabled]="!registrationForm.valid"  color="primary">Create Profile</button>
          
        
-    </div>
-        </form>
-     
-    </mat-card-content>
-    
-    </mat-card>
-</mat-grid-tile>
-               
-</mat-grid-list>
-<!-- </div> -->
-</div>
- <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
- <!-- <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="40px" fxLayoutAlign="center">
-        <div fxFlex="0%">
-          <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg">
-        </div>
-        <div fxFlex="0%">
-          <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/LTLE4QGRVQ.jpg">
-        </div>
-        <div fxFlex fxFlexOffset="100px"  fxFlexOffset.xs="0">
-          <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R926LU1YEA.jpg">
-        </div>
-        <div fxFlex="0%">
-          <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/U9PP3KXXY2.jpg">
-        </div>
-    </div>
-     
-      <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="40px" fxLayoutAlign="center">
-            <div fxFlex="10%">
-              <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg">
-            </div>
-            <div fxFlex="20%">
-              <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/LTLE4QGRVQ.jpg">
-            </div>
-            <div  fxFlex="30%">
-              <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R926LU1YEA.jpg">
-            </div >
-            <div fxFlex="40%">
-              <img mat-card-image class="img" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/U9PP3KXXY2.jpg">
-            </div>
-            
-          </div> -->
+ 

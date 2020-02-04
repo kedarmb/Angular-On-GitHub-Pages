@@ -77,6 +77,7 @@
 
 
   // https://www.google.com/design/spec/components/menus.html#menus-specs
+
   .dropdown-item,
   li > a{    // used to properly size the ripple container
     position: relative;
@@ -117,6 +118,8 @@
     @include shadow-small-color($brand-primary);
     background-color: $brand-primary;
     color: #FFFFFF;
+    background: #4545fd;
+    color: #fff;
   }
 }
 

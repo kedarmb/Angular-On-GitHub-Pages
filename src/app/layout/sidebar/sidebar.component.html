@@ -1,10 +1,18 @@
 <div class="font-size">
+    <!-- <div class="logo">
+        <a  class="simple-text">
+            <div class="logo-img">
+                    <img src="/assets/img/PNG/Biddr White.png" />
+            </div>
+         BIDDR
+        </a>
+    </div> -->
     <div class="logo">
         <a  class="simple-text">
             <div class="logo-img">
-                    <img src="/assets/img/bidding.png" />
+                    <img src="/assets/img/Biddr logo small version.png" />
             </div>
-         BIDEER
+      
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -65,8 +73,9 @@
         <ul class="nav">
             <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
                 <a class="nav-link" [routerLink]="[menuItem.path]">
-                    <i class="material-icons">{{menuItem.icon}}</i>
-                    <p>{{menuItem.title}}</p>
+                    <img src={{menuItem.img}} height="22px" class="img-links" />
+                    <!-- <i class="material-icons">{{menuItem.icon}}</i> -->
+                    <span>{{menuItem.title}}</span>
                 </a>
             </li>
         </ul>

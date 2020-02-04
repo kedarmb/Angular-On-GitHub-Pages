@@ -14,7 +14,8 @@ import { CrewLabourComponent } from './crew-labour/crew-labour.component';
  })
 export class CrewComponent implements OnInit {
   @ViewChild(CrewEquipmentComponent, {static: false}) eq: CrewEquipmentComponent;
-  @ViewChild(CrewLabourComponent, {static: false}) lb:CrewLabourComponent;
+  @ViewChild(CrewLabourComponent, {static: false}) lb: CrewLabourComponent;
+
   displayedColumns: string[] = ['Name', 'Description', 'Equipment', 'Equipment Rate', 'Labour', 'Labour Rate', 'Actions'];
   data: any = {};
   laboursData; // holds data from labours get api
@@ -25,7 +26,7 @@ export class CrewComponent implements OnInit {
     data: '',
     val: ''
   };
-  titleButton='Add Crew'
+  titleButton = 'Add Crew'
   valueChange: any;
   public show = false;
   public buttonName = 'Show';
@@ -52,9 +53,8 @@ export class CrewComponent implements OnInit {
 
   ngOnInit() {
     this.getCrews();
-    console.log("getCrews():", this.getCrews());
-    
-  }
+    console.log('getCrews():', this.getCrews());
+    }
 
   getCrews() {
     this.http.getAllCrews()
@@ -98,13 +98,11 @@ export class CrewComponent implements OnInit {
     this.update.val = val
     this.openModal();
   }
-
   updateCrew(val, data) {
     this.update.val = val
     this.update.data = data
     this.openModal();
   }
-
   removeCrew(val, e) {
     this.crew.splice(e, 1)
     this.table.renderRows();
@@ -117,17 +115,19 @@ export class CrewComponent implements OnInit {
           this.toastr.error(error.error.message)
         })
   }
-  onTabChange(e: MatTabChangeEvent){
+  onTabChange(e: MatTabChangeEvent) {
     console.log(e);
-    if(e.index==0){
+    if (e.index === 0) {
       console.log()
       this.titleButton = 'Add Crew'
     }
-    if(e.index==1){
+    if (e.index === 1) {
       this.titleButton = 'Add Equipment'
     }
-    if(e.index==2){
+    if (e.index === 2 ) {
       this.titleButton = 'Add labour'
     }
   }
 }
+
+

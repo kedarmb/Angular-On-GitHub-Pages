@@ -19,23 +19,19 @@ export class SignupComponent implements OnInit {
   signup: Signup = new Signup();
   constructor(private fb: FormBuilder, private httpService: HttpService, private route: Router) { }
   ngOnInit() {
-
   }
-
-
   submit(registrationForm) {
-    for (let i in registrationForm.controls) {
+      for (let i in registrationForm.controls) {
       this.signup[i] = registrationForm.controls[i].value;
     }
-
-    console.log(this.signup)
-
     this.httpService.signup(this.signup).subscribe(data => {
-
       this.data = data
       console.log(data);
       this.route.navigateByUrl('/login')
     })
   }
-
 }
+
+
+
+
