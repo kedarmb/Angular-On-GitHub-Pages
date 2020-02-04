@@ -39,14 +39,15 @@ export class CrewModalComponent implements OnInit {
     private dialogRef: MatDialogRef<any>,
     private toastr: ToastrService,
     private crewItemService: CrewItemService) {
-      
+
     console.log('crew modal constructor');
-    
+
 
     this.equipmentsData = JSON.parse(this.hs.getFromLocalStorage('equipList'));
-    console.log("equipmentsData:", this.equipmentsData);
-    console.log("lllllllData:", this.laboursData);
     this.laboursData = JSON.parse(this.hs.getFromLocalStorage('labourList'));
+    console.log('equipmentsData from local storage', this.equipmentsData);
+    console.log('lllllllData: ', this.laboursData);
+
 
     /* this.hs.equipmentData.subscribe((response) => {
       this.spinner.show();

@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HelperService } from '../../../../shared/core/service/helper.service';
 import { TenderService } from '../../../../shared/core/service/tender.service';
 import { arrayToHash } from '@fullcalendar/core/util/object';
+import { TrenchModalComponent } from 'app/shared/components/trench-modal/trench-modal.component';
 
 
 
@@ -19,7 +20,7 @@ import { arrayToHash } from '@fullcalendar/core/util/object';
 export class TenderItemComponent implements OnInit, OnChanges {
   @Input() tenderData: any;
   @Input() selectedSub: any;
-  //
+  // labourHR= new FormControl();
   displayedColumns: string[] = ['ItemNo', 'SpecNo', 'ItemName', 'Description',
     'Unit', 'Unit-Price', 'Quantity', 'TotalPrice'];
   masterForm: FormGroup; // var to store form
@@ -37,8 +38,11 @@ export class TenderItemComponent implements OnInit, OnChanges {
   //
   update = {
     data: '',
-    val: ''
+    val: false
   };
+  cObj: any;
+  totalCrewCost = 0;
+  eObj: any;
   //
 
   //
@@ -341,30 +345,34 @@ export class TenderItemComponent implements OnInit, OnChanges {
   }
 
   // to calculate line items fro form
-  calculateLineitem(i) {
-    let total: any;
-    const ctrl = this.masterForm.get('items')['controls'][i]
-    total = ctrl.get('quantity').value * ctrl.get('unitPrice').value;
+  calculateLineitem(lineitemRef, i) {
+    // let total: any;
+    // console.log(lineitemRef);
+    // const ctrl = lineitemRef['controls'][i];
+    // console.log(ctrl, ctrl.value);
+    // const ctrl = this.masterForm.get('items')['controls'][i]
+    /* total = ctrl.get('quantity').value * ctrl.get('unitPrice').value;
     if (!total) {
       total = 0;
     }
-    ctrl.get('totalPrice').patchValue(total)
+    ctrl.get('totalPrice').patchValue(total) */
   }
+
 
   // to calculate subline items fro form
   calculatesubLineitem(i, j) {
-    let subTotal: any;
+    /* let subTotal: any;
     const ctrl = this.masterForm.get('items')['controls'][i];
     const subCtrl = ctrl.get('subitems')['controls'][j];
     subTotal = subCtrl.get('unitPrice').value * subCtrl.get('quantity').value;
     if (!subTotal) {
       subTotal = 0;
     }
-    subCtrl.get('totalPrice').patchValue(subTotal)
+    subCtrl.get('totalPrice').patchValue(subTotal) */
   }
 
   allLineItemCost(i) {
-    console.log('hello', i)
+    /* console.log('hello', i)
     let allTotal: any;
     const ctrl = this.masterForm.get('items');
     let subCtrlVal;
@@ -409,7 +417,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
     }
     if (!allTotal) {
       allTotal = 0;
-    }
+    } */
 
   }
   // toggles colapse of line item so show subline item
@@ -436,7 +444,39 @@ export class TenderItemComponent implements OnInit, OnChanges {
   onCrewSelect(evt) {
     console.log(evt);
     this.crewObj = evt.value;
+    this.cObj = this.crewObj['labours'].map(e => {
+      return e.hrs = 0;
+    })
+    this.eObj = this.crewObj['equipments'].map(e => {
+      return e.hrs = 0;
+    })
+    console.log(this.crewObj);
   }
+  
+  labourHourAdd(lineItemRef, itemRef) {
+    /* console.log(this.crewObj);
+    this.crewObj['labours'].map(e=>{
+      const k = e.hourlyRate * e.hrs
+    return k;  
+    })
+    console.log(this.crewObj) */
+    
+    this.totalCrewCost +=  (itemRef.hrs * itemRef.hourlyRate);
+    // const val = this.totalCrewCost + lineItemRef.value.lineTotalPrice;
+    lineItemRef.get('lineTotalPrice').patchValue(this.totalCrewCost);
+    const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
+    //
+    lineItemRef.get('unitPrice').patchValue(unit);
+  }
+
+  equipmentAdd(lineItemRef, itemRef) {
+    this.totalCrewCost +=  (itemRef.hrs * itemRef.hourlyRate);
+    // const val = this.totalCrewCost + lineItemRef.value.lineTotalPrice;
+    lineItemRef.get('lineTotalPrice').patchValue(this.totalCrewCost);
+    const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
+    lineItemRef.get('unitPrice').patchValue(unit);
+  }
+
   onTrenchSelect(tr) {
     this.trenchObj = tr.value;
     console.log(this.trenchObj);
@@ -491,6 +531,41 @@ export class TenderItemComponent implements OnInit, OnChanges {
       }
     }, (err) => {
       console.log('err getAllTrenches ', err);
+    })
+  }
+
+  addNewTrench(lineItem, lindx) {
+    const modalRef = this.modalService.open(TrenchModalComponent, {
+      height: 'auto',
+      width: '65%',
+      data: this.update,
+      disableClose: true
+    });
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+        console.log(response.data);
+      }
+      if (response.status === 'add') {
+        /* const crewCtrl = lineItemRef.get('crewItemRef') as FormControl;
+        this.crewObj = response.data;
+        crewCtrl.setValue(response.data); */
+        console.log(response);
+      }
+    });
+  }
+  saveTrench(sectionRef, lineItemRef, lindx) {
+    // /v1/trench/tender/:tenderId/section/:sectionId/lineItem/:lineItemId
+    const id = this.tenderData._id;
+    const secID = sectionRef.value._id;
+    const lineID = lineItemRef.value._id;
+    const appendStr = '/tender/' + id + '/section/' + secID + '/lineItem/' + lineID;
+    // console.log('append string ', appendStr);
+    // console.log('payload is : ', this.trenchObj);
+    //
+    this.httpService.saveTrenchForLineItem(appendStr, this.trenchObj).subscribe((response) => {
+      console.log('success ', response);
+    }, (err) => {
+      console.log('err saving trench ', err);
     })
   }
 }

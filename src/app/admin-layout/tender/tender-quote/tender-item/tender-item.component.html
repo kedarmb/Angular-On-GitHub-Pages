@@ -63,12 +63,12 @@
                                             </td>
                                             <td class="width-2">
                                                 <textarea type="text" class="form-control" formControlName="unit"></textarea>
+                                            </td>                                            
+                                            <td class="width-2">
+                                                <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculateLineitem(lineItem, i); allLineItemCost(i)"></textarea>
                                             </td>
                                             <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
-                                            </td>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="quantity"></textarea>
+                                                <textarea type="text" class="form-control" formControlName="unitPrice" (keyup)="calculateLineitem(lineItem, i); allLineItemCost(i)"></textarea>
                                             </td>
                                             <td class="width-2">
                                                 <textarea type="text" class="form-control" formControlName="lineTotalPrice" [readonly]="true"></textarea>
@@ -131,13 +131,13 @@
                                                                                         <textarea type="text" class="form-control" formControlName="unit"></textarea>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="quantity"></textarea>
+                                                                                        <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)"></textarea>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
+                                                                                        <textarea type="text" class="form-control" formControlName="unitPrice"  (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)"></textarea>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="subLineTotalPrice"></textarea>
+                                                                                        <textarea type="text" class="form-control" formControlName="subLineTotalPrice" ></textarea>
                                                                                     </td>
                                                                                     <td class="td-actions width-10">
                                                                                         <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)" matTooltip="remove sub-line item">
@@ -198,13 +198,13 @@
                                                                 <div>
                                                                     <div>
                                                                         <div class="row">
-                                                                            <div class="col-6" *ngFor="let item of crewObj.labours">
+                                                                            <div class="col-6" *ngFor="let item of crewObj.labours; let i = index;">
                                                                                 <mat-card>
                                                                                     <ul>
                                                                                         <li> Labour : <span style="font-weight: bold;">{{item.name}}</span></li>
                                                                                         <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
                                                                                         <li> Required Hrs
-                                                                                            <input placeholder="key in" type="text">
+                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (keyup)="labourHourAdd(lineItem, item)" type="number">
                                                                                         </li>
                                                                                         <li> Total Cost </li>
                                                                                     </ul>
@@ -216,7 +216,7 @@
                                                                                         <li> Equipment : <span style="font-weight: bold;">{{item.name}}</span></li>
                                                                                         <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
                                                                                         <li> Required Hrs
-                                                                                            <input placeholder="key in" type="text">
+                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (change)="equipmentAdd(lineItem, item)" type="number">
                                                                                         </li>
                                                                                         <li> Total Cost </li>
                                                                                     </ul>
@@ -226,6 +226,11 @@
                                                                     </div>
 
                                                                 </div>
+                                                            </div>
+                                                            <div>
+                                                                <br>
+                                                                <mat-label>Crew Total</mat-label>
+                                                                <input placeholder="0" [(ngModel)]="totalCrewCost" [ngModelOptions]="{standalone: true}" type="number">
                                                             </div>
 
                                                         </mat-expansion-panel>
@@ -252,7 +257,7 @@
                                                                         </mat-form-field>
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <button mat-raised-button color="primary" (click)="addNewCrew(lineItem, lindx)">Create New Crew</button>
+                                                                        <button mat-raised-button color="primary" (click)="addNewTrench(lineItem, lindx)">Create New Trench</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -320,6 +325,9 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <button mat-raised-button color="primary" (click)="saveTrench(section, lineItem, lindx)">Save</button>
                                                                 </div>
                                                             </mat-card>
 

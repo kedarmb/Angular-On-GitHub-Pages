@@ -116,8 +116,6 @@ export class TenderComponent implements OnInit {
     //
     this.openTenderHeaderDialog(update);
     //
-
-
   }
   //
   deleteTender(tenderData, index) {
@@ -144,5 +142,7 @@ export class TenderComponent implements OnInit {
     this.router.navigateByUrl('/quote');
   }
   //
+
+  
 
 }

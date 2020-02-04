@@ -68,10 +68,11 @@ export class NotifySubcontractorComponent implements OnInit {
     // delete finalVal.updateDate;
     this.httpService.inviteSubContractor(finalVal)
       .subscribe((response: any) => {
+        console.log('inviteSubContractor  ', response);
         if (response.status === 201) {
           // this.resData.status = 'add';
           // this.resData.data = response.body;
-          // this.toastr.success(response.statusText)
+          // this.toastr.success(response.statusText);
         }
       }, error => {
         this.toastr.error(error.error.message)
@@ -81,7 +82,7 @@ export class NotifySubcontractorComponent implements OnInit {
   }
 
   close() {
-    this.subContDialogueRef.close(this.data);
+    this.subContDialogueRef.close();
   }
 
 }

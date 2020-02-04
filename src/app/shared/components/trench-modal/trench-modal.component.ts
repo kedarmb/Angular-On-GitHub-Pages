@@ -17,7 +17,7 @@ import { Trench } from 'app/shared/core/model/trench.model';
 export class TrenchModalComponent implements OnInit {
   trenchForm: FormGroup;
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
-  @Input() admin: boolean;
+  @Input() admin:false;
   @Output() public trenchData = new EventEmitter();
   formSubmitted = false;
   resData = {

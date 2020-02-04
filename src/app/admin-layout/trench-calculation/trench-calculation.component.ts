@@ -32,7 +32,7 @@ export class TrenchCalculationComponent implements OnInit {
     this.getTrench()
   }
   getTrench() {
-    this.httpService.getAllTrenches()
+    this.httpService.getAllTrenchesForOrg()
       .subscribe((response: any) => {
         if (response.status === 200) {
           this.trenchCal = response.body;

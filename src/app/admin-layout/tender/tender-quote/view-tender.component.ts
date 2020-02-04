@@ -140,11 +140,22 @@ export class ViewTenderComponent implements OnInit {
         //
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed ', result);
+            this.getTenderByID();
         });
     }
     // saving the form as is - even incomplete
-    saveUnfilteredTender() {
-
+    getTenderByID() {
+        console.log('getTenderByID invoked ');
+        this.httpServ.getTenderDetailById(this.tenderID).subscribe((response) => {
+            console.log('success getTenderDetailById ', response);
+            if (response.status === 200) {
+                console.log('success getTenderDetailById ', response.status);
+                this.responseData = response.body;
+            }
+        },
+            (err) => {
+                console.log('Error getting Tender by id ', err);
+            })
     }
     viewer(item) {
         this.router.navigateByUrl('/pdf-viewer/' + item.id);

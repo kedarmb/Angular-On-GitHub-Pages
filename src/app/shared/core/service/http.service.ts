@@ -58,8 +58,8 @@ export class HttpService {
   }
 
   public getAllLabourEquipment(): Observable<any> {
-    return this.httpClient.get('assets/labourequipmentdata.json', { headers: this.getHeader(), observe: 'response' });
-    // return this.httpClient.get(ApiUrl.labourEquipment + '/0/0', { headers: this.getHeader(), observe: 'response' });
+    // return this.httpClient.get('assets/labourequipmentdata.json', { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.get(ApiUrl.labourEquipment + '/0/0', { headers: this.getHeader(), observe: 'response' });
   }
   public login(data): Observable<any> {
     return this.httpClient.post(ApiUrl.loginUrl + '/', data, { headers: this.getHeader(), observe: 'response' });
@@ -184,6 +184,10 @@ export class HttpService {
   }
   public getAllTrenchesForOrg(): Observable<any> {
     return this.httpClient.get(ApiUrl.trenchForOrg, { headers: this.getHeader(), observe: 'response' });
+  }
+
+  public saveTrenchForLineItem(appendStr, body): Observable<any> {
+    return this.httpClient.post(ApiUrl.trenchUrl + appendStr, body, { headers: this.getHeader(), observe: 'response' });
   }
 
   public getByIdTrenchUrl(id) {

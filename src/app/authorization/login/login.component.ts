@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
   loadInitData() {
     const orgData = this.httpService.getAllOrganization();
-    // console.log('org data is ', orgData);
+    console.log('org data is ', orgData);
     const labor_equip = this.httpService.getAllLabourEquipment();
     // const labourData = this.httpService.getAllLabour();
     //
