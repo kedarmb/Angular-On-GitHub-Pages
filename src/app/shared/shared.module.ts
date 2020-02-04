@@ -16,7 +16,7 @@ import {
   MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule,
   MatButtonToggleModule, MatIconModule, MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule, MatSidenavModule,
   MatMenuModule, MatListModule, MatDividerModule, MatGridListModule, MatExpansionModule, MatTabsModule, MatStepperModule,
-  MatAutocompleteModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule
+  MatAutocompleteModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule
 } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LabourModalComponent } from './components/labour-modal/labour-modal.component';
@@ -32,7 +32,7 @@ import { StateNamePipe } from './pipe/state-name.pipe';
 //
 const MaterialComponent = [
   MatButtonModule, MatButtonToggleModule,
-  MatIconModule, MatBadgeModule,
+  MatIconModule, MatBadgeModule, MatRadioModule,
   MatProgressSpinnerModule, MatToolbarModule,
   MatSidenavModule, MatMenuModule,
   MatListModule, MatDividerModule,

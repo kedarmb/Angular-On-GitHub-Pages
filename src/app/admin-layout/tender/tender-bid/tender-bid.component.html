@@ -20,12 +20,12 @@
                     <td>{{item.itemNo}}</td>
                     <td>{{item.unit}}</td>
                     <td>{{item.quantity}}</td>
-                    <td>{{item.unitCost}}</td>
-                    <td>{{item.totalCost}}</td>
+                    <td>{{item.lineItemTotal[0].unitPrice}}</td>
+                    <td>{{item.lineItemTotal[0].totalPrice}}</td>
                 </tr>
                 <tr>
                     <th class="text-right" colspan=6>Section total</th>
-                    <td class="text-right" colspan=1>{{section.sectionTotal}}</td>
+                    <td class="text-right" colspan=1>{{section.sectionTotal[0].totalPrice}}</td>
                 </tr>
             
             </tbody>

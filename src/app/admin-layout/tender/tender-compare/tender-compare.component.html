@@ -1,12 +1,12 @@
 <mat-tab-group class="tender mt-5">
     <mat-tab label="First">
         <div class="col-12">
-        <div  class="bg-white mt-4"  *ngFor="let section of tenderCompare[0]?.sections">
+        <div class="bg-white mt-4" *ngFor="let section of tender.sections">
             <h3 class="px-3 pt-2 mb-0">{{section.name}}</h3>
             <ng-container *ngFor="let item of section.lineItems">
                 <div class="bg-light m-3">
                     <mat-chip-list class="m-1">
-                        <span class="mb-3 mr-2 badge badge-warning">{{item.itemName}}</span>
+                        <span class="mb-3 mr-2 badge badge-warning">{{item.name}}</span>
                         <span class="mb-3 mr-2 badge badge-primary"> Spec No :
                             <span>{{item.specNo}}</span></span>
                         <span class="mb-3 mr-2 badge badge-secondary"> Item No :<span>
@@ -15,28 +15,29 @@
                                 {{item.quantity}}</span></span>
                     </mat-chip-list>
                     <div class="row-h-scroll">
-                        <div class="col-2-5 mb-3" *ngFor="let quote of item.lineTotalPrice">
+                        <div class="col-2-5 mb-3" *ngFor="let quote of item.lineItemTotal">
                             <mat-card class="example-card mt-0">
                                 <span class="card-title mb-1">{{quote.quoteSub}}</span>
                                 <mat-card-content>
-                                    <p class="mb-1">Name: {{quote.subContractorId}}</p>
+                                    <p class="mb-1">Name: {{quote.quoteSub}}</p>
                                     <p class="mb-1">Unit Price: {{quote.unitPrice}}</p>
                                     <p class="mb-1">Total Price: {{quote.totalPrice}}</p>
-
+                                    <!-- <mat-radio-button></mat-radio-button> -->
+                                    <mat-checkbox #e  (change)="getTotal(!e.checked, quote.totalPrice)"></mat-checkbox>
                                 </mat-card-content>
                             </mat-card>
                         </div>
                     </div>
                 </div>
             </ng-container>
-            <h4 class="mt-2 px-3">Section Total: 500</h4>
+            <h4 class="mt-2 px-3">Section Total: {{calculateSecTotal}}</h4>
         </div >
-        <button mat-raised-button type="button" class="m-2" color="primary">save</button>
+        <button mat-raised-button type="button" (click)="save()" class="m-2" color="primary">save</button>
     </div>
     </mat-tab>
-    <mat-tab label="Second">
-        <div class="col-12" *ngIf="tenderCompare && tenderCompare[0]">
-            <mat-card class="mt-4" *ngFor="let section of tenderCompare[0]?.sections">
+    <mat-tab label="second">
+    <div class="col-12">
+        <mat-card class="mt-4" *ngFor="let section of tender.sections">
                 <mat-card-header>
                     <mat-card-title>{{section.name}}</mat-card-title>
                 </mat-card-header>
@@ -44,7 +45,7 @@
                     <ng-container *ngFor="let item of section.lineItems">
                         <div class="bg-light p-1 mb-3">
                             <mat-chip-list>
-                                <span class="mb-3 mr-2 badge badge-warning">{{item.itemName}}</span>
+                                <span class="mb-3 mr-2 badge badge-warning">{{item.name}}</span>
                                 <span class="mb-3 mr-2 badge badge-primary"> Spec No
                                     :<span>{{item.specNo}}</span></span>
                                 <span class="mb-3 mr-2 badge badge-secondary"> Item No
@@ -56,17 +57,16 @@
                                 <table class="table table-responsive table-striped">
                                     <tr>
                                         <th>Contractor name</th>
-                                        <td colspan="3" *ngFor="let quote of item.lineTotalPrice">{{quote.subContractorId}}
-                                        </td>
+                                        <td colspan="3" *ngFor="let quote of item.lineItemTotal">{{quote.quoteSub}}</td>
                                     </tr>
                                     <tr>
                                         <th>Unit Price</th>
-                                        <td colspan="3" *ngFor="let quote of item.lineTotalPrice">{{quote.unitPrice}}
+                                        <td colspan="3" *ngFor="let quote of item.lineItemTotal">{{quote.unitPrice}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Total Price</th>
-                                        <td colspan="3" *ngFor="let quote of item.lineTotalPrice">
+                                            <td colspan="3" *ngFor="let quote of item.lineItemTotal">
                                             {{quote.totalPrice}}</td>
                                     </tr>
                                 </table>
@@ -76,7 +76,7 @@
                     <h4 class="mt-2 px-1">Section Total: 500</h4>
                 </mat-card-content>
             </mat-card>
-            <button mat-raised-button type="button" class="m-2" color="primary">save</button>
+            <button mat-raised-button type="button" (click)="save()" class="m-2" color="primary">save</button>
         </div>
     </mat-tab>
 </mat-tab-group>
