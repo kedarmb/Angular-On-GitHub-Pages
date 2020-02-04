@@ -1,6 +1,6 @@
 .main-content{
 	.table-responsive{
-		height: calc(100% - 125px);            
+		height: 100%;   
+		overflow-y: auto;         
 	}
 }
-  
