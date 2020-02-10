@@ -3,6 +3,7 @@
             <a  (click)="addOrg(false)"><i class="material-icons"  matTooltip="Add Organization">add</i></a>
         </div>
     <div class="table-responsive border-top">
+
         <table class="mat_tab" mat-table [dataSource]="organizations" class="mat-elevation-z8  tab-cell-styl">
             <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -57,8 +58,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
+    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+        <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>
+    </ngx-spinner>
 </div>
-             
-        
-        
-                

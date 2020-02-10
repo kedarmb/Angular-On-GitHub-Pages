@@ -58,17 +58,20 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
             </div>
-         </mat-tab>
+        </mat-tab>
         <mat-tab label="Equipments"> 
             <div class="table-responsive">
-           <app-crew-equipment></app-crew-equipment>
+                <app-crew-equipment></app-crew-equipment>
             </div>    
         </mat-tab>
         <mat-tab label="Labour"> 
             <div class="table-responsive">
-            <app-crew-labour></app-crew-labour>
-        </div> 
+                <app-crew-labour></app-crew-labour>
+            </div> 
         </mat-tab>
-      </mat-tab-group>
+        </mat-tab-group>
+        <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+            <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>
+        </ngx-spinner>
     </div>
     

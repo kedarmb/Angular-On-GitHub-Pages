@@ -6,6 +6,7 @@ import {Dboard} from './dashboard';
 // import { DashboardServiceService } from '../dashboard/dashboard.service';
 import { HttpService } from '../../shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
 selector: 'app-dashboard',
@@ -31,7 +32,7 @@ export class DashboardComponent implements OnInit {
   // }
 
   tendersnew: any = [{}];
- 
+
   dboard: Dboard = new Dboard();
   tenders: any = [{}];
   data: any = [{}];
@@ -39,18 +40,18 @@ export class DashboardComponent implements OnInit {
 
 
   constructor( private tenderService: TenderService, private httpServ: HttpService,
-              private hs: HelperService) {
+    private hs: HelperService, private spinner: NgxSpinnerService) {
   }
   ngOnInit() {
- 
+
     // this.hs.currentMessage.subscribe(m => this.mess = m);
-
+    this.spinner.show();
 const l = [{ TenderName: 'alish', QuoteStart: '2019-12-24T18:30:00.000Z', QuoteEnd: '2019-12-30T18:30:00.000Z'},
-   { TenderName: 'amit', QuoteStart: '2019-12-10T18:30:00.000Z',  QuoteEnd: '2019-12-30T18:30:00.000Z'},
-   { TenderName: 'ankur', QuoteStart: '2019-12-11T18:30:00.000Z',  QuoteEnd: '2019-12-22T18:30:00.000Z'}
- ];
+    { TenderName: 'amit', QuoteStart: '2019-12-10T18:30:00.000Z',  QuoteEnd: '2019-12-30T18:30:00.000Z'},
+    { TenderName: 'ankur', QuoteStart: '2019-12-11T18:30:00.000Z',  QuoteEnd: '2019-12-22T18:30:00.000Z'}
+  ];
 
- const z = l.map(n => {
+  const z = l.map(n => {
   const tender_even = {start: '',
   end:  '',
   TenderName: '',
@@ -60,15 +61,15 @@ const l = [{ TenderName: 'alish', QuoteStart: '2019-12-24T18:30:00.000Z', QuoteE
     afterEnd: true
   },
   draggable: true}
-  tender_even.TenderName = n.TenderName;
-  tender_even.start = n.QuoteStart;
- tender_even.end = n. QuoteEnd;
- return tender_even
+      tender_even.TenderName = n.TenderName;
+      tender_even.start = n.QuoteStart;
+      tender_even.end = n. QuoteEnd;
+      return tender_even
   })
 
 console.log(z);
     this.getAllTenders();
-   this.hs.getTenterEven(z);
+    this.hs.getTenterEven(z);
   }
 
   getDiff(date1 , date2) {
@@ -115,10 +116,10 @@ console.log(z);
       }) */
       //
       // this.hs.hideSpinner();
-      // this.spinner.hide();
+      this.spinner.hide();
     }, (err) => {
       console.log('err in fetching tender headers ', err);
-      // this.spinner.hide();
+      this.spinner.hide();
     })
   }
 }

@@ -5,6 +5,7 @@ import { OrganizationModalComponent } from '../../shared/components/organization
 import { HttpService } from '../../shared/core/service/http.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
     selector: 'app-organization',
     templateUrl: './organization.component.html',
@@ -24,10 +25,12 @@ export class OrganizationComponent implements OnInit {
 
     constructor(private modalService: MatDialog,
         private httpService: HttpService, private router: Router,
-        private toastr: ToastrService) { }
+        private toastr: ToastrService,
+        private spinner: NgxSpinnerService) { }
 
     ngOnInit() {
-        this.getOrganization()
+        this.getOrganization();
+        this.spinner.show();
     }
 
     getOrganization() {
@@ -36,8 +39,10 @@ export class OrganizationComponent implements OnInit {
                 if (response.status === 200) {
                     this.organizations = response.body.reverse();
                 }
+                this.spinner.hide();
             }, error => {
                 this.toastr.error(error.error.message)
+                    this.spinner.hide();
             })
     }
 

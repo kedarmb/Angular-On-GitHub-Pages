@@ -1,6 +1,3 @@
-
-
-
 <div class="main-content">
         <mat-tab-group>
                 <mat-tab label="Active Tenders">
@@ -15,12 +12,12 @@
                                 <div class="card-category">
                                     <ul style="list-style-type: none;padding:8px;">
                                         <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
-                                         <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
-                                         <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
-                                         </ul>
-                                        </div>
-                                    </div>
+                                        <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
+                                        <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
+                                    </ul>
                                 </div>
+                            </div>
+                        </div>
                             </mat-grid-tile>
                         </div>
                         </mat-grid-list>         
@@ -32,11 +29,11 @@
                     </div>
                     <div class="card-body" style="overflow-y:auto;">
                         <div  *ngFor = 'let t of tenders' class="card-category">
-                           <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
-                              <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
-                               <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
-                               <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
-                               </ul>
+                            <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
+                                <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
+                                <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
+                                <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
+                            </ul>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -52,15 +49,15 @@
                             <h4 class="card-title">Tender Name with Description and status</h4>
                         </div>
                         <div class="card-body" style="overflow-y:auto;">
-                                <div *ngFor = 'let t of tenders' class="card-category">
-                                   <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
-                                        <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
-                                       <li >Description: <span class="color" > {{t.description}}</span></li>
-                                       <li >Status: <span class="color" > {{t.status}}</span></li>
-                                    </ul>
-                                 </div>
-                                </div>
-            </div>
+                            <div *ngFor = 'let t of tenders' class="card-category">
+                                <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
+                                    <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
+                                    <li >Description: <span class="color" > {{t.description}}</span></li>
+                                    <li >Status: <span class="color" > {{t.status}}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
         </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list [gutterSize]="'10px'" cols="2">
@@ -97,13 +94,13 @@
                     </div>
                     <div class="card-body" style="overflow-y:auto;">
                             <div *ngFor = 'let t of tenders' class="card-category">
-                               <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
+                                <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
                                     <li >Tender Name:  <span class="color" > {{t.name}}</span></li>
-                                   <li >Progress: <span class="color" > {{t.status}}</span></li>
+                                    <li >Progress: <span class="color" > {{t.status}}</span></li>
                                 </ul>
-                             </div>
-                         </div>
+                            </div>
                         </div>
+                    </div>
                     </mat-grid-tile>
             </mat-grid-list>
         </mat-tab>
@@ -111,30 +108,9 @@
         <app-fullcalender></app-fullcalender>
         </mat-tab>
         </mat-tab-group>
+        <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+            <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>
+        </ngx-spinner>
     </div> 
-                           
-                               
-                                   
-                               
-                   
-                           
-                           
-                    
-                                       
-        
-                           
 
-                   
-
-                             
-                       
-                                 
-       
-     
-
-
-    
-                                 
-                                 
-                   
 

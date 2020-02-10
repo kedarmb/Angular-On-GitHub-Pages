@@ -38,22 +38,23 @@ export class CrewComponent implements OnInit {
     private modalService: MatDialog) {
     this.hs.equipmentData.subscribe((response) => {
       this.equipmentsData = response
-      this.spinner.hide();
+      // this.spinner.hide();
     }, error => {
-      this.spinner.hide();
+      // this.spinner.hide();
     })
     this.hs.labourData.subscribe((response) => {
-      this.spinner.show();
+      // this.spinner.show();
       this.laboursData = response;
-      this.spinner.hide();
+      // this.spinner.hide();
     }, error => {
-      this.spinner.hide();
+      // this.spinner.  hide();
     })
   }
 
   ngOnInit() {
     this.getCrews();
     console.log('getCrews():', this.getCrews());
+    this.spinner.show();
     }
 
   getCrews() {
@@ -61,9 +62,11 @@ export class CrewComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === 200) {
           this.crew = response.body;
+          this.spinner.hide();
         }
       }, error => {
         console.log('error:', error);
+        this.spinner.hide();
       });
   }
 

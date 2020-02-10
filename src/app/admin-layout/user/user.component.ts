@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatTable } from '@angular/material';
 import User from 'app/shared/core/model/user.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user',
@@ -25,9 +26,11 @@ export class UserComponent implements OnInit {
   };
   constructor(private httpService: HttpService,
     private modalService: MatDialog,
-    private router: Router) { }
+    private router: Router,
+    private spinner: NgxSpinnerService) { }
   ngOnInit() {
     this.getUsers();
+    this.spinner.show();
   }
 
   getUsers() {
@@ -35,9 +38,11 @@ export class UserComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === 200) {
           this.user = response.body;
+          this.spinner.hide();
         }
       }, error => {
         console.log('44:', error);
+        this.spinner.hide();
       });
   }
 
@@ -62,7 +67,7 @@ export class UserComponent implements OnInit {
       }
     });
   }
-  
+
   addUser(val) {
     this.update.val = val
     this.openModal();
