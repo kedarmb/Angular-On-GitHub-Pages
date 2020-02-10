@@ -33,6 +33,9 @@
         <button type="button" mat-raised-button color="primary" (click)="close()" [disabled]="!clicked" class="pull-right">Notify</button>
         <button type="submit" mat-raised-button (click)="clicked = true;" [disabled]="!inviteSub.valid" color="primary" class="pull-right">Save</button>
     </form>
+    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+        <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>
+    </ngx-spinner>
 </div>
 
 

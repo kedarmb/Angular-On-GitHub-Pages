@@ -1,10 +1,11 @@
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 // import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpService } from 'app/shared/core/service/http.service';
 import Organization from 'app/shared/core/model/organization.model';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-notify-subcontractor',
@@ -13,26 +14,31 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
   // providers: [MatDialogRef]
 })
 export class NotifySubcontractorComponent implements OnInit {
+  @Input() tendId: any;
   inviteSub: FormGroup;
   [x: string]: any;
   clicked: true;
-
+  notifiedSubList: any;
+  // inviteSubs;
   organizations: any = [];
+  inviteSubs: any = [];
   constructor(/* private activeModal: NgbActiveModal, */ private httpService: HttpService,
+    private spinner: NgxSpinnerService,
     public subContDialogueRef: MatDialogRef<NotifySubcontractorComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.inviteSub = this.fb.group({
-      orgData: this.fb.array([], [Validators.required])
+      organizationIds: this.fb.array([], [Validators.required])
     })
   }
 
   ngOnInit() {
     this.getOrganization();
+    this.spinner.show();
   }
 
   onCheckboxChange(e) {
-    const orgData: FormArray = this.inviteSub.get('orgData') as FormArray;
+    const orgData: FormArray = this.inviteSub.get('organizationIds') as FormArray;
     if (e.target.checked) {
       orgData.push(new FormControl(e.target.value));
     } else {
@@ -43,6 +49,17 @@ export class NotifySubcontractorComponent implements OnInit {
         }
       });
     }
+  }
+
+
+  defaultcheck(id) {
+    console.log(id)
+    if (this.inviteSubs.indexOf(id) != -1) {
+      return true
+    } else {
+      return false
+    }
+
   }
 
   getOrganization() {
@@ -56,23 +73,23 @@ export class NotifySubcontractorComponent implements OnInit {
             }
           })
         }
+        this.spinner.hide();
       }, error => {
         this.toastr.error(error.error.message)
+        this.spinner.hide()
       })
+    // this.getNotifiedSubcontractors();
   }
 
+  //
   submitForm() {
     const finalVal = this.inviteSub.value
-    // const tId = this._id;
-    // delete finalVal._id;
-    // delete finalVal.updateDate;
     this.httpService.inviteSubContractor(finalVal)
       .subscribe((response: any) => {
-        console.log('inviteSubContractor  ', response);
         if (response.status === 201) {
           // this.resData.status = 'add';
           // this.resData.data = response.body;
-          // this.toastr.success(response.statusText);
+          // this.toastr.success(response.statusText)
         }
       }, error => {
         this.toastr.error(error.error.message)
@@ -80,6 +97,7 @@ export class NotifySubcontractorComponent implements OnInit {
       )
     console.log(this.inviteSub.value)
   }
+
 
   close() {
     this.subContDialogueRef.close();

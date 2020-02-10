@@ -12,6 +12,7 @@ import { NotifySubcontractorComponent } from './components/notify-subcontractor/
 import { RouterModule } from '@angular/router';
 import { TrenchModalComponent } from './components/trench-modal/trench-modal.component'
 import { NgxTagsInputModule } from 'ngx-tags-input';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import {
   MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule,
   MatButtonToggleModule, MatIconModule, MatBadgeModule, MatProgressSpinnerModule, MatToolbarModule, MatSidenavModule,
@@ -31,6 +32,7 @@ import { StateNamePipe } from './pipe/state-name.pipe';
 
 //
 const MaterialComponent = [
+  NgxSpinnerModule,
   MatButtonModule, MatButtonToggleModule,
   MatIconModule, MatBadgeModule, MatRadioModule,
   MatProgressSpinnerModule, MatToolbarModule,
@@ -99,7 +101,8 @@ const MaterialComponent = [
     MaterialComponent,
     MatDatepickerModule,
     MatNativeDateModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxSpinnerModule
   ],
   entryComponents: [
     TenderModalComponent,
