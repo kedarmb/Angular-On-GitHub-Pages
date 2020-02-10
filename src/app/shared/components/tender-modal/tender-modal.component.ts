@@ -80,7 +80,7 @@ export class TenderModalComponent implements OnInit {
     // function to filter out only CLIENT type organization
     filterOrgListToClients(list) {
         this.allClients = list.filter(item => item.orgType[0] === 'Client');
-        // console.log(this.allClients);
+        console.log('allClients are:  ', this.allClients);
     }
 
 
@@ -149,6 +149,19 @@ export class TenderModalComponent implements OnInit {
         console.log(filterValue);
         // console.log(this.allClients.filter(client => client.name.toLowerCase().indexOf(filterValue) === 0))
         return this.allClients.filter(client => client.name.toLowerCase().indexOf(filterValue) === 0);
+    }
+    //
+    removeNonExistentClient(event) {
+        // method invoked from HTML
+        setTimeout(() => {
+            const isValueTrue = this.allClients.filter(client =>
+                client.name === event.target.value);
+            // console.log('is value true is : ', isValueTrue);
+            if (isValueTrue.length === 0) {
+                this.toastr.warning('Please chose a client from the dropdown only.');
+                this.tenderHeaderForm.get('clientName').setValue(null);
+            }
+        }, 300);
     }
     //
     private customValidator(param): ValidatorFn {
@@ -232,16 +245,17 @@ export class TenderModalComponent implements OnInit {
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         const tenderID = updateData._id;
         //
-        updateData.headerLevelNotifiedSubs = []
-        updateData.sections = []
+        // updateData.headerLevelNotifiedSubs = []
+        // updateData.sections = []
 
         console.log(updateData)
         updateData.clientName = this.hs.findClientID(updateData.clientName);
         //
         this.httpServ.updateTender(tenderID, updateData).subscribe((res) => {
+            // console.log(res);
             // TODO: to check consistent status code
-            if (res.status === 201) {
-                console.log('success in updating ', res);
+            if (res.status === 200) {
+                // console.log('success in updating ', res);
                 this.resData.status = 'update';
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);

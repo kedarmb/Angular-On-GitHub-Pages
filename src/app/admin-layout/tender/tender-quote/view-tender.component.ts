@@ -70,7 +70,7 @@ export class ViewTenderComponent implements OnInit {
     }
     getNotifiedSubsList() {
         this.httpServ.getNotifiedSubs(this.tenderID).subscribe((res) => {
-            console.log('getNotifiedSubs success', res);
+            // console.log('getNotifiedSubs success', res);
             if (res.status === 200) {
                 this.notifiedSubList = res.body['headerLevelNotifiedSubs'];
             }
@@ -88,9 +88,8 @@ export class ViewTenderComponent implements OnInit {
     setDataforQuotePage(data) {
         // delete data.createdAt;
         // delete data.updatedAt;
-        delete data.navigationId;
         // delete data.headerLevelNotifiedSubs;
-        console.log(data)
+        delete data.navigationId;
         this.responseData = data;
     }
 

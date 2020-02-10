@@ -2,7 +2,7 @@
   <form [formGroup]="tenderHeaderForm" novalidate *ngIf="tenderHeaderForm">
     <mat-form-field>
       <mat-label for="clientName">Client Name</mat-label>
-      <input matInput formControlName="clientName" placeholder="choose an existing client" [matAutocomplete]="auto">
+      <input matInput formControlName="clientName" placeholder="choose an existing client" [matAutocomplete]="auto" (blur)="removeNonExistentClient($event)">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let client of clientList | async" [value]="client.name">          
           <span>{{client.name}}</span>          

@@ -21,6 +21,7 @@ export class HelperService {
   labourStore: any
   //
   orgList: any[] = [];
+  tenderList: any[] = [];
   tender_even = [{}]
 
   allEquipList: any[] = [];
@@ -46,11 +47,11 @@ export class HelperService {
     return this.usersOrg;
   }
 
-  getTenterEven(tender_even){
+  getTenterEven(tender_even) {
     this.tender_even = tender_even
   }
 
-  setTenderEven(){
+  setTenderEven() {
     return this.tender_even
   }
 
@@ -67,6 +68,23 @@ export class HelperService {
   }
   setLabourList() {
     this.allLabourList = JSON.parse(localStorage.getItem('labourList'));
+  }
+  setTenderList(list) {
+    this.tenderList = [];
+    this.tenderList = [...list];
+  }
+  getTenderList() {
+    return this.tenderList;
+  }
+  updateLocalTenderListByID(tData) {
+    console.log('tData is >>>>>> ', tData);
+    // after modifying tender line/subline/crew/trench the modified saved at local end
+    const tID = tData._id;
+    for (let i = 0; i < this.tenderList.length; i++) {
+      if (this.tenderList[i]._id === tID) {
+        this.tenderList.splice(i, 1, tData);
+      }
+    }
   }
 
   getFromLocalStorage(param) {
@@ -87,7 +105,7 @@ export class HelperService {
       return Object.assign({ _id: ev._id, name: ev.name })
     })
     this.labourData.next(this.labourStore);
-  
+
     console.log(this.labourStore)
   }
 

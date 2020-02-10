@@ -134,7 +134,7 @@
                                                                                         <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)"></textarea>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="unitPrice"  (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)"></textarea>
+                                                                                        <textarea type="text" class="form-control" formControlName="unitPrice" (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)"></textarea>
                                                                                     </td>
                                                                                     <td>
                                                                                         <textarea type="text" class="form-control" formControlName="subLineTotalPrice" ></textarea>
@@ -158,7 +158,7 @@
                                                                             </ng-container>
                                                                         </tbody>
                                                                     </div>
-                                                                    <div *ngIf="!selectedSub"> 
+                                                                    <div *ngIf="!selectedSub">
                                                                         <h3>Select a Sub Contractor</h3>
                                                                     </div>
                                                                 </table>
@@ -190,7 +190,7 @@
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <button mat-raised-button color="primary" (click)="addNewCrew(lineItem, lindx)">Create New Crew</button>
-                                                                        <button mat-raised-button color="primary" >Save</button>
+                                                                        <button mat-raised-button color="primary" (click)="saveSelectedCrew(lineItem, lindx)">Save</button>
                                                                     </div>
                                                                 </div>
 
@@ -204,9 +204,10 @@
                                                                                         <li> Labour : <span style="font-weight: bold;">{{item.name}}</span></li>
                                                                                         <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
                                                                                         <li> Required Hrs
-                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (keyup)="labourHourAdd(lineItem, item)" type="number">
+                                                                                            <!-- labourHourAdd(lineItem, item) -->
+                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (keyup)="onCrewHoursAdd(lineItem)" type="number">
                                                                                         </li>
-                                                                                        <li> Total Cost </li>
+                                                                                        <li> <span style="font-weight: bold;">Total Cost:</span> {{item.hrs * item.hourlyRate}} </li>
                                                                                     </ul>
                                                                                 </mat-card>
                                                                             </div>
@@ -216,9 +217,9 @@
                                                                                         <li> Equipment : <span style="font-weight: bold;">{{item.name}}</span></li>
                                                                                         <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
                                                                                         <li> Required Hrs
-                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (change)="equipmentAdd(lineItem, item)" type="number">
+                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (change)="onCrewHoursAdd(lineItem)" type="number">
                                                                                         </li>
-                                                                                        <li> Total Cost </li>
+                                                                                        <li> <span style="font-weight: bold;">Total Cost:</span> {{item.hrs * item.hourlyRate}} </li>
                                                                                     </ul>
                                                                                 </mat-card>
                                                                             </div>
@@ -229,8 +230,8 @@
                                                             </div>
                                                             <div>
                                                                 <br>
-                                                                <mat-label>Crew Total</mat-label>
-                                                                <input placeholder="0" [(ngModel)]="totalCrewCost" [ngModelOptions]="{standalone: true}" type="number">
+                                                                <mat-label>Crew Total : {{totalCrewCost}}</mat-label>
+                                                                <!-- <input placeholder="0" [(ngModel)]="totalCrewCost" [ngModelOptions]="{standalone: true}" type="number"> -->
                                                             </div>
 
                                                         </mat-expansion-panel>
@@ -245,15 +246,15 @@
                                                                 <div class="row">
                                                                     <div class="col-6">
                                                                         <mat-form-field>
-                                                                            <mat-label>select trench..</mat-label>                                                                
-                                                                             <mat-select formControlName="trenchRef" (selectionChange)="onTrenchSelect($event)">
+                                                                            <mat-label>select trench..</mat-label>
+                                                                            <mat-select formControlName="trenchRef" (selectionChange)="onTrenchSelect($event)">
                                                                                 <mat-option>--</mat-option>
                                                                                 <div *ngIf="trenchList">
                                                                                     <mat-option *ngFor="let trench of trenchList" [value]="trench">
                                                                                         {{trench.calculationName}}
                                                                                     </mat-option>
                                                                                 </div>
-                                                                            </mat-select> 
+                                                                            </mat-select>
                                                                         </mat-form-field>
                                                                     </div>
                                                                     <div class="col-6">
@@ -270,31 +271,31 @@
                                                                                 {{'Bedding Length: '+trenchObj.beddingLength}}
                                                                             </div>
                                                                             <div class="col-6">
-                                                                                {{'Bedding Width: '+trenchObj.beddingWidth}}                                                                                
+                                                                                {{'Bedding Width: '+trenchObj.beddingWidth}}
                                                                             </div>
                                                                             <div class="col-6">
-                                                                                {{'Bedding Height: '+trenchObj.beddingHeight}}                                                                                
+                                                                                {{'Bedding Height: '+trenchObj.beddingHeight}}
                                                                             </div>
                                                                             <div class="col-6">
-                                                                                {{'Bedding Density: '+trenchObj.densityBedding}}                                                                                
+                                                                                {{'Bedding Density: '+trenchObj.densityBedding}}
                                                                             </div>
                                                                         </div>
-                                                                
+
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <div class="mat-title"> Backfill Volume Calculation</div>
                                                                         <div class="row">
-                                                                
-                                                                            <div class="col-6">   
-                                                                                {{'BK Fill Length: '+trenchObj.backfillLength}}                                                                
+
+                                                                            <div class="col-6">
+                                                                                {{'BK Fill Length: '+trenchObj.backfillLength}}
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 {{'BK Fill Width: '+trenchObj.backfillWidth}}
                                                                             </div>
                                                                             <div class="col-6">
-                                                                                {{'BK Fill Height: '+trenchObj.backfillHeight}}                                                                                
+                                                                                {{'BK Fill Height: '+trenchObj.backfillHeight}}
                                                                             </div>
-                                                                            <div class="col-6">                                                                                
+                                                                            <div class="col-6">
                                                                                 {{'BK Fill Density: '+trenchObj.backfillDensity}}
                                                                             </div>
                                                                         </div>
@@ -318,7 +319,7 @@
                                                                                 Backfill Weight: {{trenchObj.backfillWeight || 0}}
                                                                             </div>
                                                                             <div class="col-6">
-                                                                               Pipe Volume: {{trenchObj.pipeVolume || 0}}<br>
+                                                                                Pipe Volume: {{trenchObj.pipeVolume || 0}}<br>
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 Effective Volume: {{trenchObj.effectiveVolume || 0}}<br>

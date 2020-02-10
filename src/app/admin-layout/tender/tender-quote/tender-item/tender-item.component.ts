@@ -9,6 +9,7 @@ import { HelperService } from '../../../../shared/core/service/helper.service';
 import { TenderService } from '../../../../shared/core/service/tender.service';
 import { arrayToHash } from '@fullcalendar/core/util/object';
 import { TrenchModalComponent } from 'app/shared/components/trench-modal/trench-modal.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -43,12 +44,13 @@ export class TenderItemComponent implements OnInit, OnChanges {
   cObj: any;
   totalCrewCost = 0;
   eObj: any;
+  actionStr = 'Operation under process';
   //
 
   //
   constructor(private formBuilder: FormBuilder, private modalService: MatDialog,
     private progress: NgProgress, private httpService: HttpService, private hs: HelperService,
-    private toastr: ToastrService, private ts: TenderService) {
+    private toastr: ToastrService, private ts: TenderService, private spinner: NgxSpinnerService, ) {
     //
   }
 
@@ -60,12 +62,12 @@ export class TenderItemComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log('selectedSub  is ', this.selectedSub);
+    // console.log('selectedSub  is ', this.selectedSub);
     // console.log('ngAfterViewInit ::: tender data in child component ', this.tenderData);
     if (this.masterForm == null) {
       this.initMasterForm();
     }
-    console.log(this.tenderData);
+    // console.log(this.tenderData);
     if (this.tenderData) {
       /* console.log(this.tenderData);
       this.masterForm.patchValue(this.tenderData); */
@@ -169,7 +171,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
 
   createLineItemsOnGet(sectionRef) {
     const line_items_array = new FormArray([]);
-    console.log('section ref is ', sectionRef);
+    // console.log('section ref is ', sectionRef);
     //
     sectionRef.lineItems.forEach(lineItem => {
       //
@@ -280,14 +282,18 @@ export class TenderItemComponent implements OnInit, OnChanges {
     // console.log('append ', appendStr);
     //
     // return;
+
+    this.spinner.show();
     this.httpService.saveLineItem(appendStr, payload).subscribe((response) => {
-      console.log('save line itm ', response);
+      console.log('success saving line itm ', response);
+      this.spinner.hide();
       if (response.status === 201) {
         console.log('line item saved .. calling GET API ...')
-        this.refreshTenderData();
+        this.refreshFormData();
       }
     },
       (err) => {
+        this.spinner.hide();
         console.log('save line itm ERR ', err);
       })
   }
@@ -328,15 +334,15 @@ export class TenderItemComponent implements OnInit, OnChanges {
       })
   }
 
-  refreshTenderData() {
+  refreshFormData() {
     this.httpService.getTenderDetailById(this.tenderData._id).subscribe((response) => {
+      // console.log('get API seccess .. ', response);
       if (response.status === 200) {
         console.log('get API seccess .. ', response);
         this.tenderData = response.body;
         this.masterForm.reset();
-        /* const sections_array = this.masterForm.get('sections') as FormArray;
-        // remove the empty element already created:
-        sections_array.slic; */
+        //
+        this.hs.updateLocalTenderListByID(this.tenderData);
         this.createSectionsOnGet();
       }
     }, (err) => {
@@ -450,28 +456,44 @@ export class TenderItemComponent implements OnInit, OnChanges {
     this.eObj = this.crewObj['equipments'].map(e => {
       return e.hrs = 0;
     })
-    console.log(this.crewObj);
+    // console.log(this.crewObj);
   }
-  
+
   labourHourAdd(lineItemRef, itemRef) {
-    /* console.log(this.crewObj);
-    this.crewObj['labours'].map(e=>{
-      const k = e.hourlyRate * e.hrs
-    return k;  
-    })
-    console.log(this.crewObj) */
-    
-    this.totalCrewCost +=  (itemRef.hrs * itemRef.hourlyRate);
+    /* this.totalCrewCost += (itemRef.hrs * itemRef.hourlyRate);
     // const val = this.totalCrewCost + lineItemRef.value.lineTotalPrice;
     lineItemRef.get('lineTotalPrice').patchValue(this.totalCrewCost);
     const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
     //
-    lineItemRef.get('unitPrice').patchValue(unit);
+    lineItemRef.get('unitPrice').patchValue(unit); */
   }
 
   equipmentAdd(lineItemRef, itemRef) {
-    this.totalCrewCost +=  (itemRef.hrs * itemRef.hourlyRate);
+    /* this.totalCrewCost += (itemRef.hrs * itemRef.hourlyRate);
     // const val = this.totalCrewCost + lineItemRef.value.lineTotalPrice;
+    lineItemRef.get('lineTotalPrice').patchValue(this.totalCrewCost);
+    const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
+    lineItemRef.get('unitPrice').patchValue(unit); */
+  }
+
+  onCrewHoursAdd(lineItemRef) {
+    let _totalLaborCost = 0;
+    let _totalEquipmentCost = 0;
+    // let _totalCrewCost = 0;
+    //
+    for (let i = 0; i < this.crewObj['labours'].length; i++) {
+      const hourlyCost = this.crewObj['labours'][i].hrs * this.crewObj['labours'][i].hourlyRate;
+      _totalLaborCost += hourlyCost;
+    }
+    //
+    for (let i = 0; i < this.crewObj['equipments'].length; i++) {
+      const hourlyCost = this.crewObj['equipments'][i].hrs * this.crewObj['equipments'][i].hourlyRate;
+      _totalEquipmentCost += hourlyCost;
+    }
+    this.totalCrewCost = _totalEquipmentCost + _totalLaborCost;
+    //
+    console.log('totalLaborCost ', _totalLaborCost);
+    console.log('totalEquipmentCost ', _totalEquipmentCost);
     lineItemRef.get('lineTotalPrice').patchValue(this.totalCrewCost);
     const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
     lineItemRef.get('unitPrice').patchValue(unit);
@@ -524,10 +546,10 @@ export class TenderItemComponent implements OnInit, OnChanges {
   //
   getTrenchs() {
     this.httpService.getAllTrenchesForOrg().subscribe((response) => {
-      console.log('success getAllTrenches ', response);
+      // console.log('success getAllTrenches ', response);
       if (response.status === 201) {
         this.trenchList = response.body;
-        console.log('this.trenchList ', this.trenchList);
+        // console.log('this.trenchList ', this.trenchList);
       }
     }, (err) => {
       console.log('err getAllTrenches ', err);

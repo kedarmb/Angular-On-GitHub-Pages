@@ -30,40 +30,42 @@ export class TenderComponent implements OnInit {
 
   ngOnInit() {
     this.hs.setOrgId();
-    this.spinner.show();
     this.getAllTenders();
 
   }
   //
   getAllTenders() {
-    this.feMsg = 'Loading your list of tenders..'
-    const appendStr = '/0/0';
-    // const appendStr = '/orgId/' + this.hs.getOrgId() + '/0/0';
-    // console.log('appended string is ', appendStr);
-    this.httpServ.getTenders(appendStr).subscribe((result) => {
-      // console.log('success in fetching tender headers ', result);
-      this.tenders = result.body as Array<any>;
-      // this.tenders.splice(1);
-      if (this.tenders.length < 1) {
-        this.feMsg = 'You do not have any listed tender now..'
-      }
-      console.log(this.tenders);
-      this.hs.setOrgList();
-      this.hs.setEqupmentList();
-      this.hs.setLabourList();
+    // check if the list is available in the helper service
+    if (this.hs.getTenderList().length === 0) {
       //
-      /* this.tenders.map(val => {
-        // console.log('_id is .... ', val.clientName);
-        const j = this.hs.findClientName(val.clientName);
-        val.clientName = j;
-      }) */
-      //
-      // this.hs.hideSpinner();
-      this.spinner.hide();
-    }, (err) => {
-      console.log('err in fetching tender headers ', err);
-      this.spinner.hide();
-    })
+      this.spinner.show();
+      this.feMsg = 'Loading your list of tenders..'
+      const appendStr = '/0/0';
+      // const appendStr = '/orgId/' + this.hs.getOrgId() + '/0/0';
+      // console.log('appended string is ', appendStr);
+      this.httpServ.getTenders(appendStr).subscribe((result) => {
+        console.log('list of tenders ', result.body);
+        this.hs.setTenderList(result.body as Array<any>);
+        this.tenders = result.body as Array<any>;
+        // this.tenders.splice(1);
+        if (this.tenders.length < 1) {
+          this.feMsg = 'You do not have any listed tender now...'
+        }
+        //
+        this.hs.setOrgList();
+        this.hs.setEqupmentList();
+        this.hs.setLabourList();
+        //
+        this.spinner.hide();
+      }, (err) => {
+        console.log('err in fetching tender headers ', err);
+        this.spinner.hide();
+      })
+
+    } else if (this.hs.getTenderList().length > 0) {
+      this.tenders = this.hs.getTenderList();
+    }
+
   }
   /** Public Method to Add new Tender Header or Edit existing Tender Header. For editing pass
    * respective tender data to the method.
@@ -77,35 +79,24 @@ export class TenderComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(response => {
       //
-      console.log('The dialog was closed ', response);
+      // console.log('The dialog was closed ', response);
       if (response.status === 'close' || response.status === undefined) {
-        this.toastr.warning('Tender creation cancelled.', 'Cancelled');
+        this.toastr.warning('', 'Operation cancelled');
       }
       if (response.status === 'add') {
-        console.log(response.data);
-        // response.data.clientName = this.hs.findClientName(response.data.clientName);
-        // this.tenders.push(response.data);
-        this.justGetTenders();
+        // console.log(response.data);
+        this.hs.setTenderList([]);
+        this.getAllTenders();
       }
       if (response.status === 'update') {
-        console.log(response.data);
+        this.hs.setTenderList([]);
         this.getAllTenders();
 
       }
     });
   }
 
-  justGetTenders() {
-    const appendStr = '/0/0';
-    this.httpServ.getTenders(appendStr).subscribe((result) => {
-      this.tenders = result.body as Array<any>;
-      if (this.tenders.length < 1) {
-        this.feMsg = 'You do not have any listed tender now..'
-      }
-    }, (err) => {
-      console.log('err in fetching tender headers ', err);
-    })
-  }
+
   AddUpdateTender(val: boolean, tenderData?: {}, clients?: [], index?: number) {
     // const update: { data: { clients: Array<any>[], tender: any }, val: boolean } = { data, val };
     const update = { value: null, tender: null, indx: null };
@@ -121,7 +112,7 @@ export class TenderComponent implements OnInit {
   deleteTender(tenderData, index) {
     // console.log(tenderData, index)
     this.httpServ.deleteTenderById(tenderData._id).subscribe((res) => {
-      console.log('success deleting tender', res);
+      // console.log('success deleting tender', res);
       this.tenders.splice(index, 1);
       this.toastr.info('Successfully deleted tender', 'Done');
     }, (err) => {
@@ -143,6 +134,17 @@ export class TenderComponent implements OnInit {
   }
   //
 
-  
+  /* justGetTenders() {
+    const appendStr = '/0/0';
+    this.httpServ.getTenders(appendStr).subscribe((result) => {
+      this.tenders = result.body as Array<any>;
+      if (this.tenders.length < 1) {
+        this.feMsg = 'You do not have any listed tender now..'
+      }
+    }, (err) => {
+      console.log('err in fetching tender headers ', err);
+    })
+  } */
+
 
 }
