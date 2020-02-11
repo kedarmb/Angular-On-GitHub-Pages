@@ -13,13 +13,12 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { isArray } from 'util';
 import { HttpService } from '../../../shared/core/service/http.service';
-import { MatSelect } from '@angular/material';
+import { HelperService } from '../../../shared/core/service/helper.service';
 //
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import _ from 'lodash';
-import { SectionModalComponent } from '../../../shared/components/section-modal/section-modal.component';
-import { TenderItemComponent } from './tender-item/tender-item.component'
+
 @Component({
     selector: 'app-view-tender',
     templateUrl: './view-tender.component.html',
@@ -44,41 +43,28 @@ export class ViewTenderComponent implements OnInit {
     responseData: any;
     //
     notifiedSubList: any;
+    notifiedSubIds = [];    // for temporarily storing heder level notified subs IDS
     selectedVal: any;
-    /* foods = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos' }
-    ]; */
-
+    //
     constructor(private activatedRoute: ActivatedRoute,
-        private router: Router, public dialog: MatDialog,
+        private router: Router, public dialog: MatDialog, private hs: HelperService,
         private httpServ: HttpService, private spinner: NgxSpinnerService,
-        public sectionModalDialog: MatDialog) {
+        public sectionModalDialog: MatDialog, private toastr: ToastrService) {
         //
         this.activatedRoute.params.subscribe((params) => {
             // console.log('view tender params ', window.history.state);
             const paramData = window.history.state;
             this.tenderID = paramData._id;
-            console.log('view tenderID ', this.tenderID);
-            this.getNotifiedSubsList();
+            // console.log('param data .. ', paramData);
+            this.notifiedSubIds = paramData['headerLevelNotifiedSubs'];
+            this.modifyNotifiedSubList();
             this.setDataforQuotePage(paramData);
-            // this.fetchInitialSections();
-            /// this.fetchSingleTender();
+            //
             return;
         })
     }
-    getNotifiedSubsList() {
-        this.httpServ.getNotifiedSubs(this.tenderID).subscribe((res) => {
-            // console.log('getNotifiedSubs success', res);
-            if (res.status === 200) {
-                this.notifiedSubList = res.body['headerLevelNotifiedSubs'];
-            }
-        },
-            (err) => {
-                console.log('getNotifiedSubs err', err);
-            })
-    }
+
+
 
     subSelection(subCont) {
         console.log(subCont);
@@ -92,35 +78,7 @@ export class ViewTenderComponent implements OnInit {
         delete data.navigationId;
         this.responseData = data;
     }
-
-    /** Fetch tender detail <new schema> by ID  */
-    /* fetchSingleTender() {
-        this.spinner.show();
-        this.httpServ.fetchSingleTenderById(this.tenderID).subscribe((response) => {
-            this.spinner.hide();
-            if (response.status === 200) {
-                //
-                const rawData = Object.assign({}, response.body);
-                delete rawData.headerLevelNotifiedSubs;
-                delete rawData.itemRef;
-                delete rawData.sectionRef;
-                delete rawData.createDate;
-                delete rawData.updateDate;
-                delete rawData.createdDate;
-                delete rawData.updatedDate;
-                delete rawData.__v;
-                //
-                this.responseData = rawData;
-                // console.log('print id:  ');
-                // this.responseData.map(item => console.log(item._id));
-            }
-        },
-            (err) => {
-                this.spinner.hide();
-                console.log('fetchSingleTenderById .. ', err);
-            })
-    } */
-
+    //
     ngOnInit() {
         //
     }
@@ -133,8 +91,8 @@ export class ViewTenderComponent implements OnInit {
         //
         const dialogRef = this.dialog.open(NotifySubcontractorComponent, {
             height: '50%',
-            width: '850px'/* ,
-            data: { name: this.name, animal: this.animal } */
+            width: '850px',
+            data: { tenderID: this.tenderID }
         });
         //
         dialogRef.afterClosed().subscribe(result => {
@@ -142,19 +100,37 @@ export class ViewTenderComponent implements OnInit {
             this.getTenderByID();
         });
     }
-    // saving the form as is - even incomplete
+    //
     getTenderByID() {
-        console.log('getTenderByID invoked ');
+        // console.log('getTenderByID invoked ');
         this.httpServ.getTenderDetailById(this.tenderID).subscribe((response) => {
-            console.log('success getTenderDetailById ', response);
+            // console.log('success getTenderDetailById ', response);
             if (response.status === 200) {
-                console.log('success getTenderDetailById ', response.status);
+                // console.log('success getTenderDetailById ', response.status);
+                this.hs.updateLocalTenderListByID(response.body);
+                this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
+                this.modifyNotifiedSubList();
                 this.responseData = response.body;
+                this.toastr.success('Selected Sub Contractors have been notified.');
             }
         },
             (err) => {
                 console.log('Error getting Tender by id ', err);
             })
+    }
+
+    private modifyNotifiedSubList() {
+        if (this.notifiedSubIds.length <= 0) {
+            return;
+        }
+        const subContList = this.hs.getSubContractorList();
+        this.notifiedSubList = [];
+        this.notifiedSubIds.forEach(element => {
+            const sc = subContList.find(item => item._id === element);
+            this.notifiedSubList.push(sc);
+        });
+        this.notifiedSubIds = [];
+        console.log('notifiedSubList  ', this.notifiedSubList);
     }
     viewer(item) {
         this.router.navigateByUrl('/pdf-viewer/' + item.id);

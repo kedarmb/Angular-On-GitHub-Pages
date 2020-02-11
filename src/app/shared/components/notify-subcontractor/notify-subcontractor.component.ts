@@ -83,7 +83,9 @@ export class NotifySubcontractorComponent implements OnInit {
 
   //
   submitForm() {
-    const finalVal = this.inviteSub.value
+    const finalVal = Object.assign({}, this.inviteSub.value);
+    finalVal.tenderId = this.data.tenderID;
+    // console.log(finalVal);
     this.httpService.inviteSubContractor(finalVal)
       .subscribe((response: any) => {
         if (response.status === 201) {

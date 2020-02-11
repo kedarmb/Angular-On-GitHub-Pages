@@ -14,7 +14,7 @@
                     <button mat-stroked-button (click)="notifySubC()">Invite Sub Contractors</button>
                     <!-- <button mat-button (click)="saveUnfilteredTender()">Save As Is</button> -->
                 </div>
-                <div >
+                <div *ngIf="notifiedSubList">
                     <mat-form-field>
                         <mat-label>Select Sub Contractor</mat-label>
                         <mat-select #notify (selectionChange)="subSelection(notify.value)">

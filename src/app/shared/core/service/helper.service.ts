@@ -20,12 +20,13 @@ export class HelperService {
   equipmentStore: any;
   labourStore: any
   //
-  orgList: any[] = [];
-  tenderList: any[] = [];
+  private orgList: any[] = [];
+  private subContList: any[] = [];
+  private tenderList: any[] = [];
   tender_even = [{}]
 
-  allEquipList: any[] = [];
-  allLabourList: any[] = [];
+  private allEquipList: any[] = [];
+  private allLabourList: any[] = [];
   //
   filteredOrgList: any[] = [];
   usersOrg: string;
@@ -62,6 +63,19 @@ export class HelperService {
       return item['orgType'][0] === 'Client';
     });
     this.orgList = _orgList;
+    this.setSubContractorList();
+  }
+
+  private setSubContractorList() {
+    const orgData = JSON.parse(localStorage.getItem('orgList'));
+    const _subList = (orgData as Array<any>).filter((item) => {
+      return item['orgType'][0] === 'Sub';
+    });
+    this.subContList = _subList;
+    // console.log('subContList is .. ', this.subContList);
+  }
+  getSubContractorList () {
+    return this.subContList;
   }
   setEqupmentList() {
     this.allEquipList = JSON.parse(localStorage.getItem('equipList'));
