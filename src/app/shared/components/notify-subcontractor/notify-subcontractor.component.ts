@@ -23,9 +23,9 @@ export class NotifySubcontractorComponent implements OnInit {
   organizations: any = [];
   inviteSubs: any = [];
   constructor(/* private activeModal: NgbActiveModal, */ private httpService: HttpService,
-    private spinner: NgxSpinnerService,
     public subContDialogueRef: MatDialogRef<NotifySubcontractorComponent>,
     private fb: FormBuilder,
+    private spinner: NgxSpinnerService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.inviteSub = this.fb.group({
       organizationIds: this.fb.array([], [Validators.required])
@@ -34,7 +34,6 @@ export class NotifySubcontractorComponent implements OnInit {
 
   ngOnInit() {
     this.getOrganization();
-    this.spinner.show();
   }
 
   onCheckboxChange(e) {
@@ -54,7 +53,7 @@ export class NotifySubcontractorComponent implements OnInit {
 
   defaultcheck(id) {
     console.log(id)
-    if (this.inviteSubs.indexOf(id) != -1) {
+    if (this.inviteSubs.indexOf(id) !== -1) {
       return true
     } else {
       return false
@@ -63,6 +62,7 @@ export class NotifySubcontractorComponent implements OnInit {
   }
 
   getOrganization() {
+    setTimeout(() => this.spinner.show(), 0)
     this.httpService.getAllOrganization()
       .subscribe((response: any) => {
         if (response.status === 200) {
@@ -76,9 +76,9 @@ export class NotifySubcontractorComponent implements OnInit {
         this.spinner.hide();
       }, error => {
         this.toastr.error(error.error.message)
-        this.spinner.hide()
+        this.spinner.hide();
       })
-    // this.getNotifiedSubcontractors();
+  
   }
 
   //
