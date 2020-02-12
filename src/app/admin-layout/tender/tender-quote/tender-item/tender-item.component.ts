@@ -42,9 +42,10 @@ export class TenderItemComponent implements OnInit, OnChanges {
     val: false
   };
   cObj: any;
-  totalCrewCost = 0;
   eObj: any;
-  actionStr = 'Operation under process';
+  //
+  totalSublineCost = 0;
+  totalCrewCost = 0;
   //
 
   //
@@ -269,6 +270,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
     const _lineItm = (sectionRef.get('lineItems') as FormArray).at(indx).value;
     let appendStr = '/tender/' + id + '/section/' + '9e2f4d4ade8a06001ea71e91';
     // trim the payload with necessary key-values for line item only
+    console.log('_lineItm is ... ', _lineItm);
     const payload = this.hs.pickChosenProps(_lineItm, 'specNo', 'itemNo', 'itemName', 'description', 'unit', 'unitPrice', 'quantity')
     // console.log(sectionRef.value.name);
     payload['name'] = sectionRef.value.name;
@@ -278,11 +280,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
       appendStr = '/tender/' + id + '/section/' + sectionRef.value._id;
       // payload._id = sectionRef.value._id;
     }
-    // console.log('final pay load is ', payload);
-    // console.log('append ', appendStr);
     //
-    // return;
-
     this.spinner.show();
     this.httpService.saveLineItem(appendStr, payload).subscribe((response) => {
       console.log('success saving line itm ', response);
@@ -314,6 +312,8 @@ export class TenderItemComponent implements OnInit, OnChanges {
   __removeSubLineItem(lineItemRef, indx) {
     const sublineItemArr = lineItemRef.get('subLineItems') as FormArray;
     sublineItemArr.removeAt(indx);
+    // update cost if any
+    this.calculateSublineTotal(lineItemRef);
   }
 
   __saveSubLineItem(sectionRef, lineitemRef, indx) {
@@ -326,12 +326,13 @@ export class TenderItemComponent implements OnInit, OnChanges {
     const _subLineItem = (lineitemRef.get('subLineItems') as FormArray).at(indx).value;
     const payload = this.hs.pickChosenProps(_subLineItem, 'name', 'unit', 'quantity', 'unitPrice', 'subLineTotalPrice');
     console.log('appendStr  is:  ', appendStr);
-    this.httpService.saveSubLineItem(appendStr, payload).subscribe((response) => {
+    console.log('payload is..  ', payload);
+    /* this.httpService.saveSubLineItem(appendStr, payload).subscribe((response) => {
       console.log('succ in saving subline item ', response);
     },
       (err) => {
         console.log('err in saving subl ine  item ', err);
-      })
+      }) */
   }
 
   refreshFormData() {
@@ -350,85 +351,18 @@ export class TenderItemComponent implements OnInit, OnChanges {
     })
   }
 
-  // to calculate line items fro form
-  calculateLineitem(lineitemRef, i) {
-    // let total: any;
-    // console.log(lineitemRef);
-    // const ctrl = lineitemRef['controls'][i];
-    // console.log(ctrl, ctrl.value);
-    // const ctrl = this.masterForm.get('items')['controls'][i]
-    /* total = ctrl.get('quantity').value * ctrl.get('unitPrice').value;
-    if (!total) {
-      total = 0;
-    }
-    ctrl.get('totalPrice').patchValue(total) */
-  }
 
 
-  // to calculate subline items fro form
-  calculatesubLineitem(i, j) {
-    /* let subTotal: any;
-    const ctrl = this.masterForm.get('items')['controls'][i];
-    const subCtrl = ctrl.get('subitems')['controls'][j];
-    subTotal = subCtrl.get('unitPrice').value * subCtrl.get('quantity').value;
-    if (!subTotal) {
-      subTotal = 0;
-    }
-    subCtrl.get('totalPrice').patchValue(subTotal) */
-  }
-
-  allLineItemCost(i) {
-    /* console.log('hello', i)
-    let allTotal: any;
-    const ctrl = this.masterForm.get('items');
-    let subCtrlVal;
-    const K = ctrl.value.map(val => {
-      val.subitems.map(subval => {
-        subCtrlVal = subval.totalPrice;
-        // console.log(subCtrlVal);
-      })
-      return val.totalPrice
-    })
-    const l = ctrl.value.map(val => {
-      const sIVal = val.subitems.map(subval => {
-        return subCtrlVal = subval.totalPrice;
-      })
-      if (sIVal.length > 1) {
-        const slt = sIVal.reduce((valSi: any, index: any) => {
-          return valSi + index;
-        })
-      }
-      // console.log(slt)
-      return sIVal;
-    })
-    console.log(l.flat());
-    if (l.length === 0 && K.length === 0) {
-      this.lineItemTotal = 0;
-    }
-    if (l.length !== 0 && K.length !== 0) {
-
-      let lineTotal = K.reduce((val, index) => {
-        return val + index;
-      })
-      // console.log(ctrl.value[])
-      let subLineTotal;
-      let slt
-      subLineTotal = l.flat().reduce((val, index) => {
-        return val + index;
-      })
-      slt = subLineTotal = + subLineTotal;
-
-      const lt = lineTotal = + lineTotal;
-      this.lineItemTotal = lt + slt;
-    }
-    if (!allTotal) {
-      allTotal = 0;
-    } */
-
-  }
   // toggles colapse of line item so show subline item
-  toggleCollapse(index) {
-    this.collapse[index] = !this.collapse[index]
+  toggleCollapse(sectionRef, lineItemIndx) {
+    const _lineItm = (sectionRef.get('lineItems') as FormArray).at(lineItemIndx).value;
+    console.log(_lineItm)
+    if (_lineItm._id == null) {
+      this.toastr.warning('Line item must be saved before a Subline Item is created', 'Action denied');
+      return;
+    }
+    // console.log(this.collapse[lineItemIndx], ' .. , .. ', this.collapse);
+    this.collapse[lineItemIndx] = !this.collapse[lineItemIndx]
   }
 
   save() {
@@ -447,6 +381,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
       console.log(this.masterForm.value);
     }
   }
+
   onCrewSelect(evt) {
     console.log(evt);
     this.crewObj = evt.value;
@@ -458,25 +393,44 @@ export class TenderItemComponent implements OnInit, OnChanges {
     })
     // console.log(this.crewObj);
   }
+  //
+  //  ===========================  COST CALCULATION PART ====================  //
+  //
+  // line item calculation
+  calculateLineItemUnitPrice(lineItemRef) {
+    console.log(lineItemRef.controls['quantity'].value, lineItemRef.controls['lineTotalPrice'].value);
+    const lineQty = lineItemRef.controls['quantity'].value;
+    const lineTotal = lineItemRef.controls['lineTotalPrice'].value;
+    const lineUnit = Math.floor(lineTotal / lineQty).toFixed(2);
+    lineItemRef.controls['unitPrice'].patchValue(lineUnit);
+  }
+  // all subline items Cost Calculation
+  calculateSublineTotal(lineItemRef) {
+    const subItemsControlsArr = (lineItemRef.get('subLineItems') as FormArray).controls;
+    const rowTotalArr = [];
+    for (let i = 0; i < subItemsControlsArr.length; i++) {
+      // sub line item row level total calculation
+      const rowQty = subItemsControlsArr[i].get('quantity').value;
+      const rowUntPrice = subItemsControlsArr[i].get('unitPrice').value;
+      const rowTotal = rowUntPrice * rowQty;
+      subItemsControlsArr[i].get('subLineTotalPrice').patchValue(rowTotal);
+      rowTotalArr.push(rowTotal);
+      // console.log(rowTotal);
+    }
+    this.totalSublineCost = rowTotalArr.reduce(function (prev, cur) {
+      return prev + cur;
+    }, 0);
 
-  labourHourAdd(lineItemRef, itemRef) {
-    /* this.totalCrewCost += (itemRef.hrs * itemRef.hourlyRate);
-    // const val = this.totalCrewCost + lineItemRef.value.lineTotalPrice;
-    lineItemRef.get('lineTotalPrice').patchValue(this.totalCrewCost);
+    // console.log('group total is ', this.totalSublineCost);
+    // cost roll up with crew
+    const lineTotalSum = this.totalCrewCost + this.totalSublineCost
+    lineItemRef.get('lineTotalPrice').patchValue(lineTotalSum);
     const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
-    //
-    lineItemRef.get('unitPrice').patchValue(unit); */
+    lineItemRef.get('unitPrice').patchValue(unit);
   }
 
-  equipmentAdd(lineItemRef, itemRef) {
-    /* this.totalCrewCost += (itemRef.hrs * itemRef.hourlyRate);
-    // const val = this.totalCrewCost + lineItemRef.value.lineTotalPrice;
-    lineItemRef.get('lineTotalPrice').patchValue(this.totalCrewCost);
-    const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
-    lineItemRef.get('unitPrice').patchValue(unit); */
-  }
-
-  onCrewHoursAdd(lineItemRef) {
+  // Crew Cost Calculation
+  calculateCrewTotal(lineItemRef) {
     let _totalLaborCost = 0;
     let _totalEquipmentCost = 0;
     // let _totalCrewCost = 0;
@@ -492,9 +446,12 @@ export class TenderItemComponent implements OnInit, OnChanges {
     }
     this.totalCrewCost = _totalEquipmentCost + _totalLaborCost;
     //
-    console.log('totalLaborCost ', _totalLaborCost);
-    console.log('totalEquipmentCost ', _totalEquipmentCost);
-    lineItemRef.get('lineTotalPrice').patchValue(this.totalCrewCost);
+    // console.log('totalLaborCost ', _totalLaborCost);
+    // console.log('totalEquipmentCost ', _totalEquipmentCost);
+    //
+    // cost roll up with crew
+    const lineTotalSum = this.totalCrewCost + this.totalSublineCost
+    lineItemRef.get('lineTotalPrice').patchValue(lineTotalSum);
     const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
     lineItemRef.get('unitPrice').patchValue(unit);
   }
@@ -593,31 +550,4 @@ export class TenderItemComponent implements OnInit, OnChanges {
 }
 
 
-/* createLineItemForm(sectionRef) {
-    let j = this.formBuilder.group({
-      lineItems: this.formBuilder.array(sectionRef.lineItems)
-    })
-    const k = j.get('lineItems') as FormArray
-    while (k.length !== 0) {
-      k.removeAt(0);
-    }
-    const arr = []
-    sectionRef.lineItems.forEach((item) => {
 
-      console.log(k);
-      k.push(this.ts.createItemCtrl(item));
-      const subItemNode: FormArray = item.subLineItems as FormArray;
-      console.log(sub);
-      console.log(k);
-    })
-    return k;
-  } */
-/* createSUblineItem(subItem){
-  const sub = subItem.subLineItems.forEach((subItem) => {
-    console.log(subItem)
-    subItemNode.push(this.ts.createSublineItemsCtrls(subItem));
-    console.log('subItemNode is :  ', subItemNode);
-    return subItemNode;
-  })
-
-} */

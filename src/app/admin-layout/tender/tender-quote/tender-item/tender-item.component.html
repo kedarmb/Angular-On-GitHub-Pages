@@ -65,10 +65,10 @@
                                                 <textarea type="text" class="form-control" formControlName="unit"></textarea>
                                             </td>                                            
                                             <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculateLineitem(lineItem, i); allLineItemCost(i)"></textarea>
+                                                <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculateLineItemUnitPrice(lineItem)"></textarea>
                                             </td>
                                             <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="unitPrice" (keyup)="calculateLineitem(lineItem, i); allLineItemCost(i)"></textarea>
+                                                <textarea type="text" class="form-control" formControlName="unitPrice" [readonly]="true"></textarea>
                                             </td>
                                             <td class="width-2">
                                                 <textarea type="text" class="form-control" formControlName="lineTotalPrice" [readonly]="true"></textarea>
@@ -85,8 +85,9 @@
                                                 </button>
                                                 <!-- <button mat-raised-button type="button" matTooltip="expand" (click)="toggleCollapse(lindx)" [matTooltipPosition]="'above'" *ngIf="!collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">expand_more</i>
+                                                    collapse[lindx] = !collapse[lindx]
                                                 </button> -->
-                                                <button mat-raised-button type="button" matTooltip="less" (click)="collapse[lindx] = !collapse[lindx]" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="less" (click)="toggleCollapse(section, lindx)" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">expand_less</i>
                                                 </button>
                                                 <button mat-raised-button type="button" matTooltip="add line item" [matTooltipPosition]="'above'" (click)="__addLineItem(section)" *ngIf="last" class="btn btn-danger btn-link btn-sm btn-just-icon">
@@ -131,13 +132,13 @@
                                                                                         <textarea type="text" class="form-control" formControlName="unit"></textarea>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)"></textarea>
+                                                                                        <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculateSublineTotal(lineItem)"></textarea>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="unitPrice" (keyup)="calculatesubLineitem(i, j); allLineItemCost(i)"></textarea>
+                                                                                        <textarea type="text" class="form-control" formControlName="unitPrice" (keyup)="calculateSublineTotal(lineItem)"></textarea>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="subLineTotalPrice" ></textarea>
+                                                                                        <textarea type="text" class="form-control" formControlName="subLineTotalPrice" [readonly]="true"></textarea>
                                                                                     </td>
                                                                                     <td class="td-actions width-10">
                                                                                         <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)" matTooltip="remove sub-line item">
@@ -152,8 +153,8 @@
                                                                                     <td></td>
                                                                                     <td></td>
                                                                                     <td></td>
-                                                                                    <td>Sub Total</td>
-                                                                                    <td>####</td>
+                                                                                    <td><span style="font-weight: bold; font-size: larger;">Sub Total</span></td>
+                                                                                    <td><span style="font-weight: bold; font-size: larger;">{{totalSublineCost}}</span></td>
                                                                                 </tr>
                                                                             </ng-container>
                                                                         </tbody>
@@ -205,9 +206,9 @@
                                                                                         <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
                                                                                         <li> Required Hrs
                                                                                             <!-- labourHourAdd(lineItem, item) -->
-                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (keyup)="onCrewHoursAdd(lineItem)" type="number">
+                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (keyup)="calculateCrewTotal(lineItem)" type="number">
                                                                                         </li>
-                                                                                        <li> <span style="font-weight: bold;">Total Cost:</span> {{item.hrs * item.hourlyRate}} </li>
+                                                                                        <li> <span style="font-weight: bold; font-size: larger; font-style: italic;">Total Cost of {{item.name}} : {{item.hrs * item.hourlyRate}} </span></li>
                                                                                     </ul>
                                                                                 </mat-card>
                                                                             </div>
@@ -217,9 +218,9 @@
                                                                                         <li> Equipment : <span style="font-weight: bold;">{{item.name}}</span></li>
                                                                                         <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
                                                                                         <li> Required Hrs
-                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (change)="onCrewHoursAdd(lineItem)" type="number">
+                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (change)="calculateCrewTotal(lineItem)" type="number">
                                                                                         </li>
-                                                                                        <li> <span style="font-weight: bold;">Total Cost:</span> {{item.hrs * item.hourlyRate}} </li>
+                                                                                        <li> <span style="font-weight: bold; font-size: larger; font-style: italic;">Total Cost of {{item.name}} : {{item.hrs * item.hourlyRate}} </span></li>
                                                                                     </ul>
                                                                                 </mat-card>
                                                                             </div>
@@ -230,7 +231,7 @@
                                                             </div>
                                                             <div>
                                                                 <br>
-                                                                <mat-label>Crew Total : {{totalCrewCost}}</mat-label>
+                                                                <mat-label color="primary">Crew Total : {{totalCrewCost}}</mat-label>
                                                                 <!-- <input placeholder="0" [(ngModel)]="totalCrewCost" [ngModelOptions]="{standalone: true}" type="number"> -->
                                                             </div>
 
