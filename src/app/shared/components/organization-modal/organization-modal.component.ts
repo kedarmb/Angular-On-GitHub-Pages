@@ -9,7 +9,7 @@ import { regex, errorMsg } from 'app/shared/core/constant';
 import { MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import csc from 'country-state-city';
 import { ICountry, IState, ICity } from 'country-state-city'
-import {orgType } from '../../core/constant/index';
+import { orgType } from '../../core/constant/index';
 @Component({
   selector: 'app-organization-modal',
   templateUrl: './organization-modal.component.html',
@@ -92,7 +92,7 @@ export class OrganizationModalComponent implements OnInit {
       country: ['', [Validators.required]],
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
-      orgType: ['Prime'],
+      orgType: [''],
       _id: [this.data._id]
     });
   }
@@ -109,6 +109,8 @@ export class OrganizationModalComponent implements OnInit {
         if (response.status === 201) {
           this.resData.status = 'add';
           this.resData.data = response.body;
+          console.log('existing organisation created .. ', response.body);
+          this.helperService.addOrgToLocalList(response.body);
           this.dialogRef.close(this.resData);
           this.toastr.success(response.statusText)
         }
@@ -125,9 +127,9 @@ export class OrganizationModalComponent implements OnInit {
         if (response.status === 201) {
           this.resData.status = 'update';
           this.resData.data = response.body;
-          console.log(this.resData.data)
-          this.resData.id = this.data.id
-          console.log(this.resData.id)
+          this.helperService.setInLocalStorage('orgList', response.body);
+          console.log('existing organisation updated .. ', this.resData.data)
+          this.resData.id = this.data.id;
           this.dialogRef.close(this.resData);
           this.toastr.success(response.statusText)
         }

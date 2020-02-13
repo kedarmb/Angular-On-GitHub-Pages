@@ -66,6 +66,12 @@ export class HelperService {
     this.setSubContractorList();
   }
 
+  addOrgToLocalList (param) {
+    const orgData = JSON.parse(localStorage.getItem('orgList'));
+    orgData.push(param);
+    this.setInLocalStorage('orgList', orgData);
+  }
+
   private setSubContractorList() {
     const orgData = JSON.parse(localStorage.getItem('orgList'));
     const _subList = (orgData as Array<any>).filter((item) => {
