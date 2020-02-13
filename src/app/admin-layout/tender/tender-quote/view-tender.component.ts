@@ -111,7 +111,7 @@ export class ViewTenderComponent implements OnInit {
                 this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
                 this.modifyNotifiedSubList();
                 this.responseData = response.body;
-                this.toastr.success('Selected Sub Contractors have been notified.');
+                // this.toastr.success('Selected Sub Contractors have been notified.');
             }
         },
             (err) => {

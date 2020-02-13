@@ -132,6 +132,9 @@ export class TenderComponent implements OnInit {
   quotes(tender) {
     this.router.navigateByUrl('/quote');
   }
+  compare(tender) {
+    this.router.navigateByUrl('/compare');
+  }
   //
 
   /* justGetTenders() {

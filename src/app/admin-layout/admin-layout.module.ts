@@ -74,12 +74,13 @@ import { NgProgressModule } from '@ngx-progressbar/core';
 import { DndModule } from 'ngx-drag-drop';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { TenderBidComponent } from './tender/tender-bid/tender-bid.component';
-
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
   imports: [
     // NgxTagsInputModule,
+    MatMenuModule,
     CommonModule,
     AdminLayoutRoutesModule,
     FormsModule,

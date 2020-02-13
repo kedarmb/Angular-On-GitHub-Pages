@@ -6,6 +6,7 @@ import { HttpService } from 'app/shared/core/service/http.service';
 import Organization from 'app/shared/core/model/organization.model';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-notify-subcontractor',
@@ -26,6 +27,7 @@ export class NotifySubcontractorComponent implements OnInit {
     public subContDialogueRef: MatDialogRef<NotifySubcontractorComponent>,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.inviteSub = this.fb.group({
       organizationIds: this.fb.array([], [Validators.required])
@@ -78,7 +80,7 @@ export class NotifySubcontractorComponent implements OnInit {
         this.toastr.error(error.error.message)
         this.spinner.hide();
       })
-  
+
   }
 
   //
@@ -90,8 +92,8 @@ export class NotifySubcontractorComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === 201) {
           // this.resData.status = 'add';
-          // this.resData.data = response.body;
-          // this.toastr.success(response.statusText)
+          // this.resData.data = respone.body;
+          this.toastr.success('Selected Sub Contractors have been notified.');
         }
       }, error => {
         this.toastr.error(error.error.message)
