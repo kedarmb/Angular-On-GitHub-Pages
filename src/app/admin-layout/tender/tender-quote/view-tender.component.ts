@@ -61,7 +61,10 @@ export class ViewTenderComponent implements OnInit {
             this.setDataforQuotePage(paramData);
             //
             return;
-        })
+        }
+
+        
+        )
     }
 
 
@@ -109,6 +112,7 @@ export class ViewTenderComponent implements OnInit {
                 // console.log('success getTenderDetailById ', response.status);
                 this.hs.updateLocalTenderListByID(response.body);
                 this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
+                console.log('fffffff' ,this.notifiedSubIds);
                 this.modifyNotifiedSubList();
                 this.responseData = response.body;
                 // this.toastr.success('Selected Sub Contractors have been notified.');

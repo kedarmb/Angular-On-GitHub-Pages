@@ -12,6 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
     styleUrls: ['./organization.component.scss']
 })
 
+
 export class OrganizationComponent implements OnInit {
     displayedColumns: string[] = ['Name', 'Email', 'Phone', 'Type', 'Street Address', 'Service Type',
         'ServiceArea', 'province', 'Country', 'City', 'Actions'];
@@ -22,7 +23,8 @@ export class OrganizationComponent implements OnInit {
         val: '',
         id: ''
     };
-
+    
+   
     constructor(private modalService: MatDialog,
         private httpService: HttpService, private router: Router,
         private toastr: ToastrService,

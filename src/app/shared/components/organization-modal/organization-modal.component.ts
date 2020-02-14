@@ -1,6 +1,6 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, Output,Input, EventEmitter, Inject, Optional } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Organization from 'app/shared/core/model/organization.model';
 import { HttpService } from 'app/shared/core/service/http.service';
@@ -9,13 +9,16 @@ import { regex, errorMsg } from 'app/shared/core/constant';
 import { MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import csc from 'country-state-city';
 import { ICountry, IState, ICity } from 'country-state-city'
-import { orgType } from '../../core/constant/index';
+import {orgType } from '../../core/constant/index';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-organization-modal',
   templateUrl: './organization-modal.component.html',
   styleUrls: ['./organization-modal.component.scss']
 })
 export class OrganizationModalComponent implements OnInit {
+  //@Input() showLabel: boolean;
+ showLabel: any='Add Organization';
   organizationForm: FormGroup;
   formSubmitted = false;
   @Output() valueChange = new EventEmitter();
@@ -33,24 +36,41 @@ export class OrganizationModalComponent implements OnInit {
   countries: ICountry[] = [];
   states: IState[] = [];
   cities: ICity[] = [];
-
+  showLabel :boolean = false;
+  showBtn:boolean;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    @Optional() @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
     private httpService: HttpService,
     private toastr: ToastrService,
+    private route: Router,
     private fb: FormBuilder,
     private helperService: HelperService,
-    private dialogRef: MatDialogRef<any>,
+    @Optional() private dialogRef: MatDialogRef<any>,
     private spinner: NgxSpinnerService
   ) {
     this.countries = csc.getAllCountries();
     this.spinner.hide();
+    this.createOrganizationForm();
   }
 
   ngOnInit() {
-    this.createOrganizationForm();
-    if (this.data.val === true) {
+    let activatedRoute  = this.route.url.split('/')[1];
+    //console.log('route-->',activatedRoute);
+    if(activatedRoute == 'organization'){
+        this.showLabel = true;
+    }
+
+    if(activatedRoute == 'signup'){
+      this.showLabel = false;
+      this.showBtn = true;
+  }
+
+
+
+    if(this.data){
+      
+    if (this.data.val) {
       const newVal = Object.assign({}, this.data.data);
       delete newVal.__V;
       delete newVal.__v;
@@ -64,6 +84,7 @@ export class OrganizationModalComponent implements OnInit {
       this.cities.push(this.getCityById(newVal.city));
       this.organizationForm.setValue(newVal);
     }
+  }
     console.log(this.orgs)
   }
   getStateById(e) {
@@ -92,8 +113,10 @@ export class OrganizationModalComponent implements OnInit {
       country: ['', [Validators.required]],
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
-      orgType: [''],
-      _id: [this.data._id]
+      orgType: ['Prime'],
+      _id: [ '']
+      // orgType: [''],
+      // _id: [this.data._id]
     });
   }
 
@@ -122,6 +145,7 @@ export class OrganizationModalComponent implements OnInit {
 
   update() {
     const finaVal = Object.assign({}, this.organizationForm.value)
+    finaVal._id = this.data._id;
     this.httpService.updateOrganization(finaVal, this.data.data._id)
       .subscribe((response: any) => {
         if (response.status === 201) {

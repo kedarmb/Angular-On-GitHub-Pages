@@ -7,7 +7,8 @@ import {Dboard} from './dashboard';
 import { HttpService } from '../../shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
 selector: 'app-dashboard',
 templateUrl: './dashboard.component.html',
@@ -37,11 +38,31 @@ export class DashboardComponent implements OnInit {
   tenders: any = [{}];
   data: any = [{}];
   events = [];
-
-
+  // ++++++listofsc++++++++++++
+  responseData: any;
+  tenderID: any;
+  notifiedSubList: any;
+  notifiedSubIds = [];    // for temporarily storing heder level notified subs IDS
+ // ++++++listofsc++++++++++++
   constructor( private tenderService: TenderService, private httpServ: HttpService,
-    private hs: HelperService, private spinner: NgxSpinnerService) {
+    private hs: HelperService, private spinner: NgxSpinnerService, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
+       // ++++++listofsc++++++++++++
+      this.activatedRoute.params.subscribe((params) => {
+        // console.log('view tender params ', window.history.state);
+        const paramData = window.history.state;
+        this.tenderID = paramData._id;
+        // console.log('param data .. ', paramData);
+        this.notifiedSubIds = paramData['headerLevelNotifiedSubs'];
+        console.log('kkkkkkkkhhhhhh' ,this.notifiedSubIds);
+        this.modifyNotifiedSubList();
+        // this.setDataforQuotePage(paramData);
+        //
+        return;
+    })
   }
+
+     // ++++++listofsc++++++++++++
+ 
   ngOnInit() {
 
     // this.hs.currentMessage.subscribe(m => this.mess = m);
@@ -90,7 +111,40 @@ console.log(z);
   //     console.log('err in fetching tender headers ', err);
   //   })
   // }
-
+   // ++++++listofsc++++++++++++
+  private modifyNotifiedSubList() {
+    if (this.notifiedSubIds.length <= 0) {
+        return;
+    }
+    const subContList = this.hs.getSubContractorList();
+    this.notifiedSubList = [];
+    this.notifiedSubIds.forEach(element => {
+        const sc = subContList.find(item => item._id === element);
+        this.notifiedSubList.push(sc);
+    });
+    this.notifiedSubIds = [];
+    console.log('notifiedSubList  ', this.notifiedSubList);
+}
+ // ++++++listofsc++++++++++++
+ getTenderByID() {
+  // console.log('getTenderByID invoked ');
+  this.httpServ.getTenderDetailById(this.tenderID).subscribe((response) => {
+      // console.log('success getTenderDetailById ', response);
+      if (response.status === 200) {
+          // console.log('success getTenderDetailById ', response.status);
+          this.hs.updateLocalTenderListByID(response.body);
+          this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
+          console.log('fffffff' , this.notifiedSubIds);
+          this.modifyNotifiedSubList();
+          this.responseData = response.body;
+          this.toastr.success('Selected Sub Contractors have been notified.');
+      }
+  },
+      (err) => {
+          console.log('Error getting Tender by id ', err);
+      })
+}
+ // ++++++listofsc++++++++++++
   getAllTenders() {
     this.feMsg = 'Loading your list of tenders..'
     const appendStr = '/0/0';
@@ -104,7 +158,7 @@ console.log(z);
       if (this.tenders.length < 1) {
         this.feMsg = 'You do not have any listed tender now..'
       }
-      console.log(this.tenders);
+      // console.log(this.tenders);
       this.hs.setOrgList();
       this.hs.setEqupmentList();
       this.hs.setLabourList();

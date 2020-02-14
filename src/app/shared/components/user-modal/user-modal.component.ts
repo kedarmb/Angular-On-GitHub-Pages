@@ -8,12 +8,16 @@ import { HttpService } from 'app/shared/core/service/http.service';
 import { MatDialogClose, MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { EquipmentsModalComponent } from '../equipments-modal/equipments-modal.component';
+import { Router, ActivatedRoute } from '@angular/router';
+import Organization from 'app/shared/core/model/organization.model';
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
   styleUrls: ['./user-modal.component.scss']
 })
 export class UserModalComponent implements OnInit {
+  // showLabel :boolean = false;
+  showLabel: any='Add User';
   formSubmitted = false;
   userForm: FormGroup;
   @Output() valueChange = new EventEmitter();
@@ -31,16 +35,31 @@ export class UserModalComponent implements OnInit {
     private helperService: HelperService,
     private httpService: HttpService,
     private dialogRef: MatDialogRef<any>,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: Router,
   ) { }
 
   ngOnInit() {
+  //   let activatedRoute  = this.route.url.split('/')[1];
+  //   console.log('route-->',activatedRoute);
+  //   if(activatedRoute == 'user'){
+  //     this.showLabel;
+  //   }
+
+  //   if(activatedRoute == 'user'){
+  //     this.showLabeledit;
+  //     this.showLabel = false;
+  //     this.showBtn = true;
+  // }
+
     this.createUserForm();
     if (this.data.val === true) {
       const newVal = Object.assign({}, this.data.data)
+      console.log(newVal);
       delete newVal.__V
       delete newVal.createDate
       delete newVal.updateDate
+      console.log(newVal);
       this.userForm.setValue(newVal)
     }
   }

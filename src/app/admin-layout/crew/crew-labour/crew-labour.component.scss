@@ -1,3 +1,50 @@
+// .main-content{
+// 	.table-responsive{
+// 		height: 100%;   
+// 		overflow-y: auto;         
+// 	}
+// }
+
+th.mat-header-cell{
+	font-weight: 400;
+	background-color: #f3f3f3;
+	padding: 8px 8px;
+}
+.example-container {
+	display: flex;
+	flex-direction: column;
+
+	flex-basis: 300px;
+  }
+
+  .mat-table {
+	overflow: auto;
+	max-height: 500px;
+  }
+
+   .mat-column-Name{
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left
+
+
+  }
+  .mat-column-Description{
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+
+  }
+  .mat-column-Actions{
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+
+  }
+  td.mat-cell, td.mat-footer-cell{
+	padding: 12px 8px;
+} 
+  
 .main-content{
 	.table-responsive{
 		height: 100%;   

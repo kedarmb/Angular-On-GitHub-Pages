@@ -1,6 +1,11 @@
 
     <form [formGroup]="userForm">
-        <h1 mat-dialog-title align="center">Add User</h1>
+        <div *ngIf="data.val == false">
+            <h1 mat-dialog-title *ngIf="showLabel" align="center">Add User</h1>
+        </div>
+        <div *ngIf="data.val == true">
+            <h1 mat-dialog-title *ngIf="showLabel" align="center">Edit User</h1>
+        </div>
         <div mat-dialog-content>
         <div>
             <mat-label>Email</mat-label><span class="text-danger">*</span>
@@ -17,7 +22,7 @@
             <div>
                 <mat-label>First Name</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
-                    <input formControlName="fname" matInput type="text">
+                    <input formControlName="fname"  matInput type="text">
                 </mat-form-field>
                 <div *ngIf="!userForm.controls.fname.valid && (userForm.controls.fname.dirty || userForm.controls.fname.touched)"
                     class="error">
@@ -38,10 +43,11 @@
                     </small>
                 </div>
             </div>
-            <div>
-                <mat-label>Password</mat-label><span class="text-danger">*</span>
+            
+            <div *ngIf="data.val == false">
+                <mat-label >Password</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
-                    <input formControlName="password" matInput type="text">
+                    <input formControlName="password"   matInput type="password">
                 </mat-form-field>
                 <div *ngIf="!userForm.controls.password.valid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
                     class="error">

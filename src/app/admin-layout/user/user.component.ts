@@ -16,7 +16,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class UserComponent implements OnInit {
   displayedColumns: string[] = ['Email', 'First Name', 'Last Name', 'Mobile', 'Role', 'Status', 'Actions'];
   data: any = {};
-  user
+  user:any=[];
   public employee: any = [];
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
@@ -62,7 +62,7 @@ export class UserComponent implements OnInit {
       }
       if (response.status === 'update') {
         console.log(response.data);
-        this.getUsers()
+        this.getUsers();
         this.table.renderRows();
       }
     });
@@ -70,17 +70,27 @@ export class UserComponent implements OnInit {
 
   addUser(val) {
     this.update.val = val
+    console.log(this.user[val]);
     this.openModal();
   }
-  updateUser(val, data) {
-    this.update.val = val
-    this.update.data = data
+  updateUser(val, data,id) {
+    this.update.val = val;
+    this.update.data = data;
+    console.log(data);
     this.openModal();
   }
   removeUser(val, e) {
     this.user.splice(e, 1)
     this.table.renderRows();
-    this.httpService.deleteOrganization(val._id)
+    // this.httpService.deleteOrganization(val._id)
+    //   .subscribe((response: any) => {
+    //     if (response.status === 200) {
+    //     }
+    //   }, error => {
+    //     console.log(error);
+    //   })
+
+    this.httpService.delUser(val._id)
       .subscribe((response: any) => {
         if (response.status === 200) {
         }

@@ -1,4 +1,4 @@
-<div class="main-content">
+<!-- <div class="main-content">
     <div class="col-md-4 offset-4">
         <mat-card class="example-card">
             <mat-toolbar color="primary">
@@ -38,4 +38,113 @@
 
 <ngx-spinner type="cog" size="medium" color="#b8a5e8">
     <p style="font-size: 20px; color: white; margin-top: 60px;">Please give us a moment, while we validate your credentials </p>
-</ngx-spinner>
+</ngx-spinner> -->
+
+                   
+
+
+
+
+
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <div class="sac">
+        <div class="container-fluid">
+            <div class="row">
+
+
+                <div class="col-md-5 pad0">
+                    <!-- <div class="bg"> -->
+                        <img  class="bg" width="100%" src="/assets/img/construct.jpg">
+                        <div class="overlay">
+                            <div class="text">
+                                <div class="text-center">
+                                    <img src="/assets/img/Biddr logo small version.png" class="image-rounded" />
+
+                                    <p class="mg-bt p-b">Welcome to Biddr</p>
+                                </div>
+
+                                <div class="ulti">
+                                    <p class="mg-bt p-s">"Complex Bids, <br>Simplified Bidding"</p>
+                                </div>
+
+                                <div class="multil">
+         
+                                  
+                                </div>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-7 pad0">
+
+                    <div class=" box ">
+
+
+                        <p class="floatr">your organization does not exist?<a  routerLink="/organization">Add Organization</a>
+                        </p>
+                      
+
+                        <form [formGroup]="loginForm" novalidate (ngSubmit)="submit()">
+                            <mat-form-field class="example-full-width">
+                                <input formControlName="email" matInput placeholder="Email" type="text">
+                            </mat-form-field>
+                            <div *ngIf="!loginForm.controls.email.valid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)" class="error">
+                                <div *ngIf="loginForm.controls.email.errors.invalidMsg">
+                                    {{loginForm.controls.email.errors.invalidMsg}}
+                                </div>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <input matInput formControlName="password" type="password" placeholder="Password">
+                            </mat-form-field>
+                            <div *ngIf="!loginForm.controls.password.valid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)" class="error">
+                            </div>
+                            <mat-form-field>
+                                <mat-label>Role</mat-label>
+                                <select matNativeControl required>
+                                  <option value="volvo">Prime Contractor</option>
+                                  <option value="saab">Sub Contractor</option>
+                                </select>
+                            </mat-form-field>
+                            Don't have account ? <a class="marg" routerLink="/signup">SIGNUP</a>
+                            <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary" class=" pull-right">login
+                            </button>
+                            <div class="clearfix"></div>
+                            </form>
+                    </div>
+                </div> 
+
+            
+
+
+
+    </div>
+</div>
+</div>
+
+             
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+                        
+
+
+
+

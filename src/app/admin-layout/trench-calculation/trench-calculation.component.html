@@ -76,8 +76,8 @@
                         <i (click)="updateTrench(true, element)" [matTooltipPosition]="'above'" class="material-icons"
                             [ngStyle]="{'color':'blue'}" matTooltip="edit">edit</i>
             
-                        <i (click)="removeTrench(element, i)" [matTooltipPosition]="'above'" class="material-icons"
-                            [ngStyle]="{'color':'red'}" matTooltip="Remove">close</i>
+                        <!-- <i (click)="removeTrench(element, i)" [matTooltipPosition]="'above'" class="material-icons"
+                            [ngStyle]="{'color':'red'}" matTooltip="Remove">close</i> -->
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

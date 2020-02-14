@@ -6,8 +6,8 @@
     </div>
     <mat-tab-group  class="body-with-tab" (selectedTabChange)="onTabChange($event)">
         <mat-tab label="First">  <ng-template  mat-tab-label>Crew</ng-template>
-            <div class="table-responsive  border-top">
-            <table class="mat_tab" mat-table [dataSource]="crew" class="mat-elevation-z8">
+            <div class="table-responsive  border-top ">
+            <table class="" mat-table [dataSource]="crew" class="mat-elevation-z8 ">
                 <ng-container matColumnDef="Name">
                     <th mat-header-cell *matHeaderCellDef>Name</th>
                     <td mat-cell *matCellDef="let element">{{element.name}} </td>
@@ -51,8 +51,8 @@
                     <td mat-cell *matCellDef="let element, let i=index">
                         <i (click)="updateCrew(true, element)" [matTooltipPosition]="'above'" class="material-icons" 
                         [ngStyle]="{'color':'blue'}" matTooltip="edit">edit</i>
-                        <i (click)="removeCrew(element, i)" [matTooltipPosition]="'above'" class="material-icons"
-                            [ngStyle]="{'color':'red'}" matTooltip="Remove">close</i>
+                        <!-- <i (click)="removeCrew(element, i)" [matTooltipPosition]="'above'" class="material-icons"
+                            [ngStyle]="{'color':'red'}" matTooltip="Remove">close</i> -->
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

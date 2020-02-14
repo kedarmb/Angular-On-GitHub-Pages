@@ -1,10 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap");
 @import "flatpickr/dist/flatpickr.css";
+@import './src/assets/scss/core/variables/_colors.scss';
 body,
 html,
 .main-panel, .main-content {
   font-family: "Lato", sans-serif !important;
-  background-color: #ffffff;
+  background-color: $white;
 }
 
 .main-panel {
@@ -17,99 +18,54 @@ html,
 	}
   }
 }
-
 .sidebar {
 .sidebar-wrapper {
-  background: #fff;
+  background: $white;
 }
 }
 
-tr:hover {background-color:#f5f5f5;}
+tr:hover {background-color:
+  $grey-50;}
+
+
 
 .sidebar {
   .logo {
     .simple-text {
-      font-size: 16px !important;
+       font-size: 16px !important;
     }
-  }
-  li {
-    width: 220px;
   }
   .nav {
     li {
-      &:first-child {
-        & > a {
-          color: red;
-          color: #3f51b5;
-          margin: 0 15px;
-          // i {
-          //   color: red;
-          //   color: #3f51b5;
-          // }
-          .img-links{
-               color: red;
-            color: #3f51b5;
-          }
-        }
-      }
       &:nth-child(6) {
         & > a {
           border-bottom: 1px solid darkgrey;
           border-radius: 0px;
         }
       }
-      &:nth-child(2) {
-        & > a {
-          color: red;
-          color: #3f51b5;
-          //i,
-          .img-links {
-            color: red;
-            color: #3f51b5;
-          }
-        }
-      }
     }
   }
-  .sidebar-wrapper {
-    width: 220px;
-  }
 }
-
 html {
   .sidebar {
     .nav {
       p,span {
         margin: 0;
         line-height: 1.8;
-        font-size: 16px;
       }
     }
   }
 }
-
-.sidebar .nav li:first-child.active > a,
-.sidebar .nav li:nth-child(2).active > a {
-  color: #fff;
-  background: darkgrey;
-}
-
-.sidebar .nav li:first-child.active > a i,
-.sidebar .nav li:nth-child(2).active > a i {
-  color: #fff;
-  background: darkgrey;
-}
-
 .sidebar[data-color="danger"] {
   li {
     &.active {
       & > a {
-        background-color: #3f51b5;
+        background-color: $indigo-500;
+        color: $white;
       }
     }
   }
 }
-
 .nav-tabs {
   .nav-item {
     .nav-link {
@@ -117,26 +73,21 @@ html {
     }
   }
 }
-
 .mat-table {
   overflow: auto;
 }
-
 .mat-datepicker-content {
   .mat-calendar {
     width: 219px !important;
     height: 270px !important;
   }
 }
-// .material-icons{
-//   margin-right: 8px;
-//   font-size: 18px !important;
-// }
+
 
 .img-links {
   margin-right: 25px;
-  
 }
+  
 
 table {
   table-layout: fixed;
@@ -152,7 +103,7 @@ mat-card {
 }
 
 .mat-header-cell {
-  font-size: 14px !important;
+   font-size: 14px !important;
   font-weight: 700;
 }
 
@@ -172,15 +123,16 @@ mat-card {
 .mat-toolbar {
   &.mat-primary {
     margin-bottom: 20px;
+    font-size: 18px;
   }
 }
 
 .tab-cell-styl th,
 td {
   overflow: hidden;
-  width: 220px !important;
-  word-wrap: break-word !important;
-  white-space: nowrap;
+  width: 180px;
+  word-wrap: break-word ;
+ 
 }
 
 .card {
@@ -191,4 +143,18 @@ td {
   .mat-figure {
     display: block !important;
   }
+}
+.mat-card-subtitle, .mat-card-content {
+  font-size: 14px;
+}
+.material-icons {
+  font-size: 16px;
+}
+
+th.mat-header-cell{
+	font-weight: 400;
+	background-color: #f3f3f3;
+	padding: 8px 8px;
+}td.mat-cell, td.mat-footer-cell{
+	padding: 12px 8px;
 }

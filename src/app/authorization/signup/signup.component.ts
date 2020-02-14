@@ -3,7 +3,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { SignupFormGroup } from './signup.validator';
 import { TooltipPosition } from '@angular/material/tooltip';
 import Signup from 'app/shared/core/model/signup.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService } from 'app/shared/core/service/http.service';
 @Component({
   selector: 'app-signup',
@@ -19,6 +19,7 @@ export class SignupComponent implements OnInit {
   signup: Signup = new Signup();
   constructor(private fb: FormBuilder, private httpService: HttpService, private route: Router) { }
   ngOnInit() {
+    
   }
   submit(registrationForm) {
       for (let i in registrationForm.controls) {

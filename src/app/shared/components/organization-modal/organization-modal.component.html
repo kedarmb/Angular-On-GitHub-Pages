@@ -1,7 +1,14 @@
 <form [formGroup]="organizationForm">
-    <h1 mat-dialog-title align="center">Add Organization</h1>
+    <!-- <div *ngIf="data.val == false">
+        <h1 mat-dialog-title *ngIf="showLabel" align="center">Add Organization</h1>
+    </div>
+    <div *ngIf="data.val == true">
+        <h1 mat-dialog-title *ngIf="showLabel" align="center">Edit Organization</h1>
+    </div> -->
+    <h1 mat-dialog-title align="center" *ngIf="showLabel">Add Organization</h1>
+   
     <div mat-dialog-content>
-
+        <!-- <i class="fas fa-user fa "></i> -->
         <mat-label>Organization</mat-label><span class="text-danger">*</span>
         <mat-form-field>
             <input formControlName="name" matInput type="text">
@@ -73,14 +80,18 @@
     </div>
 </form>
 
-<mat-dialog-actions class=" pull-right">
+<mat-dialog-actions class="pull-right">
+<div *ngIf="data">
     <div *ngIf="data.val == false">
         <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
-            color="primary">Save</button>
+        color="primary">Save</button>
     </div>
     <div *ngIf="data.val == true">
         <button mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="update()"
-            color="primary">Update</button>
+        color="primary">Update</button>
     </div>
-    <button mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
+    </div>
+    <button *ngIf="showBtn" mat-raised-button type="button" [disabled]="!organizationForm.valid" (click)="save()"
+    color="primary">Save</button>
+    <button *ngIf="!showBtn" mat-raised-button type="button" (click)="close()" color="primary">Cancel</button>
 </mat-dialog-actions>

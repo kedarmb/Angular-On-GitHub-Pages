@@ -8,6 +8,7 @@ import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule,
      MatSelectModule, MatTooltipModule , MatCardModule, MatToolbarModule, MatGridListModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         SignupComponent,
     ],
     imports: [
+        SharedModule,
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
