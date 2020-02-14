@@ -52,9 +52,10 @@ export const ApiUrl = {
   //
   // GET /notified-subcontractors/ passing the tenderId.
   notifiedSubsUrl: authUrlCreator('/tender/'),
-  inviteSubUrl: authUrlCreator('/tender/headerlevelNotifySub')
+  inviteSubUrl: authUrlCreator('/tender/headerlevelNotifySub'),
+  createSubline: authUrlCreator('/subline-item/tender'),
+  createUniqueSubline: authUrlCreator('/subline-item/getUniqueSubLine/tender')
 }
-
 function urlCreator(actionName: string): string {
   return `${environment.baseURL}${actionName}`;
 };

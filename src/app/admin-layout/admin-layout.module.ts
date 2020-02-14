@@ -1,3 +1,4 @@
+
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import {FlexLayoutModule} from '@angular/flex-layout';
 
-
+import { TenderFastQuoteComponent } from './tender/tender-fast-quote/tender-fast-quote.component';
+import { TenderFastListComponent } from './tender/tender-fast-list/tender-fast-list.component';
+import { TenderFastCompareComponent } from './tender/tender-fast-compare/tender-fast-compare.component';
 
 import {
   MatButtonModule,
@@ -148,6 +151,12 @@ import { MatMenuModule } from '@angular/material/menu';
     TrenchCalculationComponent,
     TenderCompareComponent,
     TenderBidComponent,
+    TenderFastQuoteComponent,
+    TenderFastListComponent,
+    TenderFastCompareComponent,
+    TenderFastQuoteComponent,
+    TenderFastCompareComponent,
+    TenderFastListComponent,
   ]
 })
 

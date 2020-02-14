@@ -130,7 +130,12 @@ export class TenderComponent implements OnInit {
     this.router.navigateByUrl('pdf-viewer/' + tender._id);
   }
   quotes(tender) {
-    this.router.navigateByUrl('/quote');
+    this.router.navigateByUrl('quote');
+  }
+  fastQuote(tender) {
+    console.log(tender)
+    const url = 'fast-list/' + tender._id
+    this.router.navigate([url], { state: { tender: tender} });
   }
   compare(tender) {
     this.router.navigateByUrl('/compare');

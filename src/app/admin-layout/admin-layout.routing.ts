@@ -1,3 +1,6 @@
+import { TenderFastListComponent } from './tender/tender-fast-list/tender-fast-list.component';
+import { TenderFastCompareComponent } from './tender/tender-fast-compare/tender-fast-compare.component';
+import { TenderFastQuoteComponent } from './tender/tender-fast-quote/tender-fast-quote.component';
 import { TenderCompareComponent } from './tender/tender-compare/tender-compare.component';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -42,7 +45,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'fullcalender', component: FullcalenderComponent },
     { path: 'calculation', component: TrenchCalculationComponent },
     { path: 'compare',  component: TenderCompareComponent },
-    { path: 'bid', component: TenderBidComponent }
+    { path: 'bid', component: TenderBidComponent },
+    { path: 'fast-quote/:id/:id', component: TenderFastQuoteComponent },
+    { path: 'fast-compare/:id', component: TenderFastCompareComponent },
+    { path: 'fast-list/:id', component: TenderFastListComponent }
     // { path: 'upgrade', component: UpgradeComponent },
     // { path: 'typography', component: TypographyComponent },
     // { path: 'icons', component: IconsComponent },

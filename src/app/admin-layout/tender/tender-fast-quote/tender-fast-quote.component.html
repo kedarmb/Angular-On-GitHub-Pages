@@ -1,0 +1,48 @@
+<div class="container fast-q">
+    <div class="mt-5 table-responsive">
+        <form [formGroup]="sublineForm">
+            <table class="table table-bordered">
+                <thead>
+                    <th>Action</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Unit</th>
+                    <th>unitPrice</th>
+                </thead>
+                <tbody formArrayName="subline">
+                    <tr *ngFor="let lineItem of sublineForm.get('subline').controls; let i = index;  let last = last"
+                        [formGroupName]="i">
+                        <td class="width-2">
+                            <a><i class="material-icons">edit</i></a>
+                            <a><i class="material-icons">remove_red_eye</i></a>
+                            <a><i class="material-icons" (click)="removeLineItem(lineItem, i)" >delete_sweep</i></a>
+                        </td>
+                        <td class="width-2">
+                            <textarea type="text" class="form-control" formControlName="name"></textarea>
+                        </td>
+                        <td class="width-2">
+                            <textarea type="text" class="form-control" formControlName="description"></textarea>
+                        </td>
+                        <td class="width-2">
+                            <textarea type="text" class="form-control" formControlName="unit"></textarea>
+                        </td>
+                        <td class="width-2">
+                            <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button (click)="addLineItem()">Add more</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="submit" (click)="createSubline()">save</button>
+            <button type="submit">cancel</button>
+
+        </form>
+
+        <button (click)="compare()">compare quotes</button>
+    </div>
+</div>

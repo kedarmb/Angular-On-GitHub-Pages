@@ -1,0 +1,15 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Names </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let subline of sublineData" >
+            <td>{{subline.name}}</td>
+            <td *ngFor="let item of subline.quotes" ><span>{{item.unitPrice}}</span><span>{{item.unit}}</span>&nbsp;<span>{{item.subContrctorId.name}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
