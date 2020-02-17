@@ -120,42 +120,30 @@ export class TenderComponent implements OnInit {
       this.toastr.error('Could not delete tender', 'Error!');
     })
   }
-  //
+
   viewTender(tender) {
     console.log(tender);
     // tender._id = '5dde7f6bfc6b8a42441783ab';
     this.router.navigateByUrl('view-tender/', { state: tender });
   }
+
   viewer(tender) {
     this.router.navigateByUrl('pdf-viewer/' + tender._id);
   }
+
   quotes(tender) {
     this.router.navigateByUrl('quote');
   }
+
   fastQuote(tender) {
     console.log(tender)
     const url = 'fast-list/' + tender._id
-    this.router.navigate([url], { state: { tender: tender} });
+    this.router.navigate([url], { state: { tender: tender._id} });
+    this.hs.setSession('tenderIdNow', JSON.stringify(tender._id));
   }
+
   compare(tender) {
     this.router.navigateByUrl('/compare');
   }
-  compare(tender) {
-    this.router.navigateByUrl('/compare');
-  }
-  //
-
-  /* justGetTenders() {
-    const appendStr = '/0/0';
-    this.httpServ.getTenders(appendStr).subscribe((result) => {
-      this.tenders = result.body as Array<any>;
-      if (this.tenders.length < 1) {
-        this.feMsg = 'You do not have any listed tender now..'
-      }
-    }, (err) => {
-      console.log('err in fetching tender headers ', err);
-    })
-  } */
-
 
 }
