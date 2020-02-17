@@ -1,6 +1,6 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit, Output,Input, EventEmitter, Inject, Optional } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject, Optional } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Organization from 'app/shared/core/model/organization.model';
 import { HttpService } from 'app/shared/core/service/http.service';
@@ -10,15 +10,13 @@ import { MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material
 import csc from 'country-state-city';
 import { ICountry, IState, ICity } from 'country-state-city'
 import {orgType } from '../../core/constant/index';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 @Component({
   selector: 'app-organization-modal',
   templateUrl: './organization-modal.component.html',
   styleUrls: ['./organization-modal.component.scss']
 })
 export class OrganizationModalComponent implements OnInit {
-  //@Input() showLabel: boolean;
- showLabel: any='Add Organization';
   organizationForm: FormGroup;
   formSubmitted = false;
   @Output() valueChange = new EventEmitter();
@@ -36,8 +34,8 @@ export class OrganizationModalComponent implements OnInit {
   countries: ICountry[] = [];
   states: IState[] = [];
   cities: ICity[] = [];
-  showLabel :boolean = false;
-  showBtn:boolean;
+  showLabel = false;
+  showBtn: boolean;
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     @Optional() @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,
@@ -55,25 +53,21 @@ export class OrganizationModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    let activatedRoute  = this.route.url.split('/')[1];
-    //console.log('route-->',activatedRoute);
-    if(activatedRoute == 'organization'){
+    const activatedRoute  = this.route.url.split('/')[1];
+    if (activatedRoute === 'organization') {
         this.showLabel = true;
     }
 
-    if(activatedRoute == 'signup'){
+    if (activatedRoute === 'signup') {
       this.showLabel = false;
       this.showBtn = true;
   }
-
-
-
-    if(this.data){
-      
+  if (this.data) {
     if (this.data.val) {
       const newVal = Object.assign({}, this.data.data);
       delete newVal.__V;
       delete newVal.__v;
+      console.log(newVal);
       delete newVal.createDate;
       delete newVal.updateDate;
       delete newVal.createdBy;
@@ -115,8 +109,6 @@ export class OrganizationModalComponent implements OnInit {
       serviceArea: ['', [Validators.required]],
       orgType: ['Prime'],
       _id: [ '']
-      // orgType: [''],
-      // _id: [this.data._id]
     });
   }
 

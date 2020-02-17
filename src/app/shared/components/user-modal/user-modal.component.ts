@@ -1,23 +1,20 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, Input, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from '../../core/service/helper.service';
 import { regex, errorMsg } from '../../core/constant/index';
 import User from 'app/shared/core/model/user.model';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { MatDialogClose, MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { EquipmentsModalComponent } from '../equipments-modal/equipments-modal.component';
-import { Router, ActivatedRoute } from '@angular/router';
-import Organization from 'app/shared/core/model/organization.model';
+import { Router} from '@angular/router';
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
   styleUrls: ['./user-modal.component.scss']
 })
 export class UserModalComponent implements OnInit {
-  // showLabel :boolean = false;
-  showLabel: any='Add User';
+  showLabel = 'Add User';
   formSubmitted = false;
   userForm: FormGroup;
   @Output() valueChange = new EventEmitter();
@@ -40,17 +37,6 @@ export class UserModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  //   let activatedRoute  = this.route.url.split('/')[1];
-  //   console.log('route-->',activatedRoute);
-  //   if(activatedRoute == 'user'){
-  //     this.showLabel;
-  //   }
-
-  //   if(activatedRoute == 'user'){
-  //     this.showLabeledit;
-  //     this.showLabel = false;
-  //     this.showBtn = true;
-  // }
 
     this.createUserForm();
     if (this.data.val === true) {
