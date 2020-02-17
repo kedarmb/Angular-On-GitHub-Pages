@@ -140,6 +140,9 @@ export class TenderComponent implements OnInit {
   compare(tender) {
     this.router.navigateByUrl('/compare');
   }
+  compare(tender) {
+    this.router.navigateByUrl('/compare');
+  }
   //
 
   /* justGetTenders() {

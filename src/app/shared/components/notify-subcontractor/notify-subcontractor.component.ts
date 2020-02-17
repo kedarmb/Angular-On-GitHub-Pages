@@ -20,10 +20,15 @@ export class NotifySubcontractorComponent implements OnInit {
   [x: string]: any;
   clicked: true;
   notifiedSubList: any;
+  private _searchByArea: string;
+
+
   // inviteSubs;
   organizations: any = [];
+  filteredOrganizations: any = [];
   inviteSubs: any = [];
-  constructor(/* private activeModal: NgbActiveModal, */ private httpService: HttpService,
+
+  constructor( private httpService: HttpService,
     public subContDialogueRef: MatDialogRef<NotifySubcontractorComponent>,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -36,6 +41,39 @@ export class NotifySubcontractorComponent implements OnInit {
 
   ngOnInit() {
     this.getOrganization();
+    this.getNotifiedSub()
+  }
+  get searchByArea(): string {
+    return this._searchByArea;
+  }
+
+
+  set searchByArea(value: string) {
+    this._searchByArea = value;
+    this.filteredOrganizations = this.filterOrgs(value)
+  }
+
+  filterOrgs(searchString: string) {
+    if (searchString) {
+        return this.organizations.filter(org => {
+          const result = org.serviceArea.filter(obj => {
+          if (obj.indexOf(searchString) !== -1) {
+            return obj
+          }
+        })
+        const res2 = org.serviceType.filter(obj => {
+        if (obj.indexOf(searchString) !== -1) {
+            return obj
+          }
+        })
+        const res3 = [...result, ...res2];
+        if (res3 && res3.length) {
+          return org
+        }
+      })
+    } else {
+      return this.filteredOrganizations = this.organizations
+      }
   }
 
   onCheckboxChange(e) {
@@ -54,7 +92,6 @@ export class NotifySubcontractorComponent implements OnInit {
 
 
   defaultcheck(id) {
-    console.log(id)
     if (this.inviteSubs.indexOf(id) !== -1) {
       return true
     } else {
@@ -65,7 +102,7 @@ export class NotifySubcontractorComponent implements OnInit {
 
   getOrganization() {
     setTimeout(() => this.spinner.show(), 0)
-    this.httpService.getAllOrganization()
+  return  this.httpService.getAllOrganization()
       .subscribe((response: any) => {
         if (response.status === 200) {
           const organizations = response.body;
@@ -74,20 +111,45 @@ export class NotifySubcontractorComponent implements OnInit {
               return obj
             }
           })
+          this.filteredOrganizations = this.organizations
         }
         this.spinner.hide();
       }, error => {
+          this.filteredOrganizations = []
         this.toastr.error(error.error.message)
         this.spinner.hide();
       })
 
   }
 
+
+  getNotifiedSub() {
+    console.log(this.data.tenderID)
+    this.httpService.getNotifiedSubs(this.data.tenderID)
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+
+          if (response.body && response.body.headerLevelNotifiedSubs && response.body.headerLevelNotifiedSubs.length)   {
+          const organizations = response.body.headerLevelNotifiedSubs;
+            for (let i = 0, len = this.filteredOrganizations.length; i < len; i++) {
+              // tslint:disable-next-line: no-shadowed-variable
+              for (let j = 0, len = organizations.length; j < len; j++) {
+                if (this.filteredOrganizations[i]._id === organizations[j]._id) {
+                  this.filteredOrganizations[i].selected = true
+                }
+              }
+            }
+          }
+        }
+      }, error => {
+        this.toastr.error(error.error.message)
+      })
+  }
+
   //
   submitForm() {
     const finalVal = Object.assign({}, this.inviteSub.value);
     finalVal.tenderId = this.data.tenderID;
-    // console.log(finalVal);
     this.httpService.inviteSubContractor(finalVal)
       .subscribe((response: any) => {
         if (response.status === 201) {

@@ -1,6 +1,10 @@
 <div class="modal-body">
     <form [formGroup]="inviteSub" (ngSubmit)="submitForm()">
         <h1 mat-dialog-title align="center">Select Sub Contractor</h1>
+        <div class="row">
+            <mat-label>Search by Service Area/Type</mat-label>
+            <input type="text" matInput [ngModelOptions]="{standalone: true}" placeholder="type service type/service area name" [(ngModel)]="searchByArea">
+        </div>
         <table class="table table-condensed">
             <thead>
                 <tr>
@@ -8,14 +12,16 @@
                     <th>Organization</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Service Area</th>
+                    <th>Service Type</th>
                 </tr>
             </thead>    
             <tbody>
-                <tr *ngFor="let org of organizations;let i=index">
+                <tr *ngFor="let org of filteredOrganizations; let i= index">
                     <td>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" [value]="org._id" (change)="onCheckboxChange($event)">
+                                <input class="form-check-input" type="checkbox" [disabled]="org.selected" [checked]="org.selected" [value]="org._id" (change)="onCheckboxChange($event)">
                                 <span class="form-check-sign">
                                     <span class="check"></span>
                                 </span>
@@ -25,6 +31,8 @@
                     <td>{{org.name}}</td>
                     <td>{{org.contactEmail}}</td>
                     <td>{{org.contactPhone}}</td>
+                    <td>{{org.serviceType}}</td>
+                    <td>{{org.serviceArea}}</td>
                 </tr>
             </tbody>
         </table>

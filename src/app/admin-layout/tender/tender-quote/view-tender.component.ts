@@ -95,7 +95,8 @@ export class ViewTenderComponent implements OnInit {
         const dialogRef = this.dialog.open(NotifySubcontractorComponent, {
             height: '50%',
             width: '850px',
-            data: { tenderID: this.tenderID }
+            data: { tenderID: this.tenderID },
+            disableClose: true
         });
         //
         dialogRef.afterClosed().subscribe(result => {
