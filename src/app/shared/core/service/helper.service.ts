@@ -2,8 +2,6 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
-
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +49,7 @@ export class HelperService {
     this.setSubContractorList();
   }
 
-  addOrgToLocalList (param) {
+  addOrgToLocalList(param) {
     const orgData = JSON.parse(localStorage.getItem('orgList'));
     orgData.push(param);
     this.setInLocalStorage('orgList', orgData);
@@ -65,27 +63,27 @@ export class HelperService {
     this.subContList = _subList;
   }
 
-  getSubContractorList () {
+  getSubContractorList() {
     return this.subContList;
   }
-  
+
   setEqupmentList() {
     this.allEquipList = JSON.parse(localStorage.getItem('equipList'));
   }
-  
+
   setLabourList() {
     this.allLabourList = JSON.parse(localStorage.getItem('labourList'));
   }
-  
+
   setTenderList(list) {
     this.tenderList = [];
     this.tenderList = [...list];
   }
-  
+
   getTenderList() {
     return this.tenderList;
   }
-  
+
   updateLocalTenderListByID(tData) {
     console.log('tData is >>>>>> ', tData);
     // after modifying tender line/subline/crew/trench the modified saved at local end
@@ -153,7 +151,7 @@ export class HelperService {
     }, {});
   }
 
-
+  // methods to crud with session Storage
   setSession(k, v) {
     sessionStorage.setItem(k, v);
   }

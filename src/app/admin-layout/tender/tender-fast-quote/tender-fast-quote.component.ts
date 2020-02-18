@@ -117,10 +117,10 @@ export class TenderFastQuoteComponent implements OnInit {
     }
     return fArr;
   }
-  
+
   createSubline(val) {
     const finalVal = Object.assign([], this.sublineForm.value.subline)
-    const k = finalVal.filter(e =>  e._id === "" )
+    const k = finalVal.filter(e => e._id === "")
     k.map((e) => {
       delete e._id
       delete e.createdAt
@@ -134,7 +134,7 @@ export class TenderFastQuoteComponent implements OnInit {
         if (response.status === 201) {
           console.log(response.body)
           this.toastr.success(response.statusText)
-          if (val === true){
+          if (val === true) {
             this.router.navigate(['/fast-list/' + this.tenderID]);
 
           }
@@ -145,8 +145,7 @@ export class TenderFastQuoteComponent implements OnInit {
         }
       )
   }
-
-  compare() {
-    this.router.navigate(['/fast-compare/' + this.tenderID], { state: this.tenderID });
+  cancel() {
+    this.router.navigate(['/fast-list/' + this.tenderID]);
   }
 }

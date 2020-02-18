@@ -112,4 +112,11 @@ export class TenderFastListComponent implements OnInit, OnChanges {
     })
   };
 
+  compare() {
+    this.router.navigate(['/fast-compare/' + this.tenderID], { state: this.tenderID });
+  }
+  
+  cancel() {
+    this.router.navigate(['/tender']);
+  }
 };

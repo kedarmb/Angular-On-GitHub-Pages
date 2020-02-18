@@ -38,11 +38,10 @@
                 </tbody>
             </table>
 
-            <button type="submit" (click)="createSubline(true)">save</button>
+            <button type="submit" (click)="createSubline(true)" [disabled]="!sublineForm.valid">save</button>
             <button type="submit" (click)="createSubline(false)">Save and continue</button>
+            <button type="submit" (click)="cancel()">Cancel</button>
 
         </form>
-
-        <button (click)="compare()">compare quotes</button>
     </div>
 </div>
