@@ -10,7 +10,8 @@
         <div>
             <mat-label>Email</mat-label><span class="text-danger">*</span>
             <mat-form-field class="example-full-width">
-                <input formControlName="email" matInput type="text">
+
+                <input matInput formControlName="email" [readonly]="data.val">
             </mat-form-field>
             <div *ngIf="!userForm.controls.email.valid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
                 class="error">
@@ -69,9 +70,10 @@
                 </div>
             </div>
             <div>
+                <ng-container formGroupName="organization">
                 <mat-label>Organization</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
-                    <input formControlName="organization" matInput type="text">
+                    <input formControlName="name" matInput type="text">
                 </mat-form-field>
                 <div *ngIf="!userForm.controls.organization.valid && (userForm.controls.organization.dirty || userForm.controls.organization.touched)"
                     class="error">
@@ -79,16 +81,34 @@
                         {{userForm.controls.organization.errors.invalidMsg}}
                     </small>
                 </div>
+                </ng-container>
+            </div>
+            <div *ngIf="data.val == true">
+                <mat-form-field>
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option *ngFor="let role of usrRole" [value]="role.name" name='role.name'>{{role.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="data.val == true">
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let status of userstats" [value]="status.name" name='status.name'>{{status.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>   
         <div fxLayoutAlign="flex-end" fxLayout.xs="column"  fxLayout="row">
         <mat-dialog-actions >
             <div *ngIf="data.val == false">
-                <button mat-raised-button  [disabled]="!userForm.valid" (click)="save()"
+                <button mat-raised-button [disabled]="!userForm.valid" (click)="save()"
                     color="primary">Save</button>
             </div>
             <div *ngIf="data.val == true">
-                <button mat-raised-button  [disabled]="!userForm.valid" (click)="update()"
+                <button mat-raised-button [disabled]="!userForm.valid" (click)="update()"
                     color="primary">Update</button>
             </div>
             <button mat-raised-button  (click)="close()" color="primary">Cancel</button>

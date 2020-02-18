@@ -5,6 +5,8 @@ export default class User {
     lname = 'string';
     mobile =  'string';
     organization: 'string';
+    status: 'string';
+    role: 'string';
 }
 
 

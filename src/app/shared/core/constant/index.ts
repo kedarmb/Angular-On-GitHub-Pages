@@ -68,3 +68,11 @@ export const orgType = [
   {name: 'Sub'},
   {name: 'Prime'}
 ]
+export const userStats = [
+  {name: 'Inactive'},
+  { name: 'Active'}
+]
+export const userRole = [
+  { name: 'Admin'},
+  {name: 'User'}
+]
