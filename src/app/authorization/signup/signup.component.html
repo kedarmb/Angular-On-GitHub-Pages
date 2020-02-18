@@ -95,7 +95,6 @@
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-signup" role="tabpanel" aria-labelledby="pills-signin-tab">
           <div class="col-sm-12  shadow rounded pt-2">
-            <!-- <div class="text-center"><img src="https://placehold.it/80x80" class="rounded-circle border p-1"></div> -->
             <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
               <!-- <mat-label>Street Address</mat-label><span class="text-danger">*</span>
               <mat-form-field>
@@ -143,9 +142,7 @@
                     </li>
                 </ul>
 
-                   
-               
-                <mat-label>Password</mat-label><span class="text-danger">*</span>
+                    <mat-label>Password</mat-label><span class="text-danger">*</span>
                         <mat-form-field class="example-full-width">
                             <input matInput formControlName="password"  type="password">
                         </mat-form-field>
@@ -158,15 +155,14 @@
                         <mat-label>Confirm Password</mat-label><span class="text-danger">*</span>
                         <mat-form-field class="example-full-width">
                           <input matInput type="password" formControlName="confirmPassword" >
-                          <!-- <i class="fa fa-info pull-right" matTooltip="Should be Same as Password" [matTooltipPosition]="position.value" aria-hidden="true"></i> -->
                       </mat-form-field>
                       <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['confirmPassword'].touched) && registrationForm.controls['confirmPassword'].invalid">
                           <li *ngFor="let error of registrationForm.get['confirmPassword'].getValidationMessages()">
                               {{error}}
                           </li>
-                      </ul>
-
-                      <mat-label>Mobile*</mat-label><span class="text-danger">*</span>
+                      </ul> 
+  
+                 <mat-label>Mobile*</mat-label><span class="text-danger">*</span>
                         <mat-form-field class="example-full-width">
                           <input formControlName="mobile" matInput  type="text">
                       </mat-form-field>
@@ -174,16 +170,8 @@
                         <li *ngFor="let error of registrationForm.get['mobile'].getValidationMessages()">
                             {{error}}
                         </li>
-                    </ul>
-    
+                    </ul> 
                        
-                        <!-- <mat-form-field>
-                            <mat-label>Type</mat-label>
-                            <select matNativeControl required>
-                                <option value="prime">Prime Contractor</option>
-                            <option value="sub">Sub Contractor</option> 
-                          </select>
-                      </mat-form-field> -->
                       <p>Already have an Account?<a class="mr-l" routerLink="/login">LOGIN</a></p>
                       <div  fxLayout="row" fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="flex-end">
                         <button mat-raised-button type="submit" [disabled]="!registrationForm.valid"  color="primary">Create Profile</button>

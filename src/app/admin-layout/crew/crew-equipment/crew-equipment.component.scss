@@ -1,31 +1,8 @@
-// .main-content{
-// 	.table-responsive{
-// 		height: 100%;   
-// 		overflow-y: auto;         
-// 	}
-// }
-// td.mat-cell, td.mat-footer-cell{
-// 	padding: 12px 8px;
-// }
-// th.mat-header-cell{
-// 	font-weight: 900;
-// 	background-color: #33333333;
-// 	color:#fff;
-// 	padding: 8px 8px;
-// }
 .mat-column-Name{
 	border-right: 1px solid #f3f3f3;
 	align-self: stretch;
 	text-align: left
 }
-  
-  
-// .main-content{
-// 	.table-responsive{
-// 		height: 100%;   
-// 		overflow-y: auto;         
-// 	}
-// }
 	.mat-column-Description{
 	border-right: 1px solid #f3f3f3;
 	align-self: stretch;
@@ -35,7 +12,8 @@
 	.mat-column-Actions{
 	border-right: 1px solid #f3f3f3;
 	align-self: stretch;
-	text-align: left;
+	text-align: center;
+	width:90px
   
 	}
 	td.mat-cell, td.mat-footer-cell{

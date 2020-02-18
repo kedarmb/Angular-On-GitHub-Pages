@@ -108,7 +108,8 @@ export class OrganizationModalComponent implements OnInit {
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
       orgType: ['Prime'],
-      _id: [ '']
+      _id: [ ''],
+      status:['']
     });
   }
 
@@ -137,6 +138,7 @@ export class OrganizationModalComponent implements OnInit {
 
   update() {
     const finaVal = Object.assign({}, this.organizationForm.value)
+    console.log('edit .. ', finaVal);
     finaVal._id = this.data._id;
     this.httpService.updateOrganization(finaVal, this.data.data._id)
       .subscribe((response: any) => {

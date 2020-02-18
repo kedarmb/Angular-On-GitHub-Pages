@@ -4,19 +4,11 @@
             overflow-y: auto;
         }
     }
-    // td.mat-cell, td.mat-footer-cell{
-    //     padding: 12px 8px;
-    // }
-    // th.mat-header-cell{
-    //     font-weight: 900;
-    //     background-color: #33333333;
-    //     color:#fff;
-    //     padding: 8px 8px;
-    // }
     .mat-column-Name{
         border-right: 1px solid #f3f3f3;
         align-self: stretch;
-        text-align: left
+        text-align: left;
+        width:180px;
       
       
         }
@@ -24,34 +16,77 @@
         border-right: 1px solid #f3f3f3;
         align-self: stretch;
         text-align: left;
+        width:180px;
+
       
         }
         .mat-column-Phone{
         border-right: 1px solid #f3f3f3;
         align-self: stretch;
         text-align: left;
+        width:180px;
+
       
         }
         .mat-column-Type{
             border-right: 1px solid #f3f3f3;
             align-self: stretch;
             text-align: left;
+        width:100px;
+
           
             }
             .mat-column-Street-Address{
                 border-right: 1px solid #f3f3f3;
                 align-self: stretch;
                 text-align: left;
+        width:180px;
+
               
                 }
                 .mat-column-Service-Type{
                     border-right: 1px solid #f3f3f3;
                     align-self: stretch;
                     text-align: left;
-                  
+                    width:180px;
 
                     }
+                    .mat-column-province{
+                        border-right: 1px solid #f3f3f3;
+                        align-self: stretch;
+                        text-align: left;
+                        width:100px;
+    
+                        }
+                        .mat-column-Country{
+                            border-right: 1px solid #f3f3f3;
+                            align-self: stretch;
+                            text-align: left;
+                            width:100px;
+        
+                            }
+                            .mat-column-City{
+                                border-right: 1px solid #f3f3f3;
+                                align-self: stretch;
+                                text-align: left;
+                                width:100px;
+            
+                                }
+                                .mat-column-Actions{
+                                    border-right: 1px solid #f3f3f3;
+                                    align-self: stretch;
+                                    text-align: center;
+                                    width:90px;
+                
+                                    }
+                                    .mat-column-ServiceArea{
+                                        border-right: 1px solid #f3f3f3;
+                                        align-self: stretch;
+                                        text-align: center;
+                                        width:180px;
                     
+                                        }
+                                    
         td.mat-cell, td.mat-footer-cell{
           padding: 12px 8px;
       } 
