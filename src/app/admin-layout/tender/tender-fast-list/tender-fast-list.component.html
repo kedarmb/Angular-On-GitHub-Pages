@@ -1,6 +1,6 @@
 <div class="mt-5">
 
-    <table class="table">
+    <table class="table m-top ">
         <thead>
             <tr>
                 <th>Action</th>
@@ -19,7 +19,7 @@
                     </td>
                     <td>{{item.subContractorId.name}}</td>
                     <td></td>
-                    <td><button (click)="createSub(item.subContractorId)">Add quote</button></td>
+                    <td><button class="bg" (click)="createSub(item.subContractorId)">Add quote</button></td>
                 </tr>
             </ng-container>
             <tr>
@@ -28,11 +28,11 @@
                     <a><i class="material-icons">remove_red_eye</i></a>
                     <a><i class="material-icons">delete_sweep</i></a>
                 </td>
-                <td>
-                    <div *ngIf="notifiedSubList">
-                        <mat-form-field>
-                            <mat-label>Select Sub Contractor</mat-label>
-                            <mat-select #notify (selectionChange)="subSelection(notify.value)">
+                <td >
+                    <div  *ngIf="notifiedSubList">
+                        <mat-form-field >
+                            <mat-label >Select Sub Contractor</mat-label>
+                            <mat-select  #notify (selectionChange)="subSelection(notify.value)">
                                 <mat-option *ngFor="let sub of notifiedSubList" [value]="sub">
                                     {{sub.name}}
                                 </mat-option>
@@ -41,7 +41,7 @@
                     </div>
                 </td>
                 <td></td>
-                <td><button (click)="createSub(_sub)">Add quote</button></td>
+                <td><button  class="bg" (click)="createSub(_sub)">Add quote</button></td>
             </tr>
         </tbody>
     </table>

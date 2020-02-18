@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { TenderService } from '../../shared/core/service/tender.service';
-import { Dboard } from './dashboard';
+import {Dboard} from './dashboard';
 import { HttpService } from '../../shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -31,14 +31,13 @@ export class DashboardComponent implements OnInit {
   // ++++++listofsc++++++++++++
   constructor(private tenderService: TenderService, private httpServ: HttpService,
     private hs: HelperService, private spinner: NgxSpinnerService, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
-    // ++++++listofsc++++++++++++
-    this.activatedRoute.params.subscribe((params) => {
-      const paramData = window.history.state;
-      this.tenderID = paramData._id;
-      this.notifiedSubIds = paramData['headerLevelNotifiedSubs'];
-      // console.log('kkkkkkkkhhhhhh' ,this.notifiedSubIds);
-      this.modifyNotifiedSubList();
-      return;
+       // ++++++listofsc++++++++++++
+      this.activatedRoute.params.subscribe((params) => {
+        const paramData = window.history.state;
+        this.tenderID = paramData._id;
+        this.notifiedSubIds = paramData['headerLevelNotifiedSubs'];
+        this.modifyNotifiedSubList();
+        return;
     })
   }
 
@@ -70,7 +69,6 @@ export class DashboardComponent implements OnInit {
       return tender_even
     })
 
-    // console.log(z);
     this.getAllTenders();
     this.hs.getTenterEven(z);
   }
@@ -82,7 +80,7 @@ export class DashboardComponent implements OnInit {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   }
-  // ++++++listofsc++++++++++++
+   // ++++++listofsc++++++++++++
   private modifyNotifiedSubList() {
     if (this.notifiedSubIds.length <= 0) {
       return;
@@ -94,18 +92,16 @@ export class DashboardComponent implements OnInit {
       this.notifiedSubList.push(sc);
     });
     this.notifiedSubIds = [];
-    console.log('notifiedSubList  ', this.notifiedSubList);
-  }
-  // ++++++listofsc++++++++++++
-  getTenderByID() {
-    this.httpServ.getTenderDetailById(this.tenderID).subscribe((response) => {
+}
+ // ++++++listofsc++++++++++++
+ getTenderByID() {
+  this.httpServ.getTenderDetailById(this.tenderID).subscribe((response) => {
       if (response.status === 200) {
-        this.hs.updateLocalTenderListByID(response.body);
-        this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
-        // console.log('fffffff' , this.notifiedSubIds);
-        this.modifyNotifiedSubList();
-        this.responseData = response.body;
-        this.toastr.success('Selected Sub Contractors have been notified.');
+          this.hs.updateLocalTenderListByID(response.body);
+          this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
+          this.modifyNotifiedSubList();
+          this.responseData = response.body;
+          this.toastr.success('Selected Sub Contractors have been notified.');
       }
     },
       (err) => {
@@ -126,7 +122,6 @@ export class DashboardComponent implements OnInit {
       //
       this.spinner.hide();
     }, (err) => {
-      // console.log('err in fetching tender headers ', err);
       this.spinner.hide();
     })
   }

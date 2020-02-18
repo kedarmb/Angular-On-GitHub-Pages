@@ -18,3 +18,37 @@
         }
     } 
 }
+
+.m-top{
+    margin-top: 68px;
+}
+thead{
+  background-color: #fff0cc;
+}
+
+tr:nth-child(even) {background-color: #fcfbfd;;}
+.conti{
+   background-color: #e2efff;
+   color: #6b8ac8;
+   padding:5px 20px;
+
+}
+.save{
+    background-color: #ffd67d;
+    padding:5px 20px;
+}
+.cancel{
+    background-color: #d67077;
+    padding:5px 20px;
+}
+td a i {
+    color: #e1dfe1;
+    margin-left: 10px;
+}
+.table > tbody > tr > td {
+    padding: 2px 0px;
+}
+.table > thead > tr > th {
+    font-size: 16px;
+    padding:8px 4px;
+}

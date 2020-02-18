@@ -1,7 +1,7 @@
 <div class="container fast-q">
-    <div class="mt-5 table-responsive">
+    <div class="mt-5 table-responsive ">
         <form [formGroup]="sublineForm">
-            <table class="table table-bordered">
+            <table class="table table-bordered  m-top">
                 <thead>
                     <th>Action</th>
                     <th>Name</th>
@@ -38,9 +38,9 @@
                 </tbody>
             </table>
 
-            <button type="submit" (click)="createSubline(true)" [disabled]="!sublineForm.valid">save</button>
-            <button type="submit" (click)="createSubline(false)">Save and continue</button>
-            <button type="submit" (click)="cancel()">Cancel</button>
+            <button class="save" type="submit" (click)="createSubline(true)" [disabled]="!sublineForm.valid">save</button>
+            <button  class="conti" type="submit" (click)="createSubline(false)">Save and continue</button>
+            <button  class="cancel" type="submit" (click)="cancel()">Cancel</button>
 
         </form>
     </div>

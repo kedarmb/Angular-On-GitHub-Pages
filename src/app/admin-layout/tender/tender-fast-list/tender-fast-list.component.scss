@@ -1,0 +1,42 @@
+.m-top{
+    margin-top: 68px;
+}
+thead{
+  background-color: #fff0cc;
+}
+
+tr:nth-child(even) {background-color: #fcfbfd;;}
+.bg{
+   background-color: #e2efff;
+   color: #6b8ac8;
+}
+td a i {
+    color: #e1dfe1;
+    margin-left: 10px;
+}
+.table > tbody > tr > td {
+    padding: 2px 0px;
+}
+.table > thead > tr > th {
+    font-size: 16px;
+    padding:8px 4px;
+}
+.dropdown{
+    border-radius: 14px;
+    border: 1px solid #f1f1f1;
+    box-shadow:none;
+}
+.mat-column-Service-Type{
+    border-right: 1px solid #f3f3f3;
+    align-self: stretch;
+    text-align: left;
+    width:180px;
+
+    }
+    .mat-column-Name{
+        border-right: 1px solid #f3f3f3;
+        align-self: stretch;
+        text-align: left;
+        width:100px;
+
+        }
