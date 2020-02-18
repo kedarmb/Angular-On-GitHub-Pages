@@ -1,0 +1,90 @@
+<div>
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col">
+            <form [formGroup]="selectionForm">
+                <mat-card>
+                    <mat-card-subtitle>
+                        <span style="font-size: larger; font-weight: bold;">Select an existing crew</span>
+                    </mat-card-subtitle>
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-4">
+                                <mat-form-field>
+                                    <mat-label>{{selectionStr}}</mat-label>
+                                    <mat-select formControlName="selectedCrew" (selectionChange)="onCrewSelect($event)">
+                                        <div *ngIf="crewList">
+                                            <mat-option *ngFor="let crew of crewList" [value]="crew">
+                                                {{crew.name}}
+                                            </mat-option>
+                                        </div>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-3"></div>
+                            <div class="col-5">
+                                <div class="row">
+                                    Total Cost of Crew: {{_labourTotalCost}}
+                                </div>
+                                <div class="row">
+                                    Total Cost of Labour: {{_equipmentTotalCost}}
+                                </div>
+                                <div class="row">
+                                    Total Cost of Equipment: {{_crewTotalCost}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </mat-card-content>
+                </mat-card>
+            </form>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col">
+            <div *ngIf="crewForm">
+                <form [formGroup]="crewForm">
+                    <mat-card>
+                        <mat-card-content>
+                            <div>                                
+                                <div class="row">
+                                    <ng-container formArrayName="labours">                                        
+                                        <div class="col-6" *ngFor="let item of crewForm.get('labours').controls; let laborindx = index;" [formGroupName]="laborindx">
+                                            <mat-card>
+                                                <ul>
+                                                    <li>Resource:<span style="font-weight: bold;">{{' '+item.value.name}}</span></li>
+                                                    <li>Hourly Cost:<span style="font-weight: bold;">{{' '+item.value.hourlyCost}}</span></li>
+                                                    <li> Required Hrs
+                                                        <input placeholder="key in" formControlName="requiredHrs" (keyup)="calculateCrewTotal(item)" type="number">
+                                                        
+                                                    </li>
+                                                    <li> <span style="font-weight: bold; font-style: italic;">{{item.value.name}}'s Cost: {{' '+ item.value.requiredHrs * item.value.hourlyCost}} </span></li>
+                                                    
+                                                </ul>
+                                            </mat-card>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                
+                                    <!-- <div class="col-6" *ngFor="let item of crewObj.equipments">
+                                                            <mat-card>
+                                                                <ul>
+                                                                    <li> Equipment : <span style="font-weight: bold;">{{item.name}}</span></li>
+                                                                    <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyCost}}</span></li>
+                                                                    <li> Required Hrs
+                                                                        <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (change)="calculateCrewTotal(lineItem)" type="number">
+                                                                    </li>
+                                                                    <li> <span style="font-weight: bold; font-size: larger; font-style: italic;">Total Cost of {{item.name}} : {{item.hrs * item.hourlyCost}} </span></li>
+                                                                </ul>
+                                                            </mat-card>
+                                                        </div> -->
+                                
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

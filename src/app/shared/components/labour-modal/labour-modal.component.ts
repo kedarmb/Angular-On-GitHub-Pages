@@ -39,6 +39,7 @@ export class LabourModalComponent implements OnInit {
     if (this.data.val === true) {
       const newVal = Object.assign({}, this.data.data)
       delete newVal.__v;
+      delete newVal.type;
       delete newVal.createDate;
       delete newVal.updateDate;
       this.labourForm.patchValue(newVal);
@@ -55,9 +56,10 @@ export class LabourModalComponent implements OnInit {
   }
 
   save() {
-    const finalVal = this.labourForm.value
+    const finalVal = this.labourForm.value;
+    finalVal.type = 'L';
     delete finalVal._id;
-    this.httpService.createLabour(finalVal)
+    this.httpService.saveLabourEquipment(finalVal)
       .subscribe((response: any) => {
         if (response.status === 201) {
           this.resData.status = 'add';
@@ -71,8 +73,9 @@ export class LabourModalComponent implements OnInit {
       )
   };
   update() {
-    const finaVal = Object.assign({}, this.labourForm.value)
-    this.httpService.updateLabour(finaVal, this.data.data._id)
+    const finaVal = Object.assign({}, this.labourForm.value);
+    finaVal.type = 'L';
+    this.httpService.updateLabourEquipment(finaVal, this.data.data._id)
       .subscribe((response: any) => {
         if (response.status === 201) {
           this.resData.status = 'update';
@@ -81,7 +84,8 @@ export class LabourModalComponent implements OnInit {
         }
       },
         error => {
-          this.toastr.error(error.error.message)
+          // this.toastr.error(error.error.message)
+          this.toastr.error('Error updating record. Please try later.');
         }
       )
   }

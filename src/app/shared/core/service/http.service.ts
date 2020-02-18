@@ -56,11 +56,18 @@ export class HttpService {
   public getByIdLabour(id): Observable<any> {
     return this.httpClient.get(ApiUrl.LabourUrl + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
-
+  //
   public getAllLabourEquipment(): Observable<any> {
     // return this.httpClient.get('assets/labourequipmentdata.json', { headers: this.getHeader(), observe: 'response' });
     return this.httpClient.get(ApiUrl.labourEquipment + '/0/0', { headers: this.getHeader(), observe: 'response' });
   }
+  public saveLabourEquipment(data): Observable<any> {
+    return this.httpClient.post(ApiUrl.labourEquipment, data, { headers: this.getHeader(), observe: 'response' });
+  }
+  public updateLabourEquipment(data, id): Observable<any> {
+    return this.httpClient.put(ApiUrl.labourEquipment + '/' + id, data, { headers: this.getHeader(), observe: 'response' });
+  }
+  //
   public login(data): Observable<any> {
     return this.httpClient.post(ApiUrl.loginUrl + '/', data, { headers: this.getHeader(), observe: 'response' });
   }
@@ -200,7 +207,7 @@ export class HttpService {
   }
   /* Invite sub contractor */
   public inviteSubContractor(body) {
-    return this.httpClient.post(ApiUrl.inviteSubUrl  + '/', body, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.post(ApiUrl.inviteSubUrl + '/', body, { headers: this.getHeader(), observe: 'response' });
   }
   public createSubline(body, id) {
     return this.httpClient.post(ApiUrl.createSubline  + '/' + id, body, { headers: this.getHeader(), observe: 'response' });

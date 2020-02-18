@@ -63,7 +63,7 @@
                                             </td>
                                             <td class="width-2">
                                                 <textarea type="text" class="form-control" formControlName="unit"></textarea>
-                                            </td>                                            
+                                            </td>
                                             <td class="width-2">
                                                 <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculateLineItemUnitPrice(lineItem)"></textarea>
                                             </td>
@@ -167,6 +167,7 @@
                                                         </mat-expansion-panel>
 
                                                         <mat-expansion-panel>
+
                                                             <mat-expansion-panel-header>
                                                                 <mat-panel-title>
                                                                     Crew
@@ -175,12 +176,11 @@
 
                                                             <div for="crew_details_form">
                                                                 <div class="row">
-                                                                    <div class="col-6">
+                                                                    <!-- <div class="col-6">
                                                                         <mat-form-field>
                                                                             <mat-label>select crew..</mat-label>
 
-                                                                            <mat-select formControlName="crewItemRef" (selectionChange)="onCrewSelect($event)">
-                                                                                <mat-option>--</mat-option>
+                                                                            <mat-select formControlName="crewItemRef" (selectionChange)="onCrewSelect(lineItem, $event)">
                                                                                 <div *ngIf="crewList">
                                                                                     <mat-option *ngFor="let crew of crewList" [value]="crew">
                                                                                         {{crew.name}}
@@ -188,51 +188,22 @@
                                                                                 </div>
                                                                             </mat-select>
                                                                         </mat-form-field>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <div class="col-6">
-                                                                        <button mat-raised-button color="primary" (click)="addNewCrew(lineItem, lindx)">Create New Crew</button>
+                                                                        <button mat-raised-button color="primary" (click)="addCrewToLine()">Add Crew</button>
+                                                                        <button mat-raised-button color="primary" (click)="createNewCrew(lineItem, lindx)">Create New Crew</button>
                                                                         <button mat-raised-button color="primary" (click)="saveSelectedCrew(lineItem, lindx)">Save</button>
                                                                     </div>
                                                                 </div>
 
 
-                                                                <div>
-                                                                    <div>
-                                                                        <div class="row">
-                                                                            <div class="col-6" *ngFor="let item of crewObj.labours; let i = index;">
-                                                                                <mat-card>
-                                                                                    <ul>
-                                                                                        <li> Labour : <span style="font-weight: bold;">{{item.name}}</span></li>
-                                                                                        <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
-                                                                                        <li> Required Hrs
-                                                                                            <!-- labourHourAdd(lineItem, item) -->
-                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (keyup)="calculateCrewTotal(lineItem)" type="number">
-                                                                                        </li>
-                                                                                        <li> <span style="font-weight: bold; font-size: larger; font-style: italic;">Total Cost of {{item.name}} : {{item.hrs * item.hourlyRate}} </span></li>
-                                                                                    </ul>
-                                                                                </mat-card>
-                                                                            </div>
-                                                                            <div class="col-6" *ngFor="let item of crewObj.equipments">
-                                                                                <mat-card>
-                                                                                    <ul>
-                                                                                        <li> Equipment : <span style="font-weight: bold;">{{item.name}}</span></li>
-                                                                                        <li> Hourly Cost: <span style="font-weight: bold;">{{item.hourlyRate}}</span></li>
-                                                                                        <li> Required Hrs
-                                                                                            <input placeholder="key in" [(ngModel)]="item.hrs" [ngModelOptions]="{standalone: true}" (change)="calculateCrewTotal(lineItem)" type="number">
-                                                                                        </li>
-                                                                                        <li> <span style="font-weight: bold; font-size: larger; font-style: italic;">Total Cost of {{item.name}} : {{item.hrs * item.hourlyRate}} </span></li>
-                                                                                    </ul>
-                                                                                </mat-card>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                <!--   -->
+                                                                
 
-                                                                </div>
                                                             </div>
                                                             <div>
                                                                 <br>
                                                                 <mat-label color="primary">Crew Total : {{totalCrewCost}}</mat-label>
-                                                                <!-- <input placeholder="0" [(ngModel)]="totalCrewCost" [ngModelOptions]="{standalone: true}" type="number"> -->
                                                             </div>
 
                                                         </mat-expansion-panel>

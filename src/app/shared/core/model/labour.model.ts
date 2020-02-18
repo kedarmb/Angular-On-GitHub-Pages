@@ -2,6 +2,6 @@ export default class Labour {
     // _id: string;
     name: string;
     description: string;
-    hourlyRate: string;
+    hourlyCost: string;
     // type: string;
 }

@@ -23,8 +23,8 @@ export class CrewEquipmentComponent implements OnInit {
     val: ''
   };
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
-  equipmentsData: any;
-  laboursData: any;
+  /* equipmentsData: any;
+  laboursData: any; */
   constructor(private modalService: MatDialog,
     private toastr: ToastrService,
     private httpService: HttpService,
@@ -33,20 +33,21 @@ export class CrewEquipmentComponent implements OnInit {
     private spinner: NgxSpinnerService) {
     console.log('helper service ..');
     //
-    this.equipmentsData = JSON.parse(this.hs.getFromLocalStorage('equipList'));
-    this.laboursData = JSON.parse(this.hs.getFromLocalStorage('labourList'));
+    
   }
 
   ngOnInit() {
-    this.getEquipmentData()
+    // this.getEquipmentData();
+    this.equipments = JSON.parse(this.hs.getFromLocalStorage('equipList'));
+    // this.laboursData = JSON.parse(this.hs.getFromLocalStorage('labourList'));
   }
   getEquipmentData() {
     // this.equipments = this.equipmentsData
-    this.httpService.getAllEquipment()
+    this.httpService.getAllLabourEquipment()
       .subscribe((response: any) => {
         if (response.status === 200) {
-          this.equipments = response.body
-          this.hs.setInLocalStorage('equipList', this.equipments);
+          //this.equipments = response.body;
+          //this.hs.setInLocalStorage('equipList', this.equipments);
           console.log(response.body);
         }
       },
@@ -66,6 +67,7 @@ export class CrewEquipmentComponent implements OnInit {
       }
       if (response.status === 'add') {
         this.equipments.push(response.data);
+        console.log('response after saving equip.. ', response.data);
         this.hs.setInLocalStorage('equipList', this.equipments);
         this.table.renderRows();
       }

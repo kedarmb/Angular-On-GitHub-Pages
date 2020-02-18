@@ -57,7 +57,7 @@ export class ViewTenderComponent implements OnInit {
             this.tenderID = paramData._id;
             // console.log('param data .. ', paramData);
             this.notifiedSubIds = paramData['headerLevelNotifiedSubs'];
-            this.modifyNotifiedSubList();
+            // this.modifyNotifiedSubList();
             this.setDataforQuotePage(paramData);
             //
             return;
@@ -83,7 +83,9 @@ export class ViewTenderComponent implements OnInit {
     }
     //
     ngOnInit() {
-        //
+        // remove 'hs.setDataInHelperSrv()' in final build as this will be invoked from login
+        this.hs.setDataInHelperSrv();
+        this.modifyNotifiedSubList();
     }
     //
     back() {

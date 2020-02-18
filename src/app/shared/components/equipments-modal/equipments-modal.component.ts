@@ -35,11 +35,12 @@ export class EquipmentsModalComponent implements OnInit {
     this.createEquipmentForm();
     if (this.data.val === true) {
       const newVal = Object.assign({}, this.data.data)
-      delete newVal.createDate
-      delete newVal.updateDate
-      delete newVal.createdBy
-      delete newVal.__v
-      delete newVal.organizationRef
+      delete newVal.createDate;
+      delete newVal.updateDate;
+      delete newVal.createdBy;
+      delete newVal.__v;
+      delete newVal.type;
+      delete newVal.organizationRef;
       this.equipmentsForm.setValue(newVal)
     }
   }
@@ -59,9 +60,10 @@ export class EquipmentsModalComponent implements OnInit {
   }
 
   save() {
-    const finalVal = this.equipmentsForm.value
+    const finalVal = this.equipmentsForm.value;
+    finalVal.type = 'E';
     delete finalVal._id;
-    this.httpService.createEquipment(finalVal)
+    this.httpService.saveLabourEquipment(finalVal)
       .subscribe((response: any) => {
         if (response.status === 201) {
           this.resData.status = 'add';
@@ -76,8 +78,9 @@ export class EquipmentsModalComponent implements OnInit {
   };
 
   update() {
-    const finaVal = Object.assign({}, this.equipmentsForm.value)
-    this.httpService.updateEquipment(finaVal, this.data.data._id)
+    const finaVal = Object.assign({}, this.equipmentsForm.value);
+    finaVal.type = 'L';
+    this.httpService.updateLabourEquipment(finaVal, this.data.data._id)
       .subscribe((response: any) => {
         if (response.status === 201) {
           this.resData.status = 'update';

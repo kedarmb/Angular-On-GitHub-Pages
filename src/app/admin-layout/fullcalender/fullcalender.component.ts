@@ -160,12 +160,12 @@ modalData: {
   constructor(private modal: NgbModal, private hs: HelperService, 
     private tenderService: TenderService, private httpServ: HttpService ) {
     this.events = <any>this.hs.setTenderEven();
-    console.log('mmmmmmmm', this.events);
+    // console.log('mmmmmmmm', this.events);
        }
   ngOnInit() {
     this.getAllTenders();
   const settenderobj: any = this.hs.setTenderEven();
-    console.log('jjjjjjjjjjjjjj', settenderobj);
+    // console.log('jjjjjjjjjjjjjj', settenderobj);
   }
   getAllTenders() {
     /* this.httpServ.getTenders().subscribe((result) => {

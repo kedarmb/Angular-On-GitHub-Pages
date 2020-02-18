@@ -9,8 +9,8 @@ import { regex, errorMsg } from 'app/shared/core/constant';
 import { MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import csc from 'country-state-city';
 import { ICountry, IState, ICity } from 'country-state-city'
-import {orgType } from '../../core/constant/index';
-import { Router} from '@angular/router';
+import { orgType } from '../../core/constant/index';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-organization-modal',
   templateUrl: './organization-modal.component.html',
@@ -53,32 +53,32 @@ export class OrganizationModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    const activatedRoute  = this.route.url.split('/')[1];
+    const activatedRoute = this.route.url.split('/')[1];
     if (activatedRoute === 'organization') {
-        this.showLabel = true;
+      this.showLabel = true;
     }
 
     if (activatedRoute === 'signup') {
       this.showLabel = false;
       this.showBtn = true;
-  }
-  if (this.data) {
-    if (this.data.val) {
-      const newVal = Object.assign({}, this.data.data);
-      delete newVal.__V;
-      delete newVal.__v;
-      console.log(newVal);
-      delete newVal.createDate;
-      delete newVal.updateDate;
-      delete newVal.createdBy;
-      delete newVal.organizationRef;
-      delete newVal.createdDate;
-      delete newVal.updatedDate;
-      this.states.push(this.getStateById(newVal.province));
-      this.cities.push(this.getCityById(newVal.city));
-      this.organizationForm.setValue(newVal);
     }
-  }
+    if (this.data) {
+      if (this.data.val) {
+        const newVal = Object.assign({}, this.data.data);
+        delete newVal.__V;
+        delete newVal.__v;
+        console.log(newVal);
+        delete newVal.createDate;
+        delete newVal.updateDate;
+        delete newVal.createdBy;
+        delete newVal.organizationRef;
+        delete newVal.createdDate;
+        delete newVal.updatedDate;
+        this.states.push(this.getStateById(newVal.province));
+        this.cities.push(this.getCityById(newVal.city));
+        this.organizationForm.setValue(newVal);
+      }
+    }
     console.log(this.orgs)
   }
   getStateById(e) {
@@ -108,8 +108,8 @@ export class OrganizationModalComponent implements OnInit {
       serviceType: ['', [Validators.required]],
       serviceArea: ['', [Validators.required]],
       orgType: ['Prime'],
-      _id: [ ''],
-      status:['']
+      _id: [''],
+      status: ['']
     });
   }
 

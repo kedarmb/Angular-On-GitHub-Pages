@@ -51,11 +51,7 @@ export class TenderComponent implements OnInit {
         if (this.tenders.length < 1) {
           this.feMsg = 'You do not have any listed tender now...'
         }
-        //
-        this.hs.setOrgList();
-        this.hs.setEqupmentList();
-        this.hs.setLabourList();
-        //
+       //
         this.spinner.hide();
       }, (err) => {
         console.log('err in fetching tender headers ', err);

@@ -3,7 +3,6 @@ import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { CrewItemService } from '../../core/service/crew-item.service';
 import { CrewItem } from '../../core/model/crew-item.model';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { HelperService } from '../../core/service/helper.service';
 import { regex, errorMsg } from '../../core/constant/index';
 import { MatDialogClose, MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material';
@@ -11,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Crew } from 'app/shared/core/model/crew.model';
 import { stringify } from 'querystring';
 import { HttpService } from 'app/shared/core/service/http.service';
+import {HelperService} from 'app/shared/core/service/helper.service';
 @Component({
   selector: 'app-crew-modal',
   templateUrl: './crew-modal.component.html',
@@ -100,7 +100,7 @@ export class CrewModalComponent implements OnInit {
   labourRow() {
     return this.formBuilder.group({
       name: [''],
-      hourlyRate: [''],
+      hourlyCost: [''],
     })
   }
 
@@ -118,7 +118,7 @@ export class CrewModalComponent implements OnInit {
   equipmentRow() {
     return this.formBuilder.group({
       name: [''],
-      hourlyRate: ['']
+      hourlyCost: ['']
     })
   }
 
@@ -155,6 +155,7 @@ export class CrewModalComponent implements OnInit {
         if (response.status === 201) {
           this.resData.status = 'add';
           this.resData.data = response.body;
+          this.hs.addCrewToLocalList(response.body);
           this.dialogRef.close(this.resData);
           this.toastr.success(response.statusText)
         }
@@ -171,6 +172,7 @@ export class CrewModalComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === 201) {
           this.resData.status = 'update';
+          this.hs.addCrewToLocalList(response.body);
           this.toastr.success(response.statusText)
           this.dialogRef.close(this.resData);
         }

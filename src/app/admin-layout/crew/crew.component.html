@@ -27,7 +27,7 @@
                     <th mat-header-cell *matHeaderCellDef>Equipment Hr Rate</th>
                     <td mat-cell *matCellDef="let element">
                         <div *ngFor='let equipment of element.equipments'>
-                            {{equipment.hourlyRate}} </div>
+                            {{equipment.hourlyCost}} </div>
                     </td>
                 </ng-container>
 
@@ -42,7 +42,7 @@
                     <th mat-header-cell *matHeaderCellDef>Labour Hr Rate</th>
                     <td mat-cell *matCellDef="let element">
                         <div *ngFor='let labour of element.labours'>
-                            {{labour.hourlyRate}} </div>
+                            {{labour.hourlyCost}} </div>
                     </td>
                 </ng-container>
 

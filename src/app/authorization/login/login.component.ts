@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.spinner.show();
-    console.log(this.loginForm.value);
+    // console.log(this.loginForm.value);
     this.httpService.login(this.loginForm.value)
       .subscribe((response: any) => {
-        console.log('result of login response: ', response);
+        // console.log('result of login response: ', response);
         if (response.status === 200) {
           const uData = JSON.stringify(response.body.user)
           sessionStorage.setItem('userData', uData);
@@ -52,26 +52,30 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
         console.log('result of login response: ', error);
         this.toastr.error(error.error.message)
-        console.log(error);
+        // console.log(error);
       });
   }
 
   loadInitData() {
     const orgData = this.httpService.getAllOrganization();
-    console.log('org data is ', orgData);
     const labor_equip = this.httpService.getAllLabourEquipment();
+    const all_crews = this.httpService.getAllCrews();
+
     // const labourData = this.httpService.getAllLabour();
     //
     // TODO: handle exception if any API fails: implement graceful degradation
-    forkJoin([orgData, labor_equip]).subscribe(results => {
+    forkJoin([orgData, labor_equip, all_crews]).subscribe(results => {
       //
+      console.log('results ... ', results);
       const allLabour = (results[1].body as Array<any>).filter(element => element.type === 'L');
       const allEquip = (results[1].body as Array<any>).filter(element => element.type === 'E');
       //
       localStorage.setItem('orgList', JSON.stringify(results[0].body));
       localStorage.setItem('equipList', JSON.stringify(allEquip));
       localStorage.setItem('labourList', JSON.stringify(allLabour));
+      localStorage.setItem('allCrewList', JSON.stringify(results[2].body));
       //
+      this.helperService.setDataInHelperSrv();
       this.router.navigateByUrl('/dashboard').then(() => {
         this.spinner.hide();
       });

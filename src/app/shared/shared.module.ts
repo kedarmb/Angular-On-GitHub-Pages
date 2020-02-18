@@ -29,6 +29,7 @@ import { ReverseArrayPipe } from './pipe/reverse-array.pipe';
 import { CityNamePipe } from './pipe/city-name.pipe';
 import { CountryNamePipe } from './pipe/country-name.pipe';
 import { StateNamePipe } from './pipe/state-name.pipe';
+import { LineItemCrewComponent } from './components/line-item-crew/line-item-crew.component';
 
 //
 const MaterialComponent = [
@@ -58,7 +59,8 @@ const MaterialComponent = [
     ReverseArrayPipe,
     CityNamePipe,
     CountryNamePipe,
-    StateNamePipe
+    StateNamePipe,
+    LineItemCrewComponent
   ],
   exports: [
     EllipsisPipe,
@@ -70,6 +72,7 @@ const MaterialComponent = [
     TenderModalComponent,
     TrenchModalComponent,
     CrewModalComponent,
+    LineItemCrewComponent,
     OrganizationModalComponent,
     EquipmentsModalComponent,
     UserModalComponent,
@@ -108,6 +111,7 @@ const MaterialComponent = [
     TenderModalComponent,
     TrenchModalComponent,
     CrewModalComponent,
+    LineItemCrewComponent,
     OrganizationModalComponent,
     EquipmentsModalComponent,
     UserModalComponent,

@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./crew-labour.component.scss']
 })
 export class CrewLabourComponent implements OnInit {
-  displayedColumns: string[] = ['Name' , 'Description', 'Actions'];
+  displayedColumns: string[] = ['Name', 'Description', 'Actions'];
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
   valueChange: any;
   labour;
@@ -25,7 +25,7 @@ export class CrewLabourComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
-   this.getLabourData();
+    // this.getLabourData();
     this.labour = JSON.parse(this.helperService.getFromLocalStorage('labourList'));
   }
 

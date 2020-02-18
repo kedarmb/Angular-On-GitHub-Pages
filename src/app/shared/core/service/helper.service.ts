@@ -10,19 +10,27 @@ export class HelperService {
   equipmentData = new BehaviorSubject<any>('');
   labourData = new BehaviorSubject<any>('');
   equipmentStore: any;
-  labourStore: any
+  labourStore: any;
   private orgList: any[] = [];
   private subContList: any[] = [];
   private tenderList: any[] = [];
   tender_even = [{}]
   private allEquipList: any[] = [];
   private allLabourList: any[] = [];
+  private allCrewList: any[] = [];
+  //
   filteredOrgList: any[] = [];
   usersOrg: string;
   equipments: any;
   constructor() {
   }
 
+  setDataInHelperSrv() {
+    this.setOrgList();
+    this.setEqupmentList();
+    this.setLabourList();
+    this.setCrewList();
+  }
   setOrgId() {
     // just update the Organization ID for the logged in user
     const uData = JSON.parse(sessionStorage.getItem('userData'));
@@ -74,7 +82,6 @@ export class HelperService {
   setLabourList() {
     this.allLabourList = JSON.parse(localStorage.getItem('labourList'));
   }
-
   setTenderList(list) {
     this.tenderList = [];
     this.tenderList = [...list];
@@ -95,6 +102,18 @@ export class HelperService {
     }
   }
 
+  setCrewList() {
+    this.allCrewList = JSON.parse(localStorage.getItem('allCrewList'));
+  }
+  getCrewList() {
+    return this.allCrewList;
+  }
+  addCrewToLocalList(param) {
+    const _crewLst = JSON.parse(localStorage.getItem('allCrewList'));
+    _crewLst.push(param);
+    this.setInLocalStorage('allCrewList', _crewLst);
+  }
+  //
   getFromLocalStorage(param) {
     return localStorage.getItem(param);
   }

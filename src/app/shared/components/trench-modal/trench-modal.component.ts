@@ -25,13 +25,27 @@ export class TrenchModalComponent implements OnInit {
     data: ''
   };
   trench: Trench[];
-  beddingVol
-  backfillVol
-  pipeVol
+  beddingVol;
+  backfillVol;
+  pipeVol;
   effectiveVolume: any;
   effectiveWeight: number;
-  backfillWeight
-  beddingWeight
+  backfillWeight;
+  beddingWeight;
+  //
+  lengths = [
+    { value: 'metre', viewValue: 'metre' },
+    { value: 'foot', viewValue: 'foot' },
+    { value: 'inch ', viewValue: 'inch' },
+    { value: 'yard ', viewValue: 'yard' },
+  ];
+  mass = [
+    { value: 'gram', viewValue: 'gram' },
+    { value: 'kilogram', viewValue: 'kilogram' },
+    { value: 'ton', viewValue: 'ton' },
+    { value: 'pound ', viewValue: 'pound' },
+  ];
+
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     // @Optional() @Inject(MAT_DIALOG_DATA) private modal: MatDialogClose,

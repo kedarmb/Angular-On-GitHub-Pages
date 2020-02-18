@@ -11,10 +11,10 @@ import { CrewLabourComponent } from './crew-labour/crew-labour.component';
   selector: 'app-crew',
   templateUrl: './crew.component.html',
   styleUrls: ['./crew.component.scss'],
- })
+})
 export class CrewComponent implements OnInit {
-  @ViewChild(CrewEquipmentComponent, {static: false}) eq: CrewEquipmentComponent;
-  @ViewChild(CrewLabourComponent, {static: false}) lb: CrewLabourComponent;
+  @ViewChild(CrewEquipmentComponent, { static: false }) eq: CrewEquipmentComponent;
+  @ViewChild(CrewLabourComponent, { static: false }) lb: CrewLabourComponent;
 
   displayedColumns: string[] = ['Name', 'Description', 'Equipment', 'Equipment Rate', 'Labour', 'Labour Rate', 'Actions'];
   data: any = {};
@@ -36,7 +36,7 @@ export class CrewComponent implements OnInit {
     private http: HttpService,
     private toastr: ToastrService,
     private modalService: MatDialog) {
-    this.hs.equipmentData.subscribe((response) => {
+    /* this.hs.equipmentData.subscribe((response) => {
       this.equipmentsData = response
       // this.spinner.hide();
     }, error => {
@@ -48,19 +48,20 @@ export class CrewComponent implements OnInit {
       // this.spinner.hide();
     }, error => {
       // this.spinner.  hide();
-    })
+    }) */
   }
 
   ngOnInit() {
     this.getCrews();
-    console.log('getCrews():', this.getCrews());
-    this.spinner.show();
-    }
+    // console.log('getCrews():', this.getCrews());
+  }
 
   getCrews() {
+    this.spinner.show();
     this.http.getAllCrews()
       .subscribe((response: any) => {
         if (response.status === 200) {
+          console.log(response);
           this.crew = response.body;
           this.spinner.hide();
         }
@@ -115,8 +116,8 @@ export class CrewComponent implements OnInit {
           this.toastr.error(response)
         }
       }, error => {
-          this.toastr.error(error.error.message)
-        })
+        this.toastr.error(error.error.message)
+      })
   }
   onTabChange(e: MatTabChangeEvent) {
     console.log(e);
@@ -127,7 +128,7 @@ export class CrewComponent implements OnInit {
     if (e.index === 1) {
       this.titleButton = 'Add Equipment'
     }
-    if (e.index === 2 ) {
+    if (e.index === 2) {
       this.titleButton = 'Add labour'
     }
   }
