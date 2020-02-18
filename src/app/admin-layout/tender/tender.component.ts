@@ -41,12 +41,10 @@ export class TenderComponent implements OnInit {
       this.spinner.show();
       this.feMsg = 'Loading your list of tenders..'
       const appendStr = '/0/0';
-      // const appendStr = '/orgId/' + this.hs.getOrgId() + '/0/0';
-      // console.log('appended string is ', appendStr);
       this.httpServ.getTenders(appendStr).subscribe((result) => {
         console.log('list of tenders ', result.body);
         this.hs.setTenderList(result.body as Array<any>);
-        this.tenders = result.body as Array<any>;
+        this.tenders = result.body.reverse() as Array<any>;
         // this.tenders.splice(1);
         if (this.tenders.length < 1) {
           this.feMsg = 'You do not have any listed tender now...'
@@ -67,20 +65,16 @@ export class TenderComponent implements OnInit {
    * respective tender data to the method.
    */
   openTenderHeaderDialog(data) {
-    // console.log('data is .. ', data);
     const dialogRef = this.tenderModalDialog.open(TenderModalComponent, {
       width: '550px',
       data: data,
       disableClose: true
     })
     dialogRef.afterClosed().subscribe(response => {
-      //
-      // console.log('The dialog was closed ', response);
       if (response.status === 'close' || response.status === undefined) {
         this.toastr.warning('', 'Operation cancelled');
       }
       if (response.status === 'add') {
-        // console.log(response.data);
         this.hs.setTenderList([]);
         this.getAllTenders();
       }
@@ -94,9 +88,7 @@ export class TenderComponent implements OnInit {
 
 
   AddUpdateTender(val: boolean, tenderData?: {}, clients?: [], index?: number) {
-    // const update: { data: { clients: Array<any>[], tender: any }, val: boolean } = { data, val };
     const update = { value: null, tender: null, indx: null };
-    //
     update.value = val;
     update.tender = tenderData;
     update.indx = index;
@@ -106,9 +98,7 @@ export class TenderComponent implements OnInit {
   }
   //
   deleteTender(tenderData, index) {
-    // console.log(tenderData, index)
     this.httpServ.deleteTenderById(tenderData._id).subscribe((res) => {
-      // console.log('success deleting tender', res);
       this.tenders.splice(index, 1);
       this.toastr.info('Successfully deleted tender', 'Done');
     }, (err) => {
