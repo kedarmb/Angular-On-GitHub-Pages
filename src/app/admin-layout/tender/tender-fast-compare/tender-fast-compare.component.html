@@ -6,10 +6,39 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let subline of sublineData" >
-            <td>{{subline.name}}</td>
-            <td *ngFor="let item of subline.quotes" ><span>{{item.unitPrice}}</span><span>{{item.unit}}</span>&nbsp;<span>{{item.subContrctorId.name}}</span></td>
-            </tr>
+            <ng-container *ngFor="let item of (this.sublineData | keyvalue); let first = first;">
+                <tr *ngIf="first">
+                    <th>name</th>
+                    <th colspan="4" *ngFor="let quote of (item.value.quotes | keyvalue);  let index = index;">
+                        best price {{index}}
+                    </th>
+                    <td>more</td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <th>{{item.value.name}}</th>
+                    <td colspan="4" *ngFor="let quote of (item.value.quotes | keyvalue); let i= index;">
+                        <table class="table">
+                            <thead *ngIf="first">
+                                <tr *ngFor="let quot of (item.value.quotes | keyvalue); let first= first;">
+                                    <th colspan="2" *ngIf="first"> Name </th>
+                                    <th colspan="1" *ngIf="first"> Unit </th>
+                                    <th colspan="1" *ngIf="first"> Unit Price </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2"><label><input type="radio" id='{{i}}' [checked]="i === 0"  name="optradio"> {{quote.value.subContractorId.name | ellipsis: 20}}</label></td>
+                                    <td colspan="1">{{quote.value.unit}}</td>
+                                    <td colspan="brightness_1"> {{quote.value.unitPrice}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td (click)="moreQuotes()" >...</td>
+                </tr>
+                <tr></tr>
+            </ng-container>
         </tbody>
     </table>
 </div>

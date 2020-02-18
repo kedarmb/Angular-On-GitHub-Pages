@@ -183,4 +183,14 @@ export class HelperService {
   removeSession(k) {
     sessionStorage.remove(k);
   }
+  unique(list): [] {
+    const unique = list.filter((entry, i, flags) => {
+      if (flags[entry.subContractorId._id]) {
+        return false;
+      }
+      flags[entry.subContractorId._id] = true;
+      return true;
+    });
+    return unique;
+  }
 }

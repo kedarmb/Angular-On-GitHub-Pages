@@ -26,14 +26,16 @@ export class TenderFastQuoteComponent implements OnInit {
     location: PlatformLocation) {
     // this.tenderData = this.router.getCurrentNavigation().extras.state;
     // console.log(this.tenderData);
-    this.subId = this.hs.getSession('subConIdNow');
+    this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
     this.subData = JSON.parse(this.hs.getSession('sublineDataNow'));
     console.log(this.subData);
 
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
     if (this.subId) {
-      console.log(this.subData);
+      // console.log(this.subData);
       this.filteredTender = this.subData.filter((e: any) => {
+        console.log(e.subContractorId._id)
+        console.log(this.subId)
         return e.subContractorId._id === this.subId;
       })
       console.log(this.filteredTender);

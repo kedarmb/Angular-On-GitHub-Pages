@@ -30,6 +30,7 @@ import { CityNamePipe } from './pipe/city-name.pipe';
 import { CountryNamePipe } from './pipe/country-name.pipe';
 import { StateNamePipe } from './pipe/state-name.pipe';
 import { LineItemCrewComponent } from './components/line-item-crew/line-item-crew.component';
+import { ViewQuotesComponent } from './components/view-quotes/view-quotes.component';
 
 //
 const MaterialComponent = [
@@ -60,7 +61,8 @@ const MaterialComponent = [
     CityNamePipe,
     CountryNamePipe,
     StateNamePipe,
-    LineItemCrewComponent
+    LineItemCrewComponent,
+    ViewQuotesComponent
   ],
   exports: [
     EllipsisPipe,

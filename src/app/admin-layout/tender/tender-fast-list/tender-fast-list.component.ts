@@ -1,4 +1,4 @@
-import { stringify } from 'querystring';
+import { filter } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
@@ -39,9 +39,9 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this.location.onPopState((e) => {
       if (e.type === 'popstate') {
-        // this.router.navigateByUrl('/tender');
+        this.router.navigateByUrl('/tender');
       }
-    })
+    });
   };
 
   getTenderByID() {
@@ -70,10 +70,14 @@ export class TenderFastListComponent implements OnInit, OnChanges {
     };
     const subContList = this.hs.getSubContractorList();
     this.notifiedSubList = [];
+    console.log(subContList );
+    console.log(this.notifiedSubList);
+    console.log(this.notifiedSubIds);
     this.notifiedSubIds.forEach(element => {
       const sc = subContList.find(item => item._id === element);
       this.notifiedSubList.push(sc);
     });
+    
     // console.log(this.notifiedSubIds)
     this.notifiedSubIds = [];
   };
@@ -84,7 +88,7 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   };
 
   createSub(id) {
-    // console.log(id.id)
+    console.log(id._id)
     this.router.navigate(['/fast-quote/' + this.tenderID + '/' + id._id]);
     this.hs.setSession('subConIdNow', JSON.stringify(id._id));
   };
@@ -107,9 +111,12 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   };
 
   filterAttendedSub(e) {
+    const filterArr: any[] = [];
     e.map((val) => {
-      this.attendedSubs.push(val);
+      filterArr.push(val);
     })
+    
+    this.attendedSubs = this.hs.unique(filterArr);
   };
 
   compare() {
