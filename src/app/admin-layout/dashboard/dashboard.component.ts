@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { TenderService } from '../../shared/core/service/tender.service';
-import {Dboard} from './dashboard';
+import { Dboard } from './dashboard';
 import { HttpService } from '../../shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   }
-   // ++++++listofsc++++++++++++
+  // ++++++listofsc++++++++++++
   private modifyNotifiedSubList() {
     if (this.notifiedSubIds.length <= 0) {
       return;
@@ -118,7 +118,6 @@ export class DashboardComponent implements OnInit {
       if (this.tenders.length < 1) {
         this.feMsg = 'You do not have any listed tender now..'
       }
-      this.hs.setDataInHelperSrv();
       //
       this.spinner.hide();
     }, (err) => {

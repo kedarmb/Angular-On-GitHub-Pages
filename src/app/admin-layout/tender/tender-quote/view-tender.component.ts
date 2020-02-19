@@ -63,7 +63,7 @@ export class ViewTenderComponent implements OnInit {
             return;
         }
 
-        
+
         )
     }
 
@@ -83,8 +83,6 @@ export class ViewTenderComponent implements OnInit {
     }
     //
     ngOnInit() {
-        // remove 'hs.setDataInHelperSrv()' in final build as this will be invoked from login
-        this.hs.setDataInHelperSrv();
         this.modifyNotifiedSubList();
     }
     //
@@ -115,7 +113,7 @@ export class ViewTenderComponent implements OnInit {
                 // console.log('success getTenderDetailById ', response.status);
                 this.hs.updateLocalTenderListByID(response.body);
                 this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
-                console.log('fffffff' ,this.notifiedSubIds);
+                console.log('fffffff', this.notifiedSubIds);
                 this.modifyNotifiedSubList();
                 this.responseData = response.body;
                 // this.toastr.success('Selected Sub Contractors have been notified.');

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject, Optional, ViewChild, Input } from '@angular/core';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
@@ -17,13 +17,21 @@ export class LineItemCrewComponent implements OnInit {
   selectionForm: FormGroup;
   selectionStr = 'choose one from the list';
   crewForm: any;
+  selectedCrew: any;
   //
   _labourTotalCost = 0;
   _equipmentTotalCost = 0;
   _crewTotalCost = 0;
+  //
+  resData = {
+    status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
+    data: ''
+  };
+  isValid = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public payLoad: any,
+    @Optional() private dialogRef: MatDialogRef<any>,
     private httpService: HttpService,
     private formBuilder: FormBuilder,
     private hs: HelperService,
@@ -34,7 +42,7 @@ export class LineItemCrewComponent implements OnInit {
 
   ngOnInit() {
     this.crewList = this.hs.getCrewList();
-    console.log('crew list is ...', this.crewList);
+    console.log('payLoad is ', this.payLoad);
     this.createSelectionForm();
   }
   createSelectionForm() {
@@ -47,12 +55,10 @@ export class LineItemCrewComponent implements OnInit {
   onCrewSelect(evt) {
     // console.log(evt);
     this.selectionStr = 'you have chosen';
-    const _crewObj = evt.value;
-    // console.log(_crewObj);
+    this.selectedCrew = evt.value;
+    this.crewForm = this.initCrewReferenceCtrl(this.selectedCrew);
     //
-    // const crewCtrl = lineItemRef.get('crewChosen');
-    this.crewForm = this.initCrewReferenceCtrl(_crewObj);
-    // crewCtrl.setValue(this.initCrewReferenceCtrl(_crewObj));    
+    this.runTotalCalculation();
   }
   initCrewReferenceCtrl(crew) {
     return this.formBuilder.group({
@@ -94,35 +100,49 @@ export class LineItemCrewComponent implements OnInit {
   }
 
   // Crew Cost Calculation
-  calculateCrewTotal(itemRef) {
-    
-    let _totalLaborCost = 0;
-    let _totalEquipmentCost = 0;
+  calculateOnInput(itemRef) {
     // calculate individual Item's total
     const _itemTotal = itemRef.value.requiredHrs * itemRef.value.hourlyCost;
     itemRef.get('totalCost').setValue(_itemTotal);
-    // let _totalCrewCost = 0;
-    console.log(this.crewForm.value);
+    //
+    this.runTotalCalculation();
+  }
+
+  runTotalCalculation() {
+    this.isValid = false;
+    this._labourTotalCost = this._equipmentTotalCost = this._crewTotalCost = 0;
     const formVal = this.crewForm.value;
     for (let i = 0; i < formVal['labours'].length; i++) {
-      const _itemCost = formVal['labours'][i].hrs * formVal['labours'][i].hourlyCost;
-      this._labourTotalCost += _itemCost;
+      this._labourTotalCost += formVal['labours'][i].totalCost;
+    }
+    for (let i = 0; i < formVal['equipments'].length; i++) {
+      this._equipmentTotalCost += formVal['equipments'][i].totalCost;
     }
     //
-    /*for (let i = 0; i < this.crewObj['equipments'].length; i++) {
-      const hourlyCost = this.crewObj['equipments'][i].hrs * this.crewObj['equipments'][i].hourlyCost;
-      _totalEquipmentCost += hourlyCost;
+    this._crewTotalCost = this._labourTotalCost + this._equipmentTotalCost;
+    if (this._crewTotalCost > 0) {
+      this.isValid = true;
     }
-    this.totalCrewCost = _totalEquipmentCost + _totalLaborCost; */
     //
-    // console.log('totalLaborCost ', _totalLaborCost);
-    // console.log('totalEquipmentCost ', _totalEquipmentCost);
+    // console.log('labor ' + this._labourTotalCost + ' | ' + ' Equip ' + this._equipmentTotalCost + ' | ' + this._crewTotalCost)
+  }
+
+  saveCrew() {
+    // organizationId: null,
+
+    this.payLoad.crewTotalCost = this._crewTotalCost;
+    this.payLoad.labourTotalCost = this._labourTotalCost;
+    this.payLoad.equipmentTotalCost = this._equipmentTotalCost;
+    this.payLoad.labourArr = this.crewForm.value['labours'];
+    this.payLoad.equipmentArr = this.crewForm.value['equipments'];
+    this.payLoad.crewLabourEquipment = this.selectedCrew._id;
     //
-    // cost roll up with crew
-    /* const lineTotalSum = this.totalCrewCost + this.totalSublineCost
-    lineItemRef.get('lineTotalPrice').patchValue(lineTotalSum);
-    const unit = lineItemRef.value.lineTotalPrice / lineItemRef.value.quantity;
-    lineItemRef.get('unitPrice').patchValue(unit); */
+    console.log('final payload is ', this.payLoad);
+
+  }
+  cancelCrew() {
+    this.resData.status = 'close';
+    this.dialogRef.close(this.resData);
   }
 
 }

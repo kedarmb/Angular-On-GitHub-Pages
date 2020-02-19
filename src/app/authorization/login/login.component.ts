@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('labourList', JSON.stringify(allLabour));
       localStorage.setItem('allCrewList', JSON.stringify(results[2].body));
       //
-      this.helperService.setDataInHelperSrv();
+      // this.helperService.setDataInHelperSrv();
       this.router.navigateByUrl('/dashboard').then(() => {
         this.spinner.hide();
       });

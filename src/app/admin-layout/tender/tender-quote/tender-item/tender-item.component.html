@@ -176,36 +176,17 @@
 
                                                             <div for="crew_details_form">
                                                                 <div class="row">
-                                                                    <!-- <div class="col-6">
-                                                                        <mat-form-field>
-                                                                            <mat-label>select crew..</mat-label>
-
-                                                                            <mat-select formControlName="crewItemRef" (selectionChange)="onCrewSelect(lineItem, $event)">
-                                                                                <div *ngIf="crewList">
-                                                                                    <mat-option *ngFor="let crew of crewList" [value]="crew">
-                                                                                        {{crew.name}}
-                                                                                    </mat-option>
-                                                                                </div>
-                                                                            </mat-select>
-                                                                        </mat-form-field>
-                                                                    </div> -->
                                                                     <div class="col-6">
-                                                                        <button mat-raised-button color="primary" (click)="addCrewToLine()">Add Crew</button>
+                                                                        <button mat-raised-button color="primary" (click)="addCrewToLine(section.value._id, lineItem.value._id)">Add Crew</button>
                                                                         <button mat-raised-button color="primary" (click)="createNewCrew(lineItem, lindx)">Create New Crew</button>
                                                                         <button mat-raised-button color="primary" (click)="saveSelectedCrew(lineItem, lindx)">Save</button>
                                                                     </div>
                                                                 </div>
-
-
-                                                                <!--   -->
-                                                                
-
                                                             </div>
                                                             <div>
                                                                 <br>
                                                                 <mat-label color="primary">Crew Total : {{totalCrewCost}}</mat-label>
                                                             </div>
-
                                                         </mat-expansion-panel>
 
                                                         <mat-expansion-panel>

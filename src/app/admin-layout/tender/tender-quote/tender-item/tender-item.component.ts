@@ -31,7 +31,6 @@ export class TenderItemComponent implements OnInit, OnChanges {
   // collapse: any = {}; // stores value for collapse
   collapse: boolean[] = [];
   lineItemTotal: any;
-  
   trenchList: any[];
   //
   progressRef: NgProgressRef;
@@ -66,7 +65,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
     if (this.masterForm == null) {
       this.initMasterForm();
     }
-    // console.log(this.tenderData);
+    console.log('ngOnChanges.... ', this.tenderData);
     if (this.tenderData) {
       /* console.log(this.tenderData);
       this.masterForm.patchValue(this.tenderData); */
@@ -385,24 +384,24 @@ export class TenderItemComponent implements OnInit, OnChanges {
     }
   }
 
-  
-  checkIfCrewAvailable(lineItemRef) {
-    const crewCtrlVal = lineItemRef.get('crewChosen').value;
-    let show = true;
-    if (crewCtrlVal === null) {
-      show = false;
-    }
-    return show;
-  }
-  getLaboursArr(lineItemRef) {
+
+  /*  checkIfCrewAvailable(lineItemRef) {
+     const crewCtrlVal = lineItemRef.get('crewChosen').value;
+     let show = true;
+     if (crewCtrlVal === null) {
+       show = false;
+     }
+     return show;
+   } */
+  /* getLaboursArr(lineItemRef) {
     const crwCtrl = lineItemRef.get('crewChosen').value; // returns FromGroup
     const lbrCtrlsArr = crwCtrl.get('labours').controls;
     // .controls['labours'];
     // console.log('aarr isssss   ', lbr, ' .. length is ');
     return lbrCtrlsArr;
-  }
+  } */
 
-  
+
   saveSelectedCrew(lineItemRef, lindx) {
     const crewRef = lineItemRef.controls['crewItemRef'].value;
     // (lineItemRef.get('crewItemRef') as FormArray).at(lindx).value;
@@ -446,22 +445,24 @@ export class TenderItemComponent implements OnInit, OnChanges {
     lineItemRef.get('unitPrice').patchValue(unit);
   }
 
-  
-
-  addCrewToLine() {
+  addCrewToLine(sectionID, lineItmID) {
+    const postIds = {
+      tender: this.tenderData._id, section: sectionID, lineItem: lineItmID,
+      crewLabourEquipment: null, labourTotalCost: null,
+      equipmentTotalCost: null, crewTotalCost: null, organizationId: null,
+      labourArr: null, equipmentArr: null
+    }
     const modalRef = this.modalService.open(LineItemCrewComponent, {
       height: 'auto',
       width: '65%',
-      data: null,
-      // disableClose: true
+      data: postIds,
+      disableClose: true,
+      maxHeight: '95vh',
     });
   }
 
-  createNewCrew(lineItemRef, index) {
-    // console.log(lineItemRef.get('crewItemRef') as FormControl);
-    this.openCrewAddModal(lineItemRef, index);
-  }
-  openCrewAddModal(lineItemRef, i) {
+
+  createNewCrew(lineItemRef, i) {
     const modalRef = this.modalService.open(CrewModalComponent, {
       height: 'auto',
       width: '35%',
@@ -482,7 +483,6 @@ export class TenderItemComponent implements OnInit, OnChanges {
   }
 
   //
-  
   //
   onTrenchSelect(tr) {
     this.trenchObj = tr.value;

@@ -11,50 +11,33 @@ export class HelperService {
   labourData = new BehaviorSubject<any>('');
   equipmentStore: any;
   labourStore: any;
-  private orgList: any[] = [];
-  private subContList: any[] = [];
+  //
   private tenderList: any[] = [];
   tender_even = [{}]
-  private allEquipList: any[] = [];
-  private allLabourList: any[] = [];
-  private allCrewList: any[] = [];
   //
   filteredOrgList: any[] = [];
-  usersOrg: string;
   equipments: any;
+  //
   constructor() {
   }
 
-  setDataInHelperSrv() {
-    this.setOrgList();
-    this.setEqupmentList();
-    this.setLabourList();
-    this.setCrewList();
+  /**Returns list of all Organizations from Local Storage */
+  getOrgList() {
+    const _orgList = JSON.parse(localStorage.getItem('orgList'));
+    return _orgList;
   }
-  setOrgId() {
-    // just update the Organization ID for the logged in user
-    const uData = JSON.parse(sessionStorage.getItem('userData'));
-    this.usersOrg = uData['organization'];
-  }
+  /** Returns Organization ID from Local Storage */
   getOrgId() {
-    return this.usersOrg;
+    const uData = JSON.parse(sessionStorage.getItem('userData'));
+    const _orgID = uData['organization'];
+    return _orgID;
   }
 
   getTenterEven(tender_even) {
     this.tender_even = tender_even
   }
-
   setTenderEven() {
     return this.tender_even
-  }
-
-  setOrgList() {
-    const orgData = JSON.parse(localStorage.getItem('orgList'));
-    const _orgList = (orgData as Array<any>).filter((item) => {
-      return item['orgType'][0] === 'Client';
-    });
-    this.orgList = _orgList;
-    this.setSubContractorList();
   }
 
   addOrgToLocalList(param) {
@@ -63,25 +46,27 @@ export class HelperService {
     this.setInLocalStorage('orgList', orgData);
   }
 
-  private setSubContractorList() {
+  /** Returns a List of Sub Contractors (after filtering all Organization), from Local Storage */
+  getSubContractorList() {
     const orgData = JSON.parse(localStorage.getItem('orgList'));
     const _subList = (orgData as Array<any>).filter((item) => {
       return item['orgType'][0] === 'Sub';
     });
-    this.subContList = _subList;
+    return _subList;
   }
 
-  getSubContractorList() {
-    return this.subContList;
+  /**Returns list of all Equipments from Local Storage */
+  getEquipmentList() {
+    const _allEquipList = JSON.parse(localStorage.getItem('equipList'));
+    return _allEquipList;
   }
 
-  setEqupmentList() {
-    this.allEquipList = JSON.parse(localStorage.getItem('equipList'));
+  /**Returns list of all Labours from Local Storage */
+  getLabourList() {
+    const _allLabourList = JSON.parse(localStorage.getItem('labourList'));
+    return _allLabourList;
   }
 
-  setLabourList() {
-    this.allLabourList = JSON.parse(localStorage.getItem('labourList'));
-  }
   setTenderList(list) {
     this.tenderList = [];
     this.tenderList = [...list];
@@ -102,12 +87,12 @@ export class HelperService {
     }
   }
 
-  setCrewList() {
-    this.allCrewList = JSON.parse(localStorage.getItem('allCrewList'));
-  }
+  /** Returns list of all Crews from local storage */
   getCrewList() {
-    return this.allCrewList;
+    const _allCrewList = JSON.parse(localStorage.getItem('allCrewList'));
+    return _allCrewList;
   }
+  /** Sets newly created crew in local storage after successful creation in BE */
   addCrewToLocalList(param) {
     const _crewLst = JSON.parse(localStorage.getItem('allCrewList'));
     _crewLst.push(param);
@@ -144,12 +129,14 @@ export class HelperService {
   }
 
   public findClientID(name: string) {
-    const client = this.orgList.find(item => item.name === name)
+    const _orgList = this.getOrgList();
+    const client = _orgList.find(item => item.name === name)
     return client._id;
   }
 
   public findClientName(id) {
-    const client = this.orgList.find(item => item._id === id)
+    const _orgList = this.getOrgList();
+    const client = _orgList.find(item => item._id === id)
     if (client !== undefined) {
     }
     if (client !== undefined) {
