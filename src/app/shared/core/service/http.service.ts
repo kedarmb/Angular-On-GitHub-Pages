@@ -218,4 +218,7 @@ export class HttpService {
   public getUniqueSubline(id) {
     return this.httpClient.get(ApiUrl.createUniqueSubline  + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
+  public getselectedsubline(id) {
+    return this.httpClient.get(ApiUrl.selectedsublineUrl + id, { headers: this.getHeader(), observe: 'response' });
+  }
 }

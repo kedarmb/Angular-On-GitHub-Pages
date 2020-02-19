@@ -1,41 +1,52 @@
 <div>
     <table class="table m-top">
-        <thead>
-            <tr>
-                <th>Names </th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let item of (this.sublineData | keyvalue); let first = first;">
-                <tr *ngIf="first">
-                    <th>name</th>
+        <ng-container *ngFor="let item of (this.sublineData | keyvalue); let fir = first; let itemN = index;">
+            <thead>
+                <tr *ngIf="fir">
+                    <th colspan="2"> Item name </th>
                     <th colspan="4" *ngFor="let quote of (item.value.quotes | keyvalue);  let index = index;">
                         best price {{index}}
                     </th>
-                    <td>more</td>
                 </tr>
-                <tr></tr>
-                <tr>
-                    <th>{{item.value.name}}</th>
-                    <td colspan="4" *ngFor="let quote of (item.value.quotes | keyvalue); let i= index;">
-                        <table class="table">
-                            <thead *ngIf="first">
-                                <tr *ngFor="let quot of (item.value.quotes | keyvalue); let first= first;">
-                                    <th colspan="2" *ngIf="first"> Name </th>
-                                    <th colspan="1" *ngIf="first"> Unit </th>
-                                    <th colspan="1" *ngIf="first"> Unit Price </th>
+            </thead>
+        </ng-container>
+        <tbody>
+            <ng-container *ngFor="let item of (this.sublineData | keyvalue); let first = first; let itemN = index;">
+                <tr *ngIf="first">
+                    <th></th>
+                    <th class="p-0" colspan="4" *ngFor="let quot of (item.value.quotes | keyvalue); let f= first;">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                     <th colspan="2"> Name </th>
+                                    <th colspan="1"> Unit </th>
+                                    <th colspan="1"> Unit Price </th>
                                 </tr>
                             </thead>
+                        </table>
+                    </th>
+                    <th>more</th>
+                </tr>
+                <tr>
+                    <th>{{item.value.name}}</th>
+                    <td colspan="4" class="p-0 b-0" *ngFor="let quote of (item.value.quotes | keyvalue); let i= index;">
+                        <table class="m-0">
                             <tbody>
-                                <tr>
-                                    <td colspan="2"><label><input type="radio" id='{{i}}' [checked]="i === 0"  name="optradio"> {{quote.value.subContractorId.name | ellipsis: 20}}</label></td>
-                                    <td colspan="1">{{quote.value.unit}}</td>
-                                    <td colspan="brightness_1"> {{quote.value.unitPrice}}</td>
-                                </tr>
+                                <tr *ngIf="i<2">
+                                    <td colspan="2">
+                                        <mat-radio-group name="{{itemN}}">
+                                            <mat-radio-button value="{{i}}" [checked]="checkIfSelected(quote)" (change)="getQuote($event, quote, item);">
+                                                {{quote.value.subContractorId.name | ellipsis: 20}}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                        </td>
+                                        <td colspan="1">{{quote.value.unit}}</td>
+                                        <td colspan="1">{{quote.value.unitPrice}}</td>
+                                    </tr>
                             </tbody>
                         </table>
                     </td>
-                    <td (click)="moreQuotes()" >...</td>
+                    <td (click)="moreQuotes()">...</td>
                 </tr>
                 <tr></tr>
             </ng-container>

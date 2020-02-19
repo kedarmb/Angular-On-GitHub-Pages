@@ -26,7 +26,7 @@ export const errorMsg = {
   requiredField: 'This field is required',
   phoneMsg: 'Please enter valid phone number'
 };
-
+const tender = '/tender'
 export const ApiUrl = {
   baseUrl: environment.baseURL,
 
@@ -49,18 +49,21 @@ export const ApiUrl = {
   createTrench: authUrlCreator('/trench'),
   trenchUrl: authUrlCreator('/trench'),
   trenchForOrg: authUrlCreator('/trench/getAll/0/0'),
-  //
-  // GET /notified-subcontractors/ passing the tenderId.
-  notifiedSubsUrl: authUrlCreator('/tender/'),
-  inviteSubUrl: authUrlCreator('/tender/headerlevelNotifySub'),
-  createSubline: authUrlCreator('/subline-item/tender'),
-  createUniqueSubline: authUrlCreator('/subline-item/getUniqueSubLine/tender')
+  notifiedSubsUrl: authUrlCreator(tender),
+  inviteSubUrl: authUrlCreator(`/tender/headerlevelNotifySub`),
+  createSubline: sublineUrlCreator('/tender'),
+  createUniqueSubline: sublineUrlCreator('/getUniqueSubLine/tender'),
+  selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/')
 }
+
 function urlCreator(actionName: string): string {
   return `${environment.baseURL}${actionName}`;
 };
 function authUrlCreator(actionName: string): string {
   return `${environment.baseURL}${actionName}`;
+};
+function sublineUrlCreator(actionName: string): string {
+  return `${environment.sublineURL}${actionName}`;
 };
 
 export const orgType = [

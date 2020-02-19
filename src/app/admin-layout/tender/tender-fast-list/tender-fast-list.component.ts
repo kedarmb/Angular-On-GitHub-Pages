@@ -1,4 +1,3 @@
-import { filter } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
@@ -28,10 +27,10 @@ export class TenderFastListComponent implements OnInit, OnChanges {
     private location: PlatformLocation) {
     this.tender = this.router.getCurrentNavigation().extras.state;
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
-    // console.log(this.tenderID);
   };
 
   ngOnInit() {
+    // this.hs.setDataInHelperSrv();
     this.getTenderByID();
     this.createSubline();
   };
@@ -47,12 +46,9 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   getTenderByID() {
     console.log(this.tenderID);
       this.httpService.getTenderDetailById(this.tenderID).subscribe((response) => {
-      // console.log('success getTenderDetailById ', response);
       if (response.status === 200) {
-        // console.log('success getTenderDetailById ', response.status);
         this.hs.updateLocalTenderListByID(response.body);
         this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
-        // console.log(this.notifiedSubIds)
         this.modifyNotifiedSubList();
         this.tenderData = response.body;
         this.hs.setSession('tenderDataNow', JSON.stringify(this.tenderData));
@@ -64,7 +60,6 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   };
 
   private modifyNotifiedSubList() {
-    // console.log(this.notifiedSubIds)
     if (this.notifiedSubIds.length <= 0) {
       return;
     };
@@ -77,8 +72,6 @@ export class TenderFastListComponent implements OnInit, OnChanges {
       const sc = subContList.find(item => item._id === element);
       this.notifiedSubList.push(sc);
     });
-    
-    // console.log(this.notifiedSubIds)
     this.notifiedSubIds = [];
   };
 
@@ -88,7 +81,6 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   };
 
   createSub(id) {
-    console.log(id._id)
     this.router.navigate(['/fast-quote/' + this.tenderID + '/' + id._id]);
     this.hs.setSession('subConIdNow', JSON.stringify(id._id));
   };
@@ -97,7 +89,6 @@ export class TenderFastListComponent implements OnInit, OnChanges {
     this.httpService.getSubline(this.tenderID)
       .subscribe((response: any) => {
         if (response.status === 201) {
-          // console.log(response.body)
           this.filterAttendedSub(response.body);
           this.toastr.success(response.statusText);
           this.createdSubline = response.body;
@@ -115,14 +106,13 @@ export class TenderFastListComponent implements OnInit, OnChanges {
     e.map((val) => {
       filterArr.push(val);
     })
-    
     this.attendedSubs = this.hs.unique(filterArr);
   };
 
   compare() {
     this.router.navigate(['/fast-compare/' + this.tenderID], { state: this.tenderID });
   }
-  
+
   cancel() {
     this.router.navigate(['/tender']);
   }

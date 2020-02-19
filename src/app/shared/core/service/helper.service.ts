@@ -99,13 +99,6 @@ export class HelperService {
     this.setInLocalStorage('allCrewList', _crewLst);
   }
   //
-  getFromLocalStorage(param) {
-    return localStorage.getItem(param);
-  }
-
-  setInLocalStorage(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
 
   labourDataForChip(data) {
     this.labourStore = data.map((ev) => {
@@ -157,7 +150,7 @@ export class HelperService {
     }, {});
   }
 
-  // methods to crud with session Storage
+  // methods to crud with session Storage and local storage
   setSession(k, v) {
     sessionStorage.setItem(k, v);
   }
@@ -170,6 +163,15 @@ export class HelperService {
   removeSession(k) {
     sessionStorage.remove(k);
   }
+  getFromLocalStorage(param) {
+    return localStorage.getItem(param);
+  }
+
+  setInLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+  // methods space ends
+
   unique(list): [] {
     const unique = list.filter((entry, i, flags) => {
       if (flags[entry.subContractorId._id]) {

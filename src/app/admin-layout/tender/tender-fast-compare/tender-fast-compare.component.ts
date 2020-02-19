@@ -14,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
 export class TenderFastCompareComponent implements OnInit {
   tenderId: any;
   sublineData: Object;
+  _selectedSubs = [];
 
   constructor(private router: Router, private hs: HelperService,
     private httpService: HttpService, private location: PlatformLocation,
@@ -29,7 +30,8 @@ export class TenderFastCompareComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getQuotes()
+    this.getQuotes();
+    this.getSelectedSubline();
   }
 
   getQuotes() {
@@ -42,10 +44,48 @@ export class TenderFastCompareComponent implements OnInit {
       (err) => {
         console.log('Error getting Tender by id ', err);
       })
-
   }
+
+  getQuote(e, quote, item) {
+    const temp = {
+      qId: item.value._id,
+      sId: quote.value.sublineItemId
+    }
+    for (let i = 0; i < this._selectedSubs.length; i++) {
+      if (this._selectedSubs[i].qId === item.value._id) {
+        console.log('poped q id');
+        this._selectedSubs.splice(i, 1);
+        break;
+      }
+    }
+    this._selectedSubs.push(temp);
+  }
+  
+  checkIfSelected(val) {
+    let ifSelected = false;
+    for (let i = 0; i < this._selectedSubs.length; i++) {
+      if (this._selectedSubs[i].sId === val.value.sublineItemId) {
+        ifSelected = true;
+        break
+      }
+    }
+    return ifSelected;
+  }
+
+  getSelectedSubline() {
+    this.httpService.getselectedsubline(this.tenderId).subscribe((response) => {
+      if (response.status === 201) {
+
+        console.log(response.body)
+      }
+    },
+      (err) => {
+        console.log('Error getting Tender by id ', err);
+      })
+  }
+
   moreQuotes() {
-    const update = {}
+    const update = {selected: [...this._selectedSubs], quotes: this.sublineData}
     this.openMoreQuotesDialog(update)
   }
   openMoreQuotesDialog(data) {
@@ -60,9 +100,12 @@ export class TenderFastCompareComponent implements OnInit {
       if (response.status === 'add') {
       }
       if (response.status === 'update') {
+        console.log(response)
+        this._selectedSubs = response.data;
       }
     });
   }
+
   cancel() {
     this.router.navigate(['/fast-list/' + this.tenderId]);
   }

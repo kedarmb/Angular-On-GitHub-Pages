@@ -119,7 +119,8 @@ const MaterialComponent = [
     UserModalComponent,
     LabourModalComponent,
     NotifySubcontractorComponent,
-    SectionModalComponent
+    SectionModalComponent,
+    ViewQuotesComponent
   ]
 })
 
