@@ -78,6 +78,8 @@ import { DndModule } from 'ngx-drag-drop';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { TenderBidComponent } from './tender/tender-bid/tender-bid.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { FastQuoteMatchComponent } from './tender/fast-quote-match/fast-quote-match.component';
+import { TenderFastMatchComponent } from './tender/tender-fast-match/tender-fast-match.component';
 
 
 @NgModule({
@@ -157,6 +159,8 @@ import { MatMenuModule } from '@angular/material/menu';
     TenderFastQuoteComponent,
     TenderFastCompareComponent,
     TenderFastListComponent,
+    FastQuoteMatchComponent,
+    TenderFastMatchComponent,
   ]
 })
 

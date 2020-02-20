@@ -210,10 +210,13 @@ export class HttpService {
     return this.httpClient.post(ApiUrl.inviteSubUrl + '/', body, { headers: this.getHeader(), observe: 'response' });
   }
   public createSubline(body, id) {
-    return this.httpClient.post(ApiUrl.createSubline  + '/' + id, body, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.post(ApiUrl.createSubline + id, body, { headers: this.getHeader(), observe: 'response' });
   }
   public getSubline(id) {
-    return this.httpClient.get(ApiUrl.createSubline  + '/' + id, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.get(ApiUrl.createSubline + id, { headers: this.getHeader(), observe: 'response' });
+  }
+  public updateSubline(body, id) {
+    return this.httpClient.put(ApiUrl.createSubline + id, body, { headers: this.getHeader(), observe: 'response' });
   }
   public getUniqueSubline(id) {
     return this.httpClient.get(ApiUrl.createUniqueSubline  + '/' + id, { headers: this.getHeader(), observe: 'response' });

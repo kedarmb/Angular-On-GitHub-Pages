@@ -51,7 +51,7 @@ export const ApiUrl = {
   trenchForOrg: authUrlCreator('/trench/getAll/0/0'),
   notifiedSubsUrl: authUrlCreator(tender),
   inviteSubUrl: authUrlCreator(`/tender/headerlevelNotifySub`),
-  createSubline: sublineUrlCreator('/tender'),
+  createSubline: sublineUrlCreator('/tender/'),
   createUniqueSubline: sublineUrlCreator('/getUniqueSubLine/tender'),
   selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/')
 }

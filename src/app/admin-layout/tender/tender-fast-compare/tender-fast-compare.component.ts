@@ -60,7 +60,7 @@ export class TenderFastCompareComponent implements OnInit {
     }
     this._selectedSubs.push(temp);
   }
-  
+
   checkIfSelected(val) {
     let ifSelected = false;
     for (let i = 0; i < this._selectedSubs.length; i++) {
@@ -85,7 +85,7 @@ export class TenderFastCompareComponent implements OnInit {
   }
 
   moreQuotes() {
-    const update = {selected: [...this._selectedSubs], quotes: this.sublineData}
+    const update = { selected: [...this._selectedSubs], quotes: this.sublineData }
     this.openMoreQuotesDialog(update)
   }
   openMoreQuotesDialog(data) {
@@ -105,7 +105,23 @@ export class TenderFastCompareComponent implements OnInit {
       }
     });
   }
-
+  save() {
+    const finalVal = this._selectedSubs.map((val) => {
+      return val.sId
+    })
+    const sublineItemIds = {
+      sublineItemIds: finalVal
+    }
+    console.log(sublineItemIds)
+    this.httpService.updateSubline(sublineItemIds, this.tenderId).subscribe((response) => {
+      if (response.status === 200) {
+        console.log(response)
+      }
+    },
+      (err) => {
+        console.log('Error getting Tender by id ', err);
+      })
+  }
   cancel() {
     this.router.navigate(['/fast-list/' + this.tenderId]);
   }
