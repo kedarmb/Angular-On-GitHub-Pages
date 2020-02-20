@@ -1,4 +1,4 @@
-import { TenderFastMatchComponent } from './tender/tender-fast-match/tender-fast-match.component';
+import { TenderFastAttachComponent } from './tender/tender-fast-attach/tender-fast-attach.component';
 import { TenderFastListComponent } from './tender/tender-fast-list/tender-fast-list.component';
 import { TenderFastCompareComponent } from './tender/tender-fast-compare/tender-fast-compare.component';
 import { TenderFastQuoteComponent } from './tender/tender-fast-quote/tender-fast-quote.component';
@@ -15,7 +15,6 @@ import { ViewTenderComponent } from './tender/tender-quote/view-tender.component
 import { OrganizationComponent } from './organization/organization.component';
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { CrewComponent } from './crew/crew.component';
-// import { CreateCrewComponent } from './crew-components/create-crew/create-crew.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { UserComponent } from './user/user.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
@@ -48,7 +47,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'fast-quote/:id/:id', component: TenderFastQuoteComponent },
     { path: 'fast-compare/:id', component: TenderFastCompareComponent },
     { path: 'fast-list/:id', component: TenderFastListComponent },
-    { path: 'fast-match/:id', component: TenderFastMatchComponent }
+    { path: 'fast-attach/:id', component: TenderFastAttachComponent }
 
 
 ];

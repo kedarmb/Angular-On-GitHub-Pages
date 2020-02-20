@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TenderFastMatchComponent } from './tender-fast-match.component';
+import { TenderFastAttachComponent } from './tender-fast-attach.component';
 
-describe('TenderFastMatchComponent', () => {
-  let component: TenderFastMatchComponent;
-  let fixture: ComponentFixture<TenderFastMatchComponent>;
+describe('TenderFastAttachComponent', () => {
+  let component: TenderFastAttachComponent;
+  let fixture: ComponentFixture<TenderFastAttachComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TenderFastMatchComponent ]
+      declarations: [ TenderFastAttachComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TenderFastMatchComponent);
+    fixture = TestBed.createComponent(TenderFastAttachComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

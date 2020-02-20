@@ -7,7 +7,6 @@ import { CrewModalComponent } from '../../../../shared/components/crew-modal/cre
 import { ToastrService } from 'ngx-toastr';
 import { HelperService } from '../../../../shared/core/service/helper.service';
 import { TenderService } from '../../../../shared/core/service/tender.service';
-import { arrayToHash } from '@fullcalendar/core/util/object';
 import { TrenchModalComponent } from 'app/shared/components/trench-modal/trench-modal.component';
 import { LineItemCrewComponent } from 'app/shared/components/line-item-crew/line-item-crew.component'
 import { NgxSpinnerService } from 'ngx-spinner';

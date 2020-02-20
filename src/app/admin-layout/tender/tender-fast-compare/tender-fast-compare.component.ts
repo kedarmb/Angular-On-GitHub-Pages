@@ -31,7 +31,6 @@ export class TenderFastCompareComponent implements OnInit {
 
   ngOnInit() {
     this.getQuotes();
-    this.getSelectedSubline();
   }
 
   getQuotes() {
@@ -72,17 +71,7 @@ export class TenderFastCompareComponent implements OnInit {
     return ifSelected;
   }
 
-  getSelectedSubline() {
-    this.httpService.getselectedsubline(this.tenderId).subscribe((response) => {
-      if (response.status === 201) {
 
-        console.log(response.body)
-      }
-    },
-      (err) => {
-        console.log('Error getting Tender by id ', err);
-      })
-  }
 
   moreQuotes() {
     const update = { selected: [...this._selectedSubs], quotes: this.sublineData }
@@ -121,6 +110,9 @@ export class TenderFastCompareComponent implements OnInit {
       (err) => {
         console.log('Error getting Tender by id ', err);
       })
+  }
+  continueToMatch() {
+    this.router.navigate(['/fast-attach/' + this.tenderId], {state: this.tenderId});
   }
   cancel() {
     this.router.navigate(['/fast-list/' + this.tenderId]);

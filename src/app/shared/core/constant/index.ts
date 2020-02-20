@@ -56,6 +56,7 @@ export const ApiUrl = {
   selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/')
 }
 
+
 function urlCreator(actionName: string): string {
   return `${environment.baseURL}${actionName}`;
 };
