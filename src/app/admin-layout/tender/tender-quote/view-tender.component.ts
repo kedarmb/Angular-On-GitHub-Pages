@@ -45,6 +45,7 @@ export class ViewTenderComponent implements OnInit {
     notifiedSubList: any;
     notifiedSubIds = [];    // for temporarily storing heder level notified subs IDS
     selectedVal: any;
+    invitedSubs: any
     //
     constructor(private activatedRoute: ActivatedRoute,
         private router: Router, public dialog: MatDialog, private hs: HelperService,
@@ -55,6 +56,7 @@ export class ViewTenderComponent implements OnInit {
             // console.log('view tender params ', window.history.state);
             const paramData = window.history.state;
             this.tenderID = paramData._id;
+            this.invitedSubs = this.tenderID
             // console.log('param data .. ', paramData);
             this.notifiedSubIds = paramData['headerLevelNotifiedSubs'];
             // this.modifyNotifiedSubList();

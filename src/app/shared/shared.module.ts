@@ -30,6 +30,7 @@ import { CityNamePipe } from './pipe/city-name.pipe';
 import { CountryNamePipe } from './pipe/country-name.pipe';
 import { StateNamePipe } from './pipe/state-name.pipe';
 import { LineItemCrewComponent } from './components/line-item-crew/line-item-crew.component';
+import { InvitedSubcontractorsComponent } from './components/invited-subcontractors/invited-subcontractors.component';
 import { ViewQuotesComponent } from './components/view-quotes/view-quotes.component';
 
 //
@@ -62,6 +63,7 @@ const MaterialComponent = [
     CountryNamePipe,
     StateNamePipe,
     LineItemCrewComponent,
+    InvitedSubcontractorsComponent,
     ViewQuotesComponent
   ],
   exports: [
@@ -80,7 +82,8 @@ const MaterialComponent = [
     UserModalComponent,
     NotifySubcontractorComponent,
     MaterialComponent,
-    NgxTagsInputModule
+    NgxTagsInputModule,
+    InvitedSubcontractorsComponent
     // NgxTagsInputModule
   ],
   imports: [

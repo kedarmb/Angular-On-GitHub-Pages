@@ -14,16 +14,9 @@
                     <button mat-stroked-button (click)="notifySubC()">Invite Sub Contractors</button>
                     <!-- <button mat-button (click)="saveUnfilteredTender()">Save As Is</button> -->
                 </div>
-                <div *ngIf="notifiedSubList">
-                    <mat-form-field>
-                        <mat-label>Select Sub Contractor</mat-label>
-                        <mat-select #notify (selectionChange)="subSelection(notify.value)">
-                            <mat-option *ngFor="let sub of notifiedSubList" [value]="sub" >
-                                {{sub.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+                <app-invited-subcontractors [notifiedSubs]="invitedSubs"></app-invited-subcontractors>
+                
+
             </mat-toolbar-row>
         </mat-toolbar>
         <app-tender-item [tenderData]="responseData" [selectedSub]="selectedVal"  #tenderItemComp></app-tender-item>
