@@ -175,18 +175,39 @@
                                                             </mat-expansion-panel-header>
 
                                                             <div for="crew_details_form">
-                                                                <div class="row">
+                                                                <div class="row" *ngIf="lineItem.value.crewItemRef === null">
                                                                     <div class="col-6">
                                                                         <button mat-raised-button color="primary" (click)="addCrewToLine(section.value._id, lineItem.value._id)">Add Crew</button>
                                                                         <button mat-raised-button color="primary" (click)="createNewCrew(lineItem, lindx)">Create New Crew</button>
                                                                         <button mat-raised-button color="primary" (click)="saveSelectedCrew(lineItem, lindx)">Save</button>
                                                                     </div>
                                                                 </div>
+                                                                <div class="row" *ngIf="lineItem.value.crewItemRef !== null">
+                                                                    <div class="col-6">
+                                                                        <mat-card>
+                                                                            <mat-card-content>
+                                                                                <div class="row">
+                                                                                    <div class="col">
+                                                                                        <div class="row">
+                                                                                            Total Cost of Crew: xxxx
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            Total Cost of Labour: xxxx
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            Total Cost of Equipment: xxxxx
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </mat-card-content>
+                                                                        </mat-card>
+                                                                    </div>
+                                                                    <div class="col-3">
+                                                                        <button mat-raised-button color="primary" (click)="addCrewToLine(section.value._id, lineItem.value._id)">Edit Crew</button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <br>
-                                                                <mat-label color="primary">Crew Total : {{totalCrewCost}}</mat-label>
-                                                            </div>
+                                                          
                                                         </mat-expansion-panel>
 
                                                         <mat-expansion-panel>
@@ -198,7 +219,7 @@
                                                             <div for="trench_details_form">
                                                                 <div class="row">
                                                                     <div class="col-6">
-                                                                        <mat-form-field>
+                                                                        <!-- <mat-form-field>
                                                                             <mat-label>select trench..</mat-label>
                                                                             <mat-select formControlName="trenchRef" (selectionChange)="onTrenchSelect($event)">
                                                                                 <mat-option>--</mat-option>
@@ -208,7 +229,7 @@
                                                                                     </mat-option>
                                                                                 </div>
                                                                             </mat-select>
-                                                                        </mat-form-field>
+                                                                        </mat-form-field> -->
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <button mat-raised-button color="primary" (click)="addNewTrench(lineItem, lindx)">Create New Trench</button>

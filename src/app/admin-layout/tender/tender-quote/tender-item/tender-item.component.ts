@@ -165,7 +165,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
         // lineItems: this.createLineItemForm(sectionRef)
       }))
     });
-    console.log(this.masterForm);
+    // console.log(this.masterForm);
   }
 
 
@@ -266,11 +266,10 @@ export class TenderItemComponent implements OnInit, OnChanges {
     // /v1/line-item/tender/:tenderId/section/:sectionId
     // TODO: to add section ID with checking on the append string
     const id = this.tenderData._id;
-    console.log('section ref is ', sectionRef);
+    // console.log('section ref is ', sectionRef);
     const _lineItm = (sectionRef.get('lineItems') as FormArray).at(indx).value;
     let appendStr = '/tender/' + id + '/section/' + '9e2f4d4ade8a06001ea71e91';
     // trim the payload with necessary key-values for line item only
-    console.log('_lineItm is ... ', _lineItm);
     const payload = this.hs.pickChosenProps(_lineItm, 'specNo', 'itemNo', 'itemName', 'description', 'unit', 'unitPrice', 'quantity')
     payload['name'] = sectionRef.value.name;
     //
@@ -280,21 +279,31 @@ export class TenderItemComponent implements OnInit, OnChanges {
       // payload._id = sectionRef.value._id;
     }
     //
-    console.log('Line item save pyload .. ', payload);
+    // console.log('_lineItm is ... ', _lineItm);
+    // return;
     this.spinner.show();
-    this.httpService.saveLineItem(appendStr, payload).subscribe((response) => {
-      console.log('success saving line itm ', response);
-      this.spinner.hide();
-      if (response.status === 201) {
-        console.log('line item saved .. calling GET API ...');
-        this.toastr.success('Line Item saved.');
-        this.refreshFormData();
-      }
-    },
-      (err) => {
+    //
+    if (_lineItm._id === null) {
+      // this is a new line item .. to save it
+      console.log('append string .. ', appendStr);
+      this.httpService.saveLineItem(appendStr, payload).subscribe((response) => {
+        console.log('success saving line itm ', response);
         this.spinner.hide();
-        console.log('save line itm ERR ', err);
-      })
+        if (response.status === 201) {
+          console.log('line item saved .. calling GET API ...');
+          this.toastr.success('Line Item saved.');
+          this.refreshFormData();
+        }
+      },
+        (err) => {
+          this.spinner.hide();
+          console.log('save line itm ERR ', err);
+        })
+      //
+    } else if (_lineItm._id !== null) {
+      // this is a saved line item .. to update it
+    }
+
   }
   __removeLineItem(sectionRef, indx) {
     const lineItemArr = sectionRef.get('lineItems') as FormArray;
@@ -328,19 +337,19 @@ export class TenderItemComponent implements OnInit, OnChanges {
     const payload = this.hs.pickChosenProps(_subLineItem, 'name', 'unit', 'quantity', 'unitPrice', 'subLineTotalPrice');
     console.log('appendStr  is:  ', appendStr);
     console.log('payload is..  ', payload);
-    /* this.httpService.saveSubLineItem(appendStr, payload).subscribe((response) => {
+    this.httpService.saveSubLineItem(appendStr, payload).subscribe((response) => {
       console.log('succ in saving subline item ', response);
     },
       (err) => {
         console.log('err in saving subl ine  item ', err);
-      }) */
+      })
   }
 
   refreshFormData() {
     this.httpService.getTenderDetailById(this.tenderData._id).subscribe((response) => {
       // console.log('get API seccess .. ', response);
       if (response.status === 200) {
-        console.log('get API seccess .. ', response);
+        console.log('refreshFormData :: get API seccess .. ', response);
         this.tenderData = response.body;
         this.masterForm.reset();
         //
@@ -458,6 +467,13 @@ export class TenderItemComponent implements OnInit, OnChanges {
       disableClose: true,
       maxHeight: '95vh',
     });
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+        console.log(response.data);
+      } if (response.status === 'add') {
+        this.refreshFormData();
+      }
+    })
   }
 
 

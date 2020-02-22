@@ -115,7 +115,6 @@ export class ViewTenderComponent implements OnInit {
                 // console.log('success getTenderDetailById ', response.status);
                 this.hs.updateLocalTenderListByID(response.body);
                 this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
-                console.log('fffffff', this.notifiedSubIds);
                 this.modifyNotifiedSubList();
                 this.responseData = response.body;
                 // this.toastr.success('Selected Sub Contractors have been notified.');
@@ -137,7 +136,7 @@ export class ViewTenderComponent implements OnInit {
             this.notifiedSubList.push(sc);
         });
         this.notifiedSubIds = [];
-        console.log('notifiedSubList  ', this.notifiedSubList);
+        // console.log('notifiedSubList  ', this.notifiedSubList);
     }
     viewer(item) {
         this.router.navigateByUrl('/pdf-viewer/' + item.id);

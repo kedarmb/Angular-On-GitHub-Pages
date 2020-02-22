@@ -25,7 +25,7 @@ export class LineItemCrewComponent implements OnInit {
   //
   resData = {
     status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
-    data: ''
+    data: null
   };
   isValid = false;
 
@@ -53,7 +53,7 @@ export class LineItemCrewComponent implements OnInit {
 
 
   onCrewSelect(evt) {
-    // console.log(evt);
+    console.log(evt);
     this.selectionStr = 'you have chosen';
     this.selectedCrew = evt.value;
     this.crewForm = this.initCrewReferenceCtrl(this.selectedCrew);
@@ -128,16 +128,46 @@ export class LineItemCrewComponent implements OnInit {
   }
 
   saveCrew() {
-    // organizationId: null,
-
     this.payLoad.crewTotalCost = this._crewTotalCost;
     this.payLoad.labourTotalCost = this._labourTotalCost;
     this.payLoad.equipmentTotalCost = this._equipmentTotalCost;
-    this.payLoad.labourArr = this.crewForm.value['labours'];
-    this.payLoad.equipmentArr = this.crewForm.value['equipments'];
     this.payLoad.crewLabourEquipment = this.selectedCrew._id;
+    this.payLoad.organizationId = this.hs.getOrgId();
+    // replace with laborid & equipmentid
+    const _labors = [...this.crewForm.value['labours']];
+    for (let i = 0; i < _labors.length; i++) {
+      _labors[i].labourId = _labors[i]._id;
+      delete _labors[i]._id;
+    }
+    this.payLoad.labourArr = _labors;
     //
-    console.log('final payload is ', this.payLoad);
+    const _equips = [...this.crewForm.value['equipments']];
+    for (let i = 0; i < _equips.length; i++) {
+      _equips[i].equipmentId = _equips[i]._id;
+      delete _equips[i]._id;
+    }
+    this.payLoad.equipmentArr = _equips;
+    // console.log('final payload is ', this.payLoad);
+    const lineID = this.payLoad.lineItem;
+    const tenderID = this.payLoad.tender;
+    const sectionID = this.payLoad.section;
+    const crewID = this.payLoad.crewLabourEquipment;
+    const appendString = lineID + '/tender/' + tenderID + '/section/' + sectionID + '/crew/' + crewID;
+    // console.log('append string is .. ', appendString);
+    // line-item /: id / tender /: tenderId / section /: sectionId / crew /: crewId
+    this.httpService.saveCrewForLineItem(appendString, this.payLoad).subscribe(response => {
+      console.log(response);
+      if (response.status === 200) {
+        this.resData.status = 'add';
+        this.resData.data = response.body;
+        this.dialogRef.close(this.resData);
+        this.toastr.success('Crew for Line Item saved');
+      }
+    }, (err) => {
+      this.toastr.error('Error saving crew for line item. Please try later.');
+      console.log('erre saving crew for Line Item ', err);
+    })
+
 
   }
   cancelCrew() {

@@ -120,6 +120,7 @@ export class OrganizationModalComponent implements OnInit {
   save() {
     const finalVal = this.organizationForm.value
     delete finalVal._id;
+    delete finalVal.status; // removed by arup as per discussion with Akhilesh on 20.02.2020
     this.httpService.createOrganization(finalVal)
       .subscribe((response: any) => {
         if (response.status === 201) {

@@ -69,7 +69,7 @@ export class HelperService {
 
   setTenderList(list) {
     this.tenderList = [];
-    this.tenderList = [...list];
+    this.tenderList = [...list].reverse();
   }
 
   getTenderList() {
@@ -80,7 +80,7 @@ export class HelperService {
     console.log('tData is >>>>>> ', tData);
     // after modifying tender line/subline/crew/trench the modified saved at local end
     const tID = tData._id;
-    for (let i = 0; i < this.tenderList.length; i++) {
+    for (let i = 0; i < this.tenderList.length; i++) {4
       if (this.tenderList[i]._id === tID) {
         this.tenderList.splice(i, 1, tData);
       }

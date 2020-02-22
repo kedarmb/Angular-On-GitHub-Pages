@@ -173,6 +173,12 @@ export class HttpService {
   public createNewSection(body) {
     return this.httpClient.post(ApiUrl.sectionUrl, body, { headers: this.getHeader(), observe: 'response' });
   }
+
+  saveCrewForLineItem(appendStr, body){
+    // console.log(ApiUrl.lineItemUrl + '/' + appendStr);
+    return this.httpClient.post(ApiUrl.lineItemUrl + '/' + appendStr, body, { headers: this.getHeader(), observe: 'response' });
+  }
+
   public createTrenchCalculation(body) {
     return this.httpClient.post(ApiUrl.sectionUrl, body, { headers: this.getHeader(), observe: 'response' });
   }
