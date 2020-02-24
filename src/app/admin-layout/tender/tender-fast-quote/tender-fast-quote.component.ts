@@ -76,6 +76,9 @@ export class TenderFastQuoteComponent implements OnInit {
       updatedAt: ['']
     })
   };
+  subSelection(e){
+
+  }
 
   sublineFormGroupVal(val) {
     if (val) {

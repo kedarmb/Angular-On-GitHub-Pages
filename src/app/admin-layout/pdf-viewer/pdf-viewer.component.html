@@ -8,12 +8,12 @@
                 <div *ngIf="loading" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-                <pdf-viewer [src]="pdfSrc"
+                <!-- <pdf-viewer [src]="pdfSrc"
                             [render-text]="true" (after-load-complete)="afterLoadComplete($event)"
                             (text-layer-rendered)="textLayerRendered($event)" [original-size]="true"
                             [fit-to-page]="true" [zoom]="1.5"
                             style="display: block;"
-                ></pdf-viewer>
+                ></pdf-viewer> -->
             </div>
             <div class="col-md-12" [hidden]="!show">
 

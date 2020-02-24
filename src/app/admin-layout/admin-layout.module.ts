@@ -48,7 +48,7 @@ import { CrewComponent } from './crew/crew.component';
 import { DateConverterPipe } from '../shared/pipe/date-converter.pipe';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+// import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ChartsModule } from 'ng2-charts';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { MedicalComprehendComponent } from './medical-comprehend/medical-comprehend.component';
@@ -84,7 +84,6 @@ import { TenderFastAttachComponent } from './tender/tender-fast-attach/tender-fa
     NgbModule,
     MatExpansionModule,
     SharedModule,
-    PdfViewerModule,
     FileUploadModule,
     ChartsModule,
     MatTabsModule,
