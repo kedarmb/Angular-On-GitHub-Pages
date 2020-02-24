@@ -30,7 +30,7 @@
     <div class="col-9 px-0">
         <div class="col-3">
             <mat-form-field *ngIf="tenderData">
-                <mat-label>Tender Line Items</mat-label>
+                <mat-label>Cars</mat-label>
                 <select [disabled]="ifSelectedLine" matNativeControl required #selSec
                     (change)="showSection(selSec.value, '1')">
                     <option>Select Section</option>

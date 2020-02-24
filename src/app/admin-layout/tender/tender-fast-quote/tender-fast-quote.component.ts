@@ -17,7 +17,7 @@ export class TenderFastQuoteComponent implements OnInit {
   subId: any;
   subData: any;
   tenderData: any;
-  subContractorId: any;
+  // subContractorId: any;
   filteredTender = [];
 
   constructor(private formBuilder: FormBuilder, private router: Router,
@@ -41,16 +41,16 @@ export class TenderFastQuoteComponent implements OnInit {
       console.log(this.filteredTender);
     };
 
-    this.activatedRoute.params.subscribe((e) => {
-      console.log(e);
-      this.subContractorId = e.id;
-    });
+    // this.activatedRoute.params.subscribe((e) => {
+    //   console.log(e);
+    //   this.subContractorId = e.id;
+    // });
 
-    location.onPopState((e) => {
-      if (e.type === 'popstate') {
-        this.router.navigate(['/fast-list/' + this.tenderID]);
-      }
-    });
+    // location.onPopState((e) => {
+    //   if (e.type === 'popstate') {
+    //     this.router.navigate(['/fast-list/' + this.tenderID]);
+    //   }
+    // });
   };
 
   ngOnInit() {

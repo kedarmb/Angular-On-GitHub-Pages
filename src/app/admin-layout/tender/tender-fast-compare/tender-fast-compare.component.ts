@@ -22,11 +22,11 @@ export class TenderFastCompareComponent implements OnInit {
     // this.tenderData = this.router.getCurrentNavigation().extras.state;
     this.tenderId = JSON.parse(this.hs.getSession('tenderIdNow'))
     console.log(this.tenderId);
-    location.onPopState((e) => {
-      if (e.type === 'popstate') {
-        this.router.navigate(['/fast-list/' + this.tenderId]);
-      }
-    });
+    // location.onPopState((e) => {
+    //   if (e.type === 'popstate') {
+    //     this.router.navigate(['/fast-list/' + this.tenderId]);
+    //   }
+    // });
   }
 
   ngOnInit() {

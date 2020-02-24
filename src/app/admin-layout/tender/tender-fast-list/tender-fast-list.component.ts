@@ -11,7 +11,7 @@ import { PlatformLocation } from '@angular/common';
   styleUrls: ['./tender-fast-list.component.scss']
 })
 
-export class TenderFastListComponent implements OnInit, OnChanges {
+export class TenderFastListComponent implements OnInit {
   notifiedSubIds = [];
   notifiedSubList: any;
   tenderID: any;
@@ -27,7 +27,7 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   constructor(private router: Router, private hs: HelperService,
     private httpService: HttpService, private toastr: ToastrService,
     private location: PlatformLocation) {
-    this.tender = this.router.getCurrentNavigation().extras.state;
+    // this.tender = this.router.getCurrentNavigation().extras.state;
     // this.notifiedSubIds = this.tender.headerLevelNotifiedSubs;
 
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
@@ -40,13 +40,13 @@ export class TenderFastListComponent implements OnInit, OnChanges {
     this.createSubline();
   };
 
-  ngOnChanges(): void {
-    this.location.onPopState((e) => {
-      if (e.type === 'popstate') {
-        this.router.navigateByUrl('/tender');
-      }
-    });
-  };
+  // ngOnChanges(): void {
+  //   this.location.onPopState((e) => {
+  //     if (e.type === 'popstate') {
+  //       this.router.navigateByUrl('/tender');
+  //     }
+  //   });
+  // };
 
   getTenderByID() {
     console.log(this.tenderID);
