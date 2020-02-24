@@ -29,16 +29,7 @@
                     <a><i class="material-icons">delete_sweep</i></a>
                 </td>
                 <td >
-                    <div  *ngIf="notifiedSubList">
-                        <mat-form-field >
-                            <mat-label >Select Sub Contractor</mat-label>
-                            <mat-select  #notify (selectionChange)="subSelection(notify.value)">
-                                <mat-option *ngFor="let sub of notifiedSubList" [value]="sub">
-                                    {{sub.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
+                    <app-invited-subcontractors [notifiedSubs]=" tenderID" (subs)="subSelection($event)"></app-invited-subcontractors>
                 </td>
                 <td></td>
                 <td><button  class="bg" (click)="createSub(_sub)">Add quote</button></td>

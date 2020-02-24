@@ -21,6 +21,8 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   tender: any;
   _sub: any;
   createdSubline: any;
+  invitedSubs: any;
+
 
   constructor(private router: Router, private hs: HelperService,
     private httpService: HttpService, private toastr: ToastrService,
@@ -29,6 +31,7 @@ export class TenderFastListComponent implements OnInit, OnChanges {
     // this.notifiedSubIds = this.tender.headerLevelNotifiedSubs;
 
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
+    this.invitedSubs = this.tenderID;
   };
 
   ngOnInit() {
@@ -84,9 +87,11 @@ export class TenderFastListComponent implements OnInit, OnChanges {
   };
 
   createSub(id) {
+    console.log(id._id)
     this.router.navigate(['/fast-quote/' + this.tenderID + '/' + id._id]);
     this.hs.setSession('subConIdNow', JSON.stringify(id._id));
   };
+
 
   createSubline() {
     this.httpService.getSubline(this.tenderID)
@@ -111,6 +116,7 @@ export class TenderFastListComponent implements OnInit, OnChanges {
     })
     this.attendedSubs = this.hs.unique(filterArr);
   };
+
 
   compare() {
     this.router.navigate(['/fast-compare/' + this.tenderID], { state: this.tenderID });

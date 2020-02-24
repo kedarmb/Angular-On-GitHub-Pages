@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { HelperService } from '../../../shared/core/service/helper.service';
 import { HttpService } from '../../../shared/core/service/http.service';
 
@@ -8,7 +8,9 @@ import { HttpService } from '../../../shared/core/service/http.service';
   styleUrls: ['./invited-subcontractors.component.scss']
 })
 export class InvitedSubcontractorsComponent implements OnInit {
-  @Input() notifiedSubs: string;
+
+  @Output() public subs = new EventEmitter();
+  @Input( ) notifiedSubs: string;
   notifiedSubList: any;
   selectedVal: any;
   notifiedSubIds = [];
@@ -46,8 +48,8 @@ export class InvitedSubcontractorsComponent implements OnInit {
       })
   }
   subSelection(subCont) {
-    console.log(subCont);
     this.selectedVal = subCont;
+    this.subs.emit(this.selectedVal);
   }
 
 }

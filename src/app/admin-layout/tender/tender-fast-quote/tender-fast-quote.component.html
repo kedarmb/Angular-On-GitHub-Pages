@@ -1,6 +1,9 @@
 <div class="container fast-q">
     <div class="mt-5 table-responsive ">
         <form [formGroup]="sublineForm">
+            <div class="container">
+                <app-invited-subcontractors [notifiedSubs]="tenderID" (subs)="subSelection($event)"></app-invited-subcontractors>
+            </div>
             <table class="table table-bordered  m-top">
                 <thead>
                     <th>Action</th>

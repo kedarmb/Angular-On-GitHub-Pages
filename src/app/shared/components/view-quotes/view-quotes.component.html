@@ -18,7 +18,7 @@
             <tbody>
                 <tr *ngFor="let quote of filteredQuote[0].quotes; let itemN = index;">
                     <mat-radio-group name="{{filteredQuote[0]._id}}">
-                       <td><mat-radio-button  value="{{itemN}}" (change)="getQuote($event, quote, filteredQuote[0]);" [checked]="checkIfSelected(quote)">{{quote.subContractorId.name}}</mat-radio-button></td>
+                        <td><mat-radio-button  value="{{itemN}}" (change)="getQuote($event, quote, filteredQuote[0]);" [checked]="checkIfSelected(quote)">{{quote.subContractorId.name}}</mat-radio-button></td>
                     </mat-radio-group>
                     <td>{{quote.unit}}</td>
                     <td>{{quote.unitPrice}}</td>
