@@ -46,7 +46,6 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('sssss', this.getComingSoon(ROUTES));
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
   isMobileMenu() {

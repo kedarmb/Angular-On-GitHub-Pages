@@ -3,7 +3,7 @@
         <mat-label>Cars</mat-label>
         <select *ngIf="quotes" #q matNativeControl required (click)="showQuote(q.value)" [value]="q.value">
             <option>select</option>
-            <option *ngFor="let item of quotes;" value="{{item._id}}">{{item.name}}</option>
+            <option *ngFor="let item of quotes;" value="{{item._id}}">{{item._id}}</option>
         </select>
     </mat-form-field>
     <div *ngIf="filteredQuote.length>0">

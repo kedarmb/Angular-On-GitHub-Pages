@@ -230,4 +230,7 @@ export class HttpService {
   public getselectedsubline(id) {
     return this.httpClient.get(ApiUrl.selectedsublineUrl + id, { headers: this.getHeader(), observe: 'response' });
   }
+  public getseletedSubForLine(id, body) {
+    return this.httpClient.put(ApiUrl.seletedSubForLineUrl + id, body, { headers: this.getHeader(), observe: 'response' });
+  }
 }

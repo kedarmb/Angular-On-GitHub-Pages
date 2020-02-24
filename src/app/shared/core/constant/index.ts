@@ -53,7 +53,8 @@ export const ApiUrl = {
   inviteSubUrl: authUrlCreator(`/tender/headerlevelNotifySub`),
   createSubline: sublineUrlCreator('/tender/'),
   createUniqueSubline: sublineUrlCreator('/getUniqueSubLine/tender'),
-  selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/')
+  selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/'),
+  seletedSubForLineUrl: sublineUrlCreator('/seletedSubForLine/tender/')
 }
 
 
