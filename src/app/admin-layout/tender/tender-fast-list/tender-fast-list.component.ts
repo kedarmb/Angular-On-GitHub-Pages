@@ -29,7 +29,6 @@ export class TenderFastListComponent implements OnInit {
     private location: PlatformLocation) {
     // this.tender = this.router.getCurrentNavigation().extras.state;
     // this.notifiedSubIds = this.tender.headerLevelNotifiedSubs;
-
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
     this.invitedSubs = this.tenderID;
   };
@@ -66,7 +65,6 @@ export class TenderFastListComponent implements OnInit {
 
   private modifyNotifiedSubList() {
     if (this.notifiedSubIds.length <= 0) {
-      console.log('returned .... ', this.notifiedSubIds);
       return;
     };
     const subContList = this.hs.getSubContractorList();

@@ -2,7 +2,7 @@
     <div class="mt-5 table-responsive ">
         <form [formGroup]="sublineForm">
             <div class="container">
-                <app-invited-subcontractors [notifiedSubs]="tenderID" (subs)="subSelection($event)"></app-invited-subcontractors>
+                <app-invited-subcontractors [notifiedSubs]="tenderID" (subs)="subConSelection($event)"></app-invited-subcontractors>
             </div>
             <table class="table table-bordered  m-top">
                 <thead>
@@ -33,6 +33,12 @@
                             <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
                         </td>
                     </tr>
+                    <!-- <tr *ngFor = 'let newSub of newSubs; let i = index'>
+                        <td class="width-2" formControlName="name">{{newSub.name}}</td>
+                        <td class="width-2" formControlName="description">{{newSub.description}}</td>
+                        <td class="width-2" formControlName='unit'>{{newSub.unit}}</td>
+                        <td class="width-2" formControlName='unitPrice'>{newSub.unitPrice}}</td>
+                    </tr> -->
                     <tr>
                         <td>
                             <button (click)="addLineItem()">Add more</button>
@@ -44,7 +50,6 @@
             <button class="save" type="submit" (click)="createSubline(true)" [disabled]="!sublineForm.valid">save</button>
             <button  class="conti" type="submit" (click)="createSubline(false)">Save and continue</button>
             <button  class="cancel" type="submit" (click)="cancel()">Cancel</button>
-
         </form>
     </div>
 </div>
