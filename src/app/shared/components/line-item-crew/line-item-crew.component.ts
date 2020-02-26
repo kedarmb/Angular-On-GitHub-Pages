@@ -25,7 +25,9 @@ export class LineItemCrewComponent implements OnInit {
   //
   resData = {
     status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
-    data: null
+    data: null,
+    totalCost: 0
+
   };
   isValid = false;
 
@@ -53,7 +55,6 @@ export class LineItemCrewComponent implements OnInit {
 
 
   onCrewSelect(evt) {
-    console.log(evt);
     this.selectionStr = 'you have chosen';
     this.selectedCrew = evt.value;
     this.crewForm = this.initCrewReferenceCtrl(this.selectedCrew);
@@ -72,7 +73,6 @@ export class LineItemCrewComponent implements OnInit {
   }
   createCrewLaboursArr(laboursArr) {
     const crew_labours_arr = new FormArray([]);
-    //
     laboursArr.forEach(item => {
       crew_labours_arr.push(this.formBuilder.group({
         _id: [item._id],
@@ -86,7 +86,6 @@ export class LineItemCrewComponent implements OnInit {
   }
   createCrewEquipmentsArr(equipmentsArr) {
     const crew_equip_arr = new FormArray([]);
-    //
     equipmentsArr.forEach(item => {
       crew_equip_arr.push(this.formBuilder.group({
         _id: [item._id],
@@ -160,6 +159,7 @@ export class LineItemCrewComponent implements OnInit {
       if (response.status === 200) {
         this.resData.status = 'add';
         this.resData.data = response.body;
+        this.resData.totalCost = this._crewTotalCost;
         this.dialogRef.close(this.resData);
         this.toastr.success('Crew for Line Item saved');
       }

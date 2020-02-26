@@ -1,0 +1,136 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="col">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#/tender">Tender</a></li>
+                <li class="breadcrumb-item">Tender Review</li>
+                <li class="breadcrumb-item">{{tenderData.name}}</li>
+            </ol>
+        </div>
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <div>
+                    <button mat-stroked-button (click)="__addSection()">Add Another Section</button>
+                    <button mat-stroked-button (click)="notifySubC()">Invite Sub Contractors</button>
+                    <button mat-stroked-button (click)="gotoQuotePage()">Go to Quote</button>
+                    <button mat-stroked-button (click)="back()">Close</button>
+                </div>
+                <!-- <app-invited-subcontractors [notifiedSubs]="invitedSubs" (dataLoaded)="onDataLoaded()"></app-invited-subcontractors> -->
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <!-- <app-tender-item [tenderData]="responseData" [selectedSub]="selectedVal" #tenderItemComp></app-tender-item> -->
+
+        <div class="table-responsive">
+            <ng-container>
+                <div *ngIf="masterForm">
+                    <form [formGroup]="masterForm">
+                        <div formArrayName="sections">
+                            <ng-container *ngFor="let section of masterForm.get('sections').controls; let secindx = index;" [formGroupName]="secindx">
+
+                                <mat-toolbar>
+                                    <span><textarea type="text" class="t-area" formControlName="name" placeholder="section name goes here"></textarea></span>
+                                    <span class="toolbar-spacer"></span>
+                                    <button mat-icon-button color="warn" matTooltip="delete section">
+                                        <mat-icon>remove_circle</mat-icon>
+                                    </button>
+                                </mat-toolbar>
+                                <div formArrayName="lineItems" class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class=" text-primary">
+                                            <th>
+                                                Item No
+                                            </th>
+                                            <th>
+                                                Spec No
+                                            </th>
+                                            <th>
+                                                Item Name
+                                            </th>
+
+                                            <th>
+                                                Description
+                                            </th>
+                                            <th>
+                                                Unit
+                                            </th>
+                                            <th>
+                                                Quantity
+                                            </th>
+                                            <th>
+                                                Unit Price
+                                            </th>
+                                            <th>
+                                                Total Price
+                                            </th>
+                                            <th style="width: 200px;">
+                                                Actions
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngFor="let lineItem of section.get('lineItems').controls; let lindx = index; let last = last" [formGroupName]="lindx">
+                                                <tr>
+                                                    <td class="width-2">
+                                                        <textarea type="text" class="form-control" formControlName="itemNo"></textarea>
+                                                    </td>
+                                                    <td class="width-2">
+                                                        <textarea type="text" class="form-control" formControlName="specNo"></textarea>
+                                                    </td>
+                                                    <td class="width-2">
+                                                        <textarea type="text" class="form-control" formControlName="itemName"></textarea>
+                                                    </td>
+                                                    <td class="width-2">
+                                                        <textarea type="text" class="form-control" formControlName="description"></textarea>
+                                                    </td>
+                                                    <td class="width-2">
+                                                        <textarea type="text" class="form-control" formControlName="unit"></textarea>
+                                                    </td>
+                                                    <td class="width-2">
+                                                        <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculateLineItemUnitPrice(lineItem)"></textarea>
+                                                    </td>
+                                                    <td class="width-2">
+                                                        <textarea type="text" class="form-control" formControlName="unitPrice" [readonly]="true"></textarea>
+                                                    </td>
+                                                    <td class="width-2">
+                                                        <textarea type="text" class="form-control" formControlName="lineTotalPrice" [readonly]="true"></textarea>
+                                                    </td>
+                                                    <td class="td-actions width-15">
+                                                        <!-- <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                            <i class="material-icons">remove_red_eye</i>
+                                                        </button> -->
+                                                        <button mat-raised-button type="button" (click)="saveLineItem(section, lindx)" matTooltip="save line item" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                            <i class="material-icons">save</i>
+                                                        </button>
+                                                        <button mat-raised-button type="button" (click)="__removeLineItem(section, lindx)" matTooltip="remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                            <i class="material-icons">minimize</i>
+                                                        </button>
+                                                        <button mat-raised-button type="button" matTooltip="less" (click)="toggleCollapse(section, lindx)" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                            <i class="material-icons">expand_less</i>
+                                                        </button>
+                                                        <button mat-raised-button type="button" matTooltip="add line item" [matTooltipPosition]="'above'" (click)="__addLineItem(section)" *ngIf="last" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                            <i class="material-icons">add_box</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </form>
+                </div>
+            </ng-container>
+
+            <ng-container>
+
+            </ng-container>
+
+        </div>
+
+        <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+            <p style="font-size: 20px; color: white; margin-top: 60px;">loading tender..</p>
+        </ngx-spinner>
+    </div>

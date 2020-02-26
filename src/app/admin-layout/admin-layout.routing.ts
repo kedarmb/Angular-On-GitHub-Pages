@@ -11,6 +11,7 @@ import { TableListComponent } from './table-list/table-list.component';
 import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { TenderComponent } from './tender/tender.component';
+import { TenderReviewComponent } from './tender/tender-review/tender-review.component'
 import { TenderitemComponent } from './tenderitem/tenderitem.component';
 import { ViewTenderComponent } from './tender/tender-quote/view-tender.component';
 import { OrganizationComponent } from './organization/organization.component';
@@ -33,6 +34,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'pdf-viewer/:id', component: PdfViewerComponent },
     { path: 'crew', component: CrewComponent },
     { path: 'create-tenderitem', component: CreateTenderItemComponent },
+    { path: 'review-tender/:id', component: TenderReviewComponent },
     { path: 'view-tender/:id', component: ViewTenderComponent },
     { path: 'tender', component: TenderComponent },
     { path: 'tender-items', component: TenderitemComponent },
@@ -43,7 +45,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user', component: UserComponent },
     { path: 'fullcalender', component: FullcalenderComponent },
     { path: 'calculation', component: TrenchCalculationComponent },
-    { path: 'compare',  component: TenderCompareComponent },
+    { path: 'compare', component: TenderCompareComponent },
     { path: 'bid', component: TenderBidComponent },
     { path: 'fast-quote/:id/:id', component: TenderFastQuoteComponent },
     { path: 'fast-compare/:id', component: TenderFastCompareComponent },

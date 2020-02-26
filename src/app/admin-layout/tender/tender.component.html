@@ -148,18 +148,14 @@
                                                 {{tender.clientName.name}}
                                             </td>
                                             <td>
-                                                                                                <button mat-raised-button type="button" matTooltip="Fast quote" (click)="fastQuote(tender)"
-                                                                                                    [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                                                                    <i class="material-icons">
-                                                                                                        directions_run
-                                                                                                    </i>
-                                                                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Fast quote" (click)="fastQuote(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">
+                                                        directions_run
+                                                    </i>
+                                                </button>
                                                 {{tender.name}}
                                                 <div>
-                                                    <button mat-raised-button type="button" matTooltip="Edit Task"
-                                                        (click)="AddUpdateTender(true, tender, index)"
-                                                        [matTooltipPosition]="'above'"
-                                                        class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <button mat-raised-button type="button" matTooltip="Edit Task" (click)="AddUpdateTender(true, tender, index)" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                     <button mat-raised-button type="button" matTooltip="Remove"
@@ -190,14 +186,13 @@
                                                         insert_invitation
                                                     </i>
                                                 </button>
-                                                <button mat-raised-button type="button" matTooltip="Edit Tender Quotes"
-                                                    (click)="viewTender(tender)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Review Tender Details" (click)="reviewTender(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">pageview</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Edit Tender Quotes" (click)="viewTender(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">exit_to_app</i>
                                                 </button>
-                                                <button mat-raised-button type="button" matTooltip="Upload Tender"
-                                                    (click)="viewer(tender)" [matTooltipPosition]="'above'"
-                                                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <button mat-raised-button type="button" matTooltip="Upload Tender" (click)="viewer(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">
                                                         cloud_upload
                                                     </i>
@@ -206,10 +201,7 @@
                                                     <mat-icon>more_vert</mat-icon>
                                                 </button>
                                                 <mat-menu #menu="matMenu">
-                                                    <button mat-raised-button type="button"
-                                                                matTooltip="Final Pricing of Tender" (click)="quotes(tender)"
-                                                                        [matTooltipPosition]="'above'"
-                                                                            class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <button mat-raised-button type="button" matTooltip="Final Pricing of Tender" (click)="quotes(tender)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                         <i class="material-icons">announcement</i>
                                                     </button>
                                                     <button mat-raised-button matTooltip='Compare' id="alish" [matTooltipPosition]="'above'" (click)="compare(tender)" class="btn btn-danger btn-link btn-sm btn-just-icon">
@@ -218,12 +210,11 @@
                                                     <button mat-raised-button matTooltip='Quote' [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                         <i class="material-icons">format_align_justify</i>
                                                     </button>
-                                                    <button mat-raised-button matTooltip='Prepare' [matTooltipPosition]="'above'"
-                                                        class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <button mat-raised-button matTooltip='Prepare' [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
                                                 </mat-menu>
-                                        </td>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

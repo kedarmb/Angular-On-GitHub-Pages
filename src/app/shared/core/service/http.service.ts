@@ -147,6 +147,10 @@ export class HttpService {
   public saveLineItem(appendStr, payload): Observable<any> {
     return this.httpClient.post(ApiUrl.lineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
   }
+  public updateLineItem(appendStr, payload): Observable<any> {
+    // /:id/tender/:tenderId/section/:sectionId
+    return this.httpClient.put(ApiUrl.lineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
+  }
 
   public saveSubLineItem(appendStr, payload): Observable<any> {
     return this.httpClient.post(ApiUrl.sublineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
@@ -174,7 +178,8 @@ export class HttpService {
     return this.httpClient.post(ApiUrl.sectionUrl, body, { headers: this.getHeader(), observe: 'response' });
   }
 
-  saveCrewForLineItem(appendStr, body){
+
+  saveCrewForLineItem(appendStr, body) {
     // console.log(ApiUrl.lineItemUrl + '/' + appendStr);
     return this.httpClient.post(ApiUrl.lineItemUrl + '/' + appendStr, body, { headers: this.getHeader(), observe: 'response' });
   }
@@ -208,6 +213,7 @@ export class HttpService {
   }
   //
   public getNotifiedSubs(tenderID) {
+    // TODO: to fix the following line
     const URL = ApiUrl.notifiedSubsUrl + tenderID + '/headerlevelNotifySub/tender';
     return this.httpClient.get(URL, { headers: this.getHeader(), observe: 'response' });
   }
@@ -225,10 +231,10 @@ export class HttpService {
     return this.httpClient.put(ApiUrl.createSubline + id, body, { headers: this.getHeader(), observe: 'response' });
   }
   public postSubline(body, id) {
-    return this.httpClient.put(ApiUrl.createSubline + id +'/sublinePrice', body, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.put(ApiUrl.createSubline + id + '/sublinePrice', body, { headers: this.getHeader(), observe: 'response' });
   }
   public getUniqueSubline(id) {
-    return this.httpClient.get(ApiUrl.createUniqueSubline  + '/' + id, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.get(ApiUrl.createUniqueSubline + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }
   public getselectedsubline(id) {
     return this.httpClient.get(ApiUrl.selectedsublineUrl + id, { headers: this.getHeader(), observe: 'response' });

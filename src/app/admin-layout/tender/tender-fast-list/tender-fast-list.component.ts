@@ -65,6 +65,7 @@ export class TenderFastListComponent implements OnInit {
 
   private modifyNotifiedSubList() {
     if (this.notifiedSubIds.length <= 0) {
+      console.log('returned .... ', this.notifiedSubIds);
       return;
     };
     const subContList = this.hs.getSubContractorList();

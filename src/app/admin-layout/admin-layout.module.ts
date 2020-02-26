@@ -67,6 +67,7 @@ import { ContextMenuModule } from 'ngx-contextmenu';
 import { TenderBidComponent } from './tender/tender-bid/tender-bid.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { TenderFastAttachComponent } from './tender/tender-fast-attach/tender-fast-attach.component';
+import { TenderReviewComponent } from './tender/tender-review/tender-review.component';
 import { TenderFastPrepareBidComponent } from './tender/tender-fast-prepare-bid/tender-fast-prepare-bid.component';
 
 @NgModule({
@@ -144,6 +145,7 @@ import { TenderFastPrepareBidComponent } from './tender/tender-fast-prepare-bid/
     TenderFastCompareComponent,
     TenderFastListComponent,
     TenderFastAttachComponent,
+    TenderReviewComponent,
     TenderFastPrepareBidComponent,
   ]
 })

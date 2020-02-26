@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HelperService } from '../../../shared/core/service/helper.service';
 import { HttpService } from '../../../shared/core/service/http.service';
 
@@ -16,6 +16,9 @@ export class InvitedSubcontractorsComponent implements OnInit {
   notifiedSubIds = [];
   tenderID: any;
   responseData: any;
+  @Output() dataLoaded = new EventEmitter<string>();
+  @Output() subSelected = new EventEmitter<string>();
+  //
   constructor(private hs: HelperService, private httpServ: HttpService) { }
 
   ngOnInit() {
@@ -32,7 +35,9 @@ export class InvitedSubcontractorsComponent implements OnInit {
       this.notifiedSubList.push(sc);
     });
     this.notifiedSubIds = [];
-    console.log('notifiedSubList  ', this.notifiedSubList);
+    // console.log('notifiedSubList ---->> ', this.notifiedSubList);
+    //
+    this.dataLoaded.emit();
   }
   getTenderByID() {
     this.httpServ.getTenderDetailById(this.notifiedSubs).subscribe((response) => {
@@ -48,8 +53,9 @@ export class InvitedSubcontractorsComponent implements OnInit {
       })
   }
   subSelection(subCont) {
+    // console.log(subCont);
     this.selectedVal = subCont;
-    this.subs.emit(this.selectedVal);
+    this.subSelected.emit(subCont);
   }
 
 }

@@ -109,9 +109,14 @@ export class TenderComponent implements OnInit {
     })
   }
 
+  reviewTender(tender){
+    // this.spinner.show();
+    this.router.navigateByUrl('review-tender/', { state: tender });
+  }
   viewTender(tender) {
     // console.log(tender);
     // tender._id = '5dde7f6bfc6b8a42441783ab';
+    this.spinner.show();
     this.router.navigateByUrl('view-tender/', { state: tender });
   }
 

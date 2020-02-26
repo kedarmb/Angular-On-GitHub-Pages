@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TenderItem } from '../../../shared/core/model/tender-item.model';
 import * as uuid from 'uuid';
 import { CrewModalComponent } from 'app/shared/components/crew-modal/crew-modal.component';
-import { NotifySubcontractorComponent } from 'app/shared/components/notify-subcontractor/notify-subcontractor.component';
+
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { isArray } from 'util';
@@ -28,8 +28,12 @@ export class ViewTenderComponent implements OnInit {
 
     // @ViewChild(TenderItemComponent, { static: false }) tender_item_c: TenderItemComponent;
 
-    accordion = {};
-    crews = {}
+    displayedColumns: string[] = ['ItemNo', 'SpecNo', 'ItemName', 'Description',
+        'Unit', 'Unit-Price', 'Quantity', 'TotalPrice'];
+    masterForm: FormGroup; // var to store form
+    tender; // model instance
+    lineItemsArr: any;
+    // colla
     model: any;
     searching = false;
     searchFailed = false;
@@ -57,25 +61,27 @@ export class ViewTenderComponent implements OnInit {
             const paramData = window.history.state;
             this.tenderID = paramData._id;
             this.invitedSubs = this.tenderID
-            // console.log('param data .. ', paramData);
+            console.log('param data .. ', paramData);
             this.notifiedSubIds = paramData['headerLevelNotifiedSubs'];
+            // this is a temporary fix :
+            if (this.notifiedSubIds.length === 0) {
+                this.onDataLoaded();
+            }
             // this.modifyNotifiedSubList();
             this.setDataforQuotePage(paramData);
+
             //
             return;
-        }
-
-
-        )
+        })
     }
 
 
 
-    subSelection(subCont) {
+    /* subSelection(subCont) {
         console.log(subCont);
         this.selectedVal = subCont;
     }
-
+ */
     setDataforQuotePage(data) {
         // delete data.createdAt;
         // delete data.updatedAt;
@@ -85,46 +91,22 @@ export class ViewTenderComponent implements OnInit {
     }
     //
     ngOnInit() {
+        console.log('ngOnInit invoked ...');
         this.modifyNotifiedSubList();
+
+    }
+    onDataLoaded() {
+        this.spinner.hide();
+    }
+    onSubContSelect(sc) {
+        // console.log(sc);
+        this.selectedVal = sc;
     }
     //
     back() {
         this.router.navigateByUrl('/tender');
     }
     //
-    notifySubC() {
-        //
-        const dialogRef = this.dialog.open(NotifySubcontractorComponent, {
-            height: '50%',
-            width: '850px',
-            data: { tenderID: this.tenderID },
-            disableClose: true
-        });
-        //
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed ', result);
-            this.getTenderByID();
-        });
-    }
-    //
-    getTenderByID() {
-        // console.log('getTenderByID invoked ');
-        this.httpServ.getTenderDetailById(this.tenderID).subscribe((response) => {
-            // console.log('success getTenderDetailById ', response);
-            if (response.status === 200) {
-                // console.log('success getTenderDetailById ', response.status);
-                this.hs.updateLocalTenderListByID(response.body);
-                this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
-                this.modifyNotifiedSubList();
-                this.responseData = response.body;
-                // this.toastr.success('Selected Sub Contractors have been notified.');
-            }
-        },
-            (err) => {
-                console.log('Error getting Tender by id ', err);
-            })
-    }
-
     private modifyNotifiedSubList() {
         if (this.notifiedSubIds.length <= 0) {
             return;
