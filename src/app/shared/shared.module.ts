@@ -1,4 +1,4 @@
-import { LayoutModule } from '../layout/layout.module';
+// import { LayoutModule } from '../layout/layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -32,7 +32,7 @@ import { StateNamePipe } from './pipe/state-name.pipe';
 import { LineItemCrewComponent } from './components/line-item-crew/line-item-crew.component';
 import { InvitedSubcontractorsComponent } from './components/invited-subcontractors/invited-subcontractors.component';
 import { ViewQuotesComponent } from './components/view-quotes/view-quotes.component';
-
+import { ActiveTendersComponent } from './components/active-tenders/active-tenders.component';
 //
 const MaterialComponent = [
   NgxSpinnerModule,
@@ -64,7 +64,8 @@ const MaterialComponent = [
     StateNamePipe,
     LineItemCrewComponent,
     InvitedSubcontractorsComponent,
-    ViewQuotesComponent
+    ViewQuotesComponent,
+    ActiveTendersComponent
   ],
   exports: [
     EllipsisPipe,
@@ -83,7 +84,8 @@ const MaterialComponent = [
     NotifySubcontractorComponent,
     MaterialComponent,
     NgxTagsInputModule,
-    InvitedSubcontractorsComponent
+    InvitedSubcontractorsComponent,
+    ActiveTendersComponent
     // NgxTagsInputModule
   ],
   imports: [
@@ -94,7 +96,6 @@ const MaterialComponent = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    LayoutModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,

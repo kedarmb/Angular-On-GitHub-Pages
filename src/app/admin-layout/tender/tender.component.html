@@ -1,18 +1,97 @@
+
 <div class="main-content">
-    <div class="container-fluid">
-        <mat-toolbar color="primary">
-            <mat-toolbar-row>
-                <div>
-                    <button mat-raised-button (click)="AddUpdateTender(false)">
-                        <mat-icon>add</mat-icon>
-                        Add Tender
+
+ 
+        <div class=" sb-toolbar">
+            <a  (click)="AddUpdateTender(false)" ><i class="material-icons"  matTooltip=" Add Tender">add</i></a>
+        </div>
+      
+       
+     <div class="table-responsive border-top">
+            <table class="mat_tab" mat-table [dataSource]="tenders" class="mat-elevation-z8    tab-cell-styl">
+            <ng-container matColumnDef="Client Name">
+                <th mat-header-cell *matHeaderCellDef>Client Name</th>
+                <td mat-cell 
+                  *matCellDef="let element;">{{element.clientName.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Tender Name">
+                <th mat-header-cell *matHeaderCellDef>Tender Name</th>
+                <td mat-cell *matCellDef="let element;">
+                      <button mat-raised-button type="button" matTooltip="Fast quote" (click)="fastQuote(element)"
+                    [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">
+                        directions_run
+                    </i>
+                </button>
+               {{element.name}}
+            </td>
+            </ng-container>
+            <ng-container matColumnDef="Open Date">
+                <th mat-header-cell *matHeaderCellDef>Open Date</th>
+               
+                <td mat-cell *matCellDef="let element;">  {{element.openDate | date: 'dd/MM/yyyy'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Close Date">
+                <th mat-header-cell *matHeaderCellDef>Close Date</th>
+               
+                <td mat-cell *matCellDef="let element;"> {{element.closeDate | date: 'dd/MM/yyyy'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Quote Start Date">
+                <th mat-header-cell *matHeaderCellDef>Quote Start Date</th>
+                <td mat-cell *matCellDef="let element;">{{element.quoteStartDate | date: 'dd/MM/yyyy'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Quote End Date">
+                <th mat-header-cell *matHeaderCellDef>Quote End Date</th>
+                <td mat-cell *matCellDef="let element;"> {{element.quoteEndDate | date: 'dd/MM/yyyy'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell  *matCellDef="let tender; let i=index;">
+                <button mat-raised-button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" matTooltip='Notify sub contractor'>
+                    <i class="material-icons">
+                        insert_invitation
+                    </i>
+                </button>
+                <button mat-raised-button type="button" matTooltip="Edit Tender Quotes"
+                    (click)="viewTender(tender)" [matTooltipPosition]="'above'"
+                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">exit_to_app</i>
+                </button>
+                <button mat-raised-button type="button" matTooltip="Upload Tender"
+                    (click)="viewer(tender)" [matTooltipPosition]="'above'"
+                    class="btn btn-danger btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">
+                        cloud_upload
+                    </i>
+                </button>
+                <button class="btn btn-danger btn-link btn-sm btn-just-icon" [matMenuTriggerFor]="menu" mat-icon-button aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-raised-button type="button"
+                                matTooltip="Final Pricing of Tender" (click)="quotes(tender)"
+                                        [matTooltipPosition]="'above'"
+                                            class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <i class="material-icons">announcement</i>
                     </button>
-                </div>
-            </mat-toolbar-row>
-        </mat-toolbar>
-
-
-        <div class="row">
+                    <button mat-raised-button matTooltip='Compare' id="alish" [matTooltipPosition]="'above'" (click)="compare(tender)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <i class="fa fa-window-restore"></i>
+                    </button>
+                    <button mat-raised-button matTooltip='Quote' [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <i class="material-icons">format_align_justify</i>
+                    </button>
+                    <button mat-raised-button matTooltip='Prepare' [matTooltipPosition]="'above'"
+                        class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </mat-menu>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div> 
+        <!-- <div class="container-fluid">
+      <div class="row">
             <div class="col-md-12">
                 <div class="card card-plain">
                     <div class="card-header">
@@ -69,12 +148,12 @@
                                                         class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                         <i class="material-icons">edit</i>
                                                     </button>
-                                                    <!-- <button mat-raised-button type="button" matTooltip="Remove"
+                                                    <button mat-raised-button type="button" matTooltip="Remove"
                                                         (click)="deleteTender(tender,index)"
                                                         [matTooltipPosition]="'above'"
                                                         class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                         <i class="material-icons">close</i>
-                                                    </button> -->
+                                                    </button>
                                                 </div>
 
                                             </td>
@@ -140,7 +219,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> 
                 <div class="card card-plain" *ngIf="tenders?.length < 1">
                     <div class="card-header" style="text-align: center; margin-bottom: 60px;">
                         <h2>{{feMsg}}</h2>
@@ -149,7 +228,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <ngx-spinner type="cog" size="medium" color="#b8a5e8">
         <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>
     </ngx-spinner>

@@ -8,10 +8,12 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { DatepickerComponent } from './datepicker/datepicker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from 'app/shared/shared.module';
 // import { CalculationComponent } from './calculation/calculation.component';
 // import { SettingsComponent } from './settings/settings.component';
 // import { QuoteComponent } from './quote/quote.component';
 //  import { LabourAndEquipmentsComponent } from './labour-and-equipments/labour-and-equipments.component';
+
 
 
 @NgModule({
@@ -20,12 +22,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
+  
     // DatepickerComponent
   ],
   exports: [

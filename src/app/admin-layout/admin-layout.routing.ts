@@ -47,8 +47,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'fast-quote/:id/:id', component: TenderFastQuoteComponent },
     { path: 'fast-compare/:id', component: TenderFastCompareComponent },
     { path: 'fast-list/:id', component: TenderFastListComponent },
-    { path: 'fast-attach/:id', component: TenderFastAttachComponent }
-
+    { path: 'fast-attach/:id', component: TenderFastAttachComponent },
 
 ];
 @NgModule({

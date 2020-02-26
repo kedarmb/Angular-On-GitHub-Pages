@@ -2,4 +2,86 @@
 table {
     width: 100%;
  }
+ .main-content{
+    .table-responsive{
+        height: calc(100% - 40px);
+        overflow-y: auto;
+    }
+}
+ .mat-column-Service-Type{
+    border-right: 1px solid #f3f3f3;
+    align-self: stretch;
+    text-align: left;
+    width:180px;
 
+    }
+    .mat-column-province{
+        border-right: 1px solid #f3f3f3;
+        align-self: stretch;
+        text-align: left;
+        width:100px;
+
+        }
+        .mat-column-Country{
+            border-right: 1px solid #f3f3f3;
+            align-self: stretch;
+            text-align: left;
+            width:100px;
+
+            }
+            .mat-column-City{
+                border-right: 1px solid #f3f3f3;
+                align-self: stretch;
+                text-align: left;
+                width:100px;
+
+                }
+                .mat-column-Actions{
+                    border-right: 1px solid #f3f3f3;
+                    align-self: stretch;
+                    text-align: center;
+                    width:180px;
+
+                    }
+                    .mat-column-Tender-Name{
+                        border-right: 1px solid #f3f3f3;
+                        align-self: stretch;
+                        text-align: left;
+                        width:260px;
+    
+                        }
+                        .mat-column-Client-Name{
+                            border-right: 1px solid #f3f3f3;
+                            align-self: stretch;
+                            text-align: center;
+                            width:200px;
+        
+                            }
+                            .mat-column-Open-Date{
+                                border-right: 1px solid #f3f3f3;
+                                align-self: stretch;
+                                text-align: center;
+                                width:200px;
+            
+                                }
+                                .mat-column-Close-Date{
+                                    border-right: 1px solid #f3f3f3;
+                                    align-self: stretch;
+                                    text-align: center;
+                                    width:200px;
+                
+                                    }
+                                    .mat-column-Quote-Start-Date{
+                                        border-right: 1px solid #f3f3f3;
+                                        align-self: stretch;
+                                        text-align: center;
+                                        width:200px;
+                    
+                                        }
+                                        .mat-column-Quote-End-Date{
+                                            border-right: 1px solid #f3f3f3;
+                                            align-self: stretch;
+                                            text-align: center;
+                                            width:200px;
+                        
+                                            }
