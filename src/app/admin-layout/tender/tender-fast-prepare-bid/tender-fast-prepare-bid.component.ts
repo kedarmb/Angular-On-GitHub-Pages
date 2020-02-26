@@ -112,9 +112,11 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       this.filteredSection[0].lineItems.map(e => {
         return e.subTotalPrice = this.sublineTotalPrice
       })
+      this.filteredSection[0].lineItems[i].total = 0;
       this.filteredSection[0].lineItems[i].total += this.sublineTotalPrice;
       if (this.filteredSection[0].lineItems[i].crewItemRef !== null) {
         this.filteredSection[0].lineItems[i].total += this.filteredSection[0].lineItems[i].crewItemRef.crewTotalCost;
+        
       }
       if (this.filteredSection[0].lineItems[i].total || this.filteredSection[0].lineItems[i].quantity)
         this.filteredSection[0].lineItems[i].unitPrice = this.filteredSection[0].lineItems[i].total / this.filteredSection[0].lineItems[i].quantity
@@ -166,9 +168,16 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
     this.sublineTotalPrice = totalPrice.reduce((accumulator, currentValue) => {
       return accumulator + currentValue;
     })
+    
     this.filteredSection[0].lineItems[i].subTotalPrice = this.sublineTotalPrice
-    this.filteredSection[0].lineItems[i].total = this.sublineTotalPrice;
-
+    this.filteredSection[0].lineItems[i].total = 0;
+    this.filteredSection[0].lineItems[i].total += this.sublineTotalPrice;
+      if (this.filteredSection[0].lineItems[i].crewItemRef !== null) {
+        this.filteredSection[0].lineItems[i].total += this.filteredSection[0].lineItems[i].crewItemRef.crewTotalCost;
+      }
+      if (this.filteredSection[0].lineItems[i].total || this.filteredSection[0].lineItems[i].quantity)
+        this.filteredSection[0].lineItems[i].unitPrice = this.filteredSection[0].lineItems[i].total / this.filteredSection[0].lineItems[i].quantity
+    
   }
 
 
