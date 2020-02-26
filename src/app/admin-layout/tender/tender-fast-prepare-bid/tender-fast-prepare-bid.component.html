@@ -25,6 +25,7 @@
                         <th>unit Price</th>
                         <th>quantity</th>
                         <th>Total Price</th>
+                        <th>Action</th>
                     </thead>
                     <tbody>
                         <ng-container *ngIf="filteredSection[0].lineItems">
@@ -40,6 +41,10 @@
                                     <td>{{item.unitPrice}}</td>
                                     <td>{{item.quantity}}</td>
                                     <td>{{item.total}}</td>
+                                    <td><button mat-raised-button type="button" (click)="postSubline(item)" matTooltip="save line item"
+                                            [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                            <i class="material-icons">save</i>
+                                        </button></td>
                                 </tr>
                                 <tr *ngIf="item.subLineItems.length;" class="bg-light">
                                     <td colspan="1">
@@ -54,7 +59,6 @@
                                                     <th>Unit Price</th>
                                                     <th>Quantity</th>
                                                     <th>subtotal</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -65,14 +69,12 @@
                                                     <td>{{sub.unitPrice}}</td>
                                                     <td>
                                                         <span class="col-1">
-                                                            <input type="number" #val (keyup)="sub.quantity= val.value" (change)="getModels(i)">
+                                                            <input type="number" #val value="{{sub.quantity}}" (keyup)="sub.quantity= val.value"
+                                                                (change)="getModels(i)">
                                                         </span>
                                                     </td>
                                                     <td>{{sub.totalPrice}}</td>
-                                                    <td><button mat-raised-button type="button" (click)="postSubline(sub, item)" matTooltip="save line item"
-                                                        [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                        <i class="material-icons">save</i>
-                                                    </button></td>
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <td></td>
@@ -95,7 +97,8 @@
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <div *ngIf="item.crewItemRef === null">
-                                                <button (click)="addCrewToLine(selectedSection, item._id)">Add crew</button>
+                                                <button (click)="addCrewToLine(selectedSection, item._id)">Add
+                                                    crew</button>
                                             </div>
                                             <div *ngIf="item.crewItemRef !== null">
                                                 <p>labour Total Cost: {{item.crewItemRef.labourTotalCost}}</p>
