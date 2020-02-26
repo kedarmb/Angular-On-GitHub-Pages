@@ -32,9 +32,12 @@ import { StateNamePipe } from './pipe/state-name.pipe';
 import { LineItemCrewComponent } from './components/line-item-crew/line-item-crew.component';
 import { InvitedSubcontractorsComponent } from './components/invited-subcontractors/invited-subcontractors.component';
 import { ViewQuotesComponent } from './components/view-quotes/view-quotes.component';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from 'ngx-mat-datetime-picker';
+
 import { ActiveTendersComponent } from './components/active-tenders/active-tenders.component';
 //
 const MaterialComponent = [
+  NgxMatDatetimePickerModule, NgxMatTimepickerModule,
   NgxSpinnerModule,
   MatButtonModule, MatButtonToggleModule,
   MatIconModule, MatBadgeModule, MatRadioModule,
@@ -89,6 +92,8 @@ const MaterialComponent = [
     // NgxTagsInputModule
   ],
   imports: [
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
     NgxTagsInputModule,
     TagInputModule,
     MatDialogModule,

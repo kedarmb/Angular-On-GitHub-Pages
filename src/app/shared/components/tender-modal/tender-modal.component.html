@@ -2,12 +2,14 @@
   <form [formGroup]="tenderHeaderForm" novalidate *ngIf="tenderHeaderForm">
     <mat-form-field>
       <mat-label for="clientName">Client Name</mat-label>
-      <input matInput formControlName="clientName" placeholder="choose an existing client" [matAutocomplete]="auto" (blur)="removeNonExistentClient($event)">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let client of clientList | async" [value]="client.name">          
-          <span>{{client.name}}</span>          
-        </mat-option>
-      </mat-autocomplete>
+      <div formGroupName='clientName'>
+        <input matInput formControlName="name" placeholder="choose an existing client" [matAutocomplete]="auto" (blur)="removeNonExistentClient($event)">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let client of clientList | async" [value]="client.name">          
+            <span>{{client.name}}</span>          
+          </mat-option>
+        </mat-autocomplete>
+      </div>
 
       <mat-error *ngIf="(!tenderHeaderForm.controls.clientName.valid &&  
         tenderHeaderForm.controls.clientName.dirty)" class="error">
@@ -60,12 +62,11 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="form-group">
-          <mat-label>Tender Close date</mat-label>          
+          <mat-label>Tender Close date</mat-label>    
           <mat-form-field>
-            <input matInput [matDatepicker]="closeDtpicker" placeholder="Choose a date" formControlName="closeDate"
-              [min]="tenderCloseMinDate">
+            <input matInput [ngxMatDatetimePicker]="closeDtpicker" placeholder="Choose a date" formControlName="closeDate">
             <mat-datepicker-toggle matSuffix [for]="closeDtpicker"></mat-datepicker-toggle>
-            <mat-datepicker #closeDtpicker></mat-datepicker>
+            <ngx-mat-datetime-picker [disableSecond]="disableSecond" #closeDtpicker ></ngx-mat-datetime-picker>
             <mat-error *ngIf="!tenderHeaderForm.controls.closeDate.valid && 
                 (tenderHeaderForm.controls.closeDate.dirty)" class="error">
               <div *ngIf="tenderHeaderForm.controls.closeDate.errors.invalidMsg">
@@ -75,7 +76,6 @@
           </mat-form-field>
         </div>
       </mat-grid-tile>
-      
       <mat-grid-tile>
         <div class="form-group">
           <mat-label>Quote Open Date</mat-label>
@@ -94,16 +94,15 @@
           </mat-form-field>
         </div>
       </mat-grid-tile>
-      
+
       <mat-grid-tile>
         <div class="form-group">
           <mat-label>Quote Close Date</mat-label>
-          
           <mat-form-field>
-            <input matInput [matDatepicker]="qtClsDtpicker" placeholder="Choose a date" 
-            formControlName="quoteEndDate" [min]="quoteCloseMinDate" [max]="quoteCloseMaxDate">
+            <input matInput [ngxMatDatetimePicker]="qtClsDtpicker" placeholder="Choose a date"
+            [min]="quoteCloseMinDate" [max]="quoteCloseMaxDate" formControlName="quoteEndDate">
             <mat-datepicker-toggle matSuffix [for]="qtClsDtpicker"></mat-datepicker-toggle>
-            <mat-datepicker #qtClsDtpicker></mat-datepicker>
+            <ngx-mat-datetime-picker [disableSecond]="disableSecond" #qtClsDtpicker></ngx-mat-datetime-picker>
             <mat-error *ngIf="!tenderHeaderForm.controls.quoteEndDate.valid && 
                 (tenderHeaderForm.controls.quoteEndDate.dirty)" class="error">
               <div *ngIf="tenderHeaderForm.controls.quoteEndDate.errors.invalidMsg">
@@ -114,11 +113,18 @@
         </div>
       </mat-grid-tile>      
     </mat-grid-list>
+    <div>
+      <mat-form-field>
+        <mat-label>Mode of submission</mat-label>
+        <mat-select formControlName="submissionMode">
+          <mat-option *ngFor="let mode of submitModes" [value]="mode.name" name="mode.name">{{mode.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
+    </div>
     
-
     <div *ngIf="tData.value == false">
-      <button mat-button [disabled]="!tenderHeaderForm.valid" (click)="save()"
+      <button mat-button (click)="save()" [disabled]="!tenderHeaderForm.valid"
         class="btn btn-danger pull-right">Save</button>
     </div>
     <div *ngIf="tData.value == true">

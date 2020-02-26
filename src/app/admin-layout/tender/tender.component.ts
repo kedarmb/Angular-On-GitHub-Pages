@@ -14,7 +14,7 @@ import { HelperService } from 'app/shared/core/service/helper.service';
 })
 export class TenderComponent implements OnInit {
 
-  displayedColumns: string[] = ['Client Name', 'Tender Name', 'Open Date', 'Close Date', 'Quote Start Date', 'Quote End Date', 'Actions'];
+  displayedColumns: string[] = ['Client Name', 'Tender Name', 'Open Date', 'Close Date', 'Quote Start Date', 'Quote End Date', 'Mode of Submission', 'Status', 'Actions'];
   tenders: Array<any> = [];
   orgList: any[];
   feMsg: string;

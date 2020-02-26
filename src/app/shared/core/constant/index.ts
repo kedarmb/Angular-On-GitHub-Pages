@@ -81,3 +81,10 @@ export const userRole = [
   { name: 'Admin'},
   {name: 'User'}
 ]
+export const modeOfSubmission = [
+  { name: 'online' },
+  { name: 'handwritten'},
+  { name: 'print' },
+  { name: 'electronic' }
+]
+

@@ -4,16 +4,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HelperService } from '../../core/service/helper.service';
 import { HttpService } from '../../core/service/http.service'
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
-import { regex } from '../../core/constant/index';
+import { regex, modeOfSubmission} from '../../core/constant/index';
 import { Tender } from 'app/shared/core/model/tender.model';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-
-
-
 
 
 
@@ -30,8 +27,8 @@ export class TenderModalComponent implements OnInit {
     quoteOpenMinDate: any;
     quoteCloseMaxDate: any;
     quoteCloseMinDate: any;
-    // quoteOpenMaxDate: any;
-    // quoteCloseMinDate: any;
+    public disableSecond = true;
+
 
     resData = {
         status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
@@ -40,13 +37,14 @@ export class TenderModalComponent implements OnInit {
     injectedData: any;
     allClients: Array<any> = [];
     clientList: Observable<any[]>;
+    submitModes = modeOfSubmission;
 
     constructor(public tenderModalRef: MatDialogRef<TenderModalComponent>,
         @Inject(MAT_DIALOG_DATA) public tData: any,
         private httpServ: HttpService,
         private formBuider: FormBuilder,
         private hs: HelperService,
-        private toastr: ToastrService, private spinner: NgxSpinnerService
+        private toastr: ToastrService, private spinner: NgxSpinnerService,
     ) {
 
     }
@@ -83,14 +81,16 @@ export class TenderModalComponent implements OnInit {
         console.log('allClients are:  ', this.allClients);
     }
 
-
     initializeForm() {
         this.tenderHeaderForm = this.formBuider.group({
             _id: [],
             headerLevelNotifiedSubs: [],
             sections: [],
-            clientName: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
-            //
+            clientName: this.formBuider.group({
+                _id: '',
+                name: ''
+            }),
+
             name: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
             //
             description: ['', Validators.required],
@@ -98,8 +98,8 @@ export class TenderModalComponent implements OnInit {
             closeDate: ['', Validators.required],
             quoteStartDate: ['', Validators.required],
             quoteEndDate: ['', Validators.required],
+            submissionMode: [ '', Validators.required ],
         });
-        //
 
         this.clientList = this.tenderHeaderForm.get('clientName').valueChanges
             .pipe(
@@ -214,19 +214,13 @@ export class TenderModalComponent implements OnInit {
 
     save() {
         this.spinner.show();
-        // console.log(this.tenderHeaderForm.value);
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         updateData.organizationRef = this.hs.getOrgId();
-        // const tenderID = updateData._id;
         updateData.clientName = this.hs.findClientID(updateData.clientName);
         //
         console.log('updateData is :   ', updateData);
-        // return;
         this.httpServ.addNewTender(updateData).subscribe((res) => {
-            // console.log('success in adding ', res);
-            //
             if (res.status === 201) {
-                // console.log('success in updating ', res);
                 this.resData.status = 'add';
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);
@@ -240,22 +234,14 @@ export class TenderModalComponent implements OnInit {
     }
 
     update() {
-        // console.log(this.tenderHeaderForm.value);
-        // this.hs.showSpinner();
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         const tenderID = updateData._id;
-        //
-        // updateData.headerLevelNotifiedSubs = []
-        // updateData.sections = []
-
-        console.log(updateData)
-        updateData.clientName = this.hs.findClientID(updateData.clientName);
-        //
+        updateData.clientName=updateData.clientName._id
+        console.log(updateData.clientName)
+        // updateData.clientName = this.hs.findClientID(updateData.clientName._id);
+        console.log(updateData.clientName)
         this.httpServ.updateTender(tenderID, updateData).subscribe((res) => {
-            // console.log(res);
-            // TODO: to check consistent status code
             if (res.status === 200) {
-                // console.log('success in updating ', res);
                 this.resData.status = 'update';
                 this.resData.data = res.body;
                 this.tenderModalRef.close(this.resData);
