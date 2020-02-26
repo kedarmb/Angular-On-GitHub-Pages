@@ -86,10 +86,10 @@ export class TenderModalComponent implements OnInit {
             _id: [],
             headerLevelNotifiedSubs: [],
             sections: [],
-            clientName: this.formBuider.group({
-                _id: '',
-                name: ''
-            }),
+                    clientName: this.formBuider.group({
+                        _id: '',
+                        name: ''
+                    }),
 
             name: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
             //
@@ -106,7 +106,6 @@ export class TenderModalComponent implements OnInit {
                 startWith(''),
                 map(v => v ? this.filteredClients(v) : this.allClients.slice())
             );
-        //
         this.tenderHeaderForm.get('openDate').valueChanges.subscribe(() => {
             console.log('value changes invoked')
             this.setMinDate();
@@ -160,6 +159,7 @@ export class TenderModalComponent implements OnInit {
             if (isValueTrue.length === 0) {
                 this.toastr.warning('Please chose a client from the dropdown only.');
                 this.tenderHeaderForm.get('clientName').setValue(null);
+
             }
         }, 300);
     }
@@ -185,8 +185,6 @@ export class TenderModalComponent implements OnInit {
             } else {
                 return null
             }
-            //  console.log(ctrl);
-            //
             return {
                 invalidMsg: msg
             };
@@ -216,9 +214,9 @@ export class TenderModalComponent implements OnInit {
         this.spinner.show();
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         updateData.organizationRef = this.hs.getOrgId();
-        updateData.clientName = this.hs.findClientID(updateData.clientName);
+        // updateData.clientName = this.hs.findClientID(updateData.clientName._id);
+        updateData.clientName = updateData.clientName._id;
         //
-        console.log('updateData is :   ', updateData);
         this.httpServ.addNewTender(updateData).subscribe((res) => {
             if (res.status === 201) {
                 this.resData.status = 'add';
@@ -236,10 +234,8 @@ export class TenderModalComponent implements OnInit {
     update() {
         const updateData = Object.assign({}, this.tenderHeaderForm.value);
         const tenderID = updateData._id;
-        updateData.clientName=updateData.clientName._id
-        console.log(updateData.clientName)
-        // updateData.clientName = this.hs.findClientID(updateData.clientName._id);
-        console.log(updateData.clientName)
+        updateData.clientName = updateData.clientName._id;
+        // updateData.clientName = this.hs.findClientID(updateData.clientName);
         this.httpServ.updateTender(tenderID, updateData).subscribe((res) => {
             if (res.status === 200) {
                 this.resData.status = 'update';
@@ -252,6 +248,9 @@ export class TenderModalComponent implements OnInit {
             this.spinner.hide();
             console.log('err in updating ', err);
         })
+    }
+    getClientID(_id, name) {
+        this.tenderHeaderForm.get('clientName').setValue({_id , name})
     }
     //
     close() {
