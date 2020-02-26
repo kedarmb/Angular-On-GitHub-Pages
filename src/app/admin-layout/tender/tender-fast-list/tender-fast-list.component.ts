@@ -96,7 +96,6 @@ export class TenderFastListComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === 201) {
           this.filterAttendedSub(response.body);
-          this.toastr.success(response.statusText);
           this.createdSubline = response.body;
           this.hs.setSession('sublineDataNow', JSON.stringify(this.createdSubline));
         }

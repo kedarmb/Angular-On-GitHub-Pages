@@ -1,5 +1,5 @@
 <div class="row top-70">
-    <div class="col-3 pr-0">
+    <!-- <div class="col-3 pr-0">
         <h3>Subline Items</h3>
         <table>
             <thead>
@@ -26,8 +26,8 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div class="col-9 px-0">
+    </div> -->
+    <div class="col-12">
         <div class="col-3">
             <mat-form-field *ngIf="tenderData">
                 <mat-label>Cars</mat-label>
@@ -39,7 +39,7 @@
                 </select>
             </mat-form-field>
         </div>
-        <div class="col-12 px-0">
+        <div class="col-12 pl-0">
             <div *ngIf="filteredSection">
                 <table>
                     <thead>
@@ -50,18 +50,15 @@
                         <th>description</th>
                         <th>description</th>
                         <th>unit</th>
-                        <th>unitPrice</th>
+                        <th>unit Price</th>
                         <th>quantity</th>
+                        <th>Total Price</th>
                     </thead>
                     <tbody>
                         <ng-container *ngIf="filteredSection[0].lineItems">
-                            <ng-container *ngFor="let item of filteredSection[0].lineItems">
+                            <ng-container *ngFor="let item of filteredSection[0].lineItems; let i = index">
                                 <tr>
-                                    <td>
-                                        <mat-checkbox id="{{item._id}}" [value]="item.id"
-                                            (change)="getSelectedLine($event, item._id, selectedSection)">
-                                        </mat-checkbox>
-                                    </td>
+                                    <td></td>
                                     <td>{{item.specNo}}</td>
                                     <td>{{item.itemNo}}</td>
                                     <td>{{item.itemName}}</td>
@@ -70,21 +67,73 @@
                                     <td>{{item.unit}}</td>
                                     <td>{{item.unitPrice}}</td>
                                     <td>{{item.quantity}}</td>
+                                    <td>{{item.total}}</td>
                                 </tr>
                                 <tr *ngIf="item.subLineItems.length;" class="bg-light">
                                     <td colspan="1">
                                     </td>
                                     <td colspan="8">
                                         <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Name</th>
+                                                    <th>Unit</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>subtotal</th>
+                                                </tr>
+                                            </thead>
                                             <tbody>
                                                 <tr *ngFor="let sub of item.subLineItems; let sIdx = index;">
                                                     <td>L{{sIdx}}</td>
                                                     <td>{{sub.name}}</td>
                                                     <td>{{sub.unit}}</td>
                                                     <td>{{sub.unitPrice}}</td>
+                                                    <td>
+                                                        <span class="col-1">
+                                                            <input type="number" #val (keyup)="sub.quantity= val.value" (change)="getModels(i)">
+                                                        </span>
+                                                    </td>
+                                                    <td>{{sub.totalPrice}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>Sub Total Price:</td>
+                                                    <td>{{item.subTotalPrice}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="9">
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    Crew
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div *ngIf="item.crewItemRef === null">
+                                                <button (click)="addCrewToLine(sectionId, item._id)">Add crew</button>
+                                            </div>
+                                            <div *ngIf="item.crewItemRef !== null">
+                                                <p>labour Total Cost: {{item.crewItemRef.labourTotalCost}}</p>
+                                                <p>equipmentTotalCost: {{item.crewItemRef.equipmentTotalCost}}</p>
+                                                <p>crewTotalCost: {{item.crewItemRef.crewTotalCost}}</p>
+                                            </div>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    Trench
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <button>Add trench</button>
+                                        </mat-expansion-panel>
                                     </td>
                                 </tr>
                             </ng-container>
@@ -109,5 +158,5 @@
 </div>
 
 <div class="d-flex fixed-bottom px-4 py-2 border-top">
-    <button class="justify-content-end" (click)="createSublineWithLine()">Save</button>
+    <button class="justify-content-end">Save</button>
 </div>

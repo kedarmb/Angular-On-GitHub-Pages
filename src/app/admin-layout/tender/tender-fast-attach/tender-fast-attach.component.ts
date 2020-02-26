@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { Router } from '@angular/router';
-import { HelperService } from 'app/shared/core/service/helper.service';
-import { HttpService } from 'app/shared/core/service/http.service';
-import { PlatformLocation } from '@angular/common';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, ViewChildren, QueryList } from "@angular/core";
+import { Router } from "@angular/router";
+import { HelperService } from "app/shared/core/service/helper.service";
+import { HttpService } from "app/shared/core/service/http.service";
+import { PlatformLocation } from "@angular/common";
+import { MatDialog } from "@angular/material";
 
 @Component({
-  selector: 'app-tender-fast-attach',
-  templateUrl: './tender-fast-attach.component.html',
-  styleUrls: ['./tender-fast-attach.component.scss']
+  selector: "app-tender-fast-attach",
+  templateUrl: "./tender-fast-attach.component.html",
+  styleUrls: ["./tender-fast-attach.component.scss"]
 })
 
 export class TenderFastAttachComponent implements OnInit {
@@ -31,7 +31,7 @@ export class TenderFastAttachComponent implements OnInit {
     //     this.router.navigate(['/fast-compare/' + this.tenderId]);
     //   }
     // });
-  }
+    }
 
   ngOnInit() {
     this.getTenderById();
@@ -50,17 +50,17 @@ export class TenderFastAttachComponent implements OnInit {
         console.log('Error getting Tender by id ', err);
       })
   };
-// call tenderpost api
-createSublineWithLine() {
-  this.httpService.getseletedSubForLine(this.tenderId, this.finalArr).subscribe((response) => {
-    if (response.status === 200) {
-      console.log(response)
-    }
-  },
-    (err) => {
-      console.log('Error getting Tender by id ', err);
-    })
-}
+  // call tenderpost api
+  createSublineWithLine() {
+    this.httpService.getseletedSubForLine(this.tenderId, this.finalArr).subscribe((response) => {
+      if (response.status === 200) {
+        console.log(response)
+      }
+    },
+      (err) => {
+        console.log('Error getting Tender by id ', err);
+      })
+  }
   // call subline get API
   getSelectedSubline() {
     this.httpService.getselectedsubline(this.tenderId).subscribe((response) => {
@@ -108,10 +108,10 @@ createSublineWithLine() {
 
   // selects quote and add's to final array agains lineitems and removes it.
   getQuote(event, quote, filteredQuote) {
-    console.log(event.source)
+    console.log(event.source);
     if (event.checked) {
       this.finalArr.map(val => {
-        val.subLineItemIds.push(quote._id)
+        val.subLineItemIds.push(quote._id);
       });
       this.filteredSection[0].lineItems.map(val => {
         val.subLineItems.push(quote);
@@ -129,5 +129,9 @@ createSublineWithLine() {
     const lineIdx = this.filteredSection[0].lineItems.findIndex(e => e._id === val.lineItemId)
     const sLineIdx = this.filteredSection[0].lineItems[lineIdx].subLineItems.findIndex(e => e._id === sourceId)
     this.filteredSection[0].lineItems[lineIdx].subLineItems.splice(sLineIdx, 1)
+  }
+
+  toBid() {
+    this.router.navigate(["/fast-bid-prepare/" + this.tenderId]);
   }
 }

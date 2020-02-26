@@ -11,6 +11,7 @@ export class HelperService {
   labourData = new BehaviorSubject<any>('');
   equipmentStore: any;
   labourStore: any;
+  public reducer = (accumulator, currentValue) => accumulator + currentValue;
   //
   private tenderList: any[] = [];
   tender_even = [{}]
@@ -171,7 +172,7 @@ export class HelperService {
     localStorage.setItem(key, JSON.stringify(value));
   }
   // methods space ends
-
+ 
   unique(list): [] {
     const unique = list.filter((entry, i, flags) => {
       if (flags[entry.subContractorId._id]) {

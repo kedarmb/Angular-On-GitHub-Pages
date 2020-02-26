@@ -23,8 +23,8 @@ export class OrganizationComponent implements OnInit {
         val: '',
         id: ''
     };
-    
-   
+
+
     constructor(private modalService: MatDialog,
         private httpService: HttpService, private router: Router,
         private toastr: ToastrService,
@@ -44,7 +44,7 @@ export class OrganizationComponent implements OnInit {
                 this.spinner.hide();
             }, error => {
                 this.toastr.error(error.error.message)
-                    this.spinner.hide();
+                this.spinner.hide();
             })
     }
 

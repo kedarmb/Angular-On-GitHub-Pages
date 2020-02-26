@@ -1,3 +1,4 @@
+import { TenderFastPrepareBidComponent } from './tender/tender-fast-prepare-bid/tender-fast-prepare-bid.component';
 import { TenderFastAttachComponent } from './tender/tender-fast-attach/tender-fast-attach.component';
 import { TenderFastListComponent } from './tender/tender-fast-list/tender-fast-list.component';
 import { TenderFastCompareComponent } from './tender/tender-fast-compare/tender-fast-compare.component';
@@ -48,7 +49,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'fast-compare/:id', component: TenderFastCompareComponent },
     { path: 'fast-list/:id', component: TenderFastListComponent },
     { path: 'fast-attach/:id', component: TenderFastAttachComponent },
-
+    { path: 'fast-bid-prepare/:id', component: TenderFastPrepareBidComponent }
 ];
 @NgModule({
     imports: [RouterModule.forChild(AdminLayoutRoutes)],
