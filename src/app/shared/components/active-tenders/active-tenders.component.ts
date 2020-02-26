@@ -19,7 +19,7 @@ export class ActiveTendersComponent implements OnInit, OnChanges {
   attendedSubs = [];
   tender: any;
   _sub: any;
-  createdSubline: any;
+  // createdSubline: any;
   invitedSubs: any;
   constructor(private router: Router, private hs: HelperService,
     private httpService: HttpService, private toastr: ToastrService,
@@ -31,7 +31,7 @@ export class ActiveTendersComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.getTenderByID();
-    this.createSubline();
+    // this.createSubline();
   };
   ngOnChanges(): void {
     this.location.onPopState((e) => {
@@ -87,21 +87,21 @@ export class ActiveTendersComponent implements OnInit, OnChanges {
   };
 
 
-  createSubline() {
-    this.httpService.getSubline(this.tenderID)
-      .subscribe((response: any) => {
-        if (response.status === 201) {
-          this.filterAttendedSub(response.body);
-          this.toastr.success(response.statusText);
-          this.createdSubline = response.body;
-          this.hs.setSession('sublineDataNow', JSON.stringify(this.createdSubline));
-        }
-      },
-        error => {
-          this.toastr.error(error.error.message);
-        }
-      )
-  };
+  // createSubline() {
+  //   this.httpService.getSubline(this.tenderID)
+  //     .subscribe((response: any) => {
+  //       if (response.status === 201) {
+  //         this.filterAttendedSub(response.body);
+  //         this.toastr.success(response.statusText);
+  //         this.createdSubline = response.body;
+  //         this.hs.setSession('sublineDataNow', JSON.stringify(this.createdSubline));
+  //       }
+  //     },
+  //       error => {
+  //         this.toastr.error(error.error.message);
+  //       }
+  //     )
+  // };
 
   filterAttendedSub(e) {
     const filterArr: any[] = [];

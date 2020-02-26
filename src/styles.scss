@@ -56,11 +56,11 @@ html {
     }
   }
 }
-.sidebar[data-color="danger"] {
+.sidebar{
   li {
     &.active {
       & > a {
-        background-color: $indigo-500;
+         background-color: $indigo-500;
         color: $white;
       }
     }
@@ -157,6 +157,9 @@ th.mat-header-cell{
 	padding: 8px 8px;
 }td.mat-cell, td.mat-footer-cell{
 	padding: 12px 8px;
+}
+.sidebar[data-color=danger] li.active > a {
+  background: #3f51b5;
 }
 .mat-datepicker-content {
   .time-container{

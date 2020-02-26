@@ -6,12 +6,12 @@
                     <mat-grid-tile>
                         <div class="card card-chart">
                             <div class="card-header">
-                                <h4 class="card-title">{{t.name}}+{{t.clientName}}</h4>
+                                <h4 class="card-title">{{t.name}}</h4>
                             </div>
                             <div class="card-body">
                                 <div class="card-category">
                                     <ul style="list-style-type: none;padding:8px;">
-                                        <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
+                                        <!-- <li >Client Name: <span class="color" > {{t.clientName}}</span></li> -->
                                         <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
                                         <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
                                     </ul>
@@ -25,12 +25,12 @@
             <mat-grid-tile>
                 <div class="card card-chart">
                     <div class="card-header ">
-                        <h4 class="card-title">Client Name + Tender Name</h4>
+                        <h4 class="card-title"> Tender Name</h4>
                     </div>
                     <div class="card-body" style="overflow-y:auto;">
                         <div  *ngFor = 'let t of tenders' class="card-category">
                             <ul style="list-style-type: none;padding:8px;box-shadow:0px 0px 1px 2px #eeeeee;">
-                                <li >Client Name: <span class="color" > {{t.clientName}}</span></li>
+                                <!-- <li >Client Name: <span class="color" > {{t.clientName}}</span></li> -->
                                 <li >Tender Name:  <span class="color" >  {{t.name}}</span></li>
                                 <li class="bg-red">Away from closing: <span class="color" >{{getDiff(t.openDate,t.closeDate)}}days</span></li>
                             </ul>
