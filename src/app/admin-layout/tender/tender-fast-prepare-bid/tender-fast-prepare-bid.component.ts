@@ -1,9 +1,7 @@
 import { MatDialog } from '@angular/material';
-import { PlatformLocation } from '@angular/common';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
-import { Router } from '@angular/router';
-import { Component, OnInit, QueryList, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, AfterViewInit, OnChanges } from '@angular/core';
 import { LineItemCrewComponent } from 'app/shared/components/line-item-crew/line-item-crew.component';
 import { FormControl } from '@angular/forms';
 
@@ -12,7 +10,8 @@ import { FormControl } from '@angular/forms';
   templateUrl: './tender-fast-prepare-bid.component.html',
   styleUrls: ['./tender-fast-prepare-bid.component.scss']
 })
-export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
+
+export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnChanges {
   tenderId: any;
   sectionId: any;
   tenderData: any;
@@ -60,6 +59,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
   // call tenderpost api
   createSublineWithLine() {
     this.httpService
@@ -75,6 +75,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
         }
       );
   }
+
   // call subline get API
   getSelectedSubline() {
     this.httpService.getselectedsubline(this.tenderId).subscribe(
@@ -89,7 +90,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
     );
   }
 
-  showSection(value, a) {
+  showSection(value) {
     this.filteredSection = this.tenderData.sections.filter(
       v => v._id === value
     );
@@ -99,11 +100,11 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
     })
     console.log(this.filteredSection);
     // = 0; i < this.filteredSection[0].lineItems.length; i++
-    for (let i in this.filteredSection[0].lineItems){
+    for (let i in this.filteredSection[0].lineItems) {
       const totalPrice = this.filteredSection[0].lineItems[i].subLineItems.map(e => {
         return e.totalPrice = e.quantity * e.unitPrice;
       })
-      if(totalPrice.length){
+      if (totalPrice.length) {
         this.sublineTotalPrice = totalPrice.reduce((accumulator, currentValue) => {
           return accumulator + currentValue;
         })
@@ -112,7 +113,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
         return e.subTotalPrice = this.sublineTotalPrice
       })
       this.filteredSection[0].lineItems[i].total += this.sublineTotalPrice;
-      if (this.filteredSection[0].lineItems[i].crewItemRef !== null){
+      if (this.filteredSection[0].lineItems[i].crewItemRef !== null) {
         this.filteredSection[0].lineItems[i].total += this.filteredSection[0].lineItems[i].crewItemRef.crewTotalCost;
       }
       if (this.filteredSection[0].lineItems[i].total || this.filteredSection[0].lineItems[i].quantity)
@@ -155,36 +156,9 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
       this.filteredSection[0].lineItems[lineIdx].subLineItems = [];
     }
   }
-
-  // selects quote and add's to final array agains lineitems and removes it.
-  getQuote(event, quote, filteredQuote) {
-    console.log(event.source);
-    if (event.checked) {
-      this.finalArr.map(val => {
-        val.subLineItemIds.push(quote._id);
-      });
-      this.filteredSection[0].lineItems.map(val => {
-        val.subLineItems.push(quote);
-      });
-    }
-    if (!event.checked) {
-      this.finalArr.map(val => {
-        const idx = val.subLineItemIds.findIndex(e => e === event.source.id);
-        val.subLineItemIds.splice(idx, 1);
-        this.filterFilteredArr(val, event.source.id);
-      });
-    }
+  ngOnChanges() {
+    console.log('fired after CHanges')
   }
-  filterFilteredArr(val, sourceId) {
-    const lineIdx = this.filteredSection[0].lineItems.findIndex(
-      e => e._id === val.lineItemId
-    );
-    const sLineIdx = this.filteredSection[0].lineItems[
-      lineIdx
-    ].subLineItems.findIndex(e => e._id === sourceId);
-    this.filteredSection[0].lineItems[lineIdx].subLineItems.splice(sLineIdx, 1);
-  }
-
   getModels(i) {
     const totalPrice = this.filteredSection[0].lineItems[i].subLineItems.map(e => {
       return e.totalPrice = e.quantity * e.unitPrice;
@@ -195,18 +169,11 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
     this.filteredSection[0].lineItems[i].subTotalPrice = this.sublineTotalPrice
     this.filteredSection[0].lineItems[i].total = this.sublineTotalPrice;
 
-    console.log(this.filteredSection)
-    console.log(this.sublineTotalPrice)
   }
- 
 
-  addCrewToLine(sectionID, lineItmID, lineItemRef?, sectionRef?) {
-    // this.currentSection = sectionRef;
-    // this.currentLineItem = lineItemRef;
-    // console.log('this.currentLineItem >>> ', this.currentLineItem)
-    //
+
+  addCrewToLine(sectionID, lineItmID) {
     console.log(sectionID, lineItmID);
-
     const postIds = {
       tender: this.tenderData._id, section: sectionID, lineItem: lineItmID,
       crewLabourEquipment: null, labourTotalCost: null,
@@ -219,15 +186,46 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit {
     });
     modalRef.afterClosed().subscribe(response => {
       if (response.status === 'close' || response.status === undefined) {
+        this.getTenderById()
+        this.showSection(sectionID);
         console.log(response.data);
 
       } if (response.status === 'add') {
-        this.getTenderById()
+        // this.getTenderById()
+        this.hs.setSession('tenderDataNow', JSON.stringify(response.data));
+        this.tenderData = JSON.parse(this.hs.getSession('tenderDataNow'));
+        this.showSection(sectionID);
         console.log('crew resp... ', response);
       }
     })
   }
-
-
+  postSubline(sub, item) {
+    const finalArr = {
+      sublineItem: [{
+        _id: sub._id,
+        totalPrice: sub.totalPrice,
+        quantity: sub.quantity,
+        section: sub.section,
+        lineItem: sub.lineItem,
+        subContractorId: sub.subContractorId
+      }],
+      lineTotalPrice: [{
+        section: this.selectedSection,
+        lineItem: item._id,
+        unitPrice: item.unitPrice,
+        total: item.total
+      }]
+    }
+    this.httpService.postSubline(finalArr, this.tenderId)
+      .subscribe(response => {
+        if (response.status === 200) {
+          console.log(response)
+        }
+      },
+        err => {
+          console.log('Error getting Tender by id', err);
+        }
+      );
+  }
 
 }

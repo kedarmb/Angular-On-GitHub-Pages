@@ -61,8 +61,8 @@
                 <ng-container matColumnDef="Actions">
                     <th mat-header-cell *matHeaderCellDef>Actions</th>
                     <td mat-cell *matCellDef="let tender; let i=index;">
-                        <button mat-raised-button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon"
-                            matTooltip='Notify sub contractor'>
+                        <button mat-raised-button type="button" (click)="notifySubC(tender)"
+                            class="btn btn-danger btn-link btn-sm btn-just-icon" matTooltip='Notify sub contractor'>
                             <i class="material-icons">
                                 insert_invitation
                             </i>

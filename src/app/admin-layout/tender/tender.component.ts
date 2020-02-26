@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpService } from '../../shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
+import { NotifySubcontractorComponent } from 'app/shared/components/notify-subcontractor/notify-subcontractor.component';
 
 @Component({
   selector: 'app-tender',
@@ -23,7 +24,8 @@ export class TenderComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private httpServ: HttpService,
     private hs: HelperService,
-    public tenderModalDialog: MatDialog) {
+    public tenderModalDialog: MatDialog,
+    public dialog: MatDialog) {
     console.log('TenderComponent instantiated');
   }
 
@@ -131,5 +133,20 @@ export class TenderComponent implements OnInit {
   compare(tender) {
     this.router.navigateByUrl('/compare');
   }
+  notifySubC(ele) {
+    //
+    console.log(ele)
+    const dialogRef = this.dialog.open(NotifySubcontractorComponent, {
+      height: '50%',
+      width: '850px',
+      data: { tenderID: ele._id },
+      disableClose: true
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed ', result);
+      this.getAllTenders();
+    });
 
+  }
 }

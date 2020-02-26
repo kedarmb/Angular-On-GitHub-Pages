@@ -224,6 +224,9 @@ export class HttpService {
   public updateSubline(body, id) {
     return this.httpClient.put(ApiUrl.createSubline + id, body, { headers: this.getHeader(), observe: 'response' });
   }
+  public postSubline(body, id) {
+    return this.httpClient.put(ApiUrl.createSubline + id +'/sublinePrice', body, { headers: this.getHeader(), observe: 'response' });
+  }
   public getUniqueSubline(id) {
     return this.httpClient.get(ApiUrl.createUniqueSubline  + '/' + id, { headers: this.getHeader(), observe: 'response' });
   }

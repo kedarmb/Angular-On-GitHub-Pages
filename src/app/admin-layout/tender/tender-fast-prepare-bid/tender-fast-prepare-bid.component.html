@@ -1,32 +1,4 @@
 <div class="row top-70">
-    <!-- <div class="col-3 pr-0">
-        <h3>Subline Items</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Unit</th>
-                    <th>Unit Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let quote of selectedQuotes; let itemN = index;">
-                    <mat-radio-group name="selectedQuotes">
-                        <td>
-                            {{quote.name}}
-                        </td>
-                    </mat-radio-group>
-                    <td>{{quote.unit}}</td>
-                    <td>{{quote.unitPrice}}</td>
-                    <td>
-                        <mat-checkbox [disabled]="!finalArr.length" id="{{quote._id}}" #quo [value]="quote._id"
-                            (change)="getQuote($event, quote, selectedQuotes);">
-                        </mat-checkbox>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div> -->
     <div class="col-12">
         <div class="col-3">
             <mat-form-field *ngIf="tenderData">
@@ -82,6 +54,7 @@
                                                     <th>Unit Price</th>
                                                     <th>Quantity</th>
                                                     <th>subtotal</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -96,6 +69,10 @@
                                                         </span>
                                                     </td>
                                                     <td>{{sub.totalPrice}}</td>
+                                                    <td><button mat-raised-button type="button" (click)="postSubline(sub, item)" matTooltip="save line item"
+                                                        [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">save</i>
+                                                    </button></td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
@@ -118,7 +95,7 @@
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <div *ngIf="item.crewItemRef === null">
-                                                <button (click)="addCrewToLine(sectionId, item._id)">Add crew</button>
+                                                <button (click)="addCrewToLine(selectedSection, item._id)">Add crew</button>
                                             </div>
                                             <div *ngIf="item.crewItemRef !== null">
                                                 <p>labour Total Cost: {{item.crewItemRef.labourTotalCost}}</p>
