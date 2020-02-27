@@ -624,7 +624,26 @@ export class TenderItemComponent implements OnInit, OnChanges {
     })
   }
 
-  addNewTrench(lineItem, lindx) {
+  addTrenchToLine(sectionID, lineItmID) {
+    const postTrenchIds = {
+      tender: this.tenderData._id, section: sectionID, lineItem: lineItmID,
+      calculationName: null, beddingLength: null, beddingWidth: null, beddingHeight: null,
+      beddingVolume: null, beddingWeight: null, pipeDiameter: null, pipeVolume: null,
+      pipeHeight: null, effectiveVolume: null, backfillDensity: null, densityBedding: null,
+      backfillLength: null, backfillWidth: null, backfillVolume: null, backfillHeight: null,
+      backfillWeight: null
+    }
+    const modalRef = this.modalService.open(TrenchModalComponent, {
+      height: 'auto',
+      width: '65%',
+      data: postTrenchIds,
+      disableClose: true,
+      maxHeight: '95vh',
+    });
+  }
+
+  addNewTrench(lineItem, lindx, section) {
+    this.update.data = this.tenderData;
     const modalRef = this.modalService.open(TrenchModalComponent, {
       height: 'auto',
       width: 'auto',
@@ -637,25 +656,30 @@ export class TenderItemComponent implements OnInit, OnChanges {
         console.log(response.data);
       }
       if (response.status === 'add') {
-        /* const crewCtrl = lineItemRef.get('crewItemRef') as FormControl;
-        this.crewObj = response.data;
-        crewCtrl.setValue(response.data); */
+        const trenchCtrl = lineItem.get('trenchItemRef') as FormControl;
+        this.trenchObj = response.data;
+        trenchCtrl.setValue(response.data);
         console.log(response);
       }
     });
   }
-  saveTrench(sectionRef, lineItemRef, lindx) {
+
+  saveTrench(section, lineItem) {
     // /v1/trench/tender/:tenderId/section/:sectionId/lineItem/:lineItemId
     const id = this.tenderData._id;
-    const secID = sectionRef.value._id;
-    const lineID = lineItemRef.value._id;
+    const secID = section.value._id;
+    const lineID = lineItem.value._id;
+    console.log("HHHHHHHHHHHH", lineID)
     const appendStr = '/tender/' + id + '/section/' + secID + '/lineItem/' + lineID;
+    console.log('append string ', appendStr);
+    console.log('payload is : ', this.trenchObj);
     //
-    this.httpService.saveTrenchForLineItem(appendStr, this.trenchObj).subscribe((response) => {
-      console.log('success ', response);
-    }, (err) => {
-      console.log('err saving trench ', err);
-    })
+    return;
+    // this.httpService.saveTrenchForLineItem(appendStr).subscribe((response) => { 
+    //   console.log('success ', response); 
+    // }, (err) => { 
+    //   console.log('err saving trench ', err); 
+    // })
   }
 }
 

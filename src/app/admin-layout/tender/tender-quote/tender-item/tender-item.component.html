@@ -246,16 +246,29 @@
                                                             </mat-expansion-panel-header>
                                                             <div for="trench_details_form">
                                                                 <div class="row">
-                                                                    <div class="col-6">                                                                        
+                                                                    <div class="col-6">
+                                                                        <button mat-raised-button color="primary" (click)="addTrenchToLine(section.value._id, lineItem.value._id)">Create New Trench</button>
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <button mat-raised-button color="primary" (click)="addNewTrench(lineItem, lindx)">Create New Trench</button>
+                                                                        <!--
+                                                                            <mat-form-field>
+                                                                            <mat-label>select trench..</mat-label>
+                                                                            <mat-select formControlName="trenchRef" (selectionChange)="onTrenchSelect($event)">
+                                                                                <mat-option>--</mat-option>
+                                                                                <div *ngIf="trenchList">
+                                                                                    <mat-option *ngFor="let trench of trenchList" [value]="trench">
+                                                                                        {{trench.calculationName}}
+                                                                                    </mat-option>
+                                                                                </div>
+                                                                            </mat-select>
+                                                                        </mat-form-field>
+                                                                        -->
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <mat-card *ngIf="trenchObj">
                                                                 <div class="row">
-                                                                    <div class="col-6">
+                                                                   <!--  <div class="col-6">
                                                                         <div class="mat-title"> Bedding Volume Calculation</div>
                                                                         <div class="row">
                                                                             <div class="col-6">
@@ -272,8 +285,8 @@
                                                                             </div>
                                                                         </div>
 
-                                                                    </div>
-                                                                    <div class="col-6">
+                                                                    </div> -->
+                                                                    <!-- <div class="col-6">
                                                                         <div class="mat-title"> Backfill Volume Calculation</div>
                                                                         <div class="row">
 
@@ -290,9 +303,9 @@
                                                                                 {{'BK Fill Density: '+trenchObj.backfillDensity}}
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
-                                                                <div class="row">
+                                                               <!--  <div class="row">
                                                                     <div class="col-4">
                                                                         <div class="mat-title"> Pipe Volume Calculation</div>
                                                                         <p>{{'Pipe Height: '+trenchObj.pipeHeight}}</p>
@@ -317,7 +330,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                                 <div class="col-6">
                                                                     <button mat-raised-button color="primary" (click)="saveTrench(section, lineItem, lindx)">Save</button>
                                                                 </div>

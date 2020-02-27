@@ -200,6 +200,9 @@ export class HttpService {
   public getAllTrenches(): Observable<any> {
     return this.httpClient.get(ApiUrl.trenchUrl, { headers: this.getHeader(), observe: 'response' });
   }
+  public getTenderTrenchs(appendStr): Observable<any> {
+    return this.httpClient.get(ApiUrl.trenchUrl + appendStr, { headers: this.getHeader(), observe: 'response' });
+  }
   public getAllTrenchesForOrg(): Observable<any> {
     return this.httpClient.get(ApiUrl.trenchForOrg, { headers: this.getHeader(), observe: 'response' });
   }
