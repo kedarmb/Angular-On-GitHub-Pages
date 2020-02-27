@@ -28,8 +28,8 @@
                     <a><i class="material-icons">remove_red_eye</i></a>
                     <a><i class="material-icons">delete_sweep</i></a>
                 </td>
-                <td >
-                    <app-invited-subcontractors [notifiedSubs]=" tenderID" (subs)="subSelection($event)"></app-invited-subcontractors>
+                <td>
+                    <app-invited-subcontractors [notifiedSubs]=" tenderID" (subSelected)="subSelection($event)"></app-invited-subcontractors>
                 </td>
                 <td></td>
                 <td><button  class="bg" (click)="createSub(_sub)">Add quote</button></td>
