@@ -38,6 +38,7 @@ export class TenderFastQuoteComponent implements OnInit {
     this.subName = this.hs.getSubName(this.subId);
     console.log(this.subName);
     this.tenderID = JSON.parse(this.hs.getSession("tenderIdNow"));
+    this.subId = JSON.parse(this.hs.getSession("subConIdNow"));
     if (this.subId) {
       this.filteredTender = this.subData.filter((e: any) => {
         return e.subContractorId._id === this.subId;

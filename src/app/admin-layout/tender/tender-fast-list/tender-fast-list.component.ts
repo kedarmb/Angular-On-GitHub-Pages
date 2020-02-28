@@ -114,10 +114,10 @@ export class TenderFastListComponent implements OnInit {
 
   filterAttendedSub(e) {
     const filterArr: any[] = [];
-    e.map(val => {
-      filterArr.push(val);
-    });
-    this.attendedSubs = this.hs.unique(filterArr);
+    console.log(e);
+    
+    
+    this.attendedSubs = this.hs.unique(e);
   }
 
   compare() {

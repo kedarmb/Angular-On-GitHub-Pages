@@ -174,7 +174,8 @@ export class HelperService {
   // methods space ends
  
   unique(list): [] {
-    const unique = list.filter((entry, i, flags) => {
+    const Nlist:any = [...list]
+    const unique = Nlist.filter((entry, i, flags) => {
       if (flags[entry.subContractorId._id]) {
         return false;
       }
