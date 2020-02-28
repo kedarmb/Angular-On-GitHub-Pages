@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
-// import { FileUploader } from 'ng2-file-upload'
+import { AfterViewInit, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FileUploader } from 'ng2-file-upload'
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,13 +7,14 @@ import * as uuid from 'uuid';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { HttpService } from '../../shared/core/service/http.service';
 
 @Component({
     selector: 'app-pdf-viewer',
     templateUrl: './pdf-viewer.component.html',
     styleUrls: ['./pdf-viewer.component.scss']
 })
-export class PdfViewerComponent implements OnInit, AfterViewInit {
+export class PdfViewerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     pdfSrc: any;
     start = 0;
@@ -29,14 +30,26 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
     loading = false;
     sections = [];
     headers = [];
+    pageNumber = 0;
+    tenderId;
+    interval;
 
     @ViewChild(ContextMenuComponent, { static: false }) public basicMenu: ContextMenuComponent;
     public previewSrc: string = null;
 
     constructor(private activatedRoute: ActivatedRoute,
+        private changeDetectorRef: ChangeDetectorRef,
         private modalService: NgbModal,
         private router: Router,
-        private ngZone: NgZone) { }
+        private route: ActivatedRoute,
+        private ngZone: NgZone, private httpService: HttpService) {
+        this.tenderId = this.route.snapshot.params.id;
+        changeDetectorRef.detach();
+        this.interval = setInterval(() => {
+            this.changeDetectorRef.detectChanges();
+        }, 1000);
+
+    }
 
     ngOnInit() {
 
@@ -53,7 +66,6 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
 
     public setPreviewFromFile(files: FileList) {
         this.loading = true;
-        const reader = new FileReader();
         this.start = 0;
         this.end = 0;
         this.matrix = [];
@@ -61,6 +73,9 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
         this.tables = [];
         this.noOfColumns = 0;
         this.tableObject = {};
+        this.tableResult;
+        const reader = new FileReader();
+
 
         reader.onloadend = (e: any) => {
             this.pdfSrc = e.target.result;
@@ -77,9 +92,20 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
     }
     textLayerRendered($event) {
 
+
+        this.pageNumber = $event.pageNumber;
+
         this.parseHTML($event.source);
         if ($event.pageNumber === this.pdfPages) {
-            this.createTables();
+            this.httpService.pdfParser(this.matrix).subscribe((result: any) => {
+                this.show = true;
+                this.loading = false;
+                this.tableResult = result.body.tableResult;
+                this.headers = result.body.headers;
+                this.sections = result.body.sections;
+
+            })
+            //this.createTables();
         }
 
     }
@@ -413,6 +439,7 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
 
         for (var i = 1; i < row.length; i++) {
             var newElement = row[i];
+
             if (element.right + 5 >= newElement.left) {
                 element = {
                     left: element.left, width: element.width + newElement.width,
@@ -550,15 +577,31 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
             var obj = {};
             for (var j = 0; j < headers.length; j++) {
                 if (headers[j] !== '')
-                    obj[headers[j]] = table[i][j];
+                    obj[headers[j]] = table[i][j].value;
             }
             lineItems.push(obj);
         }
 
         var sectionObj = { name: section, line_items: lineItems };
-        console.log('******saveTable********', sectionObj);
+        this.httpService.saveSectionWithLineItem(this.tenderId, sectionObj).subscribe(() => {
+            alert('success');
+        }, (err) => {
+            if (err.status === 400) {
+                if (err.error && err.error.errors && err.error.errors.length > 0) {
+                    var array = [];
+                    for (var i = 0; i < err.error.errors.length; i++) {
+                        var errObj = err.error.errors[i];
+                        array.push(errObj.messages[0]);
+                    }
+                    alert(array.join('\n'));
 
+                }
+            } else if (err.status = 500) {
+                alert(err.error);
 
+            }
+
+        });
     }
     changeContentEditable(table, row, column, content) {
         this.tableResult[table][row][column] = content;
@@ -576,6 +619,7 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
     }
 
     fillTable(event, table) {
+        console.log('********fillTable*****', table);
         event.preventDefault();
         var row = table[0];
 
@@ -583,8 +627,8 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
 
             for (var j = 0; j < table[i].length; j++) {
 
-                if (table[i][j] === '') {
-                    table[i][j] = row[j];
+                if (table[i][j].value === '') {
+                    table[i][j].value = row[j].value;
                 }
             }
             row = table[i];
@@ -597,13 +641,26 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
     }
 
     handleChange(text, table, row, column) {
+        console.log('*before*', table, row, column, text);
         this.tableResult[table][row][column] = text;
+        console.log('*after*', this.tableResult);
     }
     toggle() {
         this.show = !this.show;
+
+
     }
     setHeader(event, key, table, column) {
         event.preventDefault();
         this.headers[table][column] = key;
     }
+
+    trackByFunction(item, index) {
+        return index;
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.interval);
+    }
+
 }

@@ -245,4 +245,10 @@ export class HttpService {
   public getseletedSubForLine(id, body) {
     return this.httpClient.put(ApiUrl.seletedSubForLineUrl + id, body, { headers: this.getHeader(), observe: 'response' });
   }
+  public pdfParser(body) {
+    return this.httpClient.post(ApiUrl.pdfParserUrl + '/', body, { headers: this.getHeader(), observe: 'response' });
+  }
+  public saveSectionWithLineItem(tenderId, body) {
+    return this.httpClient.post(ApiUrl.lineItemUrl + '/tender/' + tenderId + '/lineItem', body, { headers: this.getHeader(), observe: 'response' });
+  }
 }

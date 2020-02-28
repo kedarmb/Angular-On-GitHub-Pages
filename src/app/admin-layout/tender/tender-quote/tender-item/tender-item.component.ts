@@ -656,7 +656,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
         console.log(response.data);
       }
       if (response.status === 'add') {
-        const trenchCtrl = lineItem.get('trenchItemRef') as FormControl;
+        const trenchCtrl = lineItem.get('trenchRef') as FormControl;
         this.trenchObj = response.data;
         trenchCtrl.setValue(response.data);
         console.log(response);

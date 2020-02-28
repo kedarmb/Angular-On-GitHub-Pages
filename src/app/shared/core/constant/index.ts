@@ -54,8 +54,8 @@ export const ApiUrl = {
   createSubline: sublineUrlCreator('/tender/'),
   createUniqueSubline: sublineUrlCreator('/getUniqueSubLine/tender'),
   selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/'),
-  seletedSubForLineUrl: sublineUrlCreator('/seletedSubForLine/tender/')
-
+  seletedSubForLineUrl: sublineUrlCreator('/seletedSubForLine/tender/'),
+  pdfParserUrl: authUrlCreator('/pdf-parser')
 }
 
 

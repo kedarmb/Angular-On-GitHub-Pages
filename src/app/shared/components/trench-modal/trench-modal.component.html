@@ -230,6 +230,29 @@
             </mat-form-field>
           </div>
         </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="mat-title"> Calculation Summary :</div>
+            <div class="row" *ngFor="let items of preBuiltTrenchs">
+              <div class="col-3">
+                <p><label>Bedding Volume</label> {{items.beddingVolume || 0}}</p>
+              </div>
+              <div class="col-3">
+                <p><label>Bedding Weight</label> {{items.beddingWeight || 0}}</p>
+              </div>
+              <div class="col-3">
+                <p><label>Backfill Volume</label> {{items.backfillVolume || 0}}</p>
+              </div>
+              <div class="col-3">
+                <p><label>Backfill Weight</label> {{items.backfillWeight || 0}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!admin">
+          <button mat-raised-button type="button" (click)="save()" [disabled]="!trenchForm.valid " color="primary">Save</button>
+          <button mat-raised-button type="button" color="primary" (click)="close()">Cancel</button>
+        </div>
       </mat-card-content>
     </mat-card>
   </mat-tab>

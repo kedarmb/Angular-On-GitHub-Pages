@@ -245,24 +245,48 @@
                                                                 </mat-panel-title>
                                                             </mat-expansion-panel-header>
                                                             <div for="trench_details_form">
-                                                                <div class="row">
+                                                                <div class="row" *ngIf="lineItem.value.trenchRef == null">
                                                                     <div class="col-6">
                                                                         <button mat-raised-button color="primary" (click)="addTrenchToLine(section.value._id, lineItem.value._id)">Create New Trench</button>
                                                                     </div>
+                                                                </div>
+                                                                <div class="row" *ngIf="lineItem.value.trenchRef != null">
                                                                     <div class="col-6">
-                                                                        <!--
-                                                                            <mat-form-field>
-                                                                            <mat-label>select trench..</mat-label>
-                                                                            <mat-select formControlName="trenchRef" (selectionChange)="onTrenchSelect($event)">
-                                                                                <mat-option>--</mat-option>
-                                                                                <div *ngIf="trenchList">
-                                                                                    <mat-option *ngFor="let trench of trenchList" [value]="trench">
-                                                                                        {{trench.calculationName}}
-                                                                                    </mat-option>
+                                                                        <mat-card>
+                                                                            <mat-card-content>
+                                                                                <div class="row">
+                                                                                    <div class="col">
+                                                                                        <div class="row">
+                                                                                            <div class="col">Bedding Volume:</div>
+                                                                                            <div class="col"><span
+                                                                                                    style="font-weight: bold;">{{lineItem.value.trenchRef.beddingVolume}}</span></div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col">Bedding Weight:</div>
+                                                                                            <div class="col"><span
+                                                                                                    style="font-weight: bold;">{{lineItem.value.trenchRef.beddingWeight}}</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col">Backfill Volume:</div>
+                                                                                            <div class="col"><span
+                                                                                                    style="font-weight: bold;">{{lineItem.value.trenchRef.backfillVolume}}</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col">Backfill Weight:</div>
+                                                                                            <div class="col"><span
+                                                                                                    style="font-weight: bold;">{{lineItem.value.trenchRef.backfillWeight}}</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </mat-select>
-                                                                        </mat-form-field>
-                                                                        -->
+                                                                            </mat-card-content>
+                                                                        </mat-card>
+                                                                    </div>
+                                                                    <div class="col-3">
+                                                                        <button mat-raised-button color="primary" (click)="addTrenchToLine(section.value._id, lineItem.value._id)">Edit
+                                                                            Trench</button>
                                                                     </div>
                                                                 </div>
                                                             </div>

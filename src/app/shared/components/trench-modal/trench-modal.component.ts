@@ -186,6 +186,12 @@ export class TrenchModalComponent implements OnInit {
     //return;
     this.httpService.saveTrenchForLineItem(appendStr, this._payload).subscribe((response) => {
       console.log('success ', response);
+      if (response.status === 201) {
+        this.resData.status = 'add';
+        this.resData.data = response.body;
+        this.dialogRef.close(this.resData);
+        this.toastr.success('Trench for Line Item saved');
+      }
     }, (err) => {
       console.log('err saving trench ', err);
     })

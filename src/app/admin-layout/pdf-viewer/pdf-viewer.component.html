@@ -3,94 +3,116 @@
 
         <div class="row">
             <div class="col-md-12" [hidden]="show">
-                <input type="file" (change)="setPreviewFromFile($event.target.files)"/>
+                <input type="file" (change)="setPreviewFromFile($event.target.files)" />
                 <button class="btn btn-danger btn-sm" *ngIf="!loading" (click)="toggle()">SHOW TABLE</button>
                 <div *ngIf="loading" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-                <!-- <pdf-viewer [src]="pdfSrc"
-                            [render-text]="true" (after-load-complete)="afterLoadComplete($event)"
-                            (text-layer-rendered)="textLayerRendered($event)" [original-size]="true"
-                            [fit-to-page]="true" [zoom]="1.5"
-                            style="display: block;"
-                ></pdf-viewer> -->
+                <div>
+                    <span>{{pageNumber}} </span>
+                    Of
+                    <span>{{pdfPages}} </span>
+                </div>
+                <pdf-viewer [src]="pdfSrc" [render-text]="true" (after-load-complete)="afterLoadComplete($event)"
+                    (text-layer-rendered)="textLayerRendered($event)" [original-size]="true" [fit-to-page]="true"
+                    [zoom]="1.5" style="display: block;"></pdf-viewer>
             </div>
             <div class="col-md-12" [hidden]="!show">
 
-              <button class="btn btn-danger btn-sm" (click)="toggle()">SHOW PDF</button>
-                <ng-container *ngFor="let table of tableResult;let tableIndex=index;">
+                <button class="btn btn-danger btn-sm" (click)="toggle()">SHOW PDF</button>
+                <ng-container *ngFor="let table of tableResult;trackBy:trackByFunction;let tableIndex=index;">
                     <table *ngIf="showTable(table)" class="table table-bordered my-3">
                         <tbody>
-                        <ng-container *ngFor="let row of table;let rowIndex=index;">
-                            <tr *ngIf="rowIndex===0">
-                                <td class="position-relative">
-                                   <div class="label"> SECTION </div>
-                                   <textarea [(ngModel)]="sections[tableIndex]" style="height:20%;font-weight:bold;font-size:15px;" rows="1"></textarea>
-                                </td>
-                                <td [attr.colspan]="row.length-1" class="position-relative">
-                                    <ul class="list-inline">
-                                        <li>
-                                            <a (click)="saveTable($event,tableIndex)"><i class="fa fa-save icon"></i></a>
-                                        </li>
-                                        <li>
-                                            <a (click)="fillTable($event,table)"><i class="fa fa-plus icon"></i></a>
-                                        </li>
-                                        <li>
-                                            <a (click)="delete($event,tableIndex)"><i class="fa fa-close icon"></i></a>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr *ngIf="rowIndex===0">
-                                <ng-container *ngFor="let column of row;let columnIndex=index;">
-                                    <td style="padding:0;">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-danger dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                               {{headers[tableIndex][columnIndex]}}
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('itemNo')===-1" (click)="setHeader($event,'itemNo',tableIndex,columnIndex)">item No</a>
-                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('specNo')===-1" (click)="setHeader($event,'specNo',tableIndex,columnIndex)">Spec No</a>
-                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('itemName')===-1" (click)="setHeader($event,'itemName',tableIndex,columnIndex)">Item Name</a>
-                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('description')===-1" (click)="setHeader($event,'description',tableIndex,columnIndex)">Description</a>
-                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('unit')===-1" (click)="setHeader($event,'unit',tableIndex,columnIndex)">Unit</a>
-                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('quantity')===-1" (click)="setHeader($event,'quantity',tableIndex,columnIndex)">Quantity</a>
-                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('total')===-1" (click)="setHeader($event,'total',tableIndex,columnIndex)">total</a>
-                                                <a class="dropdown-item" href="#" *ngIf="headers[tableIndex].indexOf('unitPrice')===-1" (click)="setHeader($event,'unitPrice',tableIndex,columnIndex)">Unit Price</a>
-                                                <a class="dropdown-item" href="#" (click)="setHeader($event,'',tableIndex,columnIndex)">Blank</a>
-                                            </div>
-                                        </div>
+                            <ng-container *ngFor="let row of table;trackBy:trackByFunction;let rowIndex=index;">
+                                <tr *ngIf="rowIndex===0">
+                                    <td class="position-relative">
+                                        <div class="label"> SECTION </div>
+                                        <textarea [(ngModel)]="sections[tableIndex]"
+                                            style="height:20%;font-weight:bold;font-size:15px;" rows="1"></textarea>
                                     </td>
-                                </ng-container>
+                                    <td [attr.colspan]="row.length-1" class="position-relative">
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a (click)="saveTable($event,tableIndex)"><i
+                                                        class="fa fa-save icon"></i></a>
+                                            </li>
+                                            <li>
+                                                <a (click)="fillTable($event,table)"><i class="fa fa-plus icon"></i></a>
+                                            </li>
+                                            <li>
+                                                <a (click)="delete($event,tableIndex)"><i
+                                                        class="fa fa-close icon"></i></a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="rowIndex===0">
+                                    <ng-container
+                                        *ngFor="let column of row;trackBy:trackByFunction;let columnIndex=index;">
+                                        <td style="padding:0;">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-danger dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    {{headers[tableIndex][columnIndex]}}
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#"
+                                                        *ngIf="headers[tableIndex].indexOf('itemNo')===-1"
+                                                        (click)="setHeader($event,'itemNo',tableIndex,columnIndex)">item
+                                                        No</a>
+                                                    <a class="dropdown-item" href="#"
+                                                        *ngIf="headers[tableIndex].indexOf('specNo')===-1"
+                                                        (click)="setHeader($event,'specNo',tableIndex,columnIndex)">Spec
+                                                        No</a>
+                                                    <a class="dropdown-item" href="#"
+                                                        *ngIf="headers[tableIndex].indexOf('itemName')===-1"
+                                                        (click)="setHeader($event,'itemName',tableIndex,columnIndex)">Item
+                                                        Name</a>
+                                                    <a class="dropdown-item" href="#"
+                                                        *ngIf="headers[tableIndex].indexOf('description')===-1"
+                                                        (click)="setHeader($event,'description',tableIndex,columnIndex)">Description</a>
+                                                    <a class="dropdown-item" href="#"
+                                                        *ngIf="headers[tableIndex].indexOf('unit')===-1"
+                                                        (click)="setHeader($event,'unit',tableIndex,columnIndex)">Unit</a>
+                                                    <a class="dropdown-item" href="#"
+                                                        *ngIf="headers[tableIndex].indexOf('quantity')===-1"
+                                                        (click)="setHeader($event,'quantity',tableIndex,columnIndex)">Quantity</a>
+                                                    <a class="dropdown-item" href="#"
+                                                        *ngIf="headers[tableIndex].indexOf('total')===-1"
+                                                        (click)="setHeader($event,'total',tableIndex,columnIndex)">total</a>
+                                                    <a class="dropdown-item" href="#"
+                                                        *ngIf="headers[tableIndex].indexOf('unitPrice')===-1"
+                                                        (click)="setHeader($event,'unitPrice',tableIndex,columnIndex)">Unit
+                                                        Price</a>
+                                                    <a class="dropdown-item" href="#"
+                                                        (click)="setHeader($event,'',tableIndex,columnIndex)">Blank</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+                            <tr *ngFor="let row of table;let rowIndex=index;">
+                                <td *ngFor="let column of row;let columnIndex=index;" class="position-relative"
+                                    [contextMenu]="basicMenu"
+                                    [contextMenuSubject]="{table:tableIndex,row:rowIndex,column:columnIndex}">
+                                    <div style="visibility: hidden;width:100%;">
+                                        {{column.value}}
+                                    </div>
+                                    <div [dndDraggable]="draggable.data" class="editable-text"
+                                        [dndEffectAllowed]="draggable.effectAllowed" [dndDisableIf]="draggable.disable"
+                                        (dndStart)="onDragStart($event,tableIndex,rowIndex,columnIndex)"
+                                        (dndCopied)="onDraggableCopied($event)" (dndLinked)="onDraggableLinked($event)"
+                                        (dndMoved)="onDraggableMoved($event)" (dndCanceled)="onDragCanceled($event)"
+                                        (dndEnd)="onDragEnd($event,tableIndex,rowIndex,columnIndex)">
+                                        <textarea name="{{tableIndex+rowIndex+columnIndex}}"
+                                            [(ngModel)]="column.value"></textarea>
+
+                                    </div>
+
+
+                                </td>
                             </tr>
-                        </ng-container>
-                        <tr *ngFor="let row of table;let rowIndex=index;">
-                            <td *ngFor="let column of row;let columnIndex=index;" class="position-relative"
-                                dndDropzone
-                                (dndDragover)="onDragover($event)"
-                                (dndDrop)="onDrop($event,tableIndex,rowIndex,columnIndex)" [contextMenu]="basicMenu"
-                                [contextMenuSubject]="{table:tableIndex,row:rowIndex,column:columnIndex}">
-                                <div style="visibility: hidden">
-                                  {{column}}
-                                </div>
-                                <div [dndDraggable]="draggable.data" class="editable-text"
-                                     [dndEffectAllowed]="draggable.effectAllowed"
-                                     [dndDisableIf]="draggable.disable"
-                                     (dndStart)="onDragStart($event,tableIndex,rowIndex,columnIndex)"
-                                     (dndCopied)="onDraggableCopied($event)"
-                                     (dndLinked)="onDraggableLinked($event)"
-                                     (dndMoved)="onDraggableMoved($event)"
-                                     (dndCanceled)="onDragCanceled($event)"
-                                     (dndEnd)="onDragEnd($event,tableIndex,rowIndex,columnIndex)"
-                                >
-                                    <textarea [(ngModel)]="column" (blur)="handleChange(column,tableIndex,rowIndex,columnIndex)"></textarea>
-
-                                </div>
-
-
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </ng-container>
