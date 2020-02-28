@@ -41,9 +41,9 @@
                 </tbody>
             </table>
             <div class="position-bottom">
-            <button mat-raised-button  type="button" color="primary"  type="submit" (click)="createSubline(true)" [disabled]="!sublineForm.valid">save</button>
-            <button  mat-raised-button  type="button" class="conti" type="submit" (click)="createSubline(false)" [disabled]="!sublineForm.valid">Save and continue</button>
-            <button  mat-raised-button  color="warn" type="button"  type="submit" (click)="cancel()">Cancel</button>
+            <button class="save" type="submit" (click)="createSubline(true)" [disabled]="!sublineForm.valid">save</button>
+            <button  class="conti" type="submit" (click)="createSubline(false)" [disabled]="!sublineForm.valid">Save and continue</button>
+            <button  class="cancel" type="submit" (click)="cancel()">Cancel</button>
         </div>
         </form>
     </div>

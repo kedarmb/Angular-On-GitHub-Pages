@@ -3,7 +3,7 @@
     <table class="table m-top ">
         <thead>
             <tr>
-                <th>Action</th>
+                <th></th>
                 <th>Name</th>
                 <th>Status</th>
                 <th>Total Line Items</th>
@@ -13,9 +13,9 @@
             <ng-container *ngIf="attendedSubs.length >0">
                 <tr *ngFor="let item of attendedSubs">
                     <td>
-                        <a><i class="material-icons">edit</i></a>
+                        <!-- <a><i class="material-icons">edit</i></a>
                         <a><i class="material-icons">remove_red_eye</i></a>
-                        <a><i class="material-icons">delete_sweep</i></a>
+                        <a><i class="material-icons">delete_sweep</i></a> -->
                     </td>
                     <td>{{item.subContractorId.name}}</td>
                     <td></td>
@@ -25,9 +25,9 @@
             </ng-container>
             <tr>
                 <td>
-                    <a><i class="material-icons">edit</i></a>
+                    <!-- <a><i class="material-icons">edit</i></a>
                     <a><i class="material-icons">remove_red_eye</i></a>
-                    <a><i class="material-icons">delete_sweep</i></a>
+                    <a><i class="material-icons">delete_sweep</i></a> -->
                 </td>
                 <td>
                     <app-invited-subcontractors [notifiedSubs]=" tenderID" (subSelected)="subSelection($event)"></app-invited-subcontractors>

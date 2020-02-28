@@ -35,7 +35,7 @@ export class TenderFastListComponent implements OnInit {
   ngOnInit() {
     // this.hs.setDataInHelperSrv();
     this.getTenderByID();
-    this.createSubline();
+    this.getSubline();
   }
 
   getTenderByID() {
@@ -81,7 +81,7 @@ export class TenderFastListComponent implements OnInit {
     this.hs.setSession("subConIdNow", JSON.stringify(id._id));
   }
 
-  createSubline() {
+  getSubline() {
     this.httpService.getSubline(this.tenderID).subscribe(
       (response: any) => {
         if (response.status === 201) {

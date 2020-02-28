@@ -1,9 +1,8 @@
-import { PlatformLocation } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { HttpService } from "app/shared/core/service/http.service";
 import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { HelperService } from "app/shared/core/service/helper.service";
 
 @Component({
@@ -17,7 +16,6 @@ export class TenderFastQuoteComponent implements OnInit {
   subId: any;
   subData: any;
   tenderData: any;
-  // subContractorId: any;
   filteredTender = [];
   selectedSub: any;
   _sub: any;
@@ -28,11 +26,9 @@ export class TenderFastQuoteComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private hs: HelperService,
     private httpService: HttpService,
-    private toastr: ToastrService,
-    location: PlatformLocation
+    private toastr: ToastrService
   ) {
     this.subId = JSON.parse(this.hs.getSession("subConIdNow"));
     this.subData = JSON.parse(this.hs.getSession("sublineDataNow"));
@@ -47,10 +43,11 @@ export class TenderFastQuoteComponent implements OnInit {
 
   ngOnInit() {
     this.formInit();
+    
   }
 
   formInit() {
-   return this.sublineForm = this.formBuilder.group({
+    return this.sublineForm = this.formBuilder.group({
       subline: this.setSubline()
     });
   }
@@ -73,10 +70,11 @@ export class TenderFastQuoteComponent implements OnInit {
   }
   subConSelection(e) {
     this.selectedSub = e;
-    this._sub = e;
-    console.log(e)
+    // this._sub = e;
+    this.subId = this.hs.setSession("subConIdNow", JSON.stringify(e._id));
+    console.log(e);
     this.newSubs = this.subData.filter(
-      obj => obj.subContractorId._id === this.selectedSub._id
+      obj => obj.subContractorId._id === e._id
     );
     console.log(this.newSubs);
     const subline = this.sublineForm.get("subline");
@@ -120,7 +118,6 @@ export class TenderFastQuoteComponent implements OnInit {
   setSubline() {
     const fArr = new FormArray([]);
     if (this.filteredTender.length) {
-      console.log("i am in if else");
       this.filteredTender.forEach(element => {
         const tGrup = this.sublineFormGroupVal(element);
         fArr.push(tGrup);
@@ -129,12 +126,28 @@ export class TenderFastQuoteComponent implements OnInit {
     if (!this.filteredTender.length) {
       console.log("no val");
       const tGrup = this.sublineFormGroup();
-       fArr.push(tGrup);
+      fArr.push(tGrup);
     }
     console.log(fArr);
     return fArr;
   }
-
+  getSubline() {
+    this.httpService.getSubline(this.tenderID).subscribe(
+      (response: any) => {
+        if (response.status === 201) {
+          this.hs.setSession("sublineDataNow", JSON.stringify(response.body));
+          this.subData = response.body;
+          console.log(this.subData)
+          if(this.subData.length){
+            this.subConSelection({_id:this.subId});
+          }
+        }
+      },
+      error => {
+        this.toastr.error(error.error.message);
+      }
+    );
+  }
   createSubline(val) {
     const finalVal = Object.assign([], this.sublineForm.value.subline);
     const k = finalVal.filter(e => e._id === "");
@@ -150,6 +163,19 @@ export class TenderFastQuoteComponent implements OnInit {
       (response: any) => {
         if (response.status === 201) {
           this.toastr.success(response.statusText);
+          console.log(response.body);
+          // this.getSubline();
+          const res = response.body;
+          // const respId = response.body[0].subContractorId;
+          // const subName = this.hs.getSubName(respId);
+          //  res.map(e => {
+          //   e.subContractorId = subName;
+          //   this.filteredTender.push(e);
+          //   return e
+          // });
+          this.getSubline();
+          // this.formInit();
+          // console.log(this.filteredTender);
           if (val === true) {
             this.router.navigate(["/fast-list/" + this.tenderID]);
           }
