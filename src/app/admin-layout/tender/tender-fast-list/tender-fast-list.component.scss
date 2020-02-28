@@ -3,13 +3,14 @@
 }
 thead{
   background-color: #fff0cc;
+  background-color: #f3f3f3;
 }
 
 tr:nth-child(even) {background-color: #fcfbfd;;}
-.bg{
-   background-color: #e2efff;
-   color: #6b8ac8;
-}
+// .bg{
+//    background-color: #e2efff;
+//    color: #6b8ac8;
+// }
 td a i {
     color: #e1dfe1;
     margin-left: 10px;
@@ -45,4 +46,7 @@ td a i {
             bottom: 0;
             right: 0;
             height: calc(100% - 595px);
+        }
+        .compare{
+            background-color: #b6abab;
         }

@@ -124,13 +124,13 @@
     </div>
     
     <div *ngIf="tData.value == false">
-      <button mat-button (click)="save()" [disabled]="!tenderHeaderForm.valid"
-        class="btn btn-danger pull-right">Save</button>
+      <button mat-raised-button   type="button" color="primary" (click)="save()" [disabled]="!tenderHeaderForm.valid"
+        class=" pull-right">Save</button>
     </div>
     <div *ngIf="tData.value == true">
-      <button mat-button [disabled]="!tenderHeaderForm.valid" (click)="update()"
-        class="btn btn-danger pull-right">Update</button>
+      <button mat-raised-button   type="button"  [disabled]="!tenderHeaderForm.valid" (click)="update()"
+        class="update pull-right">Update</button>
     </div>
-    <button mat-button (click)="close()" class="btn btn-danger pull-right">Cancel</button>
+    <button mat-raised-button   type="button" color="warn"(click)="close()" class="pull-right">Cancel</button>
   </form>
 </div>

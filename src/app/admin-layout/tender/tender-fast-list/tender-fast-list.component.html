@@ -19,8 +19,9 @@
                     </td>
                     <td>{{item.subContractorId.name}}</td>
                     <td></td>
-                    <td><button class="bg" (click)="createSub(item.subContractorId)">Add quote</button></td>
+                    <td><button  mat-raised-button type="button" color="primary"  (click)="createSub(item.subContractorId)">Add quote</button></td>
                 </tr>
+                <!-- <button *ngIf="!showBtn" mat-raised-button type="button" (click)="close()" color="primary">Cancel</button> -->
             </ng-container>
             <tr>
                 <td>
@@ -32,15 +33,15 @@
                     <app-invited-subcontractors [notifiedSubs]=" tenderID" (subSelected)="subSelection($event)"></app-invited-subcontractors>
                 </td>
                 <td></td>
-                <td><button  class="bg" (click)="createSub(_sub)">Add quote</button></td>
+                <td><button  mat-raised-button type="button" color="primary" (click)="createSub(_sub)">Add quote</button></td>
             </tr>
         </tbody>
     </table>
     
     <div class="position-bottom">
    
-    <button (click)="compare()">compare quotes</button>
-    <button type="submit" (click)="cancel()">Cancel</button>
+    <button  mat-raised-button  color="comapre" (click)="compare()">compare quotes</button>
+    <button   mat-raised-button  color="warn" type="submit" (click)="cancel()">Cancel</button>
 </div> 
 
 </div>
