@@ -1,8 +1,8 @@
 <div class="container fast-q">
-    <div class=" table-responsive   m-top ">
+    <div class=" table-responsive m-top ">
         <form [formGroup]="sublineForm">
             <div class="col-3">
-                <app-invited-subcontractors [notifiedSubs]="tenderID" (subs)="subConSelection($event)"></app-invited-subcontractors>
+                <app-invited-subcontractors [notifiedSubs]="tenderID" (subSelected)="subConSelection($event)"></app-invited-subcontractors>
             </div>
             <table class="table table-bordered" *ngIf="sublineForm.get('subline').controls.length">
                 <thead>
@@ -42,7 +42,7 @@
             </table>
             <div class="position-bottom">
             <button class="save" type="submit" (click)="createSubline(true)" [disabled]="!sublineForm.valid">save</button>
-            <button  class="conti" type="submit" (click)="createSubline(false)">Save and continue</button>
+            <button  class="conti" type="submit" (click)="createSubline(false)" [disabled]="!sublineForm.valid">Save and continue</button>
             <button  class="cancel" type="submit" (click)="cancel()">Cancel</button>
         </div>
         </form>

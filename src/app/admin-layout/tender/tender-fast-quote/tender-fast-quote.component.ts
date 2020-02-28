@@ -1,7 +1,7 @@
 import { PlatformLocation } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { HttpService } from "app/shared/core/service/http.service";
-import { FormBuilder, FormArray } from "@angular/forms";
+import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { HelperService } from "app/shared/core/service/helper.service";
@@ -57,10 +57,10 @@ export class TenderFastQuoteComponent implements OnInit {
   sublineFormGroup() {
     return this.formBuilder.group({
       _id: [""],
-      name: [""],
-      description: [""],
-      unit: [""],
-      unitPrice: [""],
+      name: ["", [Validators.required]],
+      description: ["", [Validators.required]],
+      unit: ["", [Validators.required]],
+      unitPrice: ["", [Validators.required]],
       tender: [this.tenderID],
       subContractorId: this.formBuilder.group({
         _id: [""],
@@ -74,6 +74,7 @@ export class TenderFastQuoteComponent implements OnInit {
   subConSelection(e) {
     this.selectedSub = e;
     this._sub = e;
+    console.log(e)
     this.newSubs = this.subData.filter(
       obj => obj.subContractorId._id === this.selectedSub._id
     );
@@ -104,6 +105,7 @@ export class TenderFastQuoteComponent implements OnInit {
         updatedAt: [val.updatedAt]
       });
     }
+    
   }
 
   addLineItem() {
@@ -117,12 +119,17 @@ export class TenderFastQuoteComponent implements OnInit {
 
   setSubline() {
     const fArr = new FormArray([]);
-    if (this.filteredTender.length > 0) {
+    if (this.filteredTender.length) {
       console.log("i am in if else");
       this.filteredTender.forEach(element => {
         const tGrup = this.sublineFormGroupVal(element);
         fArr.push(tGrup);
       });
+    }
+    if (!this.filteredTender.length) {
+      console.log("no val");
+      const tGrup = this.sublineFormGroup();
+       fArr.push(tGrup);
     }
     console.log(fArr);
     return fArr;
