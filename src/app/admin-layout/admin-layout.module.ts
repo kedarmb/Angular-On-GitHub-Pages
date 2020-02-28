@@ -69,6 +69,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { TenderFastAttachComponent } from './tender/tender-fast-attach/tender-fast-attach.component';
 import { TenderReviewComponent } from './tender/tender-review/tender-review.component';
 import { TenderFastPrepareBidComponent } from './tender/tender-fast-prepare-bid/tender-fast-prepare-bid.component';
+import { SubContractorName } from '../shared/pipe/SubContractor-name.pipe';
+
 
 @NgModule({
   imports: [
@@ -148,6 +150,7 @@ import { TenderFastPrepareBidComponent } from './tender/tender-fast-prepare-bid/
     TenderFastAttachComponent,
     TenderReviewComponent,
     TenderFastPrepareBidComponent,
+    SubContractorName
   ]
 })
 

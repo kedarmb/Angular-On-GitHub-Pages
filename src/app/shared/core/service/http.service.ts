@@ -155,6 +155,12 @@ export class HttpService {
   public saveSubLineItem(appendStr, payload): Observable<any> {
     return this.httpClient.post(ApiUrl.sublineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
   }
+public updateSelectedSubForLineItem(tenderId,payload):Observable<any>{
+  return this.httpClient.put(ApiUrl.lineItemUrl +`/updateSelectedSub/tender/${tenderId}`, payload, { headers: this.getHeader(), observe: 'response' });
+
+  // https://smartbid-api.herokuapp.com/v1/line-item/updateSelectedSub/tender/5e525c20c32be7001ee29b54
+}
+
   /* TENDER SECTION */
 
   /* Crew Template */

@@ -1,40 +1,39 @@
 <mat-tab-group class="tender mt-5">
     <mat-tab label="First">
-        <div class="col-12">
-            <div class="bg-white mt-4" *ngFor="let section of tender.sections">
-                <h3 class="px-3 pt-2 mb-0">{{section.name}}</h3>
-                <ng-container *ngFor="let item of section.lineItems">
-                    <div class="bg-light m-3">
-                        <mat-chip-list class="m-1">
-                            <span class="mb-3 mr-2 badge badge-warning">{{item.name}}</span>
-                            <span class="mb-3 mr-2 badge badge-primary"> Spec No :
-                                <span>{{item.specNo}}</span></span>
-                            <span class="mb-3 mr-2 badge badge-secondary"> Item No :<span>
-                                    {{item.itemNo}}</span></span>
-                            <span class="mb-3 mr-2 badge badge-info"> Quantity :<span>
-                                    {{item.quantity}}</span></span>
-                        </mat-chip-list>
-                        <div class="row-h-scroll">
-                            <div class="col-2-5 mb-3" *ngFor="let quote of item.lineItemTotal">
-                                <mat-card class="example-card mt-0">
-                                    <span class="card-title mb-1">{{quote.quoteSub}}</span>
-                                    <mat-card-content>
-                                        <p class="mb-1">Name: {{quote.quoteSub}}</p>
-                                        <p class="mb-1">Unit Price: {{quote.unitPrice}}</p>
-                                        <p class="mb-1">Total Price: {{quote.totalPrice}}</p>
-                                        <!-- <mat-radio-button></mat-radio-button> -->
-                                        <mat-checkbox #e (change)="getTotal(!e.checked, quote.totalPrice)">
-                                        </mat-checkbox>
-                                    </mat-card-content>
-                                </mat-card>
-                            </div>
+        <div class="col-12" *ngIf="tender&&tender.sections&&tender.sections.length">
+        <div class="bg-white mt-4" *ngFor="let section of tender.sections">
+            <h3 class="px-3 pt-2 mb-0">{{section.name}}</h3>
+            <ng-container *ngIf='section&& section.lineItems&&section.lineItems.length'>
+                <div class="bg-light m-3" *ngFor="let item of section.lineItems">
+                    <mat-chip-list class="m-1">
+                        <span class="mb-3 mr-2 badge badge-warning">{{item.name}}</span>
+                        <span class="mb-3 mr-2 badge badge-primary"> Spec No :
+                            <span>{{item.specNo}}</span></span>
+                        <span class="mb-3 mr-2 badge badge-secondary"> Item No :<span>
+                                {{item.itemNo}}</span></span>
+                        <span class="mb-3 mr-2 badge badge-info"> Quantity :<span>
+                                {{item.quantity}}</span></span>
+                    </mat-chip-list>
+                    <div class="row-h-scroll" *ngIf="item.lineTotalPrice&&item.lineTotalPrice.length">
+                        <div class="col-2-5 mb-3" *ngFor="let quote of item.lineTotalPrice">
+                            <mat-card class="example-card mt-0">
+                                <span class="card-title mb-1" *ngIf="quote.quoteSub">{{quote.quoteSub|subContractorname:notifiedSub}}</span>
+                                <mat-card-content>
+                                    <p class="mb-1" *ngIf="quote.quoteSub">Name: {{quote.quoteSub|subContractorname:notifiedSub}}</p>
+                                    <p class="mb-1">Unit Price: {{quote.unitPrice}}</p>
+                                    <p class="mb-1">Total Price: {{quote.totalPrice}}</p>
+                                    <!-- <mat-radio-button></mat-radio-button> -->
+                                    <mat-checkbox #e  (change)="getSelectedLineItem(e.checked,section._id,item._id,quote.quoteSub)" [checked]= "item.selectedSub==quote.quoteSub"></mat-checkbox>
+                                </mat-card-content>
+                            </mat-card>
                         </div>
                     </div>
-                </ng-container>
-                <h4 class="mt-2 px-3">Section Total: {{calculateSecTotal}}</h4>
-            </div>
-            <button mat-raised-button type="button" (click)="save()" class="m-2" color="primary">save</button>
-        </div>
+                </div>
+            </ng-container>
+            <h4 class="mt-2 px-3">Section Total: {{calculateSecTotal}}</h4>
+        </div >
+        <button mat-raised-button type="button" (click)="save()" class="m-2" color="primary">save</button>
+    </div>  
     </mat-tab>
     <mat-tab label="second">
         <div class="col-12">
