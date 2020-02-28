@@ -1,15 +1,15 @@
-import { ToastrService } from "ngx-toastr";
-import { HttpService } from "app/shared/core/service/http.service";
-import { HelperService } from "app/shared/core/service/helper.service";
-import { Router } from "@angular/router";
-import { Component, OnInit, OnChanges } from "@angular/core";
-import { PlatformLocation } from "@angular/common";
-import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from 'ngx-toastr';
+import { HttpService } from 'app/shared/core/service/http.service';
+import { HelperService } from 'app/shared/core/service/helper.service';
+import { Router } from '@angular/router';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { PlatformLocation } from '@angular/common';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: "app-tender-fast-list",
-  templateUrl: "./tender-fast-list.component.html",
-  styleUrls: ["./tender-fast-list.component.scss"]
+  selector: 'app-tender-fast-list',
+  templateUrl: './tender-fast-list.component.html',
+  styleUrls: ['./tender-fast-list.component.scss']
 })
 export class TenderFastListComponent implements OnInit {
   notifiedSubIds = [];
@@ -31,7 +31,7 @@ export class TenderFastListComponent implements OnInit {
     private toastr: ToastrService,
     private location: PlatformLocation,
     private spinner: NgxSpinnerService) {
-    this.tenderID = JSON.parse(this.hs.getSession("tenderIdNow"));
+    this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
     this.invitedSubs = this.tenderID;
     this.getTenderByID();
   }
@@ -49,25 +49,25 @@ export class TenderFastListComponent implements OnInit {
         if (response.status === 200) {
           this.spinner.hide();
           // this.hs.updateLocalTenderListByID(response.body);
-          
-          this.notifiedSubIds = response.body["headerLevelNotifiedSubs"];
+
+          this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
           console.log(this.notifiedSubIds);
-          this.nfSl = response.body["headerLevelNotifiedSubs"];
+          this.nfSl = response.body['headerLevelNotifiedSubs'];
           this.modifyNotifiedSubList();
           this.tenderData = response.body;
-          this.hs.setSession("tenderDataNow", JSON.stringify(this.tenderData));
+          this.hs.setSession('tenderDataNow', JSON.stringify(this.tenderData));
         }
       },
       err => {
         this.spinner.hide();
-        console.log("Error getting Tender by id ", err);
+        console.log('Error getting Tender by id ', err);
       }
     );
   }
 
   private modifyNotifiedSubList() {
     if (this.notifiedSubIds.length <= 0) {
-      console.log("returned .... ", this.notifiedSubIds);
+      console.log('returned .... ', this.notifiedSubIds);
       return;
     }
     const subContList = this.hs.getSubContractorList();
@@ -87,8 +87,8 @@ export class TenderFastListComponent implements OnInit {
 
   createSub(id) {
     console.log(id._id);
-    this.router.navigate(["/fast-quote/" + this.tenderID + "/" + id._id]);
-    this.hs.setSession("subConIdNow", JSON.stringify(id._id));
+    this.router.navigate(['/fast-quote/' + this.tenderID + '/' + id._id]);
+    this.hs.setSession('subConIdNow', JSON.stringify(id._id));
   }
 
   getSubline() {
@@ -100,13 +100,13 @@ export class TenderFastListComponent implements OnInit {
           this.filterAttendedSub(response.body);
           this.createdSubline = response.body;
           this.hs.setSession(
-            "sublineDataNow",
+            'sublineDataNow',
             JSON.stringify(this.createdSubline)
-            );
-          }
-        },
-        error => {
-          this.spinner.hide();
+          );
+        }
+      },
+      error => {
+        this.spinner.hide();
         this.toastr.error(error.error.message);
       }
     );
@@ -115,18 +115,18 @@ export class TenderFastListComponent implements OnInit {
   filterAttendedSub(e) {
     const filterArr: any[] = [];
     console.log(e);
-    
-    
+
+
     this.attendedSubs = this.hs.unique(e);
   }
 
   compare() {
-    this.router.navigate(["/fast-compare/" + this.tenderID], {
+    this.router.navigate(['/fast-compare/' + this.tenderID], {
       state: this.tenderID
     });
   }
 
   cancel() {
-    this.router.navigate(["/tender"]);
+    this.router.navigate(['/tender']);
   }
 }

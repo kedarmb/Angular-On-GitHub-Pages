@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { HttpService } from '../../../../shared/core/service/http.service';
 import { NgProgressComponent, NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 import { MatDialog } from '@angular/material';
@@ -10,7 +10,6 @@ import { TenderService } from '../../../../shared/core/service/tender.service';
 import { TrenchModalComponent } from 'app/shared/components/trench-modal/trench-modal.component';
 import { LineItemCrewComponent } from 'app/shared/components/line-item-crew/line-item-crew.component'
 import { NgxSpinnerService } from 'ngx-spinner';
-
 
 
 @Component({
@@ -70,9 +69,9 @@ export class TenderItemComponent implements OnInit, OnChanges {
     // console.log('ngOnChanges.... ', this.tenderData);
     if (this.tenderData) {
       //
-      if (this.tenderData.sections === null && this.tenderData.sections === []) {
+      if (this.tenderData.sections == null && this.tenderData.sections === []) {
         // open blank master form
-      } else if (this.tenderData.sections !== null && this.tenderData.sections !== []) {
+      } else if (this.tenderData.sections != null && this.tenderData.sections !== []) {
         //
         this.createSectionsOnGet();
       }
@@ -135,13 +134,13 @@ export class TenderItemComponent implements OnInit, OnChanges {
   initSubLineItemCtrl() {
     return this.formBuilder.group({
       _id: [''],
-      name: [''],
-      unit: [''],
-      quantity: [''],
-      unitPrice: [''],
+      name: ['', Validators.required],
+      unit: ['', Validators.required],
+      quantity: ['', Validators.required],
+      unitPrice: ['', Validators.required],
       // totalPrice: subLineItem.totalPrice,
       // quoteSub: subLineItem.quoteSub,
-      subLineTotalPrice: [''],
+      totalPrice: [''],
       subContractorId: ['']
     })
   }
@@ -156,7 +155,6 @@ export class TenderItemComponent implements OnInit, OnChanges {
     //
     this.tenderData.sections.forEach(sectionRef => {
       // console.log('sectionRef is ', sectionRef);
-      //
       sections_array.push(this.formBuilder.group({
         _id: sectionRef._id,
         name: sectionRef.name,
@@ -188,8 +186,8 @@ export class TenderItemComponent implements OnInit, OnChanges {
         selectedSub: lineItem.selectedSub,
         lineItemCrewLabourItems: lineItem.lineItemCrewLabourItems,
         lineTotalPrice: this.createLineTotalPriceArrOnGet(lineItem.lineTotalPrice),
-        _totalPrice: this.showLineTotalPrice(lineItem.lineTotalPrice, 'totalPrice', lineItem),
-        _unitPrice: this.showLineTotalPrice(lineItem.lineTotalPrice, 'unitPrice', lineItem),
+        _totalPrice: this.returnLineTotalPrice(lineItem.lineTotalPrice, 'totalPrice', lineItem),
+        _unitPrice: this.returnLineUnitPrice(lineItem.lineTotalPrice, 'unitPrice', lineItem),
         crewItemRef: lineItem.crewItemRef,
         crewChosen: [],
         trenchRef: lineItem.trenchRef,
@@ -212,14 +210,11 @@ export class TenderItemComponent implements OnInit, OnChanges {
     return lineTotalArr;
   }
 
-  // private func returns Total Price / Unit price based on Sub Contractor selection
-  private showLineTotalPrice(totalPricesArr, prop, lineItemRef) {
+  private returnLineTotalPrice(totalPricesArr, prop, lineItemRef) {
     let propVal = 0;
     let crewVal = 0;
-    // let unitVal = 0;
-    let returnVal;
-    //
-    if (this.selectedSubInp !== undefined) {
+    let total = 0;
+    if (this.selectedSubInp != undefined) {
       // user comes to this page & selects one SubC.
       for (let i = 0; i < totalPricesArr.length; i++) {
         if (totalPricesArr[i].quoteSub === this.selectedSubInp._id) {
@@ -229,39 +224,41 @@ export class TenderItemComponent implements OnInit, OnChanges {
       }
     }
     //
-    if (lineItemRef.crewItemRef !== null) {
+    if (lineItemRef.crewItemRef != null) {
+      crewVal = lineItemRef.crewItemRef.crewTotalCost;
+    }
+    total = propVal + crewVal;
+    return total;
+  }
+  private returnLineUnitPrice(totalPricesArr, prop, lineItemRef) {
+    let propVal = 0;
+    let crewVal = 0;
+    let total = 0;
+    //
+    if (this.selectedSubInp != undefined) {
+      // user comes to this page & selects one SubC.
+      for (let i = 0; i < totalPricesArr.length; i++) {
+        if (totalPricesArr[i].quoteSub === this.selectedSubInp._id) {
+          propVal = totalPricesArr[i][prop];
+          break;
+        }
+      }
+    }
+    if (lineItemRef.crewItemRef != null) {
       crewVal = lineItemRef.crewItemRef.crewTotalCost;
     }
     //
-    if (prop === 'totalPrice') {
-      if (this.selectedSubInp === undefined) {
-        returnVal = crewVal;
-      } else if (this.selectedSubInp !== undefined) {
-        returnVal = propVal;
-        if (returnVal === 0) {
-          // jugaaar
-          returnVal = crewVal;
-        }
-      }
-    } else if (prop === 'unitPrice') {
-      if (this.selectedSubInp === undefined) {
-        returnVal = Number(Math.floor(crewVal / lineItemRef.quantity).toFixed(2));
-      } else if (this.selectedSubInp !== undefined) {
-        const totalCrewSubs = crewVal + propVal;
-        returnVal = Number(Math.floor(totalCrewSubs / lineItemRef.quantity).toFixed(2));
-      }
-    }
-    //
-    return returnVal;
+    const totalCrewSubs = crewVal + propVal;
+    total = Number(Math.floor(totalCrewSubs / lineItemRef.quantity).toFixed(2));
+    return total;
   }
-
 
   createSubLineItemsOnGet(lineItemRef) {
     const sub_line_array = new FormArray([]);
     //
     lineItemRef.subLineItems.forEach(subLineItem => {
       //
-      if (this.selectedSubInp !== undefined) {
+      if (this.selectedSubInp != undefined) {
         // console.log(subLineItem.subContractorId, ' ..... ', this.selectedSubInp._id);
         if (subLineItem.subContractorId === this.selectedSubInp._id) {
           //
@@ -272,7 +269,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
             unit: subLineItem.unit,
             quantity: subLineItem.quantity,
             unitPrice: subLineItem.unitPrice,
-            subLineTotalPrice: subLineItem.totalPrice,
+            totalPrice: subLineItem.totalPrice,
             subContractorId: subLineItem.subContractorId
           }))
         }
@@ -317,7 +314,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
       if (lastOne.value._id === '') {
         allowFlag = false;
         this.toastr.warning('Please save the existing Subline first', 'Action denied');
-      } else if (lastOne.value._id !== '') {
+      } else if (lastOne.value._id != '') {
         allowFlag = true;
       }
       // console.log('last one .. ', lastOne);
@@ -335,6 +332,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
     sublineItemArr.removeAt(indx);
     // update cost if any
     this.calculateSublineTotal(lineItemRef);
+    this.toastr.info('not deleted from database. Functionality under development', 'Dlelete Action');
   }
 
 
@@ -343,18 +341,19 @@ export class TenderItemComponent implements OnInit, OnChanges {
     const id = this.tenderData._id;
     const secID = sectionRef.value._id;
     const lineID = lineitemRef.value._id;
-    const appendStr = '/tender/' + id + '/section/' + secID + '/lineItem/' + lineID;
-    // console.log('appendStr  is:  ', appendStr);
-    const _subLineItem = (lineitemRef.get('subLineItems') as FormArray).at(indx).value;
-    const _sublineQuote = this.hs.pickChosenProps(_subLineItem, 'name', 'unit', 'quantity', 'unitPrice', 'subLineTotalPrice');
-    _sublineQuote['totalPrice'] = _sublineQuote.subLineTotalPrice;
+    let appendStr = '/tender/' + id + '/section/' + secID + '/lineItem/' + lineID;
+    //
+    const _sublineQuote = Object.assign({}, (lineitemRef.get('subLineItems') as FormArray).at(indx).value);
+    // console.log('subline item before saving ...', _sublineQuote);
+    //
     _sublineQuote['subContractorId'] = this.selectedSubInp._id;
     //
-    delete _sublineQuote.subLineTotalPrice;
-    //
-    if (this.checkSublineIfEmpty(_sublineQuote)) {
-      this.toastr.warning('All fields must be filled up before saving..', 'Action denied');
+    // console.log((lineitemRef.get('subLineItems') as FormArray).invalid);
+    if ((lineitemRef.get('subLineItems') as FormArray).invalid) {
+      this.toastr.warning('Name, Unit, Quantity & Unit Price must be filled to save', 'Action denied.');
+      return;
     }
+    //
     let lineTotal_id;
     // console.log(lineitemRef.value);
     const lineTotalPricesArr = lineitemRef.value.lineTotalPrice;
@@ -366,7 +365,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
     }
     const lineItemData = {
       unitPrice: Math.floor(lineitemRef.value.unitPrice).toFixed(2),
-      totalPrice: this.addAllSubLineAndCrew(lineitemRef),
+      totalPrice: this.addAllLineLevelSublines(lineitemRef),
       quoteSub: this.selectedSubInp._id,
       _id: lineTotal_id
     }
@@ -379,22 +378,75 @@ export class TenderItemComponent implements OnInit, OnChanges {
       sublineItem: _sublineQuote,
       lineTotalPrice: lineItemData
     }
-    // console.log('appendStr  is:  ', appendStr);
-    console.log('lineItemData  is:  ', lineItemData);
     // console.log('finalPayload is..  ', finalPayload);
-    // console.log('subC id ', this.selectedSubInp._id);
-
     // return;
-    this.httpService.saveSubLineItem(appendStr, finalPayload).subscribe((response) => {
-      console.log('succ in saving subline item ', response);
-      if (response.status === 201) {
-        this.refreshFormData();
-      }
-    },
-      (err) => {
-        console.log('err in saving subl ine  item ', err);
-      })
+    if (_sublineQuote._id == '') {
+      // no _id .. fresh subline item to POST
+      delete _sublineQuote._id;
+      this.httpService.saveSubLineItem(appendStr, finalPayload).subscribe((response) => {
+        console.log('succ in saving subline item ', response);
+        if (response.status === 201) {
+          this.toastr.success('Successfully saved Subline Item.');
+          this.refreshFormData();
+        }
+      },
+        (err) => {
+          this.toastr.error('Error in saving Subline item. Try later');
+          console.log('err in saving subl ine  item ', err);
+        })
+    } else if (_sublineQuote._id != '') {
+      // post API to call to update existing subline item
+      // console.log('PUT for subline ... ', appendStr);
+      // console.log(JSON.stringify(finalPayload));
+      appendStr = '/' + _sublineQuote._id + '/tender/' + id + '/section/' + secID + '/lineItem/' + lineID;
+      this.httpService.updateSubLineItem(appendStr, finalPayload).subscribe((response) => {
+        console.log('succ in saving subline item ', response);
+        if (response.status === 200) {
+          this.toastr.info('Successfully updated Subline Item.');
+          this.refreshFormData();
+        }
+      },
+        (err) => {
+          this.toastr.error('Error in updating Subline item. Try later');
+          console.log('err in saving subl ine  item ', err);
+        })
+    }
+
   }
+
+  private addAllLineLevelSublines(lineItemRef) {
+    console.log('ine item ref is >>>> ', lineItemRef);
+    // let _totalCrewCost = 0;
+    let _totalSublineCost = 0;
+    //
+    const subItemsControlsArr = (lineItemRef.get('subLineItems') as FormArray).controls;
+    const rowTotalArr = [];
+    for (let i = 0; i < subItemsControlsArr.length; i++) {
+      // sub line item row level total calculation
+      const rowQty = subItemsControlsArr[i].get('quantity').value;
+      const rowUntPrice = subItemsControlsArr[i].get('unitPrice').value;
+      const rowTotal = rowUntPrice * rowQty;
+      subItemsControlsArr[i].get('totalPrice').patchValue(rowTotal);
+      rowTotalArr.push(rowTotal);
+      // console.log(rowTotal);
+    }
+    _totalSublineCost = rowTotalArr.reduce(function (prev, cur) {
+      return prev + cur;
+    }, 0);
+    //
+    return _totalSublineCost;
+  }
+
+  /* private checkSublineIfEmpty(payload) {
+    let foundEmpty = false;
+    for (const key in payload) {
+      if (payload[key] === '') {
+        foundEmpty = true;
+        break;
+      }
+    }
+    return foundEmpty;
+  } */
 
   private addAllSubLineAndCrew(lineItemRef) {
     console.log('ine item ref is >>>> ', lineItemRef);
@@ -457,8 +509,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
   toggleCollapse(sectionRef, lineItemIndx) {
     //
     const _lineItm = (sectionRef.get('lineItems') as FormArray).at(lineItemIndx).value;
-    //
-    console.log(this.masterForm.value);
+    // console.log(this.masterForm.value);
     this.collapse[lineItemIndx] = !this.collapse[lineItemIndx];
   }
 
@@ -489,7 +540,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
       const rowQty = subItemsControlsArr[i].get('quantity').value;
       const rowUntPrice = subItemsControlsArr[i].get('unitPrice').value;
       const rowTotal = rowUntPrice * rowQty;
-      subItemsControlsArr[i].get('subLineTotalPrice').patchValue(rowTotal);
+      subItemsControlsArr[i].get('totalPrice').patchValue(rowTotal);
       rowTotalArr.push(rowTotal);
       // console.log(rowTotal);
     }
@@ -497,15 +548,15 @@ export class TenderItemComponent implements OnInit, OnChanges {
       return prev + cur;
     }, 0);
 
-    console.log('lineValCopy is ', lineValCopy);
-    if (lineValCopy.crewItemRef !== null) {
+    // console.log('lineValCopy is ', lineValCopy);
+    if (lineValCopy.crewItemRef != null) {
       _crewTotalCost = lineValCopy.crewItemRef.crewTotalCost;
     }
     // cost roll up with crew
     const lineTotalSum = _crewTotalCost + this.totalSublineCost;
     lineItemRef.get('_totalPrice').patchValue(lineTotalSum);
     const unit = lineItemRef.value._totalPrice / lineItemRef.value.quantity;
-    lineItemRef.get('unitPrice').patchValue(unit);
+    lineItemRef.get('_unitPrice').patchValue(unit);
   }
 
   //
@@ -517,7 +568,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
       const rowQty = subItemsControlsArr[i].get('quantity').value;
       const rowUntPrice = subItemsControlsArr[i].get('unitPrice').value;
       const rowTotal = rowUntPrice * rowQty;
-      subItemsControlsArr[i].get('subLineTotalPrice').patchValue(rowTotal);
+      subItemsControlsArr[i].get('totalPrice').patchValue(rowTotal);
       rowTotalArr.push(rowTotal);
       // console.log(rowTotal);
     }
@@ -555,8 +606,9 @@ export class TenderItemComponent implements OnInit, OnChanges {
         this.calculateSublineTotal(lineItemRef);
         //
         setTimeout(() => {
-          this.silentUpdateLineCost();
-        }, 1500)
+          // this.silentUpdateLineCost();
+          this.refreshFormData();
+        }, 500)
       }
     })
   }
@@ -669,10 +721,10 @@ export class TenderItemComponent implements OnInit, OnChanges {
     const id = this.tenderData._id;
     const secID = section.value._id;
     const lineID = lineItem.value._id;
-    console.log("HHHHHHHHHHHH", lineID)
+    // console.log("HHHHHHHHHHHH", lineID)
     const appendStr = '/tender/' + id + '/section/' + secID + '/lineItem/' + lineID;
-    console.log('append string ', appendStr);
-    console.log('payload is : ', this.trenchObj);
+    // console.log('append string ', appendStr);
+    // console.log('payload is : ', this.trenchObj);
     //
     return;
     // this.httpService.saveTrenchForLineItem(appendStr).subscribe((response) => { 

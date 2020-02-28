@@ -30,7 +30,7 @@
                                 <mat-toolbar>
                                     <span><textarea type="text" class="t-area" formControlName="name" placeholder="section name goes here"></textarea></span>
                                     <span class="toolbar-spacer"></span>
-                                    <button mat-icon-button color="warn" matTooltip="delete section">
+                                    <button mat-icon-button color="warn" (click)="deleteSection()" matTooltip="delete section">
                                         <mat-icon>remove_circle</mat-icon>
                                     </button>
                                 </mat-toolbar>

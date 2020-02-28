@@ -172,14 +172,16 @@ export class TenderReviewComponent implements OnInit {
         itemName: lineItem.itemName,
         description: lineItem.description,
         unit: lineItem.unit,
-        unitPrice: lineItem.unitPrice,
+        unitPrice: [0],
+        // lineItem.unitPrice,
         quantity: lineItem.quantity,
         trench: lineItem.trench,
         crew: lineItem.crew,
         notifiedSubs: lineItem.notifiedSubs,
         selectedSub: lineItem.selectedSub,
         lineItemCrewLabourItems: lineItem.lineItemCrewLabourItems,
-        lineTotalPrice: lineItem.lineTotalPrice,
+        lineTotalPrice: ['0'],
+        // lineItem.lineTotalPrice,
         crewItemRef: lineItem.crewItemRef,
         crewChosen: [],
         trenchRef: lineItem.trenchRef,
@@ -193,6 +195,9 @@ export class TenderReviewComponent implements OnInit {
     const sectionsArr = this.masterForm.get('sections') as FormArray;
     const newSection = this.initSectionCtrl();
     sectionsArr.push(newSection);
+  }
+  deleteSection() {
+    this.toastr.warning('Functionality under development', 'Delete Section');
   }
   __addLineItem(sectionRef) {
     const _lineItem = this.initLineItemCtrl();
@@ -269,6 +274,8 @@ export class TenderReviewComponent implements OnInit {
       return;
     }
     lineItemArr.removeAt(indx);
+    this.toastr.info('not deleted from database. Functionality under development', 'Dlelete Action');
+
   }
 
   // line item calculation

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HelperService } from '../../core/service/helper.service';
 import { HttpService } from '../../core/service/http.service'
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
-import { regex, modeOfSubmission} from '../../core/constant/index';
+import { regex, modeOfSubmission } from '../../core/constant/index';
 import { Tender } from 'app/shared/core/model/tender.model';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
@@ -50,7 +50,6 @@ export class TenderModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('tData is:   ', this.tData);
         // set quote open date to todays date
         this.tenderOpenMinDate = moment().format();
         // this.allClients = [...(JSON.parse(this.hs.getFromLocalStorage('orgList')))];
@@ -63,7 +62,6 @@ export class TenderModalComponent implements OnInit {
 
             // this.injectedData.openDate = moment().toISOString(this.injectedData.openDate);
             this.injectedData.openDate = moment(this.injectedData.openDate).toISOString();
-            // console.log(this.injectedData.openDate)
             this.injectedData.closeDate = moment(this.injectedData.closeDate).toISOString();
             this.injectedData.quoteStartDate = moment(this.injectedData.quoteStartDate).toISOString();
             this.injectedData.quoteEndDate = moment(this.injectedData.quoteEndDate).toISOString();
@@ -78,7 +76,6 @@ export class TenderModalComponent implements OnInit {
     // function to filter out only CLIENT type organization
     filterOrgListToClients(list) {
         this.allClients = list.filter(item => item.orgType[0] === 'Client');
-        console.log('allClients are:  ', this.allClients);
     }
 
     initializeForm() {
@@ -86,19 +83,17 @@ export class TenderModalComponent implements OnInit {
             _id: [],
             headerLevelNotifiedSubs: [],
             sections: [],
-                    clientName: this.formBuider.group({
-                        _id: '',
-                        name: ''
-                    }),
-
+            clientName: this.formBuider.group({
+                _id: '',
+                name: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]]
+            }),
             name: ['', [Validators.required, this.customValidator({ pattern: regex.nameReg })]],
-            //
             description: ['', Validators.required],
             openDate: ['', Validators.required],
             closeDate: ['', Validators.required],
             quoteStartDate: ['', Validators.required],
             quoteEndDate: ['', Validators.required],
-            submissionMode: [ '', Validators.required ],
+            submissionMode: ['', Validators.required],
         });
 
         this.clientList = this.tenderHeaderForm.get('clientName').valueChanges
@@ -121,7 +116,6 @@ export class TenderModalComponent implements OnInit {
         //
         if (this.injectedData) {
             //
-            console.log(this.injectedData);
             delete this.injectedData.itemRef;
             delete this.injectedData.sectionRef;
             delete this.injectedData.__v;
@@ -143,11 +137,11 @@ export class TenderModalComponent implements OnInit {
 
     }
 
-    private filteredClients(value: string): any {
-        const filterValue = value.toLowerCase();
-        console.log(filterValue);
-        // console.log(this.allClients.filter(client => client.name.toLowerCase().indexOf(filterValue) === 0))
-        return this.allClients.filter(client => client.name.toLowerCase().indexOf(filterValue) === 0);
+    private filteredClients(value: any): any {
+        if (value && value.name) {
+            const filterValue = value.name.toString().toLowerCase();
+            return this.allClients.filter(client => client.name.toString().toLowerCase().indexOf(filterValue) !== -1);
+        }
     }
     //
     removeNonExistentClient(event) {
@@ -158,8 +152,7 @@ export class TenderModalComponent implements OnInit {
             // console.log('is value true is : ', isValueTrue);
             if (isValueTrue.length === 0) {
                 this.toastr.warning('Please chose a client from the dropdown only.');
-                this.tenderHeaderForm.get('clientName').setValue(null);
-
+                this.tenderHeaderForm.get('clientName').patchValue('');
             }
         }, 300);
     }
@@ -193,7 +186,6 @@ export class TenderModalComponent implements OnInit {
 
     /** Method invoked from Template HTML  */
     setMinDate() {
-        console.log('open date value ', this.tenderHeaderForm.controls.openDate.value);
         if (this.tenderHeaderForm.controls.openDate.value != null) {
             this.tenderCloseMinDate = this.tenderHeaderForm.controls.openDate.value;
             //
@@ -250,7 +242,7 @@ export class TenderModalComponent implements OnInit {
         })
     }
     getClientID(_id, name) {
-        this.tenderHeaderForm.get('clientName').setValue({_id , name})
+        this.tenderHeaderForm.get('clientName').setValue({ _id, name })
     }
     //
     close() {

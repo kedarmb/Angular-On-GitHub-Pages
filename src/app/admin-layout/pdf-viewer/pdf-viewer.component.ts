@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as uuid from 'uuid';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { ContextMenuComponent } from 'ngx-contextmenu';
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from '../../shared/core/service/http.service';
 
 @Component({
@@ -263,10 +263,10 @@ export class PdfViewerComponent implements OnInit, AfterViewInit, OnDestroy {
     getPropertyValue(name, string) {
         var object = {}
         if (string) {
-            string = string.split(";");
+            string = string.split(';');
 
             for (var i = 0; i < string.length; i++) {
-                var temp = string[i].split(":");
+                var temp = string[i].split(':');
                 if (temp[1] !== undefined) {
                     let value = temp[1].trim();
                     let key = temp[0].trim();
@@ -466,50 +466,50 @@ export class PdfViewerComponent implements OnInit, AfterViewInit, OnDestroy {
         // note that data is handled with JSON.stringify/JSON.parse
         // only set simple data or POJO's as methods will be lost
         data: { table: -1, row: -1, column: -1 },
-        effectAllowed: "all",
+        effectAllowed: 'all',
         disable: false,
         handle: false
     };
 
     onDragStart(event: DragEvent, table, row, column) {
         this.draggable.data = { table: table, row: row, column: column };
-        console.log("drag started", JSON.stringify(event, null, 2));
+        console.log('drag started', JSON.stringify(event, null, 2));
     }
 
     onDragEnd(event: DragEvent, table, row, column) {
 
 
-        console.log("drag ended", JSON.stringify(event, null, 2), table, row, column);
+        console.log('drag ended', JSON.stringify(event, null, 2), table, row, column);
     }
 
     onDraggableCopied(event: DragEvent) {
 
-        console.log("draggable copied", JSON.stringify(event, null, 2));
+        console.log('draggable copied', JSON.stringify(event, null, 2));
     }
 
     onDraggableLinked(event: DragEvent) {
 
-        console.log("draggable linked", JSON.stringify(event, null, 2));
+        console.log('draggable linked', JSON.stringify(event, null, 2));
     }
 
     onDraggableMoved(event: DragEvent) {
 
-        console.log("draggable moved", JSON.stringify(event, null, 2));
+        console.log('draggable moved', JSON.stringify(event, null, 2));
     }
 
     onDragCanceled(event: DragEvent) {
 
-        console.log("drag cancelled", JSON.stringify(event, null, 2));
+        console.log('drag cancelled', JSON.stringify(event, null, 2));
     }
 
     onDragover(event: DragEvent) {
 
-        console.log("dragover", JSON.stringify(event, null, 2));
+        console.log('dragover', JSON.stringify(event, null, 2));
     }
 
     onDrop(event: DndDropEvent, table, row, column) {
         this.tableResult[table][row][column] = this.tableResult[this.draggable.data.table][this.draggable.data.row][this.draggable.data.column];
-        console.log("dropped", JSON.stringify(event, null, 2), table, row, column);
+        console.log('dropped', JSON.stringify(event, null, 2), table, row, column);
     }
     showMessage(message: any) {
         console.log(message);

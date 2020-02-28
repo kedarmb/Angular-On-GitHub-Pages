@@ -155,6 +155,9 @@ export class HttpService {
   public saveSubLineItem(appendStr, payload): Observable<any> {
     return this.httpClient.post(ApiUrl.sublineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
   }
+  public updateSubLineItem(appendStr, payload): Observable<any> {
+    return this.httpClient.put(ApiUrl.sublineItemUrl + appendStr, payload, { headers: this.getHeader(), observe: 'response' });
+  }
 public updateSelectedSubForLineItem(tenderId,payload):Observable<any>{
   return this.httpClient.put(ApiUrl.lineItemUrl +`/updateSelectedSub/tender/${tenderId}`, payload, { headers: this.getHeader(), observe: 'response' });
 
