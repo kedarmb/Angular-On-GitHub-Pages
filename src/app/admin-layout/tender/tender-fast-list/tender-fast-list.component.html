@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngIf="attendedSubs.length >0">
+            <ng-container *ngIf="attendedSubs.length">
                 <tr *ngFor="let item of attendedSubs">
                     <td>
                         <!-- <a><i class="material-icons">edit</i></a>
@@ -23,7 +23,8 @@
                 </tr>
                 <!-- <button *ngIf="!showBtn" mat-raised-button type="button" (click)="close()" color="primary">Cancel</button> -->
             </ng-container>
-            <tr>
+           
+            <tr *ngIf="nfSl.length">
                 <td>
                     <!-- <a><i class="material-icons">edit</i></a>
                     <a><i class="material-icons">remove_red_eye</i></a>
@@ -35,6 +36,14 @@
                 <td></td>
                 <td><button  mat-raised-button type="button" color="primary" (click)="createSub(_sub)">Add quote</button></td>
             </tr>
+            <tr *ngIf="!nfSl.length">
+                <!-- <td *ngIf="!attendedSubs.length">
+                    <p class="d-flex justify-content-center">There are no quotes from invited Sub-contractors</p>
+                </td> -->
+                <td colspan="4">
+                    <p class="d-flex justify-content-center">There are no invited Sub-contractors</p>
+                </td>
+            </tr>
         </tbody>
     </table>
     
@@ -43,5 +52,7 @@
     <button  mat-raised-button  color="comapre" (click)="compare()">compare quotes</button>
     <button   mat-raised-button  color="warn" type="submit" (click)="cancel()">Cancel</button>
 </div> 
-
+    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+        <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
+    </ngx-spinner>
 </div>

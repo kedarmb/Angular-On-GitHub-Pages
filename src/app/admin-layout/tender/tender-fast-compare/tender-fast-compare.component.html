@@ -1,20 +1,23 @@
 <div>
     <table class="table m-top">
-        <ng-container *ngFor="let item of (this.sublineData | keyvalue); let fir = first; let itemN = index;">
-            <thead>
-                <tr *ngIf="fir">
+        <ng-container *ngFor="let item of (sublineData | keyvalue); let fir = first; let itemN = index;">
+            <thead *ngIf="fir" >
+                <tr>
                     <th colspan="2"> Item name </th>
-                    <th colspan="4" *ngFor="let quote of (item.value.quotes | keyvalue);  let index = index;">
-                        best price {{index}}
+                    <ng-container *ngFor="let quote of (item.value.quotes | keyvalue);  let index = index;">
+                    <th colspan="4" *ngIf="index <= 1">
+                        <span>best price {{index}}</span>
                     </th>
+                    </ng-container>
                 </tr>
             </thead>
         </ng-container>
         <tbody>
-            <ng-container *ngFor="let item of (this.sublineData | keyvalue); let first = first; let itemN = index;">
+            <ng-container *ngFor="let item of (sublineData | keyvalue); let first = first; let itemN = index;">
                 <tr *ngIf="first">
                     <th></th>
-                    <th class="p-0" colspan="4" *ngFor="let quot of (item.value.quotes | keyvalue); let f= first;">
+                    <ng-container *ngFor="let quot of (item.value.quotes | keyvalue); let idx = index let f= first;">
+                    <th class="p-0" *ngIf="idx<=1" colspan="4">
                         <table class="table m-0">
                             <thead>
                                 <tr>
@@ -25,17 +28,20 @@
                             </thead>
                         </table>
                     </th>
+                    </ng-container>
                     <th>more</th>
                 </tr>
                 <tr>
                     <th>{{item.value.name}}</th>
-                    <td colspan="4" class="p-0 b-0" *ngFor="let quote of (item.value.quotes | keyvalue); let i= index;">
+                    <ng-container  *ngFor="let quote of (item.value.quotes | keyvalue); let i= index;">
+                    <td colspan="4" class="p-0 b-0" *ngIf="i<=1">
                         <table class="m-0">
                             <tbody>
-                                <tr *ngIf="i<=2">
+                                <tr *ngIf="i<=1">
                                     <td colspan="2">
                                         <mat-radio-group name="{{itemN}}">
-                                            <mat-radio-button value="{{i}}" [checked]="checkIfSelected(quote)" (change)="getQuote($event, quote, item);">
+                                            <!-- checkIfSelected(quote) -->
+                                            <mat-radio-button value="{{i}}" [checked]="(fromGet==true)? getSelectedResults(): checkIfSelected(quote)" (change)="getQuote($event, quote, item);">
                                                 {{quote.value.subContractorId.name | ellipsis: 20}}
                                             </mat-radio-button>
                                         </mat-radio-group>
@@ -43,17 +49,21 @@
                                         <td colspan="1">{{quote.value.unit}}</td>
                                         <td colspan="1">{{quote.value.unitPrice}}</td>
                                     </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td (click)="moreQuotes()">...</td>
+                                </tbody>
+                            </table>
+                        </td>
+                        </ng-container>
+                        <td (click)="moreQuotes()">...</td>
+                    
                 </tr>
-                <tr></tr>
             </ng-container>
         </tbody>
     </table>
     <div class="position-bottom">
     <button  mat-raised-button type="button" color="primary" (click)="save()">Save</button>
-    <button  mat-raised-button  type="button" class="conti" s(click)="continueToMatch()">Continue</button>
+    <button  mat-raised-button  type="button" class="conti" (click)="continueToMatch()">Continue</button>
 </div>
+    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+        <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
+    </ngx-spinner>
 </div>

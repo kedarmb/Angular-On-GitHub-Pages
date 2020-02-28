@@ -4,6 +4,7 @@ import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { HelperService } from "app/shared/core/service/helper.service";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-tender-fast-quote",
@@ -22,17 +23,20 @@ export class TenderFastQuoteComponent implements OnInit {
   subsDetail: any;
   filteredsubs: any;
   newSubs = [];
+  subName: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private hs: HelperService,
     private httpService: HttpService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {
     this.subId = JSON.parse(this.hs.getSession("subConIdNow"));
     this.subData = JSON.parse(this.hs.getSession("sublineDataNow"));
-
+    this.subName = this.hs.getSubName(this.subId);
+    console.log(this.subName);
     this.tenderID = JSON.parse(this.hs.getSession("tenderIdNow"));
     if (this.subId) {
       this.filteredTender = this.subData.filter((e: any) => {
@@ -47,9 +51,9 @@ export class TenderFastQuoteComponent implements OnInit {
   }
 
   formInit() {
-    return this.sublineForm = this.formBuilder.group({
+    return (this.sublineForm = this.formBuilder.group({
       subline: this.setSubline()
-    });
+    }));
   }
   sublineFormGroup() {
     return this.formBuilder.group({
@@ -72,6 +76,9 @@ export class TenderFastQuoteComponent implements OnInit {
     this.selectedSub = e;
     // this._sub = e;
     this.subId = this.hs.setSession("subConIdNow", JSON.stringify(e._id));
+    this.subId = JSON.parse(this.hs.getSession("subConIdNow"));
+    this.subName = this.hs.getSubName(this.subId);
+    console.log(this.subName);
     console.log(e);
     this.newSubs = this.subData.filter(
       obj => obj.subContractorId._id === e._id
@@ -103,7 +110,6 @@ export class TenderFastQuoteComponent implements OnInit {
         updatedAt: [val.updatedAt]
       });
     }
-    
   }
 
   addLineItem() {
@@ -132,23 +138,28 @@ export class TenderFastQuoteComponent implements OnInit {
     return fArr;
   }
   getSubline() {
+    this.spinner.show()
     this.httpService.getSubline(this.tenderID).subscribe(
       (response: any) => {
         if (response.status === 201) {
+          this.spinner.hide();
           this.hs.setSession("sublineDataNow", JSON.stringify(response.body));
           this.subData = response.body;
-          console.log(this.subData)
-          if(this.subData.length){
-            this.subConSelection({_id:this.subId});
+          console.log(this.subData);
+          if (this.subData.length) {
+            this.subConSelection({ _id: this.subId });
+            this.spinner.hide();
           }
         }
       },
       error => {
+        this.spinner.hide();
         this.toastr.error(error.error.message);
       }
     );
   }
   createSubline(val) {
+    this.spinner.show();
     const finalVal = Object.assign([], this.sublineForm.value.subline);
     const k = finalVal.filter(e => e._id === "");
     k.map(e => {
@@ -162,6 +173,7 @@ export class TenderFastQuoteComponent implements OnInit {
     this.httpService.createSubline(k, this.tenderID).subscribe(
       (response: any) => {
         if (response.status === 201) {
+          this.spinner.hide();
           this.toastr.success(response.statusText);
           console.log(response.body);
           // this.getSubline();
@@ -169,19 +181,20 @@ export class TenderFastQuoteComponent implements OnInit {
           // const respId = response.body[0].subContractorId;
           // const subName = this.hs.getSubName(respId);
           //  res.map(e => {
-          //   e.subContractorId = subName;
-          //   this.filteredTender.push(e);
-          //   return e
-          // });
-          this.getSubline();
-          // this.formInit();
-          // console.log(this.filteredTender);
-          if (val === true) {
-            this.router.navigate(["/fast-list/" + this.tenderID]);
+            //   e.subContractorId = subName;
+            //   this.filteredTender.push(e);
+            //   return e
+            // });
+            this.getSubline();
+            // this.formInit();
+            // console.log(this.filteredTender);
+            if (val === true) {
+              this.router.navigate(["/fast-list/" + this.tenderID]);
+            }
           }
-        }
-      },
+        },
       error => {
+        this.spinner.hide();
         this.toastr.error(error.error.message);
       }
     );

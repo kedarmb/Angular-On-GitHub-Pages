@@ -4,13 +4,13 @@ import { HelperService } from "app/shared/core/service/helper.service";
 import { HttpService } from "app/shared/core/service/http.service";
 import { PlatformLocation } from "@angular/common";
 import { MatDialog } from "@angular/material";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-tender-fast-attach",
   templateUrl: "./tender-fast-attach.component.html",
   styleUrls: ["./tender-fast-attach.component.scss"]
 })
-
 export class TenderFastAttachComponent implements OnInit {
   tenderId: any;
   sectionId: any;
@@ -20,18 +20,23 @@ export class TenderFastAttachComponent implements OnInit {
   finalArr = [];
   selectedSection: any;
   ifSelectedLine = false;
-  @ViewChildren('quo') vc: QueryList<any>;
+  @ViewChildren("quo") vc: QueryList<any>;
 
-  constructor(private router: Router, private hs: HelperService,
-    private httpService: HttpService, private location: PlatformLocation,
-    public fastCompareDialog: MatDialog) {
-    this.tenderId = JSON.parse(this.hs.getSession('tenderIdNow'))
+  constructor(
+    private router: Router,
+    private hs: HelperService,
+    private httpService: HttpService,
+    private location: PlatformLocation,
+    public fastCompareDialog: MatDialog,
+    private spinner: NgxSpinnerService
+  ) {
+    this.tenderId = JSON.parse(this.hs.getSession("tenderIdNow"));
     // location.onPopState((e) => {
     //   if (e.type === 'popstate') {
     //     this.router.navigate(['/fast-compare/' + this.tenderId]);
     //   }
     // });
-    }
+  }
 
   ngOnInit() {
     this.getTenderById();
@@ -40,69 +45,83 @@ export class TenderFastAttachComponent implements OnInit {
 
   // call tender get API
   getTenderById() {
-    this.httpService.getTenderDetailById(this.tenderId).subscribe((response) => {
-      if (response.status === 200) {
-        this.tenderData = response.body;
-        this.hs.setSession('tenderDataNow', JSON.stringify(this.tenderData));
+    this.httpService.getTenderDetailById(this.tenderId).subscribe(
+      response => {
+        if (response.status === 200) {
+          this.tenderData = response.body;
+          this.hs.setSession("tenderDataNow", JSON.stringify(this.tenderData));
+        }
+      },
+      err => {
+        console.log("Error getting Tender by id ", err);
       }
-    },
-      (err) => {
-        console.log('Error getting Tender by id ', err);
-      })
-  };
+    );
+  }
   // call tenderpost api
   createSublineWithLine() {
-    this.httpService.getseletedSubForLine(this.tenderId, this.finalArr).subscribe((response) => {
-      if (response.status === 200) {
-        console.log(response)
-      }
-    },
-      (err) => {
-        console.log('Error getting Tender by id ', err);
-      })
+    this.httpService
+      .getseletedSubForLine(this.tenderId, this.finalArr)
+      .subscribe(
+        response => {
+          if (response.status === 200) {
+            console.log(response);
+          }
+        },
+        err => {
+          console.log("Error getting Tender by id ", err);
+        }
+      );
   }
   // call subline get API
   getSelectedSubline() {
-    this.httpService.getselectedsubline(this.tenderId).subscribe((response) => {
-      if (response.status === 201) {
-        this.selectedQuotes = response.body
+    this.httpService.getselectedsubline(this.tenderId).subscribe(
+      response => {
+        if (response.status === 201) {
+          this.selectedQuotes = response.body;
+        }
+      },
+      err => {
+        console.log("Error getting Tender by id ", err);
       }
-    },
-      (err) => {
-        console.log('Error getting Tender by id ', err);
-      })
+    );
   }
 
   // filters section from dropdown.
   showSection(value, a) {
-    this.filteredSection = this.tenderData.sections.filter(v => v._id === value)
-    this.selectedSection = value
+    this.filteredSection = this.tenderData.sections.filter(
+      v => v._id === value
+    );
+    this.selectedSection = value;
   }
 
   // selects, add & remove lineitems and disables dropdown and enables subline to select.
   getSelectedLine(event, val, section) {
-    console.log(event)
-    this.sectionId = section
+    console.log(event);
+    this.sectionId = section;
     const k = {
-      'subLineItemIds': [],
-      'lineItemId': val,
-      'sectionId': section
-    }
-    this.ifSelectedLine = event.checked
+      subLineItemIds: [],
+      lineItemId: val,
+      sectionId: section
+    };
+    this.ifSelectedLine = event.checked;
     if (event.checked) {
-      this.finalArr.push(k)
+      this.finalArr.push(k);
     }
-    console.log(event.source.id)
+    console.log(event.source.id);
     if (!event.checked) {
-      const idx = this.finalArr.findIndex(e => e.lineItemId === event.source.id)
+      const idx = this.finalArr.findIndex(
+        e => e.lineItemId === event.source.id
+      );
       this.finalArr.splice(idx, 1);
       this.vc.map(va => {
-        va.checked = false
-      })
-      console.log(event.source.id)
-      console.log(idx)
-      const lineIdx = this.filteredSection[0].lineItems.findIndex(e => e._id === event.source.id)
-      this.filteredSection[0].lineItems[lineIdx].subLineItems = []
+        va.checked = false;
+      });
+      console.log(event.source.id);
+      console.log(idx);
+      const lineIdx = this.filteredSection[0].lineItems.findIndex(
+        e => e._id === event.source.id
+      );
+      this.filteredSection[0].lineItems[lineIdx].subLineItems = [];
     }
   }
 
@@ -120,15 +139,19 @@ export class TenderFastAttachComponent implements OnInit {
     if (!event.checked) {
       this.finalArr.map(val => {
         const idx = val.subLineItemIds.findIndex(e => e === event.source.id);
-        val.subLineItemIds.splice(idx, 1)
-        this.filterFilteredArr(val, event.source.id)
-      })
+        val.subLineItemIds.splice(idx, 1);
+        this.filterFilteredArr(val, event.source.id);
+      });
     }
   }
   filterFilteredArr(val, sourceId) {
-    const lineIdx = this.filteredSection[0].lineItems.findIndex(e => e._id === val.lineItemId)
-    const sLineIdx = this.filteredSection[0].lineItems[lineIdx].subLineItems.findIndex(e => e._id === sourceId)
-    this.filteredSection[0].lineItems[lineIdx].subLineItems.splice(sLineIdx, 1)
+    const lineIdx = this.filteredSection[0].lineItems.findIndex(
+      e => e._id === val.lineItemId
+    );
+    const sLineIdx = this.filteredSection[0].lineItems[
+      lineIdx
+    ].subLineItems.findIndex(e => e._id === sourceId);
+    this.filteredSection[0].lineItems[lineIdx].subLineItems.splice(sLineIdx, 1);
   }
 
   toBid() {

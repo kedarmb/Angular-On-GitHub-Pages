@@ -1,5 +1,6 @@
 <div class="container fast-q">
     <div class=" table-responsive m-top ">
+        <h4>Sub Name: {{subName.name}}</h4>
         <form [formGroup]="sublineForm">
             <div class="col-3">
                 <app-invited-subcontractors [notifiedSubs]="tenderID" (subSelected)="subConSelection($event)"></app-invited-subcontractors>
@@ -12,6 +13,7 @@
                     <th>Unit</th>
                     <th>unitPrice</th>
                 </thead>
+
                 <tbody formArrayName="subline">
                     <tr *ngFor="let lineItem of sublineForm.get('subline').controls; let i = index;  let last = last"
                         [formGroupName]="i">
@@ -46,5 +48,9 @@
             <button  class="cancel" type="submit" (click)="cancel()">Cancel</button>
         </div>
         </form>
+        
     </div>
+    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+        <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
+    </ngx-spinner>
 </div>
