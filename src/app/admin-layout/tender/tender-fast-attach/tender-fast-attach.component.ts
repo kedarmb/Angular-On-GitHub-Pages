@@ -45,42 +45,51 @@ export class TenderFastAttachComponent implements OnInit {
 
   // call tender get API
   getTenderById() {
+    this.spinner.show()
     this.httpService.getTenderDetailById(this.tenderId).subscribe(
       response => {
+        this.spinner.hide()
         if (response.status === 200) {
           this.tenderData = response.body;
           this.hs.setSession("tenderDataNow", JSON.stringify(this.tenderData));
         }
       },
       err => {
+        this.spinner.hide()
         console.log("Error getting Tender by id ", err);
       }
     );
   }
   // call tenderpost api
   createSublineWithLine() {
+    this.spinner.show()
     this.httpService
       .getseletedSubForLine(this.tenderId, this.finalArr)
       .subscribe(
         response => {
+          this.spinner.hide()
           if (response.status === 200) {
             console.log(response);
           }
         },
         err => {
           console.log("Error getting Tender by id ", err);
+          this.spinner.hide()
         }
       );
   }
   // call subline get API
   getSelectedSubline() {
+    this.spinner.show()
     this.httpService.getselectedsubline(this.tenderId).subscribe(
       response => {
+        this.spinner.hide()
         if (response.status === 201) {
           this.selectedQuotes = response.body;
         }
       },
       err => {
+        this.spinner.hide()
         console.log("Error getting Tender by id ", err);
       }
     );
@@ -128,12 +137,21 @@ export class TenderFastAttachComponent implements OnInit {
   // selects quote and add's to final array agains lineitems and removes it.
   getQuote(event, quote, filteredQuote) {
     console.log(event.source);
+    // const selQuote = [];
+    // selQuote.push(quote);
+    // console.log(selQuote);
     if (event.checked) {
       this.finalArr.map(val => {
+        // const fSec = selQuote.filter(e=>e.lineItem === val._id);
+        // console.log(val)
         val.subLineItemIds.push(quote._id);
       });
+      // console.log(quote)
       this.filteredSection[0].lineItems.map(val => {
-        val.subLineItems.push(quote);
+        // console.log(val)
+        // if (quote.lineItem === val._id){
+          val.subLineItems.push(quote);
+        // }
       });
     }
     if (!event.checked) {

@@ -109,8 +109,7 @@ export class TenderFastPrepareBidComponent
     console.log(this.filteredSection);
     // = 0; i < this.filteredSection[0].lineItems.length; i++
     for (let i in this.filteredSection[0].lineItems) {
-      const totalPrice = this.filteredSection[0].lineItems[i].subLineItems.map(
-        e => {
+      const totalPrice = this.filteredSection[0].lineItems[i].subLineItems.map(e => {
           return (e.totalPrice = e.quantity * e.unitPrice);
         }
       );
@@ -127,19 +126,11 @@ export class TenderFastPrepareBidComponent
       this.filteredSection[0].lineItems[i].total = 0;
       this.filteredSection[0].lineItems[i].total += this.sublineTotalPrice;
       if (this.filteredSection[0].lineItems[i].crewItemRef !== null) {
-        this.filteredSection[0].lineItems[
-          i
-        ].total += this.filteredSection[0].lineItems[
-          i
-        ].crewItemRef.crewTotalCost;
+        this.filteredSection[0].lineItems[i].total += this.filteredSection[0].lineItems[i].crewItemRef.crewTotalCost;
       }
       if (
-        this.filteredSection[0].lineItems[i].total ||
-        this.filteredSection[0].lineItems[i].quantity
-      )
-        this.filteredSection[0].lineItems[i].unitPrice =
-          this.filteredSection[0].lineItems[i].total /
-          this.filteredSection[0].lineItems[i].quantity;
+        this.filteredSection[0].lineItems[i].total || this.filteredSection[0].lineItems[i].quantity)
+        this.filteredSection[0].lineItems[i].unitPrice = this.filteredSection[0].lineItems[i].total / this.filteredSection[0].lineItems[i].quantity;
     }
   }
   // filters section from dropdown.
@@ -167,13 +158,11 @@ export class TenderFastPrepareBidComponent
       );
       this.finalArr.splice(idx, 1);
       this.vc.map(va => {
-        va.checked = false;
+        return va.checked = false;
       });
       console.log(event.source.id);
       console.log(idx);
-      const lineIdx = this.filteredSection[0].lineItems.findIndex(
-        e => e._id === event.source.id
-      );
+      const lineIdx = this.filteredSection[0].lineItems.findIndex(e => e._id === event.source.id);
       this.filteredSection[0].lineItems[lineIdx].subLineItems = [];
     }
   }
@@ -194,18 +183,11 @@ export class TenderFastPrepareBidComponent
     this.filteredSection[0].lineItems[i].total = 0;
     this.filteredSection[0].lineItems[i].total += this.sublineTotalPrice;
     if (this.filteredSection[0].lineItems[i].crewItemRef !== null) {
-      this.filteredSection[0].lineItems[
-        i
-      ].total += this.filteredSection[0].lineItems[i].crewItemRef.crewTotalCost;
+      this.filteredSection[0].lineItems[i].total += this.filteredSection[0].lineItems[i].crewItemRef.crewTotalCost;
     }
-    if (
-      this.filteredSection[0].lineItems[i].total ||
-      this.filteredSection[0].lineItems[i].quantity
-    )
-      this.filteredSection[0].lineItems[i].unitPrice =
-        this.filteredSection[0].lineItems[i].total /
-        this.filteredSection[0].lineItems[i].quantity;
-  }
+    if (this.filteredSection[0].lineItems[i].total || this.filteredSection[0].lineItems[i].quantity)
+      this.filteredSection[0].lineItems[i].unitPrice = (this.filteredSection[0].lineItems[i].total/this.filteredSection[0].lineItems[i].quantity).toFixed(2);
+    }
 
   addCrewToLine(sectionID, lineItmID) {
     console.log(sectionID, lineItmID);
