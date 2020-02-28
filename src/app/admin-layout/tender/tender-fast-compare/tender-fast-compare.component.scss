@@ -1,3 +1,9 @@
 .m-top{
     margin-top: 68px;
 }
+.position-bottom{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: calc(100% - 595px);
+}

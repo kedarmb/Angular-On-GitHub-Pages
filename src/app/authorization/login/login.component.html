@@ -84,10 +84,12 @@
                 <div class="col-md-7 pad0">
 
                     <div class=" box ">
+      
+             
+                      
 
-
-                        <p class="floatr">your organization does not exist?<a  routerLink="/organization">Add Organization</a>
-                        </p>
+                        <!-- <p class="floatr">your organization does not exist?<a class="marg" routerLink="/signup">Add Organization</a>
+                        </p> -->
                       
 
                         <form [formGroup]="loginForm" novalidate (ngSubmit)="submit()">
@@ -111,7 +113,9 @@
                                   <option value="saab">Sub Contractor</option>
                                 </select>
                             </mat-form-field>
-                            Don't have account ? <a class="marg" routerLink="/signup">SIGNUP</a>
+                            <p >    your organization does not exist?<a class="marg" routerLink="/organization">Add Organization</a></p>    
+                    Don't have account ? <a class="marg" routerLink="/signup">Signup</a>   
+                   
                             <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary" class=" pull-right">login
                             </button>
                             <div class="clearfix"></div>

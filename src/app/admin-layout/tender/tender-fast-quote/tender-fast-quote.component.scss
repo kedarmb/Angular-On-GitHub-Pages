@@ -52,3 +52,9 @@ td a i {
     font-size: 16px;
     padding:8px 4px;
 }
+.position-bottom{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: calc(100% - 595px);
+}

@@ -40,10 +40,11 @@
                     </tr>
                 </tbody>
             </table>
-
+            <div class="position-bottom">
             <button class="save" type="submit" (click)="createSubline(true)" [disabled]="!sublineForm.valid">save</button>
             <button  class="conti" type="submit" (click)="createSubline(false)">Save and continue</button>
             <button  class="cancel" type="submit" (click)="cancel()">Cancel</button>
+        </div>
         </form>
     </div>
 </div>
