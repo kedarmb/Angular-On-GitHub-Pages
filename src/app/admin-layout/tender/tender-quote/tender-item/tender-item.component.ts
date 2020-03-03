@@ -249,7 +249,14 @@ export class TenderItemComponent implements OnInit, OnChanges {
     }
     //
     const totalCrewSubs = crewVal + propVal;
+    // console.log('totalCrewSubs ... ', totalCrewSubs);
     total = Number(Math.floor(totalCrewSubs / lineItemRef.quantity).toFixed(2));
+    // console.log('total ... ', total, lineItemRef.quantity);
+    // console.log('................')
+    // TODO - Lineitem Quantity can not be empty -- jugar to fix
+    if (lineItemRef.quantity == null) {
+      total = 0;
+    }
     return total;
   }
 
