@@ -1,11 +1,9 @@
 import { ViewQuotesComponent } from "./../../../shared/components/view-quotes/view-quotes.component";
 import { MatDialog } from "@angular/material";
-import { PlatformLocation } from "@angular/common";
 import { HelperService } from "app/shared/core/service/helper.service";
 import { HttpService } from "./../../../shared/core/service/http.service";
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-tender-fast-compare",
@@ -21,18 +19,10 @@ export class TenderFastCompareComponent implements OnInit {
     private router: Router,
     private hs: HelperService,
     private httpService: HttpService,
-    private location: PlatformLocation,
-    public fastCompareDialog: MatDialog,
-    private spinner: NgxSpinnerService
+    public fastCompareDialog: MatDialog
   ) {
-    // this.tenderData = this.router.getCurrentNavigation().extras.state;
     this.tenderId = JSON.parse(this.hs.getSession("tenderIdNow"));
     console.log(this.tenderId);
-    // location.onPopState((e) => {
-    //   if (e.type === 'popstate') {
-    //     this.router.navigate(['/fast-list/' + this.tenderId]);
-    //   }
-    // });
   }
 
   ngOnInit() {
@@ -43,7 +33,21 @@ export class TenderFastCompareComponent implements OnInit {
     this.httpService.getUniqueSubline(this.tenderId).subscribe(
       response => {
         if (response.status === 201) {
-          this.sublineData = response.body;
+          const _sublineData = response.body as Array<any>;
+          this.sublineData = _sublineData.sort((a, b) => {
+            var nameA = a.name.toLowerCase(),
+              nameB = b.name.toLowerCase();
+            if (nameA < nameB)
+              //sort string ascending
+              return -1;
+            if (nameA > nameB) return 1;
+            return 0; //default return value (no sorting)
+          });
+          _sublineData.forEach(val => {
+            val.quotes.sort((a, b) => {
+              return a.unitPrice - b.unitPrice;
+            });
+          });
           console.log(this.sublineData);
           // this.setSelected();
           this.fromGet = true;
@@ -55,53 +59,31 @@ export class TenderFastCompareComponent implements OnInit {
     );
   }
 
-  getQuote(e, quote, item) {
-    
-    this.fromGet = false;
-    const temp = {
-      qId: item.value._id,
-      sId: quote.value.sublineItemId
-    };
-    for (let i = 0; i < this._selectedSubs.length; i++) {
-      if (this._selectedSubs[i].qId === item.value._id) {
-        console.log("poped q id");
-        this._selectedSubs.splice(i, 1);
-        break;
+  selectQuote(val, quote) {
+    this.sublineData.map(e => {
+      if (quote._id == e._id) {
+        e.quotes.map(f => {
+          f.selected = false;
+          if (f.subContractorId._id == val) {
+            f.selected = true;
+          }
+        });
       }
-    }
-    this._selectedSubs.push(temp);
-  }
-  getSelectedResults() {
-    console.log('get api')
-    let ifSelected = false;
-    const _sublineData = [...this.sublineData];
-    _sublineData.map(e => {
-      e.quotes.map(f => {
-        console.log(f.selected === true);
-      });
     });
-    return ifSelected;
   }
-  checkIfSelected(val) {
-        console.log("Not get api");
-    let ifSelected = false;
-    for (let i = 0; i < this._selectedSubs.length; i++) {
-      if (this._selectedSubs[i].sId === val.value.sublineItemId) {
-        ifSelected = true;
-        break;
-      }
-    }
-    console.log(this.sublineData);
-    return ifSelected;
+
+  getSelectedResults(val) {
+    console.log(val);
   }
 
   moreQuotes() {
     const update = {
-      selected: [...this._selectedSubs],
       quotes: this.sublineData
     };
+    console.log(update);
     this.openMoreQuotesDialog(update);
   }
+
   openMoreQuotesDialog(data) {
     const dialogRef = this.fastCompareDialog.open(ViewQuotesComponent, {
       width: "550px",
@@ -115,34 +97,53 @@ export class TenderFastCompareComponent implements OnInit {
       }
       if (response.status === "update") {
         console.log(response);
-        this._selectedSubs = response.data;
+        this.sublineData = response.data;
       }
     });
   }
+
   save() {
-    const finalVal = this._selectedSubs.map(val => {
-      return val.sId;
-    });
+    let _selectedSub = [];
+    let _deSelectedSub = [];
+    for (let i of this.sublineData) {
+      for (let e of i.quotes) {
+        if (e.selected == false) {
+          _deSelectedSub.push(e);
+        
+        }
+        if (e.selected == true) {
+          _selectedSub.push(e);
+        }
+      }
+    }
+    const selectedSub = _selectedSub.map(e => e.sublineItemId);
+    const deSelectedSub = _deSelectedSub.map(e => e.sublineItemId);
+
     const sublineItemIds = {
-      sublineItemIds: finalVal
+      deSelectedSub: deSelectedSub,
+      selectedSub: selectedSub
     };
     console.log(sublineItemIds);
-    this.httpService.updateSubline(sublineItemIds, this.tenderId).subscribe(
-      response => {
-        if (response.status === 200) {
-          console.log(response);
+    this.httpService
+      .updateseletedDeselectSub(sublineItemIds, this.tenderId)
+      .subscribe(
+        response => {
+          if (response.status === 200) {
+            console.log(response);
+          }
+        },
+        err => {
+          console.log("Error getting Tender by id ", err);
         }
-      },
-      err => {
-        console.log("Error getting Tender by id ", err);
-      }
-    );
+      );
   }
+
   continueToMatch() {
     this.router.navigate(["/fast-attach/" + this.tenderId], {
       state: this.tenderId
     });
   }
+
   cancel() {
     this.router.navigate(["/fast-list/" + this.tenderId]);
   }

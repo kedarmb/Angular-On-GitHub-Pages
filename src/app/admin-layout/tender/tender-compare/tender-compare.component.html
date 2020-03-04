@@ -23,7 +23,7 @@
                                     <p class="mb-1">Unit Price: {{quote.unitPrice}}</p>
                                     <p class="mb-1">Total Price: {{quote.totalPrice}}</p>
                                     <!-- <mat-radio-button></mat-radio-button> -->
-                                    <mat-checkbox #e  (change)="getSelectedLineItem(e.checked,section._id,item._id,quote.quoteSub)" [checked]= "item.selectedSub==quote.quoteSub"></mat-checkbox>
+                                    <mat-checkbox #e  (change)="getSelectedLineItem(e.checked,section._id,item._id,quote.quoteSub)" [checked]="quote.selected === true"></mat-checkbox>
                                 </mat-card-content>
                             </mat-card>
                         </div>

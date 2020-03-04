@@ -17,54 +17,37 @@ export class ViewQuotesComponent implements OnInit {
 
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     @Optional() private dialogRef: MatDialogRef<any>) {
-    this.quotes = this.data.quotes;
-    this._selectedSubs = this.data.selected;
-    console.log(this._selectedSubs);
+    this.quotes =  data.quotes;
   }
 
   ngOnInit() {
+
   }
 
-  checkIfSelected(val) {
-    let ifSelected = false;
-    // console.log(val);
-    for (let i = 0; i < this._selectedSubs.length; i++){
-      if (this._selectedSubs[i].sId === val.sublineItemId){
-        ifSelected = true;
-        break
+  selectQuote(val, quote) {
+    for (let i of this.quotes) {
+      if (quote._id == i._id) {
+        for (let j of i.quotes) {
+          j.selected = false;
+          if (j.subContractorId._id == val) {
+            j.selected = true;
+          }
+        }
       }
     }
-    return ifSelected;
-  }
-
-
-  getQuote($event, quote, item) {
-    console.log(item);
-    const temp = {
-      qId: item._id,
-      sId: quote.sublineItemId
+    console.log(this.quotes)
     }
-
-    for (let i = 0; i < this._selectedSubs.length; i++) {
-      if (this._selectedSubs[i].qId === item._id) {
-        // console.log('poped q id');
-        this._selectedSubs.splice(i, 1);
-        break;
-      }
-    }
-    this._selectedSubs.push(temp);
-    console.log(this._selectedSubs);
-  }
 
   showQuote(q) {
     this.filteredQuote = this.quotes.filter(val => val._id === q)
   }
-save(){
-  this.resData.status = 'update';
-  this.resData.data = [...this._selectedSubs];
-  this.dialogRef.close(this.resData);
+  save() {
+    console.log(this.quotes)
+    this.resData.status = 'update';
+    this.resData.data = this.quotes;
+    this.dialogRef.close(this.resData);
 
-}
+  }
   close() {
     this.resData.status = 'close';
     this.dialogRef.close(this.resData);
