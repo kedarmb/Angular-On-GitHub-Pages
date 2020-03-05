@@ -96,30 +96,23 @@
                                                         <!-- <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                             <i class="material-icons">remove_red_eye</i>
                                                         </button> -->
-                                                        <button mat-raised-button type="button" (click)="saveLineItem(section, lindx)" matTooltip="save line item" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                            <i class="material-icons">save</i>
-                                                        </button>
-                                                        <button mat-raised-button type="button" (click)="__removeLineItem(section, lindx)" matTooltip="remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                            <i class="material-icons">minimize</i>
-                                                        </button>
-                                                        <button mat-raised-button type="button" matTooltip="less" (click)="toggleCollapse(section, lindx)" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                            <i class="material-icons">expand_less</i>
-                                                        </button>
-                                                        <button mat-raised-button type="button" matTooltip="add line item" [matTooltipPosition]="'above'" (click)="__addLineItem(section)" *ngIf="last" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                            <i class="material-icons">add_box</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-
-
-                                            </ng-container>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </ng-container>
-
-                        </div>
-                    </form>
+                            <button mat-raised-button type="button" (click)="saveLineItem(section, lindx)" matTooltip="save line item" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                              <i class="material-icons">save</i>
+                            </button>
+                            <button mat-raised-button type="button" (click)="__removeLineItem(section, lindx)" matTooltip="remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                              <i class="material-icons">minimize</i>
+                            </button>
+                            <button mat-raised-button type="button" matTooltip="less" [matTooltipPosition]="'above'"  class="btn btn-danger btn-link btn-sm btn-just-icon">
+                              <i class="material-icons">expand_less</i>
+                            </button>
+                            <button mat-raised-button type="button" matTooltip="add line item" [matTooltipPosition]="'above'" (click)="__addLineItem(section)" *ngIf="last" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                              <i class="material-icons">add_box</i>
+                            </button>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
                 </div>
             </ng-container>
 
@@ -128,7 +121,8 @@
             </ng-container>
 
 
-        <ngx-spinner type="cog" size="medium" color="#b8a5e8">
-            <p style="font-size: 20px; color: white; margin-top: 60px;">loading tender..</p>
-        </ngx-spinner>
-    </div>
+    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+      <p style="font-size: 20px; color: white; margin-top: 60px;">loading tender..</p>
+    </ngx-spinner>
+  </div>
+

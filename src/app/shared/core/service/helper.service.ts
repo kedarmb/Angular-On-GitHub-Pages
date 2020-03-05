@@ -10,13 +10,13 @@ export class HelperService {
   labourData = new BehaviorSubject<any>("");
   equipmentStore: any;
   labourStore: any;
-  public reducer = (accumulator, currentValue) => accumulator + currentValue;
   //
   private tenderList: any[] = [];
   tender_even = [{}];
   //
   filteredOrgList: any[] = [];
   equipments: any;
+  public reducer = (accumulator, currentValue) => accumulator + currentValue;
   //
   constructor() {}
 

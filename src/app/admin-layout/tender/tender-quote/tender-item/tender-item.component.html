@@ -1,281 +1,377 @@
 <ng-progress id="myProgress" [thick]="true" [spinner]="false"></ng-progress>
 
 <div class="table-responsive">
-    <ng-container>
-        <div *ngIf="masterForm">
-            <form [formGroup]="masterForm">
-                <div formArrayName="sections">
-                    <ng-container *ngFor="let section of masterForm.get('sections').controls; let secindx = index;" [formGroupName]="secindx">
+  <ng-container>
+    <div *ngIf="masterForm">
+      <form [formGroup]="masterForm">
+        <div formArrayName="sections">
+          <ng-container
+            *ngFor="let section of masterForm.get('sections').controls; let secindx = index"
+            [formGroupName]="secindx"
+          >
+            <mat-toolbar>
+              <span
+                ><textarea
+                  type="text"
+                  class="t-area"
+                  formControlName="name"
+                  [readonly]="true"
+                  placeholder="section name goes here"
+                ></textarea
+              ></span>
+              <span class="toolbar-spacer"></span>
+            </mat-toolbar>
+            <div formArrayName="lineItems" class="table-responsive">
+              <table class="table table-bordered">
+                <thead class=" text-primary">
+                  <th>
+                    Item No
+                  </th>
+                  <th>
+                    Spec No
+                  </th>
+                  <th>
+                    Item Name
+                  </th>
 
-                        <mat-toolbar>
-                            <span><textarea type="text" class="t-area" formControlName="name" [readonly]="true" placeholder="section name goes here"></textarea></span>
-                            <span class="toolbar-spacer"></span>                            
-                        </mat-toolbar>
-                        <div formArrayName="lineItems" class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class=" text-primary">
-                                    <th>
-                                        Item No
-                                    </th>
-                                    <th>
-                                        Spec No
-                                    </th>
-                                    <th>
-                                        Item Name
-                                    </th>
+                  <th>
+                    Description
+                  </th>
+                  <th>
+                    Unit
+                  </th>
+                  <th>
+                    Quantity
+                  </th>
+                  <th>
+                    Unit Price
+                  </th>
+                  <th>
+                    Total Price
+                  </th>
+                  <th style="width: 200px;">
+                    Actions
+                  </th>
+                </thead>
+                <tbody>
+                  <ng-container
+                    *ngFor="let lineItem of section.get('lineItems').controls; let lindx = index; let last = last"
+                    [formGroupName]="lindx"
+                  >
+                    <tr>
+                      <td class="width-2">
+                        <textarea type="text" class="form-control" formControlName="itemNo" [readonly]="true"></textarea>
+                      </td>
+                      <td class="width-2">
+                        <textarea type="text" class="form-control" formControlName="specNo" [readonly]="true"></textarea>
+                      </td>
+                      <td class="width-2">
+                        <textarea type="text" class="form-control" formControlName="itemName" [readonly]="true"></textarea>
+                      </td>
+                      <td class="width-2">
+                        <textarea type="text" class="form-control" formControlName="description" [readonly]="true"></textarea>
+                      </td>
+                      <td class="width-2">
+                        <textarea type="text" class="form-control" formControlName="unit" [readonly]="true"></textarea>
+                      </td>
+                      <td class="width-2">
+                        <textarea type="text" class="form-control" formControlName="quantity" [readonly]="true"></textarea>
+                      </td>
+                      <td class="width-2">
+                        <textarea type="text" class="form-control" formControlName="_unitPrice" [readonly]="true"></textarea>
+                      </td>
+                      <td class="width-2">
+                        <textarea type="text" class="form-control" formControlName="_totalPrice" [readonly]="true"></textarea>
+                      </td>
+                      <td class="td-actions width-2">
+                        <button
+                          mat-raised-button
+                          type="button"
+                          matTooltip="less"
+                          (click)="toggleCollapse(section, lindx)"
+                          [matTooltipPosition]="'above'"
+                          *ngIf="collapse"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon"
+                        >
+                          <i class="material-icons">expand_less</i>
+                        </button>
+                      </td>
+                    </tr>
 
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        Unit
-                                    </th>
-                                    <th>
-                                        Quantity
-                                    </th>
-                                    <th>
-                                        Unit Price
-                                    </th>
-                                    <th>
-                                        Total Price
-                                    </th>
-                                    <th>
-                                        Actions
-                                    </th>
-                                    <!-- <th style="width: 200px;">
-                                        Actions
-                                    </th> -->
-                                </thead>
-                                <tbody>
-                                    <ng-container *ngFor="let lineItem of section.get('lineItems').controls; let lindx = index; let last = last" [formGroupName]="lindx">
+                    <tr [ngbCollapse]="!collapse[lindx]">
+                      <td colspan="11" class="collapse-body">
+                        <ng-container>
+                          <mat-accordion>
+                            <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                  Subline Items
+                                </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <div for="subline_items_part">
+                                <table class="table table-condensed">
+                                  <div *ngIf="selectedSubInp">
+                                    <thead>
+                                      <th>Name</th>
+                                      <th>Unit</th>
+                                      <th>Unit Price</th>
+                                      <th>Quantity</th>
+                                      <th>Total Price</th>
+                                      <th style="width: 200px;">
+                                        <button
+                                          mat-raised-button
+                                          type="button"
+                                          matTooltip="add sub-line item"
+                                          [matTooltipPosition]="'above'"
+                                          (click)="__addSubLineItem(lineItem)"
+                                          class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                        >
+                                          <i class="material-icons">add_box</i>
+                                        </button>
+                                      </th>
+                                    </thead>
+                                    <tbody>
+                                      <ng-container formArrayName="subLineItems">
+                                        <tr
+                                          *ngFor="let sItem of lineItem.get('subLineItems').controls; let slindx = index"
+                                          [formGroupName]="slindx"
+                                        >
+                                          <td>
+                                            <textarea type="text" class="form-control" formControlName="name"></textarea>
+                                          </td>
+                                          <td>
+                                            <textarea type="text" class="form-control" formControlName="unit"></textarea>
+                                          </td>
+                                          <td>
+                                            <textarea
+                                              type="text"
+                                              class="form-control"
+                                              formControlName="unitPrice"
+                                              (keyup)="calculateSublineTotal(lineItem)"
+                                            ></textarea>
+                                          </td>
+                                          <td>
+                                            <textarea
+                                              type="text"
+                                              class="form-control"
+                                              formControlName="quantity"
+                                              (keyup)="calculateSublineTotal(lineItem)"
+                                            ></textarea>
+                                          </td>
+                                          <td>
+                                            <textarea
+                                              type="text"
+                                              class="form-control"
+                                              formControlName="totalPrice"
+                                              [readonly]="true"
+                                            ></textarea>
+                                          </td>
+                                          <td class="td-actions width-10">
+                                            <button
+                                              type="button"
+                                              class="btn btn-danger btn-link btn-sm btn-just-icon"
+                                              (click)="__removeSubLineItem(lineItem, slindx)"
+                                              matTooltip="remove sub-line item"
+                                            >
+                                              <i class="material-icons">minimize</i>
+                                            </button>
+                                            <button
+                                              type="button"
+                                              class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                              (click)="__saveSubLineItem(section, lineItem, slindx)"
+                                              matTooltip="save sub-line item"
+                                            >
+                                              <i class="material-icons">save</i>
+                                            </button>
+                                          </td>
+                                        </tr>
                                         <tr>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="itemNo" [readonly]="true"></textarea>
-                                            </td>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="specNo" [readonly]="true"></textarea>
-                                            </td>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="itemName" [readonly]="true"></textarea>
-                                            </td>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="description" [readonly]="true"></textarea>
-                                            </td>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="unit" [readonly]="true"></textarea>
-                                            </td>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="quantity" [readonly]="true" (keyup)="calculateLineItemUnitPrice(lineItem)"></textarea>
-                                            </td>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="_unitPrice" [readonly]="true"></textarea>
-                                            </td>
-                                            <td class="width-2">
-                                                <textarea type="text" class="form-control" formControlName="_totalPrice" [readonly]="true"></textarea>
-                                            </td>
-                                            <td class="td-actions width-2">                                               
-                                                <button mat-raised-button type="button" matTooltip="less" (click)="toggleCollapse(section, lindx)" [matTooltipPosition]="'above'" *ngIf="collapse" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                    <i class="material-icons">expand_less</i>
-                                                </button>
-
-                                            </td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td><span style="font-weight: bold; font-size: larger;">Sub Total</span></td>
+                                          <td>
+                                            <span style="font-weight: bold; font-size: larger;">{{
+                                              getSubLinesTotalCostOnUpdate(lineItem)
+                                            }}</span>
+                                          </td>
                                         </tr>
+                                      </ng-container>
+                                    </tbody>
+                                  </div>
+                                  <div *ngIf="!selectedSubInp">
+                                    <h3>Select a Sub Contractor</h3>
+                                  </div>
+                                </table>
+                              </div>
+                            </mat-expansion-panel>
 
-                                        <tr [ngbCollapse]="!collapse[lindx]">
-                                            <td colspan="11" class="collapse-body">
-                                                <ng-container>
-                                                    <mat-accordion>
-                                                        <mat-expansion-panel>
-                                                            <mat-expansion-panel-header>
-                                                                <mat-panel-title>
-                                                                    Subline Items
-                                                                </mat-panel-title>
-                                                            </mat-expansion-panel-header>
-                                                            <div for="subline_items_part">
-                                                                <table class="table table-condensed">
-                                                                    <div *ngIf="selectedSubInp">
-                                                                        <thead>
-                                                                            <th>Name</th>
-                                                                            <th>Unit</th>
-                                                                            <th>Unit Price</th>
-                                                                            <th>Quantity</th>
-                                                                            <th>Total Price</th>
-                                                                            <th>
-                                                                                <button mat-raised-button type="button" matTooltip="add sub-line item" [matTooltipPosition]="'above'" (click)="__addSubLineItem(lineItem)" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                                                    <i class="material-icons">add_box</i>
-                                                                                </button>
-                                                                            </th>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <ng-container formArrayName="subLineItems">
+                            <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                  Crew
+                                </mat-panel-title>
+                              </mat-expansion-panel-header>
 
-                                                                                <tr *ngFor="let sItem of lineItem.get('subLineItems').controls; let slindx = index" [formGroupName]="slindx">
-                                                                                    <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="name"></textarea>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="unit"></textarea>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="unitPrice" (keyup)="calculateSublineTotal(lineItem)"></textarea>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="quantity" (keyup)="calculateSublineTotal(lineItem)"></textarea>
-                                                                                    </td>                                                                                    
-                                                                                    <td>
-                                                                                        <textarea type="text" class="form-control" formControlName="totalPrice" [readonly]="true"></textarea>
-                                                                                    </td>
-                                                                                    <td class="td-actions width-10">
-                                                                                        <button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="__removeSubLineItem(lineItem,slindx)" matTooltip="remove sub-line item">
-                                                                                            <i class="material-icons">minimize</i>
-                                                                                        </button>
-                                                                                        <button type="button" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="__saveSubLineItem(section, lineItem, slindx)" matTooltip="save sub-line item">
-                                                                                            <i class="material-icons">save</i>
-                                                                                        </button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                    <td></td>
-                                                                                    <td><span style="font-weight: bold; font-size: larger;">Sub Total</span></td>
-                                                                                    <td><span style="font-weight: bold; font-size: larger;">{{getSubLinesTotalCostOnUpdate(lineItem)}}</span></td>
-                                                                                </tr>
-                                                                            </ng-container>
-                                                                        </tbody>
-                                                                    </div>
-                                                                    <div *ngIf="!selectedSubInp">
-                                                                        <h3>Select a Sub Contractor</h3>
-                                                                    </div>
-                                                                </table>
-                                                            </div>
-                                                        </mat-expansion-panel>
+                              <div for="crew_details_form">
+                                <div class="row" *ngIf="lineItem.value.crewItemRef === null">
+                                  <div class="col-6">
+                                    <button
+                                      mat-raised-button
+                                      color="primary"
+                                      (click)="addCrewToLine(section.value._id, lineItem.value._id, lineItem, section)"
+                                    >
+                                      Add Crew
+                                    </button>
+                                    <button mat-raised-button color="primary" (click)="createNewCrew(lineItem, lindx)">
+                                      Create New Crew
+                                    </button>
+                                    <!-- <button mat-raised-button color="primary" (click)="saveSelectedCrew(lineItem, lindx)">Save</button> -->
+                                  </div>
+                                </div>
+                                <div class="row" *ngIf="lineItem.value.crewItemRef !== null">
+                                  <div class="col-6">
+                                    <mat-card>
+                                      <mat-card-content>
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="row">
+                                              <div class="col">Total Cost of Crew:</div>
+                                              <div class="col">
+                                                <span style="font-weight: bold;">{{
+                                                  lineItem.value.crewItemRef.crewTotalCost
+                                                }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col">Total Cost of Labour:</div>
+                                              <div class="col">
+                                                <span style="font-weight: bold;">{{
+                                                  lineItem.value.crewItemRef.labourTotalCost
+                                                }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col">Total Cost of Equipment:</div>
+                                              <div class="col">
+                                                <span style="font-weight: bold;">{{
+                                                  lineItem.value.crewItemRef.equipmentTotalCost
+                                                }}</span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </mat-card-content>
+                                    </mat-card>
+                                  </div>
+                                  <div class="col-3">
+                                    <button
+                                      mat-raised-button
+                                      color="primary"
+                                      (click)="addCrewToLine(section.value._id, lineItem.value._id, lineItem, section)"
+                                    >
+                                      Edit Crew
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </mat-expansion-panel>
 
-                                                        <mat-expansion-panel>
+                            <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                  Trench
+                                </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <div for="trench_details_form">
+                                <div class="row" *ngIf="lineItem.value.trenchRef == null">
+                                  <div class="col-6">
+                                    <button
+                                      mat-raised-button
+                                      color="primary"
+                                      (click)="addTrenchToLine(section.value._id, lineItem.value._id)"
+                                    >
+                                      Create New Trench
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="row" *ngIf="lineItem.value.trenchRef != null">
+                                  <div class="col-6">
+                                    <mat-card>
+                                      <mat-card-content>
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="row">
+                                              <div class="col">Bedding Volume:</div>
+                                              <div class="col">
+                                                <span style="font-weight: bold;">{{
+                                                  lineItem.value.trenchRef.beddingVolume
+                                                }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col">Bedding Weight:</div>
+                                              <div class="col">
+                                                <span style="font-weight: bold;">{{
+                                                  lineItem.value.trenchRef.beddingWeight
+                                                }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col">Backfill Volume:</div>
+                                              <div class="col">
+                                                <span style="font-weight: bold;">{{
+                                                  lineItem.value.trenchRef.backfillVolume
+                                                }}</span>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col">Backfill Weight:</div>
+                                              <div class="col">
+                                                <span style="font-weight: bold;">{{
+                                                  lineItem.value.trenchRef.backfillWeight
+                                                }}</span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </mat-card-content>
+                                    </mat-card>
+                                  </div>
+                                  <div class="col-3">
+                                    <button
+                                      mat-raised-button
+                                      color="primary"
+                                      (click)="addTrenchToLine(section.value._id, lineItem.value._id)"
+                                    >
+                                      Edit Trench
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <mat-card *ngIf="trenchObj">
+                                <div class="row"></div>
 
-                                                            <mat-expansion-panel-header>
-                                                                <mat-panel-title>
-                                                                    Crew
-                                                                </mat-panel-title>
-                                                            </mat-expansion-panel-header>
-
-                                                            <div for="crew_details_form">
-                                                                <div class="row" *ngIf="lineItem.value.crewItemRef === null">
-                                                                    <div class="col-6">
-                                                                        <button mat-raised-button color="primary" (click)="addCrewToLine(section.value._id, lineItem.value._id, lineItem, section)">Add Crew</button>
-                                                                        <button mat-raised-button color="primary" (click)="createNewCrew(lineItem, lindx)">Create New Crew</button>
-                                                                        <!-- <button mat-raised-button color="primary" (click)="saveSelectedCrew(lineItem, lindx)">Save</button> -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row" *ngIf="lineItem.value.crewItemRef !== null">
-                                                                    <div class="col-6">
-                                                                        <mat-card>
-                                                                            <mat-card-content>
-                                                                                <div class="row">
-                                                                                    <div class="col">
-                                                                                        <div class="row">
-                                                                                            <div class="col">Total Cost of Crew:</div>
-                                                                                            <div class="col"><span style="font-weight: bold;">{{lineItem.value.crewItemRef.crewTotalCost}}</span></div>                                                                                             
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="col">Total Cost of Labour:</div>
-                                                                                            <div class="col"><span style="font-weight: bold;">{{lineItem.value.crewItemRef.labourTotalCost}}</span></div>                                                                                             
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="col">Total Cost of Equipment:</div>
-                                                                                            <div class="col"><span style="font-weight: bold;">{{lineItem.value.crewItemRef.equipmentTotalCost}}</span></div>                                                                                             
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </mat-card-content>
-                                                                        </mat-card>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <button mat-raised-button color="primary" (click)="addCrewToLine(section.value._id, lineItem.value._id, lineItem, section)">Edit Crew</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </mat-expansion-panel>
-
-                                                        <mat-expansion-panel>
-                                                            <mat-expansion-panel-header>
-                                                                <mat-panel-title>
-                                                                    Trench
-                                                                </mat-panel-title>
-                                                            </mat-expansion-panel-header>
-                                                            <div for="trench_details_form">
-                                                                <div class="row" *ngIf="lineItem.value.trenchRef == null">
-                                                                    <div class="col-6">
-                                                                        <button mat-raised-button color="primary" (click)="addTrenchToLine(section.value._id, lineItem.value._id)">Create New Trench</button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row" *ngIf="lineItem.value.trenchRef != null">
-                                                                    <div class="col-6">
-                                                                        <mat-card>
-                                                                            <mat-card-content>
-                                                                                <div class="row">
-                                                                                    <div class="col">
-                                                                                        <div class="row">
-                                                                                            <div class="col">Bedding Volume:</div>
-                                                                                            <div class="col"><span
-                                                                                                    style="font-weight: bold;">{{lineItem.value.trenchRef.beddingVolume}}</span></div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="col">Bedding Weight:</div>
-                                                                                            <div class="col"><span
-                                                                                                    style="font-weight: bold;">{{lineItem.value.trenchRef.beddingWeight}}</span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="col">Backfill Volume:</div>
-                                                                                            <div class="col"><span
-                                                                                                    style="font-weight: bold;">{{lineItem.value.trenchRef.backfillVolume}}</span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="col">Backfill Weight:</div>
-                                                                                            <div class="col"><span
-                                                                                                    style="font-weight: bold;">{{lineItem.value.trenchRef.backfillWeight}}</span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </mat-card-content>
-                                                                        </mat-card>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <button mat-raised-button color="primary" (click)="addTrenchToLine(section.value._id, lineItem.value._id)">Edit
-                                                                            Trench</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <mat-card *ngIf="trenchObj">
-                                                                <div class="row">                                                                   
-                                                                </div>
-                                                               
-                                                                <div class="col-6">
-                                                                    <button mat-raised-button color="primary" (click)="saveTrench(section, lineItem, lindx)">Save</button>
-                                                                </div>
-                                                            </mat-card>
-
-                                                        </mat-expansion-panel>
-                                                    </mat-accordion>
-                                                </ng-container>
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-                                </tbody>
-                            </table>
-                        </div>
-                    </ng-container>
-
-                </div>
-            </form>
+                                <div class="col-6">
+                                  <button mat-raised-button color="primary" (click)="saveTrench(section, lineItem, lindx)">
+                                    Save
+                                  </button>
+                                </div>
+                              </mat-card>
+                            </mat-expansion-panel>
+                          </mat-accordion>
+                        </ng-container>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </ng-container>
         </div>
-    </ng-container>
+      </form>
+    </div>
+  </ng-container>
 
-    <ng-container>
-
-    </ng-container>
-
+  <ng-container> </ng-container>
 </div>
