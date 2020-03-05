@@ -1,9 +1,9 @@
-import { ViewQuotesComponent } from "./../../../shared/components/view-quotes/view-quotes.component";
-import { MatDialog } from "@angular/material";
-import { HelperService } from "app/shared/core/service/helper.service";
-import { HttpService } from "./../../../shared/core/service/http.service";
-import { Router } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { ViewQuotesComponent } from './../../../shared/components/view-quotes/view-quotes.component';
+import { MatDialog } from '@angular/material';
+import { HelperService } from 'app/shared/core/service/helper.service';
+import { HttpService } from './../../../shared/core/service/http.service';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tender-fast-compare',
@@ -108,7 +108,6 @@ export class TenderFastCompareComponent implements OnInit {
       for (let e of i.quotes) {
         if (e.selected == false) {
           _deSelectedSub.push(e);
-        
         }
         if (e.selected == true) {
           _selectedSub.push(e);
@@ -123,18 +122,16 @@ export class TenderFastCompareComponent implements OnInit {
       selectedSub: selectedSub
     };
     console.log(sublineItemIds);
-    this.httpService
-      .updateseletedDeselectSub(sublineItemIds, this.tenderId)
-      .subscribe(
-        response => {
-          if (response.status === 200) {
-            console.log(response);
-          }
-        },
-        err => {
-          console.log("Error getting Tender by id ", err);
+    this.httpService.updateseletedDeselectSub(sublineItemIds, this.tenderId).subscribe(
+      response => {
+        if (response.status === 200) {
+          console.log(response);
         }
-      );
+      },
+      err => {
+        console.log('Error getting Tender by id ', err);
+      }
+    );
   }
 
   continueToMatch() {

@@ -26,16 +26,15 @@ import { EllipsisPipe } from './pipe/ellipsis.pipe';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SectionModalComponent } from './components/section-modal/section-modal.component';
 import { ReverseArrayPipe } from './pipe/reverse-array.pipe';
-import { CityNamePipe } from './pipe/city-name.pipe';
-import { CountryNamePipe } from './pipe/country-name.pipe';
-import { StateNamePipe } from './pipe/state-name.pipe';
 import { LineItemCrewComponent } from './components/line-item-crew/line-item-crew.component';
 import { InvitedSubcontractorsComponent } from './components/invited-subcontractors/invited-subcontractors.component';
 import { ViewQuotesComponent } from './components/view-quotes/view-quotes.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from 'ngx-mat-datetime-picker';
 
 import { ActiveTendersComponent } from './components/active-tenders/active-tenders.component';
-//
+import { OrgNamePipe } from './pipe/org-name.pipe';
+import { PlaceNameFinderPipe } from './pipe/Place-Name-Finder.pipe';
+
 const MaterialComponent = [
   NgxMatDatetimePickerModule, NgxMatTimepickerModule,
   NgxSpinnerModule,
@@ -62,20 +61,18 @@ const MaterialComponent = [
     EllipsisPipe,
     SectionModalComponent,
     ReverseArrayPipe,
-    CityNamePipe,
-    CountryNamePipe,
-    StateNamePipe,
+    PlaceNameFinderPipe,
     LineItemCrewComponent,
     InvitedSubcontractorsComponent,
     ViewQuotesComponent,
-    ActiveTendersComponent
+    ActiveTendersComponent,
+    OrgNamePipe
   ],
   exports: [
+    OrgNamePipe,
     EllipsisPipe,
     ReverseArrayPipe,
-    CityNamePipe,
-    CountryNamePipe,
-    StateNamePipe,
+    PlaceNameFinderPipe,
     TagInputModule,
     TenderModalComponent,
     TrenchModalComponent,
@@ -132,5 +129,4 @@ const MaterialComponent = [
     ViewQuotesComponent
   ]
 })
-
-export class SharedModule { }
+export class SharedModule {}

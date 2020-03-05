@@ -188,12 +188,10 @@ export class HelperService {
     const j: any = {};
     const mappedArr = k.map(e => {
       j.name = e.name;
-      console.log(e);
       j._id = e._id;
       return j;
     });
     const mappedObj = mappedArr[0];
-    console.log(mappedObj);
     return mappedObj;
   }
 }

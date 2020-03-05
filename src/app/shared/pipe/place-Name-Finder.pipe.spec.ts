@@ -1,8 +1,8 @@
-import { CityNamePipe } from './city-name.pipe';
+import { PlaceNameFinderPipe } from './Place-Name-Finder.pipe';
 
 describe('CityNamePipe', () => {
   it('create an instance', () => {
-    const pipe = new CityNamePipe();
+    const pipe = new PlaceNameFinderPipe();
     expect(pipe).toBeTruthy();
   });
 });

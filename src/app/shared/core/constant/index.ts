@@ -30,10 +30,8 @@ export const errorMsg = {
 const tender = '/tender';
 export const ApiUrl = {
   baseUrl: environment.baseURL,
-
   LabourUrl: urlCreator('/labour'),
   equipmentUrl: urlCreator('/equipment'),
-  //
   orgUrl: urlCreator('/organization'),
   labourEquipment: urlCreator('/labourequipment'),
   UserUrl: urlCreator('/user'),
@@ -72,4 +70,9 @@ function sublineUrlCreator(actionName: string): string {
 export const orgType = [{ name: 'Client' }, { name: 'Sub' }, { name: 'Prime' }];
 export const userStats = [{ name: 'Inactive' }, { name: 'Active' }];
 export const userRole = [{ name: 'Admin' }, { name: 'User' }];
-export const modeOfSubmission = [{ name: 'online' }, { name: 'handwritten' }, { name: 'print' }, { name: 'electronic' }];
+export const modeOfSubmission = [
+  { name: 'online' },
+  { name: 'handwritten' },
+  { name: 'print' },
+  { name: 'electronic' }
+];

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-tender-fast-list',
@@ -13,7 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class TenderFastListComponent implements OnInit {
   notifiedSubIds = [];
-  notifiedSubList: any;
+  notifiedSubList = [];
   tenderID: any;
   tenderData: any;
   selectedSub: any;
@@ -21,51 +22,49 @@ export class TenderFastListComponent implements OnInit {
   tender: any;
   _sub: any;
   createdSubline: any;
-  invitedSubs: any;
   nfSl = [];
+  subList: any = [];
+  _getSubStatus: any;
+  _getTenderByID: any;
+  subStatus: any = [];
 
   constructor(
     private router: Router,
     private hs: HelperService,
     private httpService: HttpService,
     private toastr: ToastrService,
-    private location: PlatformLocation,
     private spinner: NgxSpinnerService
   ) {
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
-    this.invitedSubs = this.tenderID;
-    this.getTenderByID();
+    this._getTenderByID = this.httpService.getTenderDetailById(this.tenderID);
+    this._getSubStatus = this.httpService.getSubStatus(this.tenderID);
+    this.createSubList();
   }
 
-  ngOnInit() {
-    this.getSubline();
-  }
+  ngOnInit() {}
 
-  getTenderByID() {
-    this.spinner.show();
-    console.log(this.tenderID);
-    this.httpService.getTenderDetailById(this.tenderID).subscribe(
-      response => {
-        if (response.status === 200) {
-          this.spinner.hide();
-          this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
-          console.log(this.notifiedSubIds);
-          this.nfSl = response.body['headerLevelNotifiedSubs'];
-          this.modifyNotifiedSubList();
-          this.tenderData = response.body;
-          this.hs.setSession('tenderDataNow', JSON.stringify(this.tenderData));
-        }
-      },
-      err => {
-        this.spinner.hide();
-        console.log('Error getting Tender by id ', err);
-      }
-    );
-  }
+  // getTenderByID() {
+  //   this.spinner.show();
+  //   this.httpService.getTenderDetailById(this.tenderID).subscribe(
+  //     response => {
+  //       if (response.status === 200) {
+  //         this.spinner.hide();
+  //         this.nfSl = response.body['headerLevelNotifiedSubs'];
+  //         this.modifyNotifiedSubList();
+  //         this.tenderData = response.body;
+  //         this.hs.setSession('tenderDataNow', JSON.stringify(this.tenderData));
+  //         this.notifiedSubIds = JSON.parse(this.hs.getSession('tenderDataNow'))['headerLevelNotifiedSubs'];
+  //       }
+  //     },
+  //     err => {
+  //       this.spinner.hide();
+  //       console.log('Error getting Tender by id ', err);
+  //     }
+  //   );
+  // }
 
   private modifyNotifiedSubList() {
     if (this.notifiedSubIds.length <= 0) {
-      console.log('returned .... ', this.notifiedSubIds);
       return;
     }
     const subContList = this.hs.getSubContractorList();
@@ -80,13 +79,11 @@ export class TenderFastListComponent implements OnInit {
   subSelection(e) {
     this.selectedSub = e;
     this._sub = e;
-    console.log(e);
   }
 
   createSub(id) {
-    console.log(id._id);
-    this.router.navigate(['/fast-quote/' + this.tenderID + '/' + id._id]);
-    this.hs.setSession('subConIdNow', JSON.stringify(id._id));
+    this.router.navigate(['/fast-quote/' + this.tenderID + '/' + id]);
+    this.hs.setSession('subConIdNow', JSON.stringify(id));
   }
 
   getSubline() {
@@ -97,10 +94,8 @@ export class TenderFastListComponent implements OnInit {
         if (response.status === 201) {
           this.filterAttendedSub(response.body);
           this.createdSubline = response.body;
-          this.hs.setSession(
-            'sublineDataNow',
-            JSON.stringify(this.createdSubline)
-          );
+          this.hs.setSession('sublineDataNow', JSON.stringify(this.createdSubline));
+          return response.body;
         }
       },
       error => {
@@ -109,11 +104,7 @@ export class TenderFastListComponent implements OnInit {
       }
     );
   }
-
   filterAttendedSub(e) {
-    const filterArr: any[] = [];
-    console.log(e);
-
     this.attendedSubs = this.hs.unique(e);
   }
 
@@ -125,5 +116,40 @@ export class TenderFastListComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/tender']);
+  }
+  createSubList() {
+    this.spinner.show();
+    forkJoin([this._getTenderByID, this._getSubStatus]).subscribe(response => {
+      if (response) {
+        if (response[0]['status'] === 200) {
+          this.spinner.hide();
+          this.nfSl = response[0]['body']['headerLevelNotifiedSubs'];
+          this.modifyNotifiedSubList();
+          this.tenderData = response[0]['body'];
+          this.hs.setSession('tenderDataNow', JSON.stringify(this.tenderData));
+          this.notifiedSubIds = JSON.parse(this.hs.getSession('tenderDataNow'))['headerLevelNotifiedSubs'];
+        }
+        if (response[1]['status'] === 201) {
+          this.spinner.hide();
+          this.subStatus = response[1]['body'] as Array<any>;
+        }
+      }
+      this.notifiedSubIds.map(val => {
+        for (let i in this.subStatus[0].headerLevelNotifiedSubs) {
+          if (val == this.subStatus[0].headerLevelNotifiedSubs[i]['_id']) {
+            const final = {
+              _id: val,
+              status: this.subStatus[0].headerLevelNotifiedSubs[i].received,
+              lineItemCount: this.subStatus[0].headerLevelNotifiedSubs[i].lineItemCount
+            };
+            this.subList.push(final);
+          }
+        }
+      });
+    }),
+      err => {
+        this.spinner.hide();
+        console.log('Error getting Tender by id ', err);
+      };
   }
 }

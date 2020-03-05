@@ -35,8 +35,9 @@ export class TenderFastQuoteComponent implements OnInit {
   ) {
     this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
     this.subData = JSON.parse(this.hs.getSession('sublineDataNow'));
+
+          console.log(this.subData);
     this.subName = this.hs.getSubName(this.subId);
-    console.log(this.subName);
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
     this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
     if (this.subId) {
@@ -55,6 +56,7 @@ export class TenderFastQuoteComponent implements OnInit {
       subline: this.setSubline()
     }));
   }
+
   sublineFormGroup() {
     return this.formBuilder.group({
       _id: [''],
@@ -72,25 +74,21 @@ export class TenderFastQuoteComponent implements OnInit {
       updatedAt: ['']
     });
   }
+
   subConSelection(e) {
     this.selectedSub = e;
     this.subId = this.hs.setSession('subConIdNow', JSON.stringify(e._id));
     this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
     this.subName = this.hs.getSubName(this.subId);
-    console.log(this.subName);
-    console.log(e);
-    this.newSubs = this.subData.filter(
-      obj => obj.subContractorId._id === e._id
-    );
-    console.log(this.newSubs);
+    this.newSubs = this.subData.filter(obj => obj.subContractorId._id === e._id);
     const subline = this.sublineForm.get('subline');
     while (subline.length !== 0) {
       subline.removeAt(0);
     }
     this.filteredTender = this.newSubs;
-    console.log(this.filteredTender);
     this.formInit();
   }
+
   sublineFormGroupVal(val) {
     if (val) {
       return this.formBuilder.group({
@@ -115,6 +113,7 @@ export class TenderFastQuoteComponent implements OnInit {
     const lineItemArr: FormArray = this.sublineForm.get('subline') as FormArray;
     lineItemArr.push(this.sublineFormGroup());
   }
+
   removeLineItem(subRef, i) {
     const lineItemArr: FormArray = this.sublineForm.get('subline') as FormArray;
     lineItemArr.removeAt(i);
@@ -129,13 +128,12 @@ export class TenderFastQuoteComponent implements OnInit {
       });
     }
     if (!this.filteredTender.length) {
-      console.log('no val');
       const tGrup = this.sublineFormGroup();
       fArr.push(tGrup);
     }
-    console.log(fArr);
     return fArr;
   }
+
   getSubline() {
     this.spinner.show();
     this.httpService.getSubline(this.tenderID).subscribe(
@@ -144,7 +142,6 @@ export class TenderFastQuoteComponent implements OnInit {
           this.spinner.hide();
           this.hs.setSession('sublineDataNow', JSON.stringify(response.body));
           this.subData = response.body;
-          console.log(this.subData);
           if (this.subData.length) {
             this.subConSelection({ _id: this.subId });
             this.spinner.hide();
@@ -157,6 +154,7 @@ export class TenderFastQuoteComponent implements OnInit {
       }
     );
   }
+
   createSubline(val) {
     this.spinner.show();
     const finalVal = Object.assign([], this.sublineForm.value.subline);
@@ -175,7 +173,6 @@ export class TenderFastQuoteComponent implements OnInit {
           this.spinner.hide();
           this.toastr.success(response.statusText);
           console.log(response.body);
-          const res = response.body;
           this.getSubline();
           if (val === true) {
             this.router.navigate(['/fast-list/' + this.tenderID]);
@@ -188,6 +185,7 @@ export class TenderFastQuoteComponent implements OnInit {
       }
     );
   }
+
   cancel() {
     this.router.navigate(['/fast-list/' + this.tenderID]);
   }

@@ -7,28 +7,24 @@
                 <th>Name</th>
                 <th>Status</th>
                 <th>Total Line Items</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngIf="attendedSubs.length">
-                <tr *ngFor="let item of attendedSubs">
+            <ng-container *ngIf="subList.length">
+                <tr *ngFor="let item of subList">
                     <td>
                     </td>
-                    <td>{{item.subContractorId.name}}</td>
-                    <td></td>
-                    <td><button  mat-raised-button type="button" color="primary"  (click)="createSub(item.subContractorId)">Add quote</button></td>
+                    <td>{{item._id | orgName}}</td>
+                    <td>
+                        <span *ngIf="item.status">Submitted</span>
+                        <span *ngIf="!item.status">Pending</span>
+                    </td>
+                    <td>{{item.lineItemCount}}</td>
+                    <td><button mat-raised-button type="button" color="primary" (click)="createSub(item._id)">Add
+                            quote</button></td>
                 </tr>
             </ng-container>
-           
-            <tr *ngIf="nfSl.length">
-                <td>
-                </td>
-                <td>
-                    <app-invited-subcontractors [notifiedSubs]=" tenderID" (subSelected)="subSelection($event)"></app-invited-subcontractors>
-                </td>
-                <td></td>
-                <td><button  mat-raised-button type="button" color="primary" (click)="createSub(_sub)">Add quote</button></td>
-            </tr>
             <tr *ngIf="!nfSl.length">
                 <td colspan="4">
                     <p class="d-flex justify-content-center">There are no invited Sub-contractors</p>
@@ -36,13 +32,12 @@
             </tr>
         </tbody>
     </table>
-    
-<div class="d-flex  px-4 py-2  pull-right">
-    <button  mat-raised-button  color="compare" class="justify-content-end" (click)="compare()">compare quotes</button>
-    <button  mat-raised-button  color="warn" class="justify-content-end" (click)="cancel()">Cancel</button>
-</div>
 
-</div> 
+    <div class="position-bottom">
+
+        <button mat-raised-button color="comapre" (click)="compare()">compare quotes</button>
+        <button mat-raised-button color="warn" type="submit" (click)="cancel()">Cancel</button>
+    </div>
     <ngx-spinner type="cog" size="medium" color="#b8a5e8">
         <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
     </ngx-spinner>
