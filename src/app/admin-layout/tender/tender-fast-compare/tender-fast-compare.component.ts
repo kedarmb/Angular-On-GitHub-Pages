@@ -6,9 +6,9 @@ import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "app-tender-fast-compare",
-  templateUrl: "./tender-fast-compare.component.html",
-  styleUrls: ["./tender-fast-compare.component.scss"]
+  selector: 'app-tender-fast-compare',
+  templateUrl: './tender-fast-compare.component.html',
+  styleUrls: ['./tender-fast-compare.component.scss']
 })
 export class TenderFastCompareComponent implements OnInit {
   tenderId: any;
@@ -21,7 +21,7 @@ export class TenderFastCompareComponent implements OnInit {
     private httpService: HttpService,
     public fastCompareDialog: MatDialog
   ) {
-    this.tenderId = JSON.parse(this.hs.getSession("tenderIdNow"));
+    this.tenderId = JSON.parse(this.hs.getSession('tenderIdNow'));
     console.log(this.tenderId);
   }
 
@@ -49,12 +49,11 @@ export class TenderFastCompareComponent implements OnInit {
             });
           });
           console.log(this.sublineData);
-          // this.setSelected();
           this.fromGet = true;
         }
       },
       err => {
-        console.log("Error getting Tender by id ", err);
+        console.log('Error getting Tender by id ', err);
       }
     );
   }
@@ -86,16 +85,16 @@ export class TenderFastCompareComponent implements OnInit {
 
   openMoreQuotesDialog(data) {
     const dialogRef = this.fastCompareDialog.open(ViewQuotesComponent, {
-      width: "550px",
+      width: '550px',
       data: data,
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(response => {
-      if (response.status === "close" || response.status === undefined) {
+      if (response.status === 'close' || response.status === undefined) {
       }
-      if (response.status === "add") {
+      if (response.status === 'add') {
       }
-      if (response.status === "update") {
+      if (response.status === 'update') {
         console.log(response);
         this.sublineData = response.data;
       }
@@ -139,12 +138,12 @@ export class TenderFastCompareComponent implements OnInit {
   }
 
   continueToMatch() {
-    this.router.navigate(["/fast-attach/" + this.tenderId], {
+    this.router.navigate(['/fast-attach/' + this.tenderId], {
       state: this.tenderId
     });
   }
 
   cancel() {
-    this.router.navigate(["/fast-list/" + this.tenderId]);
+    this.router.navigate(['/fast-list/' + this.tenderId]);
   }
 }

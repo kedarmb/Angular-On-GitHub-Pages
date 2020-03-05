@@ -1,23 +1,29 @@
-<table mat-table [dataSource]="equipments" class="mat-elevation-z8  tab-cell-styl">
+<table
+  mat-table
+  [dataSource]="equipments"
+  class="mat-elevation-z8  tab-cell-styl"
+>
   <ng-container matColumnDef="Name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
   </ng-container>
   <ng-container matColumnDef="Description">
     <th mat-header-cell *matHeaderCellDef>Description</th>
-    <td mat-cell *matCellDef="let element"> {{element.description}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.description }}</td>
   </ng-container>
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let element, let i=index">
-        <i (click)="updateEq(true, element)" [matTooltipPosition]="'above'"  
-        class="material-icons"  [ngStyle]="{'color':'blue'}" matTooltip="edit">edit</i>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
- 
-     
-     
-
+    <td mat-cell *matCellDef="let element; let i = index">
+      <i
+        (click)="updateEq(true, element)"
+        [matTooltipPosition]="'above'"
+        class="material-icons"
+        [ngStyle]="{ color: 'blue' }"
+        matTooltip="edit"
+        >edit</i
+      >
+    </td></ng-container
+  >
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

@@ -1,63 +1,56 @@
-.main-content{
-	.table-responsive{
-		height: calc(100% - 40px);  
-		overflow-y: auto;          
-	}
+.main-content {
+  .table-responsive {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+  }
 }
 
-
-td.mat-cell, td.mat-footer-cell{
-	padding: 12px 8px;
+td.mat-cell,
+td.mat-footer-cell {
+  padding: 12px 8px;
 }
-.mat-column-First-Name{
-	border-right: 1px solid #f3f3f3;
-	align-self: stretch;
-	text-align: left
-  
-  
-	}
-	.mat-column-Email{
-	border-right: 1px solid #f3f3f3;
-	align-self: stretch;
-	text-align: left;
-  
-	}
-	.mat-column-Last-Name{
-	border-right: 1px solid #f3f3f3;
-	align-self: stretch;
-	text-align: left;
-  
-	}
-	.mat-column-Mobile{
-		border-right: 1px solid #f3f3f3;
-		align-self: stretch;
-		text-align: left;
-	  
-		}
-		.mat-column-Role{
-			border-right: 1px solid #f3f3f3;
-			align-self: stretch;
-			text-align: left;
-		  
-			}
-			.mat-column-Status{
-				border-right: 1px solid #f3f3f3;
-				align-self: stretch;
-				text-align: left;
-			  
-				}
-				.mat-column-Actions{
-					border-right: 1px solid #f3f3f3;
-					align-self: stretch;
-					text-align: center;
-					width:90px;
-				  
-					}
-	td.mat-cell, td.mat-footer-cell{
-	  padding: 12px 8px;
-  } 
-  th.mat-header-cell{
-	font-weight: 400;
-	background-color: #f3f3f3;
-	padding: 8px 8px;
+.mat-column-First-Name {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+}
+.mat-column-Email {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+}
+.mat-column-Last-Name {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+}
+.mat-column-Mobile {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+}
+.mat-column-Role {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+}
+.mat-column-Status {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+}
+.mat-column-Actions {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: center;
+  width: 90px;
+}
+td.mat-cell,
+td.mat-footer-cell {
+  padding: 12px 8px;
+}
+th.mat-header-cell {
+  font-weight: 400;
+  background-color: #f3f3f3;
+  padding: 8px 8px;
 }

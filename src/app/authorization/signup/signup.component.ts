@@ -17,22 +17,20 @@ export class SignupComponent implements OnInit {
   positionOptions: TooltipPosition[] = ['below'];
   position = new FormControl(this.positionOptions[0]);
   signup: Signup = new Signup();
-  constructor(private fb: FormBuilder, private httpService: HttpService, private route: Router) { }
-  ngOnInit() {
-    
-  }
+  constructor(
+    private fb: FormBuilder,
+    private httpService: HttpService,
+    private route: Router
+  ) {}
+  ngOnInit() {}
   submit(registrationForm) {
-      for (let i in registrationForm.controls) {
+    for (let i in registrationForm.controls) {
       this.signup[i] = registrationForm.controls[i].value;
     }
     this.httpService.signup(this.signup).subscribe(data => {
-      this.data = data
+      this.data = data;
       console.log(data);
-      this.route.navigateByUrl('/login')
-    })
+      this.route.navigateByUrl('/login');
+    });
   }
 }
-
-
-
-

@@ -13,22 +13,15 @@
             <ng-container *ngIf="attendedSubs.length">
                 <tr *ngFor="let item of attendedSubs">
                     <td>
-                        <!-- <a><i class="material-icons">edit</i></a>
-                        <a><i class="material-icons">remove_red_eye</i></a>
-                        <a><i class="material-icons">delete_sweep</i></a> -->
                     </td>
                     <td>{{item.subContractorId.name}}</td>
                     <td></td>
                     <td><button  mat-raised-button type="button" color="primary"  (click)="createSub(item.subContractorId)">Add quote</button></td>
                 </tr>
-                <!-- <button *ngIf="!showBtn" mat-raised-button type="button" (click)="close()" color="primary">Cancel</button> -->
             </ng-container>
            
             <tr *ngIf="nfSl.length">
                 <td>
-                    <!-- <a><i class="material-icons">edit</i></a>
-                    <a><i class="material-icons">remove_red_eye</i></a>
-                    <a><i class="material-icons">delete_sweep</i></a> -->
                 </td>
                 <td>
                     <app-invited-subcontractors [notifiedSubs]=" tenderID" (subSelected)="subSelection($event)"></app-invited-subcontractors>
@@ -37,9 +30,6 @@
                 <td><button  mat-raised-button type="button" color="primary" (click)="createSub(_sub)">Add quote</button></td>
             </tr>
             <tr *ngIf="!nfSl.length">
-                <!-- <td *ngIf="!attendedSubs.length">
-                    <p class="d-flex justify-content-center">There are no quotes from invited Sub-contractors</p>
-                </td> -->
                 <td colspan="4">
                     <p class="d-flex justify-content-center">There are no invited Sub-contractors</p>
                 </td>
@@ -47,12 +37,12 @@
         </tbody>
     </table>
     
-    <div class="position-bottom">
-   
-    <button  mat-raised-button  color="comapre" (click)="compare()">compare quotes</button>
-    <button   mat-raised-button  color="warn" type="submit" (click)="cancel()">Cancel</button>
+<div class="d-flex  px-4 py-2  pull-right">
+    <button  mat-raised-button  color="compare" class="justify-content-end" (click)="compare()">compare quotes</button>
+    <button  mat-raised-button  color="warn" class="justify-content-end" (click)="cancel()">Cancel</button>
+</div>
+
 </div> 
     <ngx-spinner type="cog" size="medium" color="#b8a5e8">
         <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
     </ngx-spinner>
-</div>

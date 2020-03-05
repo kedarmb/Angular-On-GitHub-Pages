@@ -1,63 +1,60 @@
-.mat-card{
-    margin-top: 10px;
+.mat-card {
+  margin-top: 10px;
 }
-.t-area{
-    width: 500px;
+.t-area {
+  width: 500px;
 }
 .toolbar-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 .section-rem-icon {
-    padding: 0 14px;
+  padding: 0 14px;
 }
 .fast-q {
-    .table > tbody > tr > td{
-        padding: 4px 8px 0 8px;
-        textarea{
-            line-height: 0.5 !important;
-        }
-    } 
+  .table > tbody > tr > td {
+    padding: 4px 8px 0 8px;
+    textarea {
+      line-height: 0.5 !important;
+    }
+  }
 }
 
-.m-top{
-     margin-top: 68px;
+.m-top {
+  margin-top: 68px;
 }
-thead{
+thead {
   background-color: #fff0cc;
   background-color: #f3f3f3;
 }
 
-tr:nth-child(even) {background-color: #fcfbfd;;}
-.conti{
-   background-color: #e2efff;
-   color: #6b8ac8;
-   color:#fff;
-   background-color: #7c0b83;
-//    padding:5px 20px;
-
+tr:nth-child(even) {
+  background-color: #fcfbfd;
 }
-.save{
-    background-color: #ffd67d;
-    padding:5px 20px;
+.conti {
+  background-color: #e2efff;
+  color: #6b8ac8;
+  color: #fff;
+  background-color: #7c0b83;
 }
-.cancel{
-    background-color: #d67077;
-    padding:5px 20px;
+.save {
+  background-color: #ffd67d;
+}
+.cancel {
+  background-color: #d67077;
 }
 td a i {
-    color: #e1dfe1;
-    margin-left: 10px;
+  color: #e1dfe1;
+  margin-left: 10px;
 }
 .table > tbody > tr > td {
-    padding: 2px 0px;
+  padding: 2px 0px;
 }
 .table > thead > tr > th {
-    font-size: 16px;
-    padding:8px 4px;
+  font-size: 16px;
+  padding: 8px 4px;
 }
-.position-bottom{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: calc(100% - 595px);
+table {
+  height: calc(100% - 600px);
+  //  position: fixed;
+  overflow: auto;
 }

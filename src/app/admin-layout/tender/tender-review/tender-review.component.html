@@ -1,23 +1,20 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="col">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#/tender">Tender</a></li>
                 <li class="breadcrumb-item">Tender Review</li>
                 <li class="breadcrumb-item">{{tenderData.name}}</li>
             </ol>
-        </div>
-        <mat-toolbar color="primary">
-            <mat-toolbar-row>
-                <div>
-                    <button mat-stroked-button (click)="__addSection()">Add Another Section</button>
-                    <button mat-stroked-button (click)="notifySubC()">Invite Sub Contractors</button>
-                    <button mat-stroked-button (click)="gotoQuotePage()">Go to Quote</button>
-                    <button mat-stroked-button (click)="back()">Close</button>
+        <!-- <mat-toolbar color="primary"> -->
+            <!-- <mat-toolbar-row> -->
+                <div class=" sb-toolbar">
+                    <button mat-raised-button (click)="__addSection()">Add Another Section</button>
+                    <button mat-raised-button (click)="notifySubC()">Invite Sub Contractors</button>
+                    <button mat-raised-button (click)="gotoQuotePage()">Go to Quote</button>
+                    <button mat-raised-button (click)="back()">Close</button>
                 </div>
                 <!-- <app-invited-subcontractors [notifiedSubs]="invitedSubs" (dataLoaded)="onDataLoaded()"></app-invited-subcontractors> -->
-            </mat-toolbar-row>
-        </mat-toolbar>
+            <!-- </mat-toolbar-row> -->
+        <!-- </mat-toolbar> -->
         <!-- <app-tender-item [tenderData]="responseData" [selectedSub]="selectedVal" #tenderItemComp></app-tender-item> -->
 
         <div class="table-responsive">
@@ -27,13 +24,15 @@
                         <div formArrayName="sections">
                             <ng-container *ngFor="let section of masterForm.get('sections').controls; let secindx = index;" [formGroupName]="secindx">
 
-                                <mat-toolbar>
-                                    <span><textarea type="text" class="t-area" formControlName="name" placeholder="section name goes here"></textarea></span>
+                                <!-- <mat-toolbar> -->
+                                    <!-- <span> -->
+                                        <textarea type="text" class="t-area" formControlName="name" placeholder="section name goes here"></textarea>
+                                    <!-- </span> -->
                                     <span class="toolbar-spacer"></span>
                                     <button mat-icon-button color="warn" (click)="deleteSection()" matTooltip="delete section">
                                         <mat-icon>remove_circle</mat-icon>
                                     </button>
-                                </mat-toolbar>
+                                <!-- </mat-toolbar> -->
                                 <div formArrayName="lineItems" class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead class=" text-primary">
@@ -62,7 +61,7 @@
                                             <th>
                                                 Total Price
                                             </th>
-                                            <th style="width: 200px;">
+                                            <th>
                                                 Actions
                                             </th>
                                         </thead>
@@ -128,7 +127,6 @@
 
             </ng-container>
 
-        </div>
 
         <ngx-spinner type="cog" size="medium" color="#b8a5e8">
             <p style="font-size: 20px; color: white; margin-top: 60px;">loading tender..</p>

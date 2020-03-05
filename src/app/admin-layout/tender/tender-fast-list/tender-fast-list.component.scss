@@ -1,52 +1,42 @@
-.m-top{
-    margin-top: 68px;
+.m-top {
+  margin-top: 68px;
 }
-thead{
+thead {
   background-color: #fff0cc;
   background-color: #f3f3f3;
 }
 
-tr:nth-child(even) {background-color: #fcfbfd;;}
-// .bg{
-//    background-color: #e2efff;
-//    color: #6b8ac8;
-// }
+tr:nth-child(even) {
+  background-color: #fcfbfd;
+}
 td a i {
-    color: #e1dfe1;
-    margin-left: 10px;
+  color: #e1dfe1;
+  margin-left: 10px;
 }
 .table > tbody > tr > td {
-    padding: 2px 0px;
+  padding: 2px 0px;
 }
 .table > thead > tr > th {
-    font-size: 16px;
-    padding:8px 4px;
+  font-size: 16px;
+  padding: 8px 4px;
 }
-.dropdown{
-    border-radius: 14px;
-    border: 1px solid #f1f1f1;
-    box-shadow:none;
+.dropdown {
+  border-radius: 14px;
+  border: 1px solid #f1f1f1;
+  box-shadow: none;
 }
-.mat-column-Service-Type{
-    border-right: 1px solid #f3f3f3;
-    align-self: stretch;
-    text-align: left;
-    width:180px;
-
-    }
-    .mat-column-Name{
-        border-right: 1px solid #f3f3f3;
-        align-self: stretch;
-        text-align: left;
-        width:100px;
-
-        }
-        .position-bottom{
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            height: calc(100% - 595px);
-        }
-        .compare{
-            background-color: #b6abab;
-        }
+.mat-column-Service-Type {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+  width: 180px;
+}
+.mat-column-Name {
+  border-right: 1px solid #f3f3f3;
+  align-self: stretch;
+  text-align: left;
+  width: 100px;
+}
+.compare {
+  background-color: #b6abab;
+}

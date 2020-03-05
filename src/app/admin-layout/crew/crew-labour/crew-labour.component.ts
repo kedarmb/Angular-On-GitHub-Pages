@@ -19,14 +19,17 @@ export class CrewLabourComponent implements OnInit {
     data: '',
     val: ''
   };
-  constructor(private modalService: MatDialog,
+  constructor(
+    private modalService: MatDialog,
     private httpService: HttpService,
     private helperService: HelperService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
-    // this.getLabourData();
-    this.labour = JSON.parse(this.helperService.getFromLocalStorage('labourList'));
+    this.labour = JSON.parse(
+      this.helperService.getFromLocalStorage('labourList')
+    );
   }
 
   getLabourData() {
@@ -40,11 +43,11 @@ export class CrewLabourComponent implements OnInit {
         }
       },
       error => {
-        this.toastr.error(error.error.message)
+        this.toastr.error(error.error.message);
         console.log(error);
       }
-    )
-  };
+    );
+  }
   addLabour(val) {
     this.update.val = val;
     console.log('updateLabour', this.update);
@@ -58,24 +61,27 @@ export class CrewLabourComponent implements OnInit {
   }
 
   removeLabour(val, e) {
-    this.httpService.deleteLabour(val._id)
-      .subscribe((response: any) => {
+    this.httpService.deleteLabour(val._id).subscribe(
+      (response: any) => {
         if (response.status === 200) {
-          this.labour.splice(e, 1)
+          this.labour.splice(e, 1);
           this.helperService.setInLocalStorage('labourList', this.labour);
           this.table.renderRows();
-          this.toastr.success('Removed Successfully')
+          this.toastr.success('Removed Successfully');
         }
-      }, error => {
-        this.toastr.error(error.error.message)
-      })
+      },
+      error => {
+        this.toastr.error(error.error.message);
+      }
+    );
   }
-
 
   openModal() {
     const modalRef = this.modalService.open(LabourModalComponent, {
       height: 'auto',
-      width: '35%', data: this.update, disableClose: true
+      width: '35%',
+      data: this.update,
+      disableClose: true
     });
     modalRef.afterClosed().subscribe(response => {
       if (response.status === 'close' || response.status === undefined) {
@@ -86,7 +92,7 @@ export class CrewLabourComponent implements OnInit {
         this.table.renderRows();
       }
       if (response.status === 'update') {
-        this.getLabourData()
+        this.getLabourData();
         this.table.renderRows();
       }
     });

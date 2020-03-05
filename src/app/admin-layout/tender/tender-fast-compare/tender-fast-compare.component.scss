@@ -1,17 +1,13 @@
 .m-top{
     margin-top: 68px;
 }
-.position-bottom{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: calc(100% - 595px);
-}
 .conti{
     background-color: #e2efff;
     color: #6b8ac8;
     color:#fff;
     background-color: #7c0b83;
- //    padding:5px 20px;
- 
+ }
+
+ table{
+    overflow: scroll;
  }

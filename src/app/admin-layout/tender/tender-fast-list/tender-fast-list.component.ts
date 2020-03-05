@@ -30,14 +30,14 @@ export class TenderFastListComponent implements OnInit {
     private httpService: HttpService,
     private toastr: ToastrService,
     private location: PlatformLocation,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService
+  ) {
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
     this.invitedSubs = this.tenderID;
     this.getTenderByID();
   }
 
   ngOnInit() {
-    // this.hs.setDataInHelperSrv();
     this.getSubline();
   }
 
@@ -48,8 +48,6 @@ export class TenderFastListComponent implements OnInit {
       response => {
         if (response.status === 200) {
           this.spinner.hide();
-          // this.hs.updateLocalTenderListByID(response.body);
-
           this.notifiedSubIds = response.body['headerLevelNotifiedSubs'];
           console.log(this.notifiedSubIds);
           this.nfSl = response.body['headerLevelNotifiedSubs'];
@@ -115,7 +113,6 @@ export class TenderFastListComponent implements OnInit {
   filterAttendedSub(e) {
     const filterArr: any[] = [];
     console.log(e);
-
 
     this.attendedSubs = this.hs.unique(e);
   }

@@ -39,9 +39,12 @@
                                     <th>
                                         Total Price
                                     </th>
-                                    <th style="width: 200px;">
+                                    <th>
                                         Actions
                                     </th>
+                                    <!-- <th style="width: 200px;">
+                                        Actions
+                                    </th> -->
                                 </thead>
                                 <tbody>
                                     <ng-container *ngFor="let lineItem of section.get('lineItems').controls; let lindx = index; let last = last" [formGroupName]="lindx">
@@ -97,7 +100,7 @@
                                                                             <th>Unit Price</th>
                                                                             <th>Quantity</th>
                                                                             <th>Total Price</th>
-                                                                            <th style="width: 200px;">
+                                                                            <th>
                                                                                 <button mat-raised-button type="button" matTooltip="add sub-line item" [matTooltipPosition]="'above'" (click)="__addSubLineItem(lineItem)" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                                                     <i class="material-icons">add_box</i>
                                                                                 </button>

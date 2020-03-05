@@ -1,15 +1,15 @@
-import { ToastrService } from "ngx-toastr";
-import { HttpService } from "app/shared/core/service/http.service";
-import { FormBuilder, FormArray, Validators } from "@angular/forms";
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { HelperService } from "app/shared/core/service/helper.service";
-import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from 'ngx-toastr';
+import { HttpService } from 'app/shared/core/service/http.service';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HelperService } from 'app/shared/core/service/helper.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: "app-tender-fast-quote",
-  templateUrl: "./tender-fast-quote.component.html",
-  styleUrls: ["./tender-fast-quote.component.scss"]
+  selector: 'app-tender-fast-quote',
+  templateUrl: './tender-fast-quote.component.html',
+  styleUrls: ['./tender-fast-quote.component.scss']
 })
 export class TenderFastQuoteComponent implements OnInit {
   sublineForm: any;
@@ -33,12 +33,12 @@ export class TenderFastQuoteComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) {
-    this.subId = JSON.parse(this.hs.getSession("subConIdNow"));
-    this.subData = JSON.parse(this.hs.getSession("sublineDataNow"));
+    this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
+    this.subData = JSON.parse(this.hs.getSession('sublineDataNow'));
     this.subName = this.hs.getSubName(this.subId);
     console.log(this.subName);
-    this.tenderID = JSON.parse(this.hs.getSession("tenderIdNow"));
-    this.subId = JSON.parse(this.hs.getSession("subConIdNow"));
+    this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
+    this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
     if (this.subId) {
       this.filteredTender = this.subData.filter((e: any) => {
         return e.subContractorId._id === this.subId;
@@ -48,7 +48,6 @@ export class TenderFastQuoteComponent implements OnInit {
 
   ngOnInit() {
     this.formInit();
-    
   }
 
   formInit() {
@@ -58,26 +57,25 @@ export class TenderFastQuoteComponent implements OnInit {
   }
   sublineFormGroup() {
     return this.formBuilder.group({
-      _id: [""],
-      name: ["", [Validators.required]],
-      description: ["", [Validators.required]],
-      unit: ["", [Validators.required]],
-      unitPrice: ["", [Validators.required]],
+      _id: [''],
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      unit: ['', [Validators.required]],
+      unitPrice: ['', [Validators.required]],
       tender: [this.tenderID],
       subContractorId: this.formBuilder.group({
-        _id: [""],
-        name: [""]
+        _id: [''],
+        name: ['']
       }),
-      selected: [""],
-      createdAt: [""],
-      updatedAt: [""]
+      selected: [''],
+      createdAt: [''],
+      updatedAt: ['']
     });
   }
   subConSelection(e) {
     this.selectedSub = e;
-    // this._sub = e;
-    this.subId = this.hs.setSession("subConIdNow", JSON.stringify(e._id));
-    this.subId = JSON.parse(this.hs.getSession("subConIdNow"));
+    this.subId = this.hs.setSession('subConIdNow', JSON.stringify(e._id));
+    this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
     this.subName = this.hs.getSubName(this.subId);
     console.log(this.subName);
     console.log(e);
@@ -85,7 +83,7 @@ export class TenderFastQuoteComponent implements OnInit {
       obj => obj.subContractorId._id === e._id
     );
     console.log(this.newSubs);
-    const subline = this.sublineForm.get("subline");
+    const subline = this.sublineForm.get('subline');
     while (subline.length !== 0) {
       subline.removeAt(0);
     }
@@ -114,11 +112,11 @@ export class TenderFastQuoteComponent implements OnInit {
   }
 
   addLineItem() {
-    const lineItemArr: FormArray = this.sublineForm.get("subline") as FormArray;
+    const lineItemArr: FormArray = this.sublineForm.get('subline') as FormArray;
     lineItemArr.push(this.sublineFormGroup());
   }
   removeLineItem(subRef, i) {
-    const lineItemArr: FormArray = this.sublineForm.get("subline") as FormArray;
+    const lineItemArr: FormArray = this.sublineForm.get('subline') as FormArray;
     lineItemArr.removeAt(i);
   }
 
@@ -131,7 +129,7 @@ export class TenderFastQuoteComponent implements OnInit {
       });
     }
     if (!this.filteredTender.length) {
-      console.log("no val");
+      console.log('no val');
       const tGrup = this.sublineFormGroup();
       fArr.push(tGrup);
     }
@@ -139,12 +137,12 @@ export class TenderFastQuoteComponent implements OnInit {
     return fArr;
   }
   getSubline() {
-    this.spinner.show()
+    this.spinner.show();
     this.httpService.getSubline(this.tenderID).subscribe(
       (response: any) => {
         if (response.status === 201) {
           this.spinner.hide();
-          this.hs.setSession("sublineDataNow", JSON.stringify(response.body));
+          this.hs.setSession('sublineDataNow', JSON.stringify(response.body));
           this.subData = response.body;
           console.log(this.subData);
           if (this.subData.length) {
@@ -162,7 +160,7 @@ export class TenderFastQuoteComponent implements OnInit {
   createSubline(val) {
     this.spinner.show();
     const finalVal = Object.assign([], this.sublineForm.value.subline);
-    const k = finalVal.filter(e => e._id === "");
+    const k = finalVal.filter(e => e._id === '');
     k.map(e => {
       delete e._id;
       delete e.createdAt;
@@ -177,23 +175,13 @@ export class TenderFastQuoteComponent implements OnInit {
           this.spinner.hide();
           this.toastr.success(response.statusText);
           console.log(response.body);
-          // this.getSubline();
           const res = response.body;
-          // const respId = response.body[0].subContractorId;
-          // const subName = this.hs.getSubName(respId);
-          //  res.map(e => {
-            //   e.subContractorId = subName;
-            //   this.filteredTender.push(e);
-            //   return e
-            // });
-            this.getSubline();
-            // this.formInit();
-            // console.log(this.filteredTender);
-            if (val === true) {
-              this.router.navigate(["/fast-list/" + this.tenderID]);
-            }
+          this.getSubline();
+          if (val === true) {
+            this.router.navigate(['/fast-list/' + this.tenderID]);
           }
-        },
+        }
+      },
       error => {
         this.spinner.hide();
         this.toastr.error(error.error.message);
@@ -201,6 +189,6 @@ export class TenderFastQuoteComponent implements OnInit {
     );
   }
   cancel() {
-    this.router.navigate(["/fast-list/" + this.tenderID]);
+    this.router.navigate(['/fast-list/' + this.tenderID]);
   }
 }
