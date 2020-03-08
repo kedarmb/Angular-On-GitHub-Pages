@@ -72,7 +72,7 @@ export class TenderFastPrepareBidComponent
   // call tenderpost api
   createSublineWithLine() {
     this.httpService
-      .getseletedSubForLine(this.tenderId, this.finalArr)
+      .updateSeletedSubForLine(this.tenderId, this.finalArr)
       .subscribe(
         response => {
           if (response.status === 200) {

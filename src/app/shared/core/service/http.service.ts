@@ -448,7 +448,7 @@ export class HttpService {
     });
   }
 
-  public getseletedSubForLine(id, body) {
+  public updateSeletedSubForLine(id, body) {
     return this.httpClient.put(ApiUrl.seletedSubForLineUrl + id, body, {
       headers: this.getHeader(),
       observe: 'response'

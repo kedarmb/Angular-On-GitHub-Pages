@@ -6,19 +6,18 @@
     <div class="col-md-7 ">
       <div class=" box ">
         <mat-tab-group>
-          <mat-tab label="Sign In"> <app-login></app-login></mat-tab>
+          <mat-tab label="Sign In">
+            <app-login></app-login>
+          </mat-tab>
           <mat-tab label="Sign Up">
             <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
               <mat-form-field class="">
                 <mat-label>Organization Name</mat-label>
                 <input formControlName="organization" matInput type="text" required />
-                <ul
-                  class="text-danger list-unstyled"
-                  *ngIf="
+                <ul class="text-danger list-unstyled" *ngIf="
                     (formSubmitted || registrationForm.controls['organization'].touched) &&
                     registrationForm.controls['organization'].invalid
-                  "
-                >
+                  ">
                   <li *ngFor="let error of registrationForm.get['organization'].getValidationMessages()">
                     {{ error }}
                   </li>
@@ -32,13 +31,10 @@
                       <mat-label>First Name</mat-label>
                       <input formControlName="fname" matInput type="text" required />
                     </mat-form-field>
-                    <ul
-                      class="text-danger list-unstyled"
-                      *ngIf="
+                    <ul class="text-danger list-unstyled" *ngIf="
                         (formSubmitted || registrationForm.controls['fname'].touched) &&
                         registrationForm.controls['fname'].invalid
-                      "
-                    >
+                      ">
                       <li *ngFor="let error of registrationForm.get['fname'].getValidationMessages()">
                         {{ error }}
                       </li>
@@ -49,13 +45,10 @@
                       <mat-label>Last Name</mat-label>
                       <input formControlName="lname" matInput type="text" required />
                     </mat-form-field>
-                    <ul
-                      class="text-danger list-unstyled"
-                      *ngIf="
+                    <ul class="text-danger list-unstyled" *ngIf="
                         (formSubmitted || registrationForm.controls['lname'].touched) &&
                         registrationForm.controls['lname'].invalid
-                      "
-                    >
+                      ">
                       <li *ngFor="let error of registrationForm.get['lname'].getValidationMessages()">
                         {{ error }}
                       </li>
@@ -68,13 +61,10 @@
 
                 <input formControlName="email" matInput type="text" required />
               </mat-form-field>
-              <ul
-                class="text-danger list-unstyled"
-                *ngIf="
+              <ul class="text-danger list-unstyled" *ngIf="
                   (formSubmitted || registrationForm.controls['email'].touched) &&
                   registrationForm.controls['email'].invalid
-                "
-              >
+                ">
                 <li *ngFor="let error of registrationForm.get['email'].getValidationMessages()">
                   {{ error }}
                 </li>
@@ -85,13 +75,10 @@
                 <input matInput formControlName="password" type="password" required />
               </mat-form-field>
 
-              <ul
-                class="text-danger list-unstyled"
-                *ngIf="
+              <ul class="text-danger list-unstyled" *ngIf="
                   (formSubmitted || registrationForm.controls['password'].touched) &&
                   registrationForm.controls['password'].invalid
-                "
-              >
+                ">
                 <li *ngFor="let error of registrationForm.get['password'].getValidationMessages()">
                   {{ error }}
                 </li>
@@ -102,13 +89,10 @@
 
                 <input matInput type="password" formControlName="confirmPassword" required />
               </mat-form-field>
-              <ul
-                class="text-danger list-unstyled"
-                *ngIf="
+              <ul class="text-danger list-unstyled" *ngIf="
                   (formSubmitted || registrationForm.controls['confirmPassword'].touched) &&
                   registrationForm.controls['confirmPassword'].invalid
-                "
-              >
+                ">
                 <li *ngFor="let error of registrationForm.get['confirmPassword'].getValidationMessages()">
                   {{ error }}
                 </li>
@@ -119,13 +103,10 @@
 
                 <input formControlName="mobile" matInput type="text" required />
               </mat-form-field>
-              <ul
-                class="text-danger list-unstyled"
-                *ngIf="
+              <ul class="text-danger list-unstyled" *ngIf="
                   (formSubmitted || registrationForm.controls['mobile'].touched) &&
                   registrationForm.controls['mobile'].invalid
-                "
-              >
+                ">
                 <li *ngFor="let error of registrationForm.get['mobile'].getValidationMessages()">
                   {{ error }}
                 </li>
@@ -139,7 +120,9 @@
               </div>
             </form>
           </mat-tab>
-          <mat-tab label="Add Organization"> <app-organization-modal></app-organization-modal></mat-tab>
+          <mat-tab label="Add Organization">
+            <app-organization-modal></app-organization-modal>
+          </mat-tab>
         </mat-tab-group>
       </div>
     </div>
@@ -218,122 +201,73 @@
       <div class=" box ">
         <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
           <li class="nav-item">
-            <a
-              class="nav-link active"
-              id="pills-signup-tab"
-              data-toggle="pill"
-              href="#pills-signup"
-              role="tab"
-              aria-controls="pills-signup"
-              aria-selected="true"
-              >Sign Up</a
-            >
+            <a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab"
+              aria-controls="pills-login" aria-selected="false">login</a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link"
-              id="pills-organization-tab"
-              data-toggle="pill"
-              href="#pills-organization"
-              role="tab"
-              aria-controls="pills-organization"
-              aria-selected="false"
-              >Add Organization</a
-            >
+            <a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup" role="tab"
+              aria-controls="pills-signup" aria-selected="true">Sign Up</a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link"
-              id="pills-login-tab"
-              data-toggle="pill"
-              href="#pills-login"
-              role="tab"
-              aria-controls="pills-login"
-              aria-selected="false"
-              >login</a
-            >
+            <a class="nav-link" id="pills-organization-tab" data-toggle="pill" href="#pills-organization" role="tab"
+              aria-controls="pills-organization" aria-selected="false">Add Organization</a>
           </li>
+
         </ul>
         <div class="tab-content" id="pills-tabContent">
-          <div
-            class="tab-pane fade show active"
-            id="pills-signup"
-            role="tabpanel"
-            aria-labelledby="pills-signup-tab"
-          >
-            <div class="col-sm-12  shadow rounded pt-2">
-              <form
-                [formGroup]="registrationForm"
-                (ngSubmit)="submit(registrationForm)"
-              >
-                <mat-label>Organization Name</mat-label
-                ><span class="text-danger">*</span>
+          <div class="tab-pane fade" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
+            <div class="col-sm-12 rounded pt-2">
+              <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
+                <mat-label>Organization Name</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
                   <input formControlName="organization" matInput type="text" />
                 </mat-form-field>
-                <ul
-                  class="text-danger list-unstyled"
-                  *ngIf="
+                <ul class="text-danger list-unstyled" *ngIf="
                     (formSubmitted ||
                       registrationForm.controls['organization'].touched) &&
                     registrationForm.controls['organization'].invalid
-                  "
-                >
-                  <li
-                    *ngFor="
+                  ">
+                  <li *ngFor="
                       let error of registrationForm.get[
                         'organization'
                       ].getValidationMessages()
-                    "
-                  >
+                    ">
                     {{ error }}
                   </li>
                 </ul>
 
-                <mat-label>First Name</mat-label
-                ><span class="text-danger">*</span>
+                <mat-label>First Name</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
                   <input formControlName="fname" matInput type="text" />
                 </mat-form-field>
-                <ul
-                  class="text-danger list-unstyled"
-                  *ngIf="
+                <ul class="text-danger list-unstyled" *ngIf="
                     (formSubmitted ||
                       registrationForm.controls['fname'].touched) &&
                     registrationForm.controls['fname'].invalid
-                  "
-                >
-                  <li
-                    *ngFor="
+                  ">
+                  <li *ngFor="
                       let error of registrationForm.get[
                         'fname'
                       ].getValidationMessages()
-                    "
-                  >
+                    ">
                     {{ error }}
                   </li>
                 </ul>
 
-                <mat-label>Last Name</mat-label
-                ><span class="text-danger">*</span>
+                <mat-label>Last Name</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
                   <input formControlName="lname" matInput type="text" />
                 </mat-form-field>
-                <ul
-                  class="text-danger list-unstyled"
-                  *ngIf="
+                <ul class="text-danger list-unstyled" *ngIf="
                     (formSubmitted ||
                       registrationForm.controls['lname'].touched) &&
                     registrationForm.controls['lname'].invalid
-                  "
-                >
-                  <li
-                    *ngFor="
+                  ">
+                  <li *ngFor="
                       let error of registrationForm.get[
                         'lname'
                       ].getValidationMessages()
-                    "
-                  >
+                    ">
                     {{ error }}
                   </li>
                 </ul>
@@ -367,61 +301,41 @@
                 <mat-form-field class="example-full-width">
                   <input formControlName="email" matInput type="text" />
                 </mat-form-field>
-                <ul
-                  class="text-danger list-unstyled"
+                <ul class="text-danger list-unstyled"
                   *ngIf="
-                    (formSubmitted ||
-                      registrationForm.controls['email'].touched) &&
-                    registrationForm.controls['email'].invalid
-                  "
-                >
-                  <li
-                    *ngFor="
+                    (formSubmitted || registrationForm.controls['email'].touched) && registrationForm.controls['email'].invalid">
+                  <li *ngFor="
                       let error of registrationForm.get[
                         'email'
                       ].getValidationMessages()
-                    "
-                  >
+                    ">
                     {{ error }}
                   </li>
                 </ul>
 
-                <mat-label>Password</mat-label
-                ><span class="text-danger">*</span>
+                <mat-label>Password</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
                   <input matInput formControlName="password" type="password" />
                 </mat-form-field>
-                <ul
-                  class="text-danger list-unstyled"
-                  *ngIf="
+                <ul class="text-danger list-unstyled" *ngIf="
                     (formSubmitted ||
                       registrationForm.controls['password'].touched) &&
                     registrationForm.controls['password'].invalid
-                  "
-                >
-                  <li
-                    *ngFor="
+                  ">
+                  <li *ngFor="
                       let error of registrationForm.get[
                         'password'
                       ].getValidationMessages()
-                    "
-                  >
+                    ">
                     {{ error }}
                   </li>
                 </ul>
 
-                <mat-label>Confirm Password</mat-label
-                ><span class="text-danger">*</span>
+                <mat-label>Confirm Password</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
-                  <input
-                    matInput
-                    type="password"
-                    formControlName="confirmPassword"
-                  />
+                  <input matInput type="password" formControlName="confirmPassword" />
                 </mat-form-field>
-                <ul
-                  class="text-danger list-unstyled"
-                  *ngIf="
+                <ul class="text-danger list-unstyled" *ngIf="
                     (formSubmitted ||
                       registrationForm.controls['email'].touched) &&
                     registrationForm.controls['email'].invalid
@@ -480,15 +394,12 @@
                     (formSubmitted ||
                       registrationForm.controls['confirmPassword'].touched) &&
                     registrationForm.controls['confirmPassword'].invalid
-                  "
-                >
-                  <li
-                    *ngFor="
+                  ">
+                  <li *ngFor="
                       let error of registrationForm.get[
                         'confirmPassword'
                       ].getValidationMessages()
-                    "
-                  >
+                    ">
                     {{ error }}
                   </li>
                 </ul>
@@ -497,121 +408,79 @@
                 <mat-form-field class="example-full-width">
                   <input formControlName="mobile" matInput type="text" />
                 </mat-form-field>
-                <ul
-                  class="text-danger list-unstyled"
-                  *ngIf="
+                <ul class="text-danger list-unstyled" *ngIf="
                     (formSubmitted ||
                       registrationForm.controls['mobile'].touched) &&
                     registrationForm.controls['mobile'].invalid
-                  "
-                >
-                  <li
-                    *ngFor="
+                  ">
+                  <li *ngFor="
                       let error of registrationForm.get[
                         'mobile'
                       ].getValidationMessages()
-                    "
-                  >
+                    ">
                     {{ error }}
                   </li>
                 </ul>
 
                 <p>
-                  Already have an Account?<a class="mr-l" routerLink="/login"
-                    >LOGIN</a
-                  >
+                  Already have an Account?<a class="mr-l" routerLink="/login">LOGIN</a>
                 </p>
-                <div
-                  fxLayout="row"
-                  fxLayout.xs="column"
-                  fxLayoutGap="0%"
-                  fxLayoutAlign="flex-end"
-                >
-                  <button
-                    mat-raised-button
-                    type="submit"
-                    [disabled]="!registrationForm.valid"
-                    color="primary"
-                  >
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="flex-end">
+                  <button mat-raised-button type="submit" [disabled]="!registrationForm.valid" color="primary">
                     Create Profile
                   </button>
                 </div>
               </form>
             </div>
           </div>
-          <div
-            class="tab-pane fade"
-            id="pills-login"
-            role="tabpanel"
-            aria-labelledby="pills-login-tab"
-          >
-            <div class="col-sm-12 shadow rounded pt-2">
+          <div class="tab-pane fade active show" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+            <div class="col-sm-12 rounded pt-2">
               <app-login></app-login>
             </div>
           </div>
-          <div
-            class="tab-pane fade"
-            id="pills-organization"
-            role="tabpanel"
-            aria-labelledby="pills-organization-tab"
-          >
-            <div class="col-sm-12 shadow rounded pt-2">
+          <div class="tab-pane fade" id="pills-organization" role="tabpanel" aria-labelledby="pills-organization-tab">
+            <div class="col-sm-12  rounded pt-2">
               <app-organization-modal></app-organization-modal>
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="modal fade"
-        id="forgotPass"
-        tabindex="-1"
-        role="dialog"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <form method="post" id="forgotpassForm">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Forgot Password</h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label>Email <span class="text-danger">*</span></label>
-                  <input
-                    type="email"
-                    name="forgotemail"
-                    id="forgotemail"
-                    class="form-control"
-                    placeholder="Enter your valid email..."
-                    required
-                  />
-                </div>
-                <div class="form-group"></div>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Sign In
-                </button>
-                <button type="submit" name="forgotPass" class="btn btn-primary">
-                  <i class="fa fa-envelope"></i> Send Request
-                </button>
-              </div>
+<<<<<<< HEAD
+
+      <!-- Modal -->
+<div class="modal fade" id="forgotPass" tabindex="-1" role="dialog" aria-hidden="true">
+  =======
+  <div class="modal fade" id="forgotPass" tabindex="-1" role="dialog" aria-hidden="true">
+    >>>>>>> origin/devBUild
+    <div class="modal-dialog" role="document">
+      <form method="post" id="forgotpassForm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Forgot Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Email <span class="text-danger">*</span></label>
+              <input type="email" name="forgotemail" id="forgotemail" class="form-control"
+                placeholder="Enter your valid email..." required />
             </div>
-          </form>
+            <div class="form-group"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Sign In
+            </button>
+            <button type="submit" name="forgotPass" class="btn btn-primary">
+              <i class="fa fa-envelope"></i> Send Request
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
-</div>  -->
+</div>
+<!-- </div> -->
+<!-- </div> -->
