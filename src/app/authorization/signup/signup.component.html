@@ -1,23 +1,151 @@
-<!-- 
-<div class="main-content">
-  <div class="col-md-4 offset-4">
-    <mat-card>
-        <mat-toolbar color="primary">
-      <div class="mat-subheading col-md-6">Sign Up</div> 
-          <a  class="pull-right col-md-6" routerLink="/organization" style="color:#fff"  (click)="addOrg(false)" >Add Organization</a>
-     </mat-toolbar>
-        <mat-card-content>
-                <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
-            
-               <mat-form-field class="example-full-width">
-                            <input formControlName="orgName" matInput placeholder=" Organization Name*" type="text">
-                        </mat-form-field>
-                        <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || registrationForm.controls['orgName'].touched) && registrationForm.controls['orgName'].invalid">
-                            <li *ngFor="let error of registrationForm.controls['orgName'].getValidationMessages()">
-                                {{error}}
-                            </li>
-                        </ul>
-    
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-5 pad0">
+      <img class="bg" width="100%" src="/assets/img/thumbnail.png" />
+    </div>
+    <div class="col-md-7 ">
+      <div class=" box ">
+        <mat-tab-group>
+          <mat-tab label="Sign In"> <app-login></app-login></mat-tab>
+          <mat-tab label="Sign Up">
+            <form [formGroup]="registrationForm" (ngSubmit)="submit(registrationForm)">
+              <mat-form-field class="">
+                <mat-label>Organization Name</mat-label>
+                <input formControlName="organization" matInput type="text" required />
+                <ul
+                  class="text-danger list-unstyled"
+                  *ngIf="
+                    (formSubmitted || registrationForm.controls['organization'].touched) &&
+                    registrationForm.controls['organization'].invalid
+                  "
+                >
+                  <li *ngFor="let error of registrationForm.get['organization'].getValidationMessages()">
+                    {{ error }}
+                  </li>
+                </ul>
+              </mat-form-field>
+
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-6 pl0">
+                    <mat-form-field>
+                      <mat-label>First Name</mat-label>
+                      <input formControlName="fname" matInput type="text" required />
+                    </mat-form-field>
+                    <ul
+                      class="text-danger list-unstyled"
+                      *ngIf="
+                        (formSubmitted || registrationForm.controls['fname'].touched) &&
+                        registrationForm.controls['fname'].invalid
+                      "
+                    >
+                      <li *ngFor="let error of registrationForm.get['fname'].getValidationMessages()">
+                        {{ error }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6 plr0">
+                    <mat-form-field>
+                      <mat-label>Last Name</mat-label>
+                      <input formControlName="lname" matInput type="text" required />
+                    </mat-form-field>
+                    <ul
+                      class="text-danger list-unstyled"
+                      *ngIf="
+                        (formSubmitted || registrationForm.controls['lname'].touched) &&
+                        registrationForm.controls['lname'].invalid
+                      "
+                    >
+                      <li *ngFor="let error of registrationForm.get['lname'].getValidationMessages()">
+                        {{ error }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <mat-form-field class="">
+                <mat-label>Email</mat-label>
+
+                <input formControlName="email" matInput type="text" required />
+              </mat-form-field>
+              <ul
+                class="text-danger list-unstyled"
+                *ngIf="
+                  (formSubmitted || registrationForm.controls['email'].touched) &&
+                  registrationForm.controls['email'].invalid
+                "
+              >
+                <li *ngFor="let error of registrationForm.get['email'].getValidationMessages()">
+                  {{ error }}
+                </li>
+              </ul>
+
+              <mat-form-field class="">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type="password" required />
+              </mat-form-field>
+
+              <ul
+                class="text-danger list-unstyled"
+                *ngIf="
+                  (formSubmitted || registrationForm.controls['password'].touched) &&
+                  registrationForm.controls['password'].invalid
+                "
+              >
+                <li *ngFor="let error of registrationForm.get['password'].getValidationMessages()">
+                  {{ error }}
+                </li>
+              </ul>
+
+              <mat-form-field class="">
+                <mat-label>Confirm Password</mat-label>
+
+                <input matInput type="password" formControlName="confirmPassword" required />
+              </mat-form-field>
+              <ul
+                class="text-danger list-unstyled"
+                *ngIf="
+                  (formSubmitted || registrationForm.controls['confirmPassword'].touched) &&
+                  registrationForm.controls['confirmPassword'].invalid
+                "
+              >
+                <li *ngFor="let error of registrationForm.get['confirmPassword'].getValidationMessages()">
+                  {{ error }}
+                </li>
+              </ul>
+
+              <mat-form-field class="">
+                <mat-label>Mobile*</mat-label>
+
+                <input formControlName="mobile" matInput type="text" required />
+              </mat-form-field>
+              <ul
+                class="text-danger list-unstyled"
+                *ngIf="
+                  (formSubmitted || registrationForm.controls['mobile'].touched) &&
+                  registrationForm.controls['mobile'].invalid
+                "
+              >
+                <li *ngFor="let error of registrationForm.get['mobile'].getValidationMessages()">
+                  {{ error }}
+                </li>
+              </ul>
+
+              <p>Already have an Account?<a class="mr-l" routerLink="/login">LOGIN</a></p>
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0%" fxLayoutAlign="flex-end">
+                <button mat-raised-button type="submit" [disabled]="!registrationForm.valid" color="primary">
+                  Create Profile
+                </button>
+              </div>
+            </form>
+          </mat-tab>
+          <mat-tab label="Add Organization"> <app-organization-modal></app-organization-modal></mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="container-fluid">
                         <mat-form-field class="example-full-width">
                             
                             <input formControlName="email" matInput placeholder="Email*" type="text">
@@ -80,7 +208,7 @@
        
   -->
 
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div class="row">
     <div class="col-md-5 pad0">
       <img class="bg" width="100%" src="/assets/img/thumbnail.png" />
@@ -213,6 +341,31 @@
                 <mat-label>Email</mat-label><span class="text-danger">*</span>
                 <mat-form-field class="example-full-width">
                   <input formControlName="email" matInput type="text" />
+                <mat-form-field class="example-full-width">
+                  <input formControlName="lname" matInput type="text" />
+                </mat-form-field>
+                <ul
+                  class="text-danger list-unstyled"
+                  *ngIf="
+                    (formSubmitted ||
+                      registrationForm.controls['lname'].touched) &&
+                    registrationForm.controls['lname'].invalid
+                  "
+                >
+                  <li
+                    *ngFor="
+                      let error of registrationForm.get[
+                        'lname'
+                      ].getValidationMessages()
+                    "
+                  >
+                    {{ error }}
+                  </li>
+                </ul>
+
+                <mat-label>Email</mat-label><span class="text-danger">*</span>
+                <mat-form-field class="example-full-width">
+                  <input formControlName="email" matInput type="text" />
                 </mat-form-field>
                 <ul
                   class="text-danger list-unstyled"
@@ -226,6 +379,61 @@
                     *ngFor="
                       let error of registrationForm.get[
                         'email'
+                      ].getValidationMessages()
+                    "
+                  >
+                    {{ error }}
+                  </li>
+                </ul>
+
+                <mat-label>Password</mat-label
+                ><span class="text-danger">*</span>
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="password" type="password" />
+                </mat-form-field>
+                <ul
+                  class="text-danger list-unstyled"
+                  *ngIf="
+                    (formSubmitted ||
+                      registrationForm.controls['password'].touched) &&
+                    registrationForm.controls['password'].invalid
+                  "
+                >
+                  <li
+                    *ngFor="
+                      let error of registrationForm.get[
+                        'password'
+                      ].getValidationMessages()
+                    "
+                  >
+                    {{ error }}
+                  </li>
+                </ul>
+
+                <mat-label>Confirm Password</mat-label
+                ><span class="text-danger">*</span>
+                <mat-form-field class="example-full-width">
+                  <input
+                    matInput
+                    type="password"
+                    formControlName="confirmPassword"
+                  />
+                </mat-form-field>
+                <ul
+                  class="text-danger list-unstyled"
+                  *ngIf="
+                    (formSubmitted ||
+                      registrationForm.controls['email'].touched) &&
+                    registrationForm.controls['email'].invalid
+                      registrationForm.controls['confirmPassword'].touched) &&
+                    registrationForm.controls['confirmPassword'].invalid
+                  "
+                >
+                  <li
+                    *ngFor="
+                      let error of registrationForm.get[
+                        'email'
+                        'confirmPassword'
                       ].getValidationMessages()
                     "
                   >
@@ -353,8 +561,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Modal -->
       <div
         class="modal fade"
         id="forgotPass"
@@ -408,4 +614,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>  -->

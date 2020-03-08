@@ -5,171 +5,164 @@
 //     overflow:hidden;
 // }
 body {
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-    overflow: hidden !important;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden !important;
 }
 .pad0 {
-    // padding: 0px
-    padding-left: 0px;
-    height: 100vh;
+  // padding: 0px
+  padding-left: 0px;
+  height: 100vh;
 }
 
 .modal-title {
-    color: #000;
-    text-align: center;
-    font-weight: 600;
+  color: #000;
+  text-align: center;
+  font-weight: 600;
 }
 
 .link {
-    text-decoration: none;
-    color: #000000;
-    letter-spacing: 0.9px;
+  text-decoration: none;
+  color: #000000;
+  letter-spacing: 0.9px;
 }
 
 .link:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .sign {
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.8;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.8;
 }
 
 .log {
-    width: 68px;
+  width: 68px;
 }
 
-
-
 .mod {
-    width: 503px;
+  width: 503px;
 }
 
 .overlay {
-    position: absolute;
-    text-align: center;
-    height:100%;
-    top: 0;
-    width: 100%;
-    color: #ffffff;
+  position: absolute;
+  text-align: center;
+  height: 100%;
+  top: 0;
+  width: 100%;
+  color: #ffffff;
 }
 
 .padr0 {
-    padding-right: 0px;
+  padding-right: 0px;
 }
 
 .ulti {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .p-b {
-    font-size: 24px;
-    margin: 40px 0px;
-    text-transform: capitalize;
+  font-size: 24px;
+  margin: 40px 0px;
+  text-transform: capitalize;
 }
 
 .p-s {
-    font-size: 18px;
-    text-transform: capitalize;
+  font-size: 18px;
+  text-transform: capitalize;
 }
 
 .mg-t {
-    margin-top: 31px;
+  margin-top: 31px;
 }
 
 .inp {
-    height: 40px;
-    padding: 0px 18px;
-    margin: 0 0 15px 0px;
-    border: 2px solid #ccc;
+  height: 40px;
+  padding: 0px 18px;
+  margin: 0 0 15px 0px;
+  border: 2px solid #ccc;
 }
 
 .bg {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    height:100%;
-    padding: 0;
-    top: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 100%;
+  padding: 0;
+  top: 0;
 }
 
 .mod {
-    z-index: -1 !important;
+  z-index: -1 !important;
 }
 
 .text {
-    color: #ffffff;
-    text-align: center;
+  color: #ffffff;
+  text-align: center;
 }
 
 .rem {
-    margin-left: 3px;
+  margin-left: 3px;
 }
 
 .floatr {
-    float: right;
+  float: right;
 }
 
 .form1 {
-    text-align: left;
-    padding: 41px 80px;
-    margin: 60px 0;
-    background-color: #ffffff;
+  text-align: left;
+  padding: 41px 80px;
+  margin: 60px 0;
+  background-color: #ffffff;
 }
 
 label {
-    color: #777;
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 15px;
-    font-weight: 500;
+  color: #777;
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 15px;
+  font-weight: 500;
 }
 
-
-
 .md-form label {
-    font-size: 16px !important;
+  font-size: 16px !important;
 }
 
 .mo-title {
-    color: #000;
+  color: #000;
 }
 
 .inpu {
-    position: relative;
-    margin: auto;
-    width: 100%;
-    max-width: 280px;
+  position: relative;
+  margin: auto;
+  width: 100%;
+  max-width: 280px;
 }
-.marg{
-    margin-left: 6px;
+.marg {
+  margin-left: 6px;
 }
 
 .mod {
-    width: 503px;
+  width: 503px;
 }
 
-
-
 .md-form {
-    margin-top: 3.5rem;
+  margin-top: 3.5rem;
 }
 
 .margin160 {
-    margin-left: 0px;
+  margin-left: 0px;
 }
-
 
 .ft-tab {
-    padding: 0px 15px;
+  padding: 0px 15px;
 }
-.box{
-    // padding: 140px 180px;
+.box {
+  // padding: 140px 180px;
 }
-.text{
-    padding: 228px 0px;
-}
+form {
+    margin-top: 30px;
+  }

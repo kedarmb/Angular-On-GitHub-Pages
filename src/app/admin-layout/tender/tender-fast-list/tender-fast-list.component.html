@@ -32,12 +32,13 @@
             </tr>
         </tbody>
     </table>
+    
+<div class="d-flex  px-4 py-2  pull-right">
+    <button  mat-raised-button  color="compare" class="justify-content-end" (click)="compare()">compare quotes</button>
+    <button  mat-raised-button  color="warn" class="justify-content-end" (click)="cancel()">Cancel</button>
+</div>
 
-    <div class="position-bottom">
-
-        <button mat-raised-button color="comapre" (click)="compare()">compare quotes</button>
-        <button mat-raised-button color="warn" type="submit" (click)="cancel()">Cancel</button>
-    </div>
+</div> 
     <ngx-spinner type="cog" size="medium" color="#b8a5e8">
         <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
     </ngx-spinner>

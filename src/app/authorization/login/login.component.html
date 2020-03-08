@@ -40,95 +40,41 @@
     <p style="font-size: 20px; color: white; margin-top: 60px;">Please give us a moment, while we validate your credentials </p>
 </ngx-spinner> -->
 
-<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-<div class="sac">
-  <div class="container-fluid">
-    <div class="row">
-      <!-- <div class="col-md-5 pad0">
-                        <img  class="bg" width="100%" src="/assets/img/thumbnail.png">
-                        <div class="overlay">
-                            <div class="text">
-                                <div class="text-center">
-                                    <img src="/assets/img/Biddr logo small version.png" class="image-rounded" />
-                                </div>
-
-                                <div class="multil">
-         
-                                  
-                                </div>
-                            </div>
-                    </div>
-                </div> -->
-
-      <div class="col-md-12 pad0">
-        <div class=" box ">
-          <form [formGroup]="loginForm" novalidate (ngSubmit)="submit()">
-            <mat-form-field class="example-full-width">
-              <input
-                formControlName="email"
-                matInput
-                placeholder="Email"
-                type="text"
-              />
-            </mat-form-field>
-            <div
-              *ngIf="
-                !loginForm.controls.email.valid &&
-                (loginForm.controls.email.dirty ||
-                  loginForm.controls.email.touched)
-              "
-              class="error"
-            >
-              <div *ngIf="loginForm.controls.email.errors.invalidMsg">
-                {{ loginForm.controls.email.errors.invalidMsg }}
-              </div>
-            </div>
-            <mat-form-field class="example-full-width">
-              <input
-                matInput
-                formControlName="password"
-                type="password"
-                placeholder="Password"
-              />
-            </mat-form-field>
-            <div
-              *ngIf="
-                !loginForm.controls.password.valid &&
-                (loginForm.controls.password.dirty ||
-                  loginForm.controls.password.touched)
-              "
-              class="error"
-            ></div>
-            <mat-form-field>
-              <mat-label>Role</mat-label>
-              <select matNativeControl required>
-                <option value="volvo">Prime Contractor</option>
-                <option value="saab">Sub Contractor</option>
-              </select>
-            </mat-form-field>
-            <p>
-              your organization does not exist?<a
-                class="marg"
-                routerLink="/organization"
-                >Add Organization</a
-              >
-            </p>
-            Don't have account ? <a class="marg" routerLink="/signup">Signup</a>
-
-            <button
-              mat-raised-button
-              type="submit"
-              [disabled]="loginForm.invalid"
-              color="primary"
-              class=" pull-right"
-            >
-              login
-            </button>
-            <div class="clearfix"></div>
-          </form>
-        </div>
+<form [formGroup]="loginForm" novalidate (ngSubmit)="submit()">
+  <mat-form-field>
+    <input formControlName="email" matInput placeholder="Email" type="text" required />
+    <div
+      *ngIf="!loginForm.controls.email.valid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"
+      class="error"
+    >
+      <div *ngIf="loginForm.controls.email.errors.invalidMsg">
+        {{ loginForm.controls.email.errors.invalidMsg }}
       </div>
     </div>
-  </div>
-</div>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="password" type="password" placeholder="Password" />
+    <div
+      *ngIf="
+        !loginForm.controls.password.valid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)
+      "
+      class="error"
+    ></div>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Role</mat-label>
+    <select matNativeControl required>
+      <option value="volvo">Prime Contractor</option>
+      <option value="saab">Sub Contractor</option>
+    </select>
+  </mat-form-field>
+  <p>your organization does not exist?<a class="marg" routerLink="/organization">Add Organization</a></p>
+  Don't have account ? <a class="marg" routerLink="/signup">Signup</a>
+
+  <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary" class=" pull-right">
+    login
+  </button>
+  <div class="clearfix"></div>
+</form>
