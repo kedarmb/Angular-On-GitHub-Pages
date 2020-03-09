@@ -1,218 +1,352 @@
 <mat-tab-group>
   <!-- Tab for create new trench -->
   <mat-tab label="Create New Trench">
-    <form *ngIf="trenchForm" [formGroup]="trenchForm">
-      <div class="row" style="margin-bottom: 15px; margin-top: 10px;">
-        <div class="col-8">
-          <mat-card>
-            <mat-card-content>
-              <div class="row">
-                <div class="col-4">
-                  <mat-form-field>
-                    <input matInput formControlName="calculationName" placeholder="Calculation name" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <mat-form-field>
-                    <mat-label>Choose length unit</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let item of lengths" [value]="item.value">
-                        {{item.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <mat-form-field>
-                    <mat-label>Choose mass unit</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let item of mass" [value]="item.value">
-                        {{item.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-
-      <div class="row" style="margin-bottom: 15px;">
-        <div class="col-8">
-          <mat-card>
-            <mat-card-subtitle>
-              <span style="font-size: larger; font-weight: bold;">Bedding Volume Calculation</span>
-            </mat-card-subtitle>
-            <mat-card-content>
-              <div class="row">
-                <div class="col-3">
-                  <mat-form-field>
-                    <input matInput formControlName="beddingLength" (keyup)="beddingVolCalc()" placeholder="Length"
-                      type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <mat-form-field>
-                    <input matInput formControlName="beddingWidth" (keyup)="beddingVolCalc()" placeholder="Width"
-                      type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <mat-form-field>
-                    <input matInput formControlName="beddingHeight" placeholder="Height" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <p><label>Bedding Volume:</label> {{this.trenchForm.value.beddingVolume || 0}}</p>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-
-      <div class="row" style="margin-bottom: 15px;">
-        <div class="col-8">
-          <mat-card>
-            <mat-card-subtitle>
-              <span style="font-size: larger; font-weight: bold;">Pipe Volume Calculation</span>
-            </mat-card-subtitle>
-            <mat-card-content>
-              <div class="row">
-                <div class="col-4">
-                  <mat-form-field>
-                    <input matInput formControlName="pipeHeight" placeholder="Pipe height" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-4">
-                  <mat-form-field>
-                    <input matInput formControlName="pipeDiameter" placeholder="Pipe Diameter" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-4">
-                  <p><label>Pipe Volume:</label> {{this.trenchForm.value.pipeVolume || 0}}</p>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-
-      <div class="row" style="margin-bottom: 15px;">
-        <div class="col-8">
-          <mat-card>
-            <mat-card-subtitle>
-              <span style="font-size: larger; font-weight: bold;">Bedding Weight Calculation</span>
-            </mat-card-subtitle>
-            <mat-card-content>
-              <div class="row">
-                <div class="col-3">
-                  <p><label>Bedding Volume:</label> {{this.trenchForm.value.beddingVolume || 0}}</p>
-                </div>
-                <div class="col-3">
-                  <p><label>Pipe Volume:</label> {{this.trenchForm.value.pipeVolume || 0}}</p>
-                </div>
-                <div class="col-3">
-                  <mat-form-field>
-                    <input matInput formControlName="densityBedding" placeholder="Density" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <p><label>Weight Bedding :</label> {{this.trenchForm.value.beddingWeight || 0}}</p>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-
-      <div class="row" style="margin-bottom: 15px;">
-        <div class="col-8">
-          <mat-card>
-            <mat-card-subtitle>
-              <span style="font-size: larger; font-weight: bold;">Backfill Volume Calculation</span>
-            </mat-card-subtitle>
-            <mat-card-content>
-              <div class="row">
-                <div class="col-3">
-                  <mat-form-field>
-                    <input matInput formControlName="backfillLength" placeholder="Length" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <mat-form-field>
-                    <input matInput formControlName="backfillWidth" placeholder="Width" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <mat-form-field>
-                    <input matInput formControlName="backfillHeight" placeholder="Height" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-3">
-                  <p><label>Backfill Volume:</label> {{this.trenchForm.value.backfillVolume || 0}}</p>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-
-      <div class="row" style="margin-bottom: 15px;">
-        <div class="col-8">
-          <mat-card>
-            <mat-card-subtitle>
-              <span style="font-size: larger; font-weight: bold;">Backfill Weight Calculation</span>
-            </mat-card-subtitle>
-            <mat-card-content>
-              <div class="row">
-                <div class="col-4">
-                  <p><label>Backfill Volume:</label> {{this.trenchForm.value.backfillVolume || 0}}</p>
-                </div>
-                <div class="col-4">
-                  <mat-form-field>
-                    <input matInput formControlName="backfillDensity" placeholder="Density" type="text">
-                  </mat-form-field>
-                </div>
-                <div class="col-4">
-                  <p><label>Backfill Weight:</label> {{this.trenchForm.value.backfillWeight || 0}}</p>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-8">
-          <div class="mat-title"> Calculation Summary :</div>
-          <div class="row">
-            <div class="col-3">
-              <p><label>Bedding Volume</label> {{this.trenchForm.value.beddingVolume || 0}}</p>
-            </div>
-            <div class="col-3">
-              <p><label>Bedding Weight</label> {{this.trenchForm.value.beddingWeight || 0}}</p>
-            </div>
-            <div class="col-3">
-              <p><label>Backfill Volume</label> {{this.trenchForm.value.backfillVolume || 0}}</p>
-            </div>
-            <div class="col-3">
-              <p><label>Backfill Weight</label> {{this.trenchForm.value.backfillWeight || 0}}</p>
+    <div class="row">
+      <div class="col-7">
+        <form *ngIf="trenchForm" [formGroup]="trenchForm">
+          <div class="row" style="margin-bottom: 15px; margin-top: 10px;">
+            <div class="col-12">
+              <mat-card>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-4">
+                      <mat-form-field>
+                        <input matInput formControlName="calculationName" placeholder="Calculation name" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field>
+                        <mat-label>Choose length unit</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let item of lengths" [value]="item.value">
+                            {{ item.viewValue }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field>
+                        <mat-label>Choose mass unit</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let item of mass" [value]="item.value">
+                            {{ item.viewValue }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
             </div>
           </div>
+
+          <div class="row" style="margin-bottom: 15px;">
+            <div class="col-12">
+              <mat-card>
+                <mat-card-subtitle>
+                  <span style="font-size: larger; font-weight: bold;">Bedding Volume Calculation</span>
+                </mat-card-subtitle>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-3">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          formControlName="beddingLength"
+                          (keyup)="beddingVolCalc()"
+                          placeholder="Length"
+                          type="text"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          formControlName="beddingWidth"
+                          (keyup)="beddingVolCalc()"
+                          placeholder="Width"
+                          type="text"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field>
+                        <input matInput formControlName="beddingHeight" placeholder="Height" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <p><label>Bedding Volume:</label> {{ this.trenchForm.value.beddingVolume || 0 }}</p>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px;">
+            <div class="col-12">
+              <mat-card>
+                <mat-card-subtitle>
+                  <span style="font-size: larger; font-weight: bold;">Pipe Volume Calculation</span>
+                </mat-card-subtitle>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-4">
+                      <mat-form-field>
+                        <input matInput formControlName="pipeHeight" placeholder="Pipe height" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field>
+                        <input matInput formControlName="pipeDiameter" placeholder="Pipe Diameter" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <p><label>Pipe Volume:</label> {{ this.trenchForm.value.pipeVolume || 0 }}</p>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px;">
+            <div class="col-12">
+              <mat-card>
+                <mat-card-subtitle>
+                  <span style="font-size: larger; font-weight: bold;">Bedding Weight Calculation</span>
+                </mat-card-subtitle>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-3">
+                      <p><label>Bedding Volume:</label> {{ this.trenchForm.value.beddingVolume || 0 }}</p>
+                    </div>
+                    <div class="col-3">
+                      <p><label>Pipe Volume:</label> {{ this.trenchForm.value.pipeVolume || 0 }}</p>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field>
+                        <input matInput formControlName="densityBedding" placeholder="Density" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <p><label>Weight Bedding :</label> {{ this.trenchForm.value.beddingWeight || 0 }}</p>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px;">
+            <div class="col-12">
+              <mat-card>
+                <mat-card-subtitle>
+                  <span style="font-size: larger; font-weight: bold;">Backfill Volume Calculation</span>
+                </mat-card-subtitle>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-3">
+                      <mat-form-field>
+                        <input matInput formControlName="backfillLength" placeholder="Length" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field>
+                        <input matInput formControlName="backfillWidth" placeholder="Width" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field>
+                        <input matInput formControlName="backfillHeight" placeholder="Height" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <p><label>Backfill Volume:</label> {{ this.trenchForm.value.backfillVolume || 0 }}</p>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 15px;">
+            <div class="col-12">
+              <mat-card>
+                <mat-card-subtitle>
+                  <span style="font-size: larger; font-weight: bold;">Backfill Weight Calculation</span>
+                </mat-card-subtitle>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-4">
+                      <p><label>Backfill Volume:</label> {{ this.trenchForm.value.backfillVolume || 0 }}</p>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field>
+                        <input matInput formControlName="backfillDensity" placeholder="Density" type="text" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <p><label>Backfill Weight:</label> {{ this.trenchForm.value.backfillWeight || 0 }}</p>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="mat-title">Calculation Summary :</div>
+              <div class="row">
+                <!-- <div class="col-3">
+                  <p><label>Bedding Volume</label> {{ this.trenchForm.value.beddingVolume || 0 }}</p>
+                </div> -->
+                <div class="col-3">
+                  <p><label>Bedding Weight</label> {{ this.trenchForm.value.beddingWeight || 0 }}</p>
+                </div>
+                <!-- <div class="col-3">
+                  <p><label>Backfill Volume</label> {{ this.trenchForm.value.backfillVolume || 0 }}</p>
+                </div> -->
+                <div class="col-3">
+                  <p><label>Backfill Weight</label> {{ this.trenchForm.value.backfillWeight || 0 }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button mat-raised-button type="button" color="primary" (click)="calculate()">Calculate</button>
+          <div *ngIf="!admin">
+            <button
+              *ngIf="_purpose == 0"
+              mat-raised-button
+              type="button"
+              (click)="save()"
+              [disabled]="!trenchForm.valid"
+              color="primary"
+            >
+              Save
+            </button>
+            <button
+              *ngIf="_purpose == 1"
+              mat-raised-button
+              type="button"
+              (click)="updateTrenchCalculation()"
+              [disabled]="!trenchForm.valid"
+              color="primary"
+            >
+              Update
+            </button>
+            <button mat-raised-button type="button" color="primary" (click)="close()">Cancel</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-5">
+        Trench Dimension image
+        <div *ngIf="trenchForm">
+          <table>
+            <tr>
+              <td class="trench-calculation">
+                <div class="section" style="text-align:center; margin-top:35px;">
+                  <!-- =cube section start= -->
+                  <div class="cube" style="margin:auto;">
+                    <div class="front" [ngStyle]="{ width: 250 + 'px' }">
+                      <div class="lower" [ngStyle]="{ width: 250 + 'px' }">
+                        <div class="left-dimension">
+                          <p class="rotate">100m</p>
+                        </div>
+
+                        <div class="top-dimension">
+                          <p>{{ this.trenchForm.value.pipeDiameter }}</p>
+                        </div>
+                        <div class="image-circle">
+                          <p>{{ this.trenchForm.value.pipeDiameter }}</p>
+                        </div>
+                      </div>
+                      <div class="upper" [ngStyle]="{ width: 250 + 'px' }">
+                        <div class="left-dimension">
+                          <p class="rotate">{{ this.trenchForm.value.backfillHeight }}</p>
+                        </div>
+
+                        <div class="top-dimension">
+                          <p>{{ this.trenchForm.value.backfillLength }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="back" [ngStyle]="{ width: 250 + 'px' }">
+                      <div class="upper" [ngStyle]="{ width: 250 + 'px' }">
+                        <div class="left-dimension">
+                          <p class="rotate">{{ this.trenchForm.value.pipeDiameter }}</p>
+                        </div>
+
+                        <div class="top-dimension">
+                          <p>{{ this.trenchForm.value.pipeDiameter }}</p>
+                        </div>
+                      </div>
+                      <div class="lower" [ngStyle]="{ width: 250 + 'px' }">
+                        <div class="left-dimension">
+                          <p class="rotate">{{ this.trenchForm.value.backfillHeight }}</p>
+                        </div>
+
+                        <div class="top-dimension">
+                          <p>{{ this.trenchForm.value.backfillHeight }}</p>
+                        </div>
+                        <div class="image-circle"></div>
+                      </div>
+                    </div>
+                    <div class="top" [ngStyle]="{ width: 250 + 'px' }"></div>
+                    <div class="bottom" [ngStyle]="{ width: 250 + 'px' }"></div>
+                    <div class="left">
+                      <div class="upper">
+                        BACKFILL
+                        <div class="left-dimension">
+                          <p class="rotate">{{ this.trenchForm.value.backfillHeight }}</p>
+                        </div>
+
+                        <div class="top-dimension">
+                          <p>{{ this.trenchForm.value.backfillWidth }}</p>
+                        </div>
+                      </div>
+                      <div class="lower">
+                        BEDDING
+                        <div class="left-dimension">
+                          <p class="rotate">100m</p>
+                        </div>
+
+                        <div class="top-dimension">
+                          <p>100m</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right" [ngStyle]="{ left: 150 + 'px' }">
+                      <div class="upper">
+                        <div class="left-dimension">
+                          <p class="rotate">{{ this.trenchForm.value.backfillHeight }}</p>
+                        </div>
+
+                        <div class="top-dimension">
+                          <p>{{ this.trenchForm.value.backfillWidth }}</p>
+                        </div>
+                      </div>
+                      <div class="lower">
+                        <div class="left-dimension">
+                          <p class="rotate">100m</p>
+                        </div>
+
+                        <div class="top-dimension">
+                          <p>100m</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
-
-      <button mat-raised-button type="button" color="primary" (click)="calculate()">Calculate</button>
-      <div *ngIf="!admin">
-        <button mat-raised-button type="button" (click)="save()" [disabled]="!trenchForm.valid "
-          color="primary">Save</button>
-        <button mat-raised-button type="button" (click)="updateTrenchCalculation()" [disabled]="!trenchForm.valid"
-          color="primary">Update</button>
-        <button mat-raised-button type="button" color="primary" (click)="close()">Cancel</button>
-      </div>
-    </form>
+    </div>
   </mat-tab>
   <!-- Tab for select trench and create new trench -->
   <mat-tab label="Select Pre Created Trench">
@@ -220,37 +354,43 @@
       <mat-card-content>
         <div class="row" style="margin-bottom: 15px; margin-top: 10px;">
           <div class="col-12">
-            <mat-form-field>
-              <mat-label>Select Pre Created Trench</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let item of preBuiltTrenchs" [value]="item.calculationName">
-                  {{item.calculationName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div *ngIf="preBuiltTrenchs != undefined">
+              <mat-form-field>
+                <mat-label>Select Pre Created Trench</mat-label>
+                <mat-select #selectedObj (selectionChange)="onTrenchSelect(selectedObj)">
+                  <mat-option *ngFor="let item of preBuiltTrenchs" [value]="item">
+                    {{ item.calculationName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="mat-title"> Calculation Summary :</div>
-            <div class="row" *ngFor="let items of preBuiltTrenchs">
-              <div class="col-3">
-                <p><label>Bedding Volume</label> {{items.beddingVolume || 0}}</p>
-              </div>
-              <div class="col-3">
-                <p><label>Bedding Weight</label> {{items.beddingWeight || 0}}</p>
-              </div>
-              <div class="col-3">
-                <p><label>Backfill Volume</label> {{items.backfillVolume || 0}}</p>
-              </div>
-              <div class="col-3">
-                <p><label>Backfill Weight</label> {{items.backfillWeight || 0}}</p>
+            <div class="mat-title">Calculation Summary :</div>
+            <div *ngIf="selectedPrebuild != undefined">
+              <div class="row">
+                <!-- <div class="col-3">
+                  <p><label>Bedding Volume</label> {{ selectedPrebuild.beddingVolume || 0 }}</p>
+                </div> -->
+                <div class="col-3">
+                  <p><label>Bedding Weight</label> {{ selectedPrebuild.beddingWeight || 0 }}</p>
+                </div>
+                <!-- <div class="col-3">
+                  <p><label>Backfill Volume</label> {{ selectedPrebuild.backfillVolume || 0 }}</p>
+                </div> -->
+                <div class="col-3">
+                  <p><label>Backfill Weight</label> {{ selectedPrebuild.backfillWeight || 0 }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div *ngIf="!admin">
-          <button mat-raised-button type="button" (click)="save()" [disabled]="!trenchForm.valid " color="primary">Save</button>
+        <div *ngIf="!admin && trenchForm != undefined">
+          <button mat-raised-button type="button" (click)="save()" [disabled]="selectedPrebuild == undefined" color="primary">
+            Save
+          </button>
           <button mat-raised-button type="button" color="primary" (click)="close()">Cancel</button>
         </div>
       </mat-card-content>

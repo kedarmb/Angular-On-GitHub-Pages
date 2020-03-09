@@ -1,28 +1,31 @@
 <div class="main-content">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#/tender">Tender</a></li>
-    <li class="breadcrumb-item">Tender Quote</li>
-    <li class="breadcrumb-item">{{ responseData.name }}</li>
-  </ol>
-  <!-- <div> -->
-  <!-- <button mat-stroked-button (click)="tenderItemComp.__addSection()">Add Another Section</button> -->
-  <!-- <button mat-stroked-button (click)="notifySubC()">Invite Sub Contractors</button> -->
-  <!-- <button mat-button (click)="saveUnfilteredTender()">Save As Is</button> -->
-  <!-- </div> -->
-  <app-invited-subcontractors
-    [notifiedSubs]="invitedSubs"
-    (dataLoaded)="onDataLoaded()"
-    (subSelected)="onSubContSelect($event)"
-  ></app-invited-subcontractors>
-  <app-tender-item
-    [tenderData]="responseData"
-    [selectedSubInp]="selectedVal"
-    #tenderItemComp
-  ></app-tender-item>
+  <div class="container-fluid">
+    <div class="col">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#/tender">Tender</a></li>
+        <li class="breadcrumb-item">Tender Quote</li>
+        <li class="breadcrumb-item">{{ responseData.name }}</li>
+      </ol>
+    </div>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>        
+        <app-invited-subcontractors
+          [notifiedSubs]="invitedSubs"
+          (dataLoaded)="onDataLoaded()"
+          (subSelected)="onSubContSelect($event)"
+        ></app-invited-subcontractors>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <app-tender-item
+      [tenderData]="responseData"
+      [selectedSubInp]="selectedVal"
+      #tenderItemComp
+    ></app-tender-item>
 
-  <ngx-spinner type="cog" size="medium" color="#b8a5e8">
-    <p style="font-size: 20px; color: white; margin-top: 60px;">
-      preparing tender..
-    </p>
-  </ngx-spinner>
+    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+      <p style="font-size: 20px; color: white; margin-top: 60px;">
+        processing request ..
+      </p>
+    </ngx-spinner>
+  </div>
 </div>

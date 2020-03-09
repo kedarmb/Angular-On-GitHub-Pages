@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { API_URL, ApiUrl } from "../constant/index";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { API_URL, ApiUrl } from '../constant/index';
+import { Observable } from 'rxjs';
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class HttpService {
   getHeader() {
     return new HttpHeaders()
-      .set("Content-Type", "application/json; charset=utf-8")
-      .set("Accept", "application/json; charset=utf-8");
+      .set('Content-Type', 'application/json; charset=utf-8')
+      .set('Accept', 'application/json; charset=utf-8');
   }
   constructor(private httpClient: HttpClient) {}
 
@@ -355,6 +355,12 @@ export class HttpService {
       observe: 'response'
     });
   }
+  public deleteTrenchFromLineItem(appendStr): Observable<any> {
+    return this.httpClient.delete(ApiUrl.trenchUrl + '/' + appendStr, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
 
   public getAllTrenches(): Observable<any> {
     return this.httpClient.get(ApiUrl.trenchUrl, {
@@ -475,13 +481,11 @@ export class HttpService {
       observe: 'response'
     });
   }
-  
+
   public getSubStatus(tenderId) {
-    return this.httpClient.get(
-      ApiUrl.createSubline + tenderId + '/statusAndItemCountSubLineItem', {
-        headers: this.getHeader(),
-        observe: 'response'
-      }
-    );
+    return this.httpClient.get(ApiUrl.createSubline + tenderId + '/statusAndItemCountSubLineItem', {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
   }
 }

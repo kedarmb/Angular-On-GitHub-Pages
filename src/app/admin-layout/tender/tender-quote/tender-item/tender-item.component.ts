@@ -548,27 +548,21 @@ export class TenderItemComponent implements OnInit, OnChanges {
     return subTotalCost;
   }
 
-  addCrewToLine(sectionID, lineItmID, lineItemRef, sectionRef) {
-    this.currentSection = sectionRef;
-    this.currentLineItem = lineItemRef;
+  addEditCrewToLine(sectionID, lineItmID, lineItemRef, sectionRef) {
+    // this.currentSection = sectionRef;
+    // this.currentLineItem = lineItemRef;
     // console.log('this.currentLineItem >>> ', this.currentLineItem);
     //
-    const postIds = {
-      tender: this.tenderData._id,
-      section: sectionID,
-      lineItem: lineItmID,
-      crewLabourEquipment: null,
-      labourTotalCost: null,
-      equipmentTotalCost: null,
-      crewTotalCost: null,
-      organizationId: null,
-      labourArr: null,
-      equipmentArr: null
-    };
+    const postObj = this.getCrewPostObj();
+    postObj.tender = this.tenderData._id;
+    postObj.section = sectionID;
+    postObj.lineItem = lineItmID;
+    postObj.crewItemRef = lineItemRef.value.crewItemRef;
+    //
     const modalRef = this.modalService.open(LineItemCrewComponent, {
       height: 'auto',
       width: '65%',
-      data: postIds,
+      data: postObj,
       disableClose: true,
       maxHeight: '95vh'
     });
@@ -589,6 +583,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
     });
   }
 
+  // User can create a new Crew Template from here.
   createNewCrew(lineItemRef, i) {
     const modalRef = this.modalService.open(CrewModalComponent, {
       height: 'auto',
@@ -607,6 +602,27 @@ export class TenderItemComponent implements OnInit, OnChanges {
         console.log(response);
       }
     });
+  }
+
+  deleteCrewFromLine(crewRefParam) {
+    console.log('crewRefParam is ... ', crewRefParam);
+  }
+
+  private getCrewPostObj() {
+    const postIds = {
+      tender: null,
+      section: null,
+      lineItem: null,
+      crewItemRef: null,
+      crewLabourEquipment: null,
+      labourTotalCost: null,
+      equipmentTotalCost: null,
+      crewTotalCost: null,
+      organizationId: null,
+      labourArr: null,
+      equipmentArr: null
+    };
+    return postIds;
   }
 
   //
@@ -631,11 +647,64 @@ export class TenderItemComponent implements OnInit, OnChanges {
     );
   }
 
-  addTrenchToLine(sectionID, lineItmID) {
+  addEditTrenchToLine(sectionID, lineItmID, trenchRef) {
+    const postObj = this.getTrenchPostObject();
+    postObj.tender = this.tenderData._id;
+    postObj.section = sectionID;
+    postObj.lineItem = lineItmID;
+    postObj.hasTrenchRef = trenchRef;
+    //
+    const modalRef = this.modalService.open(TrenchModalComponent, {
+      height: 'auto',
+      width: '85%',
+      data: postObj,
+      disableClose: true,
+      maxHeight: '95vh'
+    });
+    //
+    modalRef.afterClosed().subscribe(response => {
+      this.spinner.hide();
+      if (response.status === 'close' || response.status === undefined) {
+        console.log(response.data);
+      }
+      if (response.status === 'add' || response.status === 'update') {
+        this.refreshFormData();
+      }
+    });
+  }
+
+  deleteTrenchFromLine(sectionID, lineId, trenchRefParam) {
+    // https://smartbid-api.herokuapp.com/v1/trench/tender/:tenderId/section/:sectionId/lineItem/:lineItemId/trench/:id
+    console.log('trench Id is .. ', trenchRefParam);
+    this.spinner.show();
+    const appendStr =
+      'tender/' + this.tenderData._id + '/section/' + sectionID + '/lineItem/' + lineId + '/trench/' + trenchRefParam._id;
+    // return;
+    this.httpService.deleteTrenchFromLineItem(appendStr).subscribe(
+      (response: any) => {
+        this.spinner.hide();
+        console.log(response);
+        // TODO: res status is 201 now - should be 200 from BE team
+        if (response.status === 201) {
+          this.toastr.info('Trench has been successfully deleted.');
+          this.refreshFormData();
+        }
+      },
+      error => {
+        this.spinner.hide();
+        this.toastr.error('Could not delete Trench. Please try later.');
+      }
+    );
+  }
+
+  // private function returns skeleton object for Trench Post/Put data
+  private getTrenchPostObject() {
     const postTrenchIds = {
-      tender: this.tenderData._id,
-      section: sectionID,
-      lineItem: lineItmID,
+      tender: null,
+      section: null,
+      lineItem: null,
+      hasTrenchRef: null,
+      // above keys are for POST/PUT API - following is the payload
       calculationName: null,
       beddingLength: null,
       beddingWidth: null,
@@ -654,50 +723,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
       backfillHeight: null,
       backfillWeight: null
     };
-    const modalRef = this.modalService.open(TrenchModalComponent, {
-      height: 'auto',
-      width: '65%',
-      data: postTrenchIds,
-      disableClose: true,
-      maxHeight: '95vh'
-    });
+    return postTrenchIds;
   }
+} 
 
-  addNewTrench(lineItem, lindx, section) {
-    this.update.data = this.tenderData;
-    const modalRef = this.modalService.open(TrenchModalComponent, {
-      height: 'auto',
-      width: 'auto',
-      maxHeight: '95vh',
-      data: this.update,
-      disableClose: true
-    });
-    modalRef.afterClosed().subscribe(response => {
-      if (response.status === 'close' || response.status === undefined) {
-        console.log(response.data);
-      }
-      if (response.status === 'add') {
-        const trenchCtrl = lineItem.get('trenchRef') as FormControl;
-        this.trenchObj = response.data;
-        trenchCtrl.setValue(response.data);
-        console.log(response);
-      }
-    });
-  }
-
-  saveTrench(section, lineItem) {
-    // /v1/trench/tender/:tenderId/section/:sectionId/lineItem/:lineItemId
-    const id = this.tenderData._id;
-    const secID = section.value._id;
-    const lineID = lineItem.value._id;
-    // console.log("HHHHHHHHHHHH", lineID)
-    const appendStr = '/tender/' + id + '/section/' + secID + '/lineItem/' + lineID;
-    //
-    return;
-    // this.httpService.saveTrenchForLineItem(appendStr).subscribe((response) => {
-    //   console.log('success ', response);
-    // }, (err) => {
-    //   console.log('err saving trench ', err);
-    // })
-  }
-}

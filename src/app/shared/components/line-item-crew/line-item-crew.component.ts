@@ -5,6 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable, forkJoin } from 'rxjs';
+
+export enum ModalPurpose {
+  toSave,
+  toUpdate
+}
 
 @Component({
   selector: 'app-line-item-crew',
@@ -12,7 +18,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./line-item-crew.component.scss']
 })
 export class LineItemCrewComponent implements OnInit {
-
+  _purpose: ModalPurpose;
   crewList: any[];
   selectionForm: FormGroup;
   selectionStr = 'choose one from the list';
@@ -27,7 +33,6 @@ export class LineItemCrewComponent implements OnInit {
     status: 'close', // 'close' when closed; 'add' to add form value, 'update' to update form value
     data: null,
     totalCost: 0
-
   };
   isValid = false;
 
@@ -37,7 +42,8 @@ export class LineItemCrewComponent implements OnInit {
     private httpService: HttpService,
     private formBuilder: FormBuilder,
     private hs: HelperService,
-    private toastr: ToastrService, private spinner: NgxSpinnerService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {
     //
   }
@@ -45,14 +51,25 @@ export class LineItemCrewComponent implements OnInit {
   ngOnInit() {
     this.crewList = this.hs.getCrewList();
     console.log('payLoad is ', this.payLoad);
-    this.createSelectionForm();
+    //
+    if (this.payLoad.crewItemRef == null) {
+      this._purpose = ModalPurpose.toSave;
+      this.createSelectionForm();
+    } else if (this.payLoad.crewItemRef != null) {
+      console.log('crew to edit .. ');
+      this._purpose = ModalPurpose.toUpdate;
+      const crewID = this.payLoad.crewItemRef._id;
+      const specificCrew = this.httpService.getByIdCrewTemplate(crewID);
+      forkJoin([specificCrew]).subscribe(results => {
+        console.log('crew by id result ', results[0]);
+      });
+    }
   }
   createSelectionForm() {
     this.selectionForm = new FormGroup({
       selectedCrew: new FormControl()
-    })
+    });
   }
-
 
   onCrewSelect(evt) {
     this.selectionStr = 'you have chosen';
@@ -69,32 +86,36 @@ export class LineItemCrewComponent implements OnInit {
       description: [crew.description],
       labours: this.createCrewLaboursArr(crew.labours),
       equipments: this.createCrewEquipmentsArr(crew.equipments)
-    })
+    });
   }
   createCrewLaboursArr(laboursArr) {
     const crew_labours_arr = new FormArray([]);
     laboursArr.forEach(item => {
-      crew_labours_arr.push(this.formBuilder.group({
-        _id: [item._id],
-        name: [item.name],
-        hourlyCost: [item.hourlyCost],
-        requiredHrs: [],
-        totalCost: []
-      }))
+      crew_labours_arr.push(
+        this.formBuilder.group({
+          _id: [item._id],
+          name: [item.name],
+          hourlyCost: [item.hourlyCost],
+          requiredHrs: [],
+          totalCost: []
+        })
+      );
     });
     return crew_labours_arr;
   }
   createCrewEquipmentsArr(equipmentsArr) {
     const crew_equip_arr = new FormArray([]);
     equipmentsArr.forEach(item => {
-      crew_equip_arr.push(this.formBuilder.group({
-        _id: [item._id],
-        name: [item.name],
-        hourlyCost: [item.hourlyCost],
-        requiredHrs: [],
-        totalCost: []
-      }))
-    })
+      crew_equip_arr.push(
+        this.formBuilder.group({
+          _id: [item._id],
+          name: [item.name],
+          hourlyCost: [item.hourlyCost],
+          requiredHrs: [],
+          totalCost: []
+        })
+      );
+    });
     return crew_equip_arr;
   }
 
@@ -154,25 +175,25 @@ export class LineItemCrewComponent implements OnInit {
     const appendString = lineID + '/tender/' + tenderID + '/section/' + sectionID + '/crew/' + crewID;
     // console.log('append string is .. ', appendString);
     // line-item /: id / tender /: tenderId / section /: sectionId / crew /: crewId
-    this.httpService.saveCrewForLineItem(appendString, this.payLoad).subscribe(response => {
-      console.log(response);
-      if (response.status === 200) {
-        this.resData.status = 'add';
-        this.resData.data = response.body;
-        this.resData.totalCost = this._crewTotalCost;
-        this.dialogRef.close(this.resData);
-        this.toastr.success('Crew for Line Item saved');
+    this.httpService.saveCrewForLineItem(appendString, this.payLoad).subscribe(
+      response => {
+        console.log(response);
+        if (response.status === 200) {
+          this.resData.status = 'add';
+          this.resData.data = response.body;
+          this.resData.totalCost = this._crewTotalCost;
+          this.dialogRef.close(this.resData);
+          this.toastr.success('Crew for Line Item saved');
+        }
+      },
+      err => {
+        this.toastr.error('Error saving crew for line item. Please try later.');
+        console.log('erre saving crew for Line Item ', err);
       }
-    }, (err) => {
-      this.toastr.error('Error saving crew for line item. Please try later.');
-      console.log('erre saving crew for Line Item ', err);
-    })
-
-
+    );
   }
   cancelCrew() {
     this.resData.status = 'close';
     this.dialogRef.close(this.resData);
   }
-
 }

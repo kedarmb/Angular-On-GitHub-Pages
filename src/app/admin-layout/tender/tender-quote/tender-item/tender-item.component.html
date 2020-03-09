@@ -219,7 +219,7 @@
                                     <button
                                       mat-raised-button
                                       color="primary"
-                                      (click)="addCrewToLine(section.value._id, lineItem.value._id, lineItem, section)"
+                                      (click)="addEditCrewToLine(section.value._id, lineItem.value._id, lineItem, section)"
                                     >
                                       Add Crew
                                     </button>
@@ -268,9 +268,18 @@
                                     <button
                                       mat-raised-button
                                       color="primary"
-                                      (click)="addCrewToLine(section.value._id, lineItem.value._id, lineItem, section)"
+                                      (click)="addEditCrewToLine(section.value._id, lineItem.value._id, lineItem, section)"
                                     >
                                       Edit Crew
+                                    </button>
+                                  </div>
+                                  <div class="col-3">
+                                    <button
+                                      mat-raised-button
+                                      color="warn"
+                                      (click)="deleteCrewFromLine(lineItem.value.crewItemRef)"
+                                    >
+                                      Delete Crew
                                     </button>
                                   </div>
                                 </div>
@@ -289,7 +298,7 @@
                                     <button
                                       mat-raised-button
                                       color="primary"
-                                      (click)="addTrenchToLine(section.value._id, lineItem.value._id)"
+                                      (click)="addEditTrenchToLine(section.value._id, lineItem.value._id, lineItem.value.trenchRef)"
                                     >
                                       Create New Trench
                                     </button>
@@ -342,23 +351,24 @@
                                     <button
                                       mat-raised-button
                                       color="primary"
-                                      (click)="addTrenchToLine(section.value._id, lineItem.value._id)"
+                                      (click)="addEditTrenchToLine(section.value._id, lineItem.value._id, lineItem.value.trenchRef)"
                                     >
                                       Edit Trench
                                     </button>
                                   </div>
+                                  <div class="col-3">
+                                    <button
+                                      mat-raised-button
+                                      color="warn"
+                                      (click)="deleteTrenchFromLine(section.value._id, lineItem.value._id,lineItem.value.trenchRef)"
+                                    >
+                                      Delete Trench
+                                    </button>
+                                  </div>
                                 </div>
-                              </div>
-                              <mat-card *ngIf="trenchObj">
-                                <div class="row"></div>
-
-                                <div class="col-6">
-                                  <button mat-raised-button color="primary" (click)="saveTrench(section, lineItem, lindx)">
-                                    Save
-                                  </button>
-                                </div>
-                              </mat-card>
+                              </div>                              
                             </mat-expansion-panel>
+
                           </mat-accordion>
                         </ng-container>
                       </td>
@@ -371,7 +381,5 @@
         </div>
       </form>
     </div>
-  </ng-container>
-
-  <ng-container> </ng-container>
+  </ng-container>  
 </div>

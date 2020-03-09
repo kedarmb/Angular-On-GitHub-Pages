@@ -1,17 +1,10 @@
 <div class="main-content">
   <div class=" sb-toolbar">
-    <a (click)="AddUpdateTender(false)"
-      ><i class="material-icons" matTooltip=" Add Tender">add</i></a
-    >
+    <a (click)="AddUpdateTender(false)"><i class="material-icons" matTooltip=" Add Tender">add</i></a>
   </div>
 
   <div class="table-responsive border-top">
-    <table
-      class="mat_tab"
-      mat-table
-      [dataSource]="tenders"
-      class="mat-elevation-z8 tab-cell-styl"
-    >
+    <table class="mat_tab" mat-table [dataSource]="tenders" class="mat-elevation-z8 tab-cell-styl">
       <ng-container matColumnDef="Client Name">
         <th mat-header-cell *matHeaderCellDef>Client Name</th>
         <td mat-cell *matCellDef="let element">
@@ -60,26 +53,26 @@
         <th mat-header-cell *matHeaderCellDef>Open Date</th>
 
         <td mat-cell *matCellDef="let element">
-          {{ element.openDate | date: "mediumDate" }}
+          {{ element.openDate | date: 'mediumDate' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="Close Date">
         <th mat-header-cell *matHeaderCellDef>Close Date</th>
 
         <td mat-cell *matCellDef="let element">
-          {{ element.closeDate | date: "medium" }}
+          {{ element.closeDate | date: 'medium' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="Quote Start Date">
         <th mat-header-cell *matHeaderCellDef>Quote Start Date</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.quoteStartDate | date: "mediumDate" }}
+          {{ element.quoteStartDate | date: 'mediumDate' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="Quote End Date">
         <th mat-header-cell *matHeaderCellDef>Quote End Date</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.quoteEndDate | date: "medium" }}
+          {{ element.quoteEndDate | date: 'medium' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="Mode of Submission">
