@@ -38,8 +38,14 @@
         </table>
         <!-- <div *ngIf="!inviteSub.valid" class="warn">At least one order must be selected</div> -->
         <button type="button" mat-raised-button color="warn" (click)="close()" class="pull-right">Cancel</button>
-        <button type="button" mat-raised-button color="primary" (click)="close()" [disabled]="!clicked" class="pull-right">Notify</button>
+        <button type="button" mat-raised-button color="primary" (click)="notifyClicked = true" [disabled]="!clicked" class="pull-right">Notify</button>
         <button type="submit" mat-raised-button (click)="clicked = true;" [disabled]="!inviteSub.valid" color="primary" class="pull-right">Save</button>
+        <div *ngIf="notifyClicked">
+            <mat-form-field>
+                <textarea matInput placeholder="Type your message here..." formControlName="message"></textarea>
+            </mat-form-field>
+            <button type="button" mat-raised-button (click)="sendEmail()" color="warn">Send Email</button>
+        </div>
     </form>
     <ngx-spinner type="cog" size="medium" color="#b8a5e8">
         <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>

@@ -34,6 +34,7 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from 'ngx-mat-date
 import { ActiveTendersComponent } from './components/active-tenders/active-tenders.component';
 import { OrgNamePipe } from './pipe/org-name.pipe';
 import { PlaceNameFinderPipe } from './pipe/Place-Name-Finder.pipe';
+import { TostringPipe } from './pipe/tostring.pipe';
 
 const MaterialComponent = [
   NgxMatDatetimePickerModule, NgxMatTimepickerModule,
@@ -50,6 +51,7 @@ const MaterialComponent = [
 
 @NgModule({
   declarations: [
+    TostringPipe,
     TenderModalComponent,
     TrenchModalComponent,
     CrewModalComponent,
@@ -69,6 +71,7 @@ const MaterialComponent = [
     OrgNamePipe
   ],
   exports: [
+    TostringPipe,
     OrgNamePipe,
     EllipsisPipe,
     ReverseArrayPipe,

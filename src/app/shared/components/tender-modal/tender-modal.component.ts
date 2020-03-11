@@ -101,6 +101,7 @@ export class TenderModalComponent implements OnInit {
                 startWith(''),
                 map(v => v ? this.filteredClients(v) : this.allClients.slice())
             );
+
         this.tenderHeaderForm.get('openDate').valueChanges.subscribe(() => {
             console.log('value changes invoked')
             this.setMinDate();

@@ -488,4 +488,13 @@ export class HttpService {
       observe: 'response'
     });
   }
+  public sendEmail(body) {
+    return this.httpClient.post(ApiUrl.emailMessage + '/', body, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
+  // public sendMail(tenderid) {
+  //   return this.httpClient.post(ApiUrl.emailMessage + '/notification' + tenderid + )
+  // }
 }

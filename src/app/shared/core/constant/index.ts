@@ -54,7 +54,8 @@ export const ApiUrl = {
   selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/'),
   seletedSubForLineUrl: sublineUrlCreator('/seletedSubForLine/tender/'),
   seleteDeselectSubUrl: sublineUrlCreator('/selectDeselect/tender/'),
-  pdfParserUrl: authUrlCreator('/pdf-parser')
+  pdfParserUrl: authUrlCreator('/pdf-parser'),
+  emailMessage: authUrlCreator('/notification')
 };
 
 function urlCreator(actionName: string): string {
@@ -76,3 +77,10 @@ export const modeOfSubmission = [
   { name: 'print' },
   { name: 'electronic' }
 ];
+export const userStatus = [
+  { name: 'created' },
+  { name: 'in progress' },
+  { name: 'active' },
+  { name: 'completed' },
+  { name: 'inactive' }
+]
