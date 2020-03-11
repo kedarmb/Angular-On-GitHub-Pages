@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server",
-    "build": "ng build --aot --prod",
+    "build": "ng build --aot --prod --c=${environment}",
     "update:packages": "node wipe-dependencies.js && rm -rf node_modules/ && npm update --save-dev && npm update --save",
     "test": "ng test",
     "lint": "ng lint",
