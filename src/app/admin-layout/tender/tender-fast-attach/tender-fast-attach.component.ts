@@ -106,20 +106,25 @@ export class TenderFastAttachComponent implements OnInit {
   assignSubline() {
     this.finalArr = [];
     this.finalArr = [...this.tempFinalArr];
+
     // json to send to server
-    console.log(this.finalArr);
     this.finalArr.map(val => {
-      console.log(val);
       for (let i of this.lineItemId) {
-        console.log('in for of assignsubline');
         if (i === val.lineItemId) {
-          const tempSubline = this.subLineObj.map(sub => sub.subContractorId);
-          console.log(tempSubline);
+          const tempSubline = this.subLineObj.map(sub => sub._id);
+          for(let j of tempSubline){
+            console.log(j);
+            console.log(j);
+            if(val.subLineItemIds === j){
+            }
+
+          }
           val.subLineItemIds = [...val.subLineItemIds, ...tempSubline];
         }
       }
     });
-    console.log(this.finalArr);
+
+    // json to show on ui
     for (let i of this.lineItemId) {
       for (let line of this.filteredSection[0].lineItems) {
         if (line._id == i) {
@@ -127,39 +132,36 @@ export class TenderFastAttachComponent implements OnInit {
         }
       }
     }
-    console.log(this.filteredSection);
+
+
+    // resetting checkbox array's 
     this.lineCheck.map(e => {
       e.checked = false;
     });
     this.subQuote.map(e => {
       e.checked = false;
     });
+    
+    // resetting checkbox array's data 
     this.lineItemId = [];
     this.subLineObj = [];
   }
 
   removeSubline(index, item, sub) {
-    // console.log(this.lineCheck);
-    console.log(item);
-    // console.log(this.filteredSection[0]);
-    const j = this.filteredSection[0].lineItems.findIndex(e => {
-      console.log(e);
-      return e._id === item._id;
-    });
-    // console.log(item.subLineItems);
+    const j = this.filteredSection[0].lineItems.findIndex(e => e._id === item._id);
     const k = this.filteredSection[0].lineItems[j].subLineItems.findIndex(e => {
       return e._id === sub._id;
     });
-    // if (index) {
-    console.log(item._id);
     this.filteredSection[0].lineItems[j].subLineItems.splice(index, 1);
-    // }
   }
 
   toBid() {
     this.router.navigate(['/fast-bid-prepare/' + this.tenderId]);
   }
+  
+  //
   // get API's start
+  //
 
   // call tender get API
   getTenderById() {
