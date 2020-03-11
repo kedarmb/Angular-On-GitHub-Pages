@@ -59,12 +59,23 @@ export class LineItemCrewComponent implements OnInit {
       console.log('crew to edit .. ');
       this._purpose = ModalPurpose.toUpdate;
       const crewID = this.payLoad.crewItemRef._id;
-      const specificCrew = this.httpService.getByIdCrewTemplate(crewID);
+      const specificCrew = this.httpService.getCrewForLineItem(crewID);
       forkJoin([specificCrew]).subscribe(results => {
-        console.log('crew by id result ', results[0]);
+        //
+        this.payLoad = Object.assign({}, results[0].body);
+        console.log('crew by id result ', this.payLoad);
+        this.payLoad['labours'] = [...this.payLoad['labourArr']];
+        this.payLoad['equipments'] = [...this.payLoad['equipmentArr']];
+        delete this.payLoad['labourArr'];
+        delete this.payLoad['equipmentArr'];
+        delete this.payLoad['createdAt'];
+        delete this.payLoad['updatedAt'];
+        this.crewForm = this.initCrewReferenceCtrl(this.payLoad);
       });
     }
   }
+  //
+  private modifyCrewOnGet(crewObj) {}
   createSelectionForm() {
     this.selectionForm = new FormGroup({
       selectedCrew: new FormControl()
@@ -72,6 +83,7 @@ export class LineItemCrewComponent implements OnInit {
   }
 
   onCrewSelect(evt) {
+    console.log('selected crew ... ', evt.value);
     this.selectionStr = 'you have chosen';
     this.selectedCrew = evt.value;
     this.crewForm = this.initCrewReferenceCtrl(this.selectedCrew);
@@ -96,8 +108,8 @@ export class LineItemCrewComponent implements OnInit {
           _id: [item._id],
           name: [item.name],
           hourlyCost: [item.hourlyCost],
-          requiredHrs: [],
-          totalCost: []
+          requiredHrs: [item.requiredHrs],
+          totalCost: [item.totalCost]
         })
       );
     });
@@ -111,8 +123,8 @@ export class LineItemCrewComponent implements OnInit {
           _id: [item._id],
           name: [item.name],
           hourlyCost: [item.hourlyCost],
-          requiredHrs: [],
-          totalCost: []
+          requiredHrs: [item.requiredHrs],
+          totalCost: [item.totalCost]
         })
       );
     });
@@ -189,6 +201,40 @@ export class LineItemCrewComponent implements OnInit {
       err => {
         this.toastr.error('Error saving crew for line item. Please try later.');
         console.log('erre saving crew for Line Item ', err);
+      }
+    );
+  }
+  //
+  updateCrew() {
+    this.runTotalCalculation();
+    this.payLoad.crewTotalCost = this._crewTotalCost;
+    this.payLoad.labourTotalCost = this._labourTotalCost;
+    this.payLoad.equipmentTotalCost = this._equipmentTotalCost;
+    //
+    const formVal = this.crewForm.value;
+    //
+    this.payLoad['labourArr'] = [...formVal['labours']];
+    this.payLoad['equipmentArr'] = [...formVal['equipments']];
+    //
+    delete this.payLoad['labours'];
+    delete this.payLoad['equipments'];
+    //
+    console.log('payload is ', this.payLoad);
+    //
+    this.httpService.updateCrewForLineItem(this.payLoad._id, this.payLoad).subscribe(
+      response => {
+        console.log(response);
+        if (response.status === 200) {
+          this.resData.status = 'update';
+          this.resData.data = response.body;
+          // this.resData.totalCost = this._crewTotalCost;
+          this.dialogRef.close(this.resData);
+          this.toastr.success('Crew for Line Item updated');
+        }
+      },
+      err => {
+        this.toastr.error('Error updating crew for line item. Please try later.');
+        console.log('err updating crew for Line Item ', err);
       }
     );
   }

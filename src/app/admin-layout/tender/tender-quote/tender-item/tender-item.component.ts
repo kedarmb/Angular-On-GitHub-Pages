@@ -327,10 +327,34 @@ export class TenderItemComponent implements OnInit, OnChanges {
   }
   __removeSubLineItem(lineItemRef, indx) {
     const sublineItemArr = lineItemRef.get('subLineItems') as FormArray;
-    sublineItemArr.removeAt(indx);
-    // update cost if any
-    this.calculateSublineTotal(lineItemRef);
-    this.toastr.info('not deleted from database. Functionality under development', 'Dlelete Action');
+    const sublineRef = sublineItemArr.at(indx).value;
+    //
+    console.log('sublineRef ... ', sublineRef);
+    //
+    if (sublineRef._id == '') {
+      // subline not saved yet.. just removing from local array
+      sublineItemArr.removeAt(indx);
+    } else if (sublineRef._id != '') {
+      console.log('delete with API ... ');
+      this.toastr.info('Feature under development');
+      // this.toastr.success('Successfully deleted subline item');
+      /* this.httpService.deleteSubLineItem(sublineRef._id).subscribe(
+        response => {
+          console.log(response);
+          if (response.status === 200) {
+            this.toastr.success('Successfully deleted subline item');
+            this.calculateSublineTotal(lineItemRef);
+            setTimeout(() => {
+              this.refreshFormData();
+            }, 100);
+          }
+        },
+        err => {
+          this.toastr.error('Error deleting subline item. Please try later.');
+          console.log('Error deleting subline item ', err);
+        }
+      ); */
+    }
   }
 
   __saveSubLineItem(sectionRef, lineitemRef, indx) {
@@ -522,10 +546,6 @@ export class TenderItemComponent implements OnInit, OnChanges {
     const unit = (lineItemRef.value._totalPrice / lineItemRef.value.quantity).toFixed(2);
     //
     lineItemRef.get('_unitPrice').patchValue(unit);
-    // lineItemRef.get('unitPrice').patchValue(unit);
-    //
-    // console.log('line item val ', lineItemRef.value);
-    // this.calculateLineItemUnitPrice(lineItemRef);
   }
 
   //
@@ -570,13 +590,11 @@ export class TenderItemComponent implements OnInit, OnChanges {
       if (response.status === 'close' || response.status === undefined) {
         // console.log(response.data);
       }
-      if (response.status === 'add') {
+      if (response.status === 'add' || response.status === 'update') {
         // console.log('crew resp... ', response);
-        this.totalCrewCost = response.totalCost;
         this.calculateSublineTotal(lineItemRef);
         //
         setTimeout(() => {
-          // this.silentUpdateLineCost();
           this.refreshFormData();
         }, 500);
       }
@@ -604,8 +622,24 @@ export class TenderItemComponent implements OnInit, OnChanges {
     });
   }
 
-  deleteCrewFromLine(crewRefParam) {
+  deleteCrewFromLine(crewRefParam, lineItemRef) {
     console.log('crewRefParam is ... ', crewRefParam);
+    this.httpService.deleteCrewForLineItem(crewRefParam._id).subscribe(
+      response => {
+        console.log(response);
+        if (response.status === 200) {
+          this.calculateSublineTotal(lineItemRef);
+          setTimeout(() => {
+            this.refreshFormData();
+          }, 100);
+          this.toastr.success('Crew for Line Item deleted');
+        }
+      },
+      err => {
+        this.toastr.error('Error deleting crew for line item. Please try later.');
+        console.log('erre deleting crew for Line Item ', err);
+      }
+    );
   }
 
   private getCrewPostObj() {
@@ -725,5 +759,4 @@ export class TenderItemComponent implements OnInit, OnChanges {
     };
     return postTrenchIds;
   }
-} 
-
+}

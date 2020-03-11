@@ -114,9 +114,16 @@
 
                 <div class="row">
                   <div class="col-4">
-                    <button mat-raised-button type="button" (click)="saveCrew()" [disabled]="!isValid" color="primary">
-                      Save to Line item
-                    </button>
+                    <div *ngIf="_purpose == 0">
+                      <button mat-raised-button type="button" (click)="saveCrew()" [disabled]="!isValid" color="primary">
+                        Save to Line item
+                      </button>
+                    </div>
+                    <div *ngIf="_purpose == 1">
+                      <button mat-raised-button type="button" (click)="updateCrew()" [disabled]="!isValid" color="primary">
+                        Update Crew
+                      </button>
+                    </div>
                   </div>
                   <div class="col-2">
                     <button mat-raised-button type="button" (click)="cancelCrew()" color="primary">Cancel</button>

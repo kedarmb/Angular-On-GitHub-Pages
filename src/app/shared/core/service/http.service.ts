@@ -265,6 +265,12 @@ export class HttpService {
       observe: 'response'
     });
   }
+  public deleteSubLineItem(id) {
+    return this.httpClient.delete(ApiUrl.sublineItemUrl + '/' + id, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
   public updateSelectedSubForLineItem(tenderId, payload): Observable<any> {
     return this.httpClient.put(ApiUrl.lineItemUrl + `/updateSelectedSub/tender/${tenderId}`, payload, {
       headers: this.getHeader(),
@@ -300,6 +306,27 @@ export class HttpService {
 
   public getAllCrews(): Observable<any> {
     return this.httpClient.get(ApiUrl.crewTemplateUrl, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
+
+  public getCrewForLineItem(id) {
+    return this.httpClient.get(ApiUrl.crewById + '/' + id, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
+
+  public updateCrewForLineItem(id, paylod) {
+    return this.httpClient.put(ApiUrl.crewById + '/' + id, paylod, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
+
+  public deleteCrewForLineItem(id) {
+    return this.httpClient.delete(ApiUrl.crewById + '/' + id, {
       headers: this.getHeader(),
       observe: 'response'
     });

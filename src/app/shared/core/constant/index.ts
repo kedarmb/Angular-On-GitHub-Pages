@@ -40,6 +40,7 @@ export const ApiUrl = {
   tendersUrl: urlCreator('/tender'),
   lineItemUrl: urlCreator('/line-item'), // this is only for testing purposes. Real data to fetch with ID
   crewTemplateUrl: urlCreator('/crewTemplate'),
+  crewById: urlCreator('/line-item/crewItem'), // to get data for single saved crew
   subItemUrl: urlCreator('/subitem'),
   sublineItemUrl: urlCreator('/subline-item'),
   loginUrl: urlCreator('/auth/login'),
