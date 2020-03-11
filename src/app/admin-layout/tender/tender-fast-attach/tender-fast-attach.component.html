@@ -119,12 +119,11 @@
         </div>
     </div>
     <div class="d-flex fixed-bottom px-4 py-2 border-top left-16">
-        <button class="justify-content-end" (click)="updateSublineWithLine()">Save</button>
-        <button class="justify-content-end" (click)="toBid()">Continue to Bid</button>
+        <button mat-raised-button type="button" color="primary" class="justify-content-end" (click)="updateSublineWithLine()">Save</button>
+        <button  mat-raised-button type="button" class="conti" class="justify-content-end" (click)="toBid()">Continue to Bid</button>
     </div>
 </div>
 
 <ngx-spinner type="cog" size="medium" color="#b8a5e8">
     <p style="font-size: 20px; color: white; margin-top: 60px;">preparing tender..</p>
 </ngx-spinner>
-
