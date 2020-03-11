@@ -41,7 +41,9 @@ export class TenderFastListComponent implements OnInit {
     this.createSubList();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getSubline(); 
+  }
 
   // getTenderByID() {
   //   this.spinner.show();

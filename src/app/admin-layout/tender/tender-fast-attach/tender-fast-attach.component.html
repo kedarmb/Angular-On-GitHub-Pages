@@ -12,14 +12,13 @@
             <tbody>
                 <tr *ngFor="let quote of selectedQuotes; let itemN = index;">
                     <mat-radio-group name="selectedQuotes">
-                        <td>
-                            {{quote.name}}
-                        </td>
+                        <td>{{quote.name}}</td>
                     </mat-radio-group>
                     <td>{{quote.unit}}</td>
                     <td>{{quote.unitPrice}}</td>
                     <td>
-                        <mat-checkbox [disabled]="!finalArr.length" id="{{quote._id}}" #quo [value]="quote._id">
+                        <mat-checkbox [disabled]="!tempFinalArr.length" id="{{quote._id}}" #quo [value]="quote._id"
+                            (change)="selectsublineItem($event, quote, selectedQuotes);">
                             <!-- (change)="getQuote($event, quote, selectedQuotes);" -->
                         </mat-checkbox>
                     </td>
@@ -28,22 +27,26 @@
         </table>
     </div>
     <div class="col-9 px-0">
-        <div class="col-3">
-            <mat-form-field *ngIf="tenderData">
-                <mat-label>Tender Line Items</mat-label>
-                <select [disabled]="ifSelectedLine" matNativeControl required #selSec
-                    (change)="selectSection(selSec.value, '1')">
-                    <option>Select Section</option>
-                    <!-- (onSelectionChange)="selectSection(selSec.value)" -->
-                    <option *ngFor="let section of tenderData.sections" value="{{section._id}}">{{section.name}}
-                    </option>
-                </select>
-            </mat-form-field>
+        <div class="row">
+            <div class="col-3">
+                <mat-form-field *ngIf="tenderData">
+                    <mat-label>Tender Line Items</mat-label>
+                    <select [disabled]="ifSelectedLine" matNativeControl required #selSec
+                        (change)="selectSection(selSec.value, '1')">
+                        <option>Select Section</option>
+                        <!-- (onSelectionChange)="selectSection(selSec.value)" -->
+                        <option *ngFor="let section of tenderData.sections" value="{{section._id}}">{{section.name}}
+                        </option>
+                    </select>
+                </mat-form-field>
+            </div>
+            <div class="col-9">
+                <!-- <button mat-raised-button type="button" color="primary">Add to all Line's</button> -->
+                <button mat-raised-button type="button" *ngIf="finalsubline" (click)="assignSubline()"
+                    color="primary">Add to Selected Line's</button>
+            </div>
         </div>
-        <div class="col-9">
-            <button mat-raised-button type="button" color="primary">Add to all Line's</button>
-            <button mat-raised-button type="button" color="primary">Add to Selected Line's</button>
-        </div>
+
         <div class="col-12 px-0">
             <div *ngIf="filteredSection">
                 <table>
@@ -63,7 +66,7 @@
                             <ng-container *ngFor="let item of filteredSection[0].lineItems">
                                 <tr>
                                     <td>
-                                        <mat-checkbox id="{{item._id}}" [value]="item.id"
+                                        <mat-checkbox id="{{item._id}}" #lineCheck [value]="item.id"
                                             (change)="selectLineItem($event, item._id, sectionId)">
                                         </mat-checkbox>
                                     </td>
@@ -82,12 +85,15 @@
                                     <td colspan="8">
                                         <table>
                                             <tbody>
-                                                <tr *ngFor="let sub of item.subLineItems; let sIdx = index;">
-                                                    <td><i class="material-icons">clear</i></td>
+                                                <tr *ngFor="let si of item.subLineItems; let sIdx = index;">
+                                                    <td><i class="material-icons"
+                                                            (click)="removeSubline(sIdx, item, si)">clear</i></td>
+
+                                                    <!-- <td></td> -->
                                                     <td>L{{sIdx}}</td>
-                                                    <td>{{sub.name}}</td>
-                                                    <td>{{sub.unit}}</td>
-                                                    <td>{{sub.unitPrice}}</td>
+                                                    <td>{{si.name}}</td>
+                                                    <td>{{si.unit}}</td>
+                                                    <td>{{si.unitPrice}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -112,13 +118,13 @@
             </ng-container>
         </div>
     </div>
+<div class="d-flex fixed-bottom px-4 py-2 border-top">
+    <button class="justify-content-end" (click)="updateSublineWithLine()">Save</button>
+    <button class="justify-content-end" (click)="toBid()">Continue to Bid</button>
+</div>
 </div>
 
 <ngx-spinner type="cog" size="medium" color="#b8a5e8">
     <p style="font-size: 20px; color: white; margin-top: 60px;">preparing tender..</p>
 </ngx-spinner>
 
-<div class="d-flex fixed-bottom px-4 py-2 border-top">
-    <button class="justify-content-end" (click)="updateSublineWithLine()">Save</button>
-    <button class="justify-content-end" (click)="toBid()">Continue to Bid</button>
-</div>

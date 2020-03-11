@@ -20,7 +20,12 @@ export class TenderFastAttachComponent implements OnInit {
   sectionId: any;
   ifSelectedLine = false;
   @ViewChildren('quo') subQuote: QueryList<any>;
+  @ViewChildren('lineCheck') lineCheck: QueryList<any>;
   lineItemId = [];
+  finalsubline = [];
+  _Items = [];
+  subLineObj = [];
+  tempFinalArr = [];
 
   constructor(
     private router: Router,
@@ -39,12 +44,12 @@ export class TenderFastAttachComponent implements OnInit {
 
   // filters section from dropdown.
   selectSection(sectionId, a) {
-    console.log(sectionId);
     this.filteredSection = this.tenderData.sections.filter(section => section._id === sectionId);
     this.sectionId = sectionId;
   }
 
   selectLineItem(e, itemId, sectionId) {
+    console.log(itemId, e);
     const finalObj = {
       subLineItemIds: [],
       lineItemId: itemId,
@@ -54,105 +59,103 @@ export class TenderFastAttachComponent implements OnInit {
     //  this.sectionId = sectionId;
     this.ifSelectedLine = e.checked;
 
+    this.lineItemId.push(itemId);
     // on select event
     if (e.checked) {
-      // creating selecte lineitem array
-      this.lineItemId.push(itemId);
-      console.log(this.lineItemId);
-      this.finalArr.push(finalObj);
-      console.log(this.finalArr);
+      if (!this.checkLineItem(itemId)) {
+        this.tempFinalArr.push(finalObj);
+        console.log(this.tempFinalArr);
+      }
+      if (!this.tempFinalArr.length) {
+        // this.lineItemId.push(itemId);
+        this.tempFinalArr.push(finalObj);
+        console.log(this.tempFinalArr);
+      }
     }
 
     // on unselect event
     if (!e.checked) {
-      console.log(e);
-      const idx = this.finalArr.findIndex(el => e.lineItemId === e.source.id);
-      this.finalArr.splice(idx, 1);
-      console.log(this.finalArr);
+      const idx = this.tempFinalArr.findIndex(el => el.lineItemId === e.source.id);
+      this.tempFinalArr.splice(idx, 1);
       const lineIdx2: any = this.lineItemId.findIndex(el2 => el2 === e.source.id);
       this.lineItemId.splice(lineIdx2, 1);
-      console.log(lineIdx2);
-      console.log(this.lineItemId);
-
-      // to mark all subline as Unchecked
       this.subQuote.map(val => {
         val.checked = false;
       });
-
-      // find and set subline array null
-      const lineIdx1: any = this.filteredSection[0].lineItems.findIndex(el => el._id === e.source.id);
-      this.filteredSection[0].lineItems[lineIdx1].subLineItems = [];
+      console.log(this.tempFinalArr);
     }
   }
-
-  // selects, add & remove lineitems and disables dropdown and enables subline to select.
-  /*   getSelectedLine(event, val, section) {
-    console.log(event);
-    this.lineitemId.push(val)
-    this.sectionId = section;
-    const k = {
-      subLineItemIds: [],
-      lineItemId: val,
-      sectionId: section
-    };
-    this.ifSelectedLine = event.checked;
-    if (event.checked) {
-      this.finalArr.push(k);
+  checkLineItem(id) {
+    let k = false;
+    for (let i in this.tempFinalArr) {
+      if (this.tempFinalArr[i].lineItemId == id) {
+        k = true;
+        break;
+      }
     }
-    if (!event.checked) {
-      const idx = this.finalArr.findIndex(
-        e => e.lineItemId === event.source.id
-      );
-      this.finalArr.splice(idx, 1);
-      this.vc.map(va => {
-        va.checked = false;
-      });
-      const lineIdx = this.filteredSection[0].lineItems.findIndex(
-        e => e._id === event.source.id
-      );
-      this.filteredSection[0].lineItems[lineIdx].subLineItems = [];
+    return k;
+  }
+  selectsublineItem(e, subLine, quoteArr) {
+    if (e.checked) {
+      this.subLineObj.push(subLine);
+      console.log(this.subLineObj);
+    }
+    if (!e.checked) {
     }
   }
-
-  // selects quote and add's to final array agains lineitems and removes it.
-  getQuote(event, quote, filteredQuote) {
-    console.log(event.source);
-    if (event.checked) {
-      this.finalArr.map(val => {
-        val.subLineItemIds.push(quote._id);
-      });
-      this.filteredSection[0].lineItems.map(val => {
-        console.log(val)
-        console.log(this.lineitemId)
-        for(let i of this.lineitemId){
-          console.log(i)
-          if(val._id === i){
-            console.log('hurray')
-            val.subLineItems.push(quote);
-          }
+  assignSubline() {
+    this.finalArr = [];
+    this.finalArr = [...this.tempFinalArr];
+    // json to send to server
+    console.log(this.finalArr);
+    this.finalArr.map(val => {
+      console.log(val);
+      for (let i of this.lineItemId) {
+        console.log('in for of assignsubline');
+        if (i === val.lineItemId) {
+          const tempSubline = this.subLineObj.map(sub => sub.subContractorId);
+          console.log(tempSubline);
+          val.subLineItemIds = [...val.subLineItemIds, ...tempSubline];
         }
-      });
-      console.log('checked')
+      }
+    });
+    console.log(this.finalArr);
+    for (let i of this.lineItemId) {
+      for (let line of this.filteredSection[0].lineItems) {
+        if (line._id == i) {
+          line.subLineItems = [...line.subLineItems, ...this.subLineObj];
+        }
+      }
     }
-    if (!event.checked) {
-      console.log('unchecked')
-      this.finalArr.map(val => {
-        const idx = val.subLineItemIds.findIndex(e => e === event.source.id);
-        val.subLineItemIds.splice(idx, 1);
-        this.filterFilteredArr(val, event.source.id);
-      });
-    }
+    console.log(this.filteredSection);
+    this.lineCheck.map(e => {
+      e.checked = false;
+    });
+    this.subQuote.map(e => {
+      e.checked = false;
+    });
+    this.lineItemId = [];
+    this.subLineObj = [];
   }
 
-  filterFilteredArr(val, sourceId) {
-    const lineIdx = this.filteredSection[0].lineItems.findIndex(
-      e => e._id === val.lineItemId
-    );
-    const sLineIdx = this.filteredSection[0].lineItems[lineIdx].subLineItems.findIndex(e =>
-    e._id === sourceId);
-    this.filteredSection[0].lineItems[lineIdx].subLineItems.splice(sLineIdx, 1);
+  removeSubline(index, item, sub) {
+    // console.log(this.lineCheck);
+    console.log(item);
+    // console.log(this.filteredSection[0]);
+    const j = this.filteredSection[0].lineItems.findIndex(e => {
+      console.log(e);
+      return e._id === item._id;
+    });
+    // console.log(item.subLineItems);
+    const k = this.filteredSection[0].lineItems[j].subLineItems.findIndex(e => {
+      return e._id === sub._id;
+    });
+    // if (index) {
+    console.log(item._id);
+    this.filteredSection[0].lineItems[j].subLineItems.splice(index, 1);
+    // }
   }
- */
+
   toBid() {
     this.router.navigate(['/fast-bid-prepare/' + this.tenderId]);
   }
