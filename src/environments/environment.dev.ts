@@ -1,4 +1,4 @@
-const path = 'https://biddr-api-prod.herokuapp.com';
+const path = 'https://smartbid-api.herokuapp.com';
 export const environment = {
   production: true,
   baseURL: path + '/v1',
