@@ -1,27 +1,25 @@
-.top-70{
-    margin-top: 70px;
+.top-70 {
+  margin-top: 70px;
 }
-.left-16{
-    left:16%;
+.left-16 {
+  left: 16%;
 }
 thead {
-    background: #f3f3f3;
+   background: #f3f3f3;
 
-    th{
-height: 56px;
-text-align: left;
-font-weight: 400;
-padding: 8px 8px;
+  th {
+    height: 56px;
+    text-align: left;
+    font-weight: 400;
+    padding: 8px 8px;
+  }
 }
+tr {
+  td {
+    padding: 12px 8px;
+  }
 }
-tr
-{td
-    {
-        padding: 12px 8px;
-
+.conti {
+  color: #fff;
+  background-color: #7c0b83;
 }
-}
-.conti{
-    color:#fff;
-    background-color: #7c0b83;
- }
