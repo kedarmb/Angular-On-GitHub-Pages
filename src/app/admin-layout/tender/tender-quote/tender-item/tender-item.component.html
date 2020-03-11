@@ -9,32 +9,34 @@
             *ngFor="let section of masterForm.get('sections').controls; let secindx = index"
             [formGroupName]="secindx"
           >
-            <mat-toolbar>
-              <span
-                ><textarea
+            <!-- <mat-toolbar> -->
+              <!-- <span
+                > -->
+                <textarea
                   type="text"
                   class="t-area"
                   formControlName="name"
                   [readonly]="true"
                   placeholder="section name goes here"
                 ></textarea
-              ></span>
-              <span class="toolbar-spacer"></span>
-            </mat-toolbar>
+              >
+            <!-- </span> -->
+              <!-- <span class="toolbar-spacer"></span> -->
+            <!-- </mat-toolbar> -->
             <div formArrayName="lineItems" class="table-responsive">
               <table class="table table-bordered">
                 <thead class=" text-primary">
-                  <th>
+                  <th style="width: 10%">
                     Item No
                   </th>
-                  <th>
+                  <th style="width: 10%">
                     Spec No
                   </th>
-                  <th>
+                  <th  style="width: 20%">
                     Item Name
                   </th>
 
-                  <th>
+                  <th style="width: 20%">
                     Description
                   </th>
                   <th>
@@ -49,7 +51,7 @@
                   <th>
                     Total Price
                   </th>
-                  <th style="width: 200px;">
+                  <th >
                     Actions
                   </th>
                 </thead>
@@ -65,10 +67,10 @@
                       <td class="width-2">
                         <textarea type="text" class="form-control" formControlName="specNo" [readonly]="true"></textarea>
                       </td>
-                      <td class="width-2">
+                      <td  class="width-2">
                         <textarea type="text" class="form-control" formControlName="itemName" [readonly]="true"></textarea>
                       </td>
-                      <td class="width-2">
+                      <td  class="width-2">
                         <textarea type="text" class="form-control" formControlName="description" [readonly]="true"></textarea>
                       </td>
                       <td class="width-2">

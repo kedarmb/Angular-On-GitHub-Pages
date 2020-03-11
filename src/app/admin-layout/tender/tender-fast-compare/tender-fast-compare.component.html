@@ -12,7 +12,7 @@
         </tr>
       </thead>
     </ng-container>
-    <tbody>
+    <tbody class="table-bordered">
       <ng-container *ngFor="let item of (sublineData | keyvalue); let first = first; let itemN = index;">
         <tr *ngIf="first">
           <th></th>
@@ -60,7 +60,9 @@
       </ng-container>
     </tbody>
   </table>
-  <div class="position-bottom">
+  <!-- <div class="position-bottom"> -->
+ <div class="d-flex  px-4 py-2  pull-right">
+
     <button mat-raised-button type="button" color="primary" (click)="save()">Save</button>
     <button mat-raised-button type="button" class="conti" (click)="continueToMatch()">Continue</button>
   </div>

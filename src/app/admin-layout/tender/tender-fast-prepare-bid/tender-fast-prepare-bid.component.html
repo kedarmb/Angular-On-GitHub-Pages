@@ -13,25 +13,25 @@
         </div>
         <div class="col-12 pl-0">
             <div *ngIf="filteredSection">
-                <table>
-                    <thead>
-                        <th></th>
-                        <th>specNo</th>
-                        <th>itemNo</th>
-                        <th>itemName</th>
-                        <th>description</th>
-                        <th>description</th>
-                        <th>unit</th>
-                        <th>unit Price</th>
-                        <th>quantity</th>
-                        <th>Total Price</th>
-                        <th>Action</th>
+                <table >
+                    <thead >
+                        <!-- <th></th> -->
+                        <th style="width: 15%">specNo</th>
+                        <th style="width: 7%">itemNo</th>
+                        <th style="width: 10%">itemName</th>
+                        <th style="width: 10%">description</th>
+                        <th style="width: 10%">description</th>
+                        <th style="width: 5%">unit</th>
+                        <th style="width: 8%">unit Price</th>
+                        <th style="width: 8%">quantity</th>
+                        <th style="width: 8%">Total Price</th>
+                        <th style="width: 7%">Action</th>
                     </thead>
-                    <tbody>
+                    <tbody class="table-bordered">
                         <ng-container *ngIf="filteredSection[0].lineItems">
                             <ng-container *ngFor="let item of filteredSection[0].lineItems; let i = index">
                                 <tr>
-                                    <td></td>
+                                    <!-- <td></td> -->
                                     <td>{{item.specNo}}</td>
                                     <td>{{item.itemNo}}</td>
                                     <td>{{item.itemName}}</td>
@@ -47,8 +47,8 @@
                                         </button></td>
                                 </tr>
                                 <tr *ngIf="item.subLineItems.length;" class="bg-light">
-                                    <td colspan="1">
-                                    </td>
+                                    <!-- <td colspan="1">
+                                    </td> -->
                                     <td colspan="8">
                                         <table>
                                             <thead>
@@ -137,6 +137,8 @@
     </div>
 </div>
 
-<div class="d-flex fixed-bottom px-4 py-2 border-top">
-    <button class="justify-content-end">Save</button>
+<!-- <div class="d-flex fixed-bottom px-4 py-2 border-top"> -->
+ <div class="d-flex  px-4 py-2  pull-right">
+
+    <button mat-raised-button type="button" color="primary"  class="justify-content-end">Save</button>
 </div>
