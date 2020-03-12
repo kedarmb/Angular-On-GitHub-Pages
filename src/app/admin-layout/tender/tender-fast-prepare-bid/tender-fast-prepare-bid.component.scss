@@ -1,24 +1,34 @@
-.top-70{
-    margin-top: 80px;
+.top-70 {
+  margin-top: 68px;
+  height: calc(100% - 137px);
+  overflow-y: auto;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 thead {
-    background: #f3f3f3;
+  background: #f3f3f3;
 
-    th{
-height: 56px;
-text-align: left;
-font-weight: 400;
-padding: 8px 8px;
+  th {
+    height: 56px;
+    text-align: left;
+    font-weight: 400;
+    padding: 8px 8px;
+  }
 }
-}
-tr
-{td
-    {
-        padding: 12px 8px;
-
-}
+tr {
+  td {
+    padding: 12px 8px;
+  }
 }
 
-.left-16{
-    left:16%;
+.left-16 {
+  left: 16%;
+}
+
+.nav-bottom {
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 220px);
+  display: flex;
 }
