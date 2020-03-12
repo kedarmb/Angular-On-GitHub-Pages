@@ -58,7 +58,7 @@ export class OrganizationModalComponent implements OnInit {
       this.showLabel = true;
     }
 
-    if (activatedRoute === 'signup') {
+    if (activatedRoute === 'login') {
       this.showLabel = false;
       this.showBtn = true;
     }

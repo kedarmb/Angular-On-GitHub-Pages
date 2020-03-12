@@ -1,21 +1,22 @@
-<div class="main-content">
-  <div class="container-fluid">
-    <div class="col">
+
+<div class="main-content  top-70">
+  <!-- <div class="container-fluid"> -->
+    <!-- <div class="col"> -->
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#/tender">Tender</a></li>
         <li class="breadcrumb-item">Tender Quote</li>
         <li class="breadcrumb-item">{{ responseData.name }}</li>
       </ol>
-    </div>
-    <mat-toolbar color="primary">
-      <mat-toolbar-row>        
+    <!-- </div> -->
+    <!-- <mat-toolbar color="primary">
+      <mat-toolbar-row>         -->
         <app-invited-subcontractors
           [notifiedSubs]="invitedSubs"
           (dataLoaded)="onDataLoaded()"
           (subSelected)="onSubContSelect($event)"
         ></app-invited-subcontractors>
-      </mat-toolbar-row>
-    </mat-toolbar>
+      <!-- </mat-toolbar-row>
+    </mat-toolbar> -->
     <app-tender-item
       [tenderData]="responseData"
       [selectedSubInp]="selectedVal"
@@ -27,5 +28,5 @@
         processing request ..
       </p>
     </ngx-spinner>
-  </div>
+  <!-- </div> -->
 </div>
