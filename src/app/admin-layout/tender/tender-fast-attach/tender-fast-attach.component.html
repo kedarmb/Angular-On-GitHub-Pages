@@ -7,6 +7,7 @@
                     <th>Item Name</th>
                     <th>Unit</th>
                     <th>Unit Price</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -42,8 +43,8 @@
             </div>
             <div class="col-9">
                 <!-- <button mat-raised-button type="button" color="primary">Add to all Line's</button> -->
-                <button mat-raised-button type="button" *ngIf="finalsubline" (click)="assignSubline()"
-                    color="primary">Add to Selected Line's</button>
+                <button mat-raised-button type="button" [disabled]="!subLineObj.length" (click)="assignSubline()"
+                    color="primary">Add to Selected Lines</button>
             </div>
         </div>
 
@@ -56,7 +57,6 @@
                         <th>itemNo</th>
                         <th>itemName</th>
                         <th>description</th>
-                        <th>description</th>
                         <th>unit</th>
                         <th>unitPrice</th>
                         <th>quantity</th>
@@ -67,13 +67,12 @@
                                 <tr>
                                     <td>
                                         <mat-checkbox id="{{item._id}}" #lineCheck [value]="item.id"
-                                            (change)="selectLineItem($event, item._id, sectionId)">
+                                            (change)="selectLineItem($event, item, sectionId)">
                                         </mat-checkbox>
                                     </td>
                                     <td>{{item.specNo}}</td>
                                     <td>{{item.itemNo}}</td>
                                     <td>{{item.itemName}}</td>
-                                    <td>{{item.description}}</td>
                                     <td>{{item.description}}</td>
                                     <td>{{item.unit}}</td>
                                     <td>{{item.unitPrice}}</td>

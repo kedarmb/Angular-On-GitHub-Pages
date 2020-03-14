@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { HttpService } from 'app/shared/core/service/http.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, setLines } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { ToastrService } from 'ngx-toastr';
+import _lo from 'lodash';
 @Component({
   selector: 'app-tender-fast-attach',
   templateUrl: './tender-fast-attach.component.html',
@@ -32,7 +33,8 @@ export class TenderFastAttachComponent implements OnInit {
     private hs: HelperService,
     private httpService: HttpService,
     public fastCompareDialog: MatDialog,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) {
     this.tenderId = JSON.parse(this.hs.getSession('tenderIdNow'));
   }
@@ -48,43 +50,47 @@ export class TenderFastAttachComponent implements OnInit {
     this.sectionId = sectionId;
   }
 
+  // method runs on select/unselect of line item.
   selectLineItem(e, itemId, sectionId) {
-    console.log(itemId, e);
+    // object for line item to send to server.
     const finalObj = {
       subLineItemIds: [],
-      lineItemId: itemId,
+      lineItemId: itemId._id,
       sectionId: sectionId
     };
 
-    //  this.sectionId = sectionId;
+    // property to validate if any line item selected to disable
+    // select section selectbox.
     this.ifSelectedLine = e.checked;
 
+    // create's a object for selected line item.
     this.lineItemId.push(itemId);
-    // on select event
+    // if line item checked is true.
     if (e.checked) {
       if (!this.checkLineItem(itemId)) {
         this.tempFinalArr.push(finalObj);
-        console.log(this.tempFinalArr);
       }
       if (!this.tempFinalArr.length) {
-        // this.lineItemId.push(itemId);
         this.tempFinalArr.push(finalObj);
-        console.log(this.tempFinalArr);
       }
     }
 
-    // on unselect event
+    // if line item checked is false.
     if (!e.checked) {
+      // deleting items from tempFinalArr, lineItemId array's.
       const idx = this.tempFinalArr.findIndex(el => el.lineItemId === e.source.id);
       this.tempFinalArr.splice(idx, 1);
-      const lineIdx2: any = this.lineItemId.findIndex(el2 => el2 === e.source.id);
+      const lineIdx2: any = this.lineItemId.findIndex(el2 => el2._id === e.source.id);
       this.lineItemId.splice(lineIdx2, 1);
-      this.subQuote.map(val => {
-        val.checked = false;
-      });
-      console.log(this.tempFinalArr);
+      if (this.lineItemId.length <= 1) {
+        this.subQuote.map(val => {
+          val.checked = false;
+        });
+      }
     }
   }
+
+  // method to check if line item exists
   checkLineItem(id) {
     let k = false;
     for (let i in this.tempFinalArr) {
@@ -95,54 +101,94 @@ export class TenderFastAttachComponent implements OnInit {
     }
     return k;
   }
+
   selectsublineItem(e, subLine, quoteArr) {
+    // if subline checked is true.
+    // let getLineId = '';
     if (e.checked) {
       this.subLineObj.push(subLine);
-      console.log(this.subLineObj);
+      //   // boolean to identify duplicate values.
+      //   let duplicate = false;
+      //   // filtering and checking if currently this.filteredSection dosen't have duplicate subline item.
+      //   for (let line of this.lineItemId) {
+      //     // for (let lineItems of this.lineItemId) {
+      //     for (let subline of line.subLineItems) {
+      //       // if not duplicate pushing subline to this.subLineObj.
+      //       if (subline._id !== subLine._id) {
+      //       }
+      //       // if duplicate remove uncheck and set duplicate const true.
+      //       if (subline._id === subLine._id) {
+      //         duplicate = true;
+      //         this.subQuote.map(val => {
+      //           if (val.id === subLine._id) val.checked = false;
+      //         });
+      //       }
+      //     }
+      // }
+      // }
+      // if duplicate  const true show alert.
+      // if (duplicate) {
+      //   this.toastr.error(`subline item ${subLine.name} already exists`);
+      // }
     }
+    // if subline checked is false remove from subLineObj.
     if (!e.checked) {
+      const subline = this.subLineObj.findIndex(e => e === subLine._id);
+      this.subLineObj.splice(subline, 1);
+      console.log(this.subLineObj);
     }
   }
   assignSubline() {
     this.finalArr = [];
     this.finalArr = [...this.tempFinalArr];
 
-    // json to send to server
+    // json to sending to server.
     this.finalArr.map(val => {
-      for (let i of this.lineItemId) {
-        if (i === val.lineItemId) {
+      console.log(this.lineItemId);
+      for (let line of this.lineItemId) {
+        if (line._id === val.lineItemId) {
           const tempSubline = this.subLineObj.map(sub => sub._id);
-          for(let j of tempSubline){
-            console.log(j);
-            console.log(j);
-            if(val.subLineItemIds === j){
-            }
-
-          }
-          val.subLineItemIds = [...val.subLineItemIds, ...tempSubline];
+          const tempSubLineItemIds = [...val.subLineItemIds, ...tempSubline];
+          const k = tempSubLineItemIds.filter((thing, index, self) => {
+              console.log(self)
+              console.log(index);
+              console.log(thing);
+              return index === self.findIndex(t => t == thing)}
+          );
+          val.subLineItemIds = k; 
+          console.log(val.subLineItemIds);
         }
       }
     });
 
-    // json to show on ui
+    // json to show on ui.
     for (let i of this.lineItemId) {
       for (let line of this.filteredSection[0].lineItems) {
-        if (line._id == i) {
-          line.subLineItems = [...line.subLineItems, ...this.subLineObj];
+        if (line._id == i._id) {
+          const templine = [...line.subLineItems, ...this.subLineObj];
+          line.subLineItems = templine.filter(
+            (thing, index, self) => {
+              console.log(thing);
+              console.log(index);
+              console.log(self);
+              return index === self.findIndex(t => t._id == thing._id)});
+          // line.subLineItems = _lo.uniqBy(templine, _.isEqual);
+          console.log(line.subLineItems);
         }
       }
+      
     }
+    console.log(this.finalArr);
 
-
-    // resetting checkbox array's 
+    // resetting checkbox array's.
     this.lineCheck.map(e => {
       e.checked = false;
     });
     this.subQuote.map(e => {
       e.checked = false;
     });
-    
-    // resetting checkbox array's data 
+
+    // resetting checkbox array's data.
     this.lineItemId = [];
     this.subLineObj = [];
   }
@@ -158,7 +204,7 @@ export class TenderFastAttachComponent implements OnInit {
   toBid() {
     this.router.navigate(['/fast-bid-prepare/' + this.tenderId]);
   }
-  
+
   //
   // get API's start
   //

@@ -36,7 +36,7 @@ export class TenderFastQuoteComponent implements OnInit {
     this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
     this.subData = JSON.parse(this.hs.getSession('sublineDataNow'));
 
-          console.log(this.subData);
+    console.log(this.subData);
     this.subName = this.hs.getSubName(this.subId);
     this.tenderID = JSON.parse(this.hs.getSession('tenderIdNow'));
     this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
