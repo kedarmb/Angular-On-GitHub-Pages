@@ -1,55 +1,135 @@
 <div class="modal-body">
-    <form [formGroup]="inviteSub" (ngSubmit)="submitForm()">
-        <h1 mat-dialog-title align="center">Select Sub Contractor</h1>
-        <div class="row">
+  <h1 mat-dialog-title align="center">Manage Notification</h1>
+  <mat-tab-group dynamicHeight (selectedTabChange)="onTabChanged($event)" [(selectedIndex)]="selectedTab">
+    <mat-tab label="Add Sub Contractor">
+      <div>
+        <div class="d-flex justify-content-end">
+          <button type="button" mat-raised-button color="primary" (click)="saveIdsInTender()" [disabled]="checkedIds.length <= 0">
+            Save
+          </button>
+          <button type="button" mat-raised-button color="warn" (click)="closeModal()">Cancel</button>
+        </div>
+        <form [formGroup]="inviteSubForm">
+          <div class="row">
             <mat-label>Search by Service Area/Type</mat-label>
-            <input type="text" matInput [ngModelOptions]="{standalone: true}" placeholder="type service type/service area name" [(ngModel)]="searchByArea">
-        </div>
-        <table class="table table-condensed">
+            <input
+              type="text"
+              matInput
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="type service type/service area name"
+              [(ngModel)]="searchByArea"
+            />
+          </div>
+          <table class="table table-condensed">
             <thead>
-                <tr>
-                    <th style="width:60px;">Select</th>
-                    <th>Organization</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Service Area</th>
-                    <th>Service Type</th>
-                </tr>
-            </thead>    
+              <tr>
+                <th style="width:60px;">Added</th>
+                <th>Organization</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Service Area</th>
+                <th>Service Type</th>
+              </tr>
+            </thead>
             <tbody>
-                <tr *ngFor="let org of filteredOrganizations; let i= index">
-                    <td>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" [disabled]="org.selected" [checked]="org.selected" [value]="org._id" (change)="onCheckboxChange($event)">
-                                <span class="form-check-sign">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                    </td>
-                    <td>{{org.name}}</td>
-                    <td>{{org.contactEmail}}</td>
-                    <td>{{org.contactPhone}}</td>
-                    <td>{{org.serviceType}}</td>
-                    <td>{{org.serviceArea}}</td>
-                </tr>
+              <tr *ngFor="let org of filteredOrganizations; let i = index">
+                <td>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [disabled]="org.selected"
+                        [checked]="org.selected"
+                        [value]="org"
+                        (change)="onCheckboxChange($event, org)"
+                      />
+                      <span class="form-check-sign">
+                        <span class="check"></span>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td>{{ org.name }}</td>
+                <td>{{ org.contactEmail }}</td>
+                <td>{{ org.contactPhone }}</td>
+                <td>{{ org.serviceType }}</td>
+                <td>{{ org.serviceArea }}</td>
+              </tr>
             </tbody>
-        </table>
-        <!-- <div *ngIf="!inviteSub.valid" class="warn">At least one order must be selected</div> -->
-        <button type="button" mat-raised-button color="warn" (click)="close()" class="pull-right">Cancel</button>
-        <button type="button" mat-raised-button color="primary" (click)="notifyClicked = true" [disabled]="!clicked" class="pull-right">Notify</button>
-        <button type="submit" mat-raised-button (click)="clicked = true;" [disabled]="!inviteSub.valid" color="primary" class="pull-right">Save</button>
-        <div *ngIf="notifyClicked">
-            <mat-form-field>
-                <textarea matInput placeholder="Type your message here..." formControlName="message"></textarea>
-            </mat-form-field>
-            <button type="button" mat-raised-button (click)="sendEmail()" color="warn">Send Email</button>
+          </table>
+        </form>
+        <div class="d-flex justify-content-end">
+          <button type="button" mat-raised-button color="primary" (click)="saveIdsInTender()" [disabled]="checkedIds.length <= 0">
+            Save
+          </button>
+          <button type="button" mat-raised-button color="warn" (click)="closeModal()">Cancel</button>
         </div>
-    </form>
-    <ngx-spinner type="cog" size="medium" color="#b8a5e8">
-        <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>
-    </ngx-spinner>
+      </div>
+    </mat-tab>
+    <mat-tab label="Notify Sub Contractor">
+      <div *ngIf="notifySubForm">
+        <div class="d-flex justify-content-end">
+          <button type="button" mat-raised-button color="primary" (click)="sendEmail()" [disabled]="emailList.length <= 0">
+            Send Email
+          </button>
+          <button type="button" mat-raised-button color="warn" (click)="closeModal()">Cancel</button>
+        </div>
+        <form [formGroup]="notifySubForm">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th style="width:75px;">Notified</th>
+                <th>Organization</th>
+                <th>Email</th>
+                <th>Service Area</th>
+                <th>Service Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let org of notifiedSubList; let i = index">
+                <td>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [checked]="org.selected"
+                        [value]="org"
+                        (change)="onCheckboxChange($event, org)"
+                      />
+                      <span class="form-check-sign">
+                        <span class="check"></span>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td>{{ org.name }}</td>
+                <td>{{ org.contactEmail }}</td>
+                <!-- <td>{{ org.contactPhone }}</td> -->
+                <td>{{ org.serviceType }}</td>
+                <td>{{ org.serviceArea }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div>
+            <mat-form-field>
+              <textarea matInput placeholder="Type your message here..." formControlName="message"></textarea>
+            </mat-form-field>
+            <div class="d-flex justify-content-end">
+              <button type="button" mat-raised-button color="primary" (click)="sendEmail()" [disabled]="emailList.length <= 0">
+                Send Email
+              </button>
+              <button type="button" mat-raised-button color="warn" (click)="closeModal()">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <!-- <ngx-spinner type="cog" size="medium" color="#b8a5e8">
+    <p style="font-size: 20px; color: white; margin-top: 60px;">Loading data ..</p>
+  </ngx-spinner> -->
 </div>
-<!-- <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Cancel</button>
-    <button mat-raised-button type="submit" (click)="close()" class="btn btn-danger pull-right">Save</button> -->

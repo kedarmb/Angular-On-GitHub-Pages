@@ -140,10 +140,11 @@ export class TenderComponent implements OnInit {
   }
   notifySubC(ele) {
     //
-    console.log(ele)
+    // console.log(ele)
     const dialogRef = this.dialog.open(NotifySubcontractorComponent, {
-      height: '50%',
-      width: '850px',
+      height: 'auto',
+      width: '75%',
+      maxHeight: '95vh',
       data: { tenderID: ele._id },
       disableClose: true
     });
