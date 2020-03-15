@@ -18,7 +18,7 @@
                     <td>{{quote.unit}}</td>
                     <td>{{quote.unitPrice}}</td>
                     <td>
-                        <mat-checkbox [disabled]="!tempFinalArr.length" id="{{quote._id}}" #quo [value]="quote._id"
+                        <mat-checkbox [disabled]="!finalArr.length" id="{{quote._id}}" #quo [value]="quote._id"
                             (change)="selectsublineItem($event, quote, selectedQuotes);">
                             <!-- (change)="getQuote($event, quote, selectedQuotes);" -->
                         </mat-checkbox>
@@ -41,11 +41,6 @@
                     </select>
                 </mat-form-field>
             </div>
-            <div class="col-9">
-                <!-- <button mat-raised-button type="button" color="primary">Add to all Line's</button> -->
-                <button mat-raised-button type="button" [disabled]="!subLineObj.length" (click)="assignSubline()"
-                    color="primary">Add to Selected Lines</button>
-            </div>
         </div>
 
         <div class="col-12 px-0">
@@ -63,7 +58,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngIf="filteredSection[0].lineItems">
-                            <ng-container *ngFor="let item of filteredSection[0].lineItems">
+                            <ng-container *ngFor="let item of filteredSection[0].lineItems; let lIdx = index;">
                                 <tr>
                                     <td>
                                         <mat-checkbox id="{{item._id}}" #lineCheck [value]="item.id"
@@ -86,7 +81,7 @@
                                             <tbody>
                                                 <tr *ngFor="let si of item.subLineItems; let sIdx = index;">
                                                     <td><i class="material-icons"
-                                                            (click)="removeSubline(sIdx, item, si)">clear</i></td>
+                                                            (click)="removeSubline(sIdx, item, si, lIdx)">clear</i></td>
 
                                                     <!-- <td></td> -->
                                                     <td>L{{sIdx}}</td>
@@ -119,8 +114,9 @@
     </div>
     <!-- <div class="d-flex fixed-bottom px-4 py-2 border-top left-16"> -->
       <div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
-
-        <button mat-raised-button type="button" color="primary" class="justify-content-end" (click)="updateSublineWithLine()">Save</button>
+<button mat-raised-button type="button" [disabled]="!subLineObj.length" (click)="assignSubline()" color="primary">Add to
+    Selected Lines</button>
+        <button mat-raised-button type="button" color="primary" [disabled]="!finalArr.length" class="justify-content-end" (click)="updateSublineWithLine()">Save</button>
         <button  mat-raised-button type="button" class="conti" class="justify-content-end" (click)="toBid()">Continue to Bid</button>
     </div>
 </div>
