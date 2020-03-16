@@ -6,7 +6,8 @@
           <th colspan="2"> Item name </th>
           <ng-container *ngFor="let quote of (item.value.quotes | keyvalue);  let index = index;">
             <th colspan="4" *ngIf="index <= 1">
-              <span>best price {{index}}</span>
+              <span *ngIf="index == 0">First best price</span>
+              <span *ngIf="index == 1">Second best price</span>
             </th>
           </ng-container>
         </tr>
@@ -34,7 +35,7 @@
         </tr>
         <tr>
           <th>{{item.value.name}}</th>
-          <ng-container *ngFor="let quote of (item.value.quotes | keyvalue); let i= index;">
+          <ng-container *ngFor="let quote of (item.value.quotes | keyvalue); let i= index;let fq= first;">
             <td colspan="4" class="p-0 b-0" *ngIf="i<=1">
               <table class="m-0">
                 <tbody>
@@ -54,8 +55,8 @@
                 </tbody>
               </table>
             </td>
+            <td *ngIf="i==3" (click)="moreQuotes()">...</td>
           </ng-container>
-          <td (click)="moreQuotes()">...</td>
         </tr>
       </ng-container>
     </tbody>

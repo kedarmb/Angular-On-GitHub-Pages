@@ -223,10 +223,25 @@ export class TenderFastAttachComponent implements OnInit {
   // call tenderpost api
   updateSublineWithLine() {
     this.spinner.show();
-    this.httpService.updateSeletedSubForLine(this.tenderId, this.finalArr).subscribe(
+    this.httpService.updateSeletedSubForLine(this.finalArr, this.tenderId).subscribe(
       response => {
         this.spinner.hide();
         if (response.status === 200) {
+        }
+      },
+      err => {
+        console.log('Error getting Tender by id ', err);
+        this.spinner.hide();
+      }
+    );
+  }
+  removeSubFormLine(removeObj) {
+    this.spinner.show();
+    this.httpService.removeSubFromLine(removeObj, this.tenderId).subscribe(
+      response => {
+        this.spinner.hide();
+        if (response.status === 200) {
+          console.log(response);
         }
       },
       err => {

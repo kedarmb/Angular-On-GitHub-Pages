@@ -21,7 +21,9 @@
                         <span *ngIf="!item.status">Pending</span>
                     </td>
                     <td>{{item.lineItemCount}}</td>
-                    <td><button mat-raised-button type="button" color="primary" (click)="createSub(item._id)">Add
+                    <td *ngIf="!item.lineItemCount"><button mat-raised-button type="button" color="primary" (click)="createSub(item._id)">Add
+                            quote</button></td>
+                    <td *ngIf="item.lineItemCount"><button mat-raised-button type="button" color="primary" (click)="createSub(item._id)">Edit
                             quote</button></td>
                 </tr>
             </ng-container>
