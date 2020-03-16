@@ -250,21 +250,7 @@ export class TenderFastAttachComponent implements OnInit {
       }
     );
   }
-  removeSubFormLine(removeObj) {
-    this.spinner.show();
-    this.httpService.removeSubFromLine(removeObj, this.tenderId).subscribe(
-      response => {
-        this.spinner.hide();
-        if (response.status === 200) {
-          console.log(response);
-        }
-      },
-      err => {
-        console.log('Error getting Tender by id ', err);
-        this.spinner.hide();
-      }
-    );
-  }
+ 
 
   // call subline get API
   getSelectedSubline() {
