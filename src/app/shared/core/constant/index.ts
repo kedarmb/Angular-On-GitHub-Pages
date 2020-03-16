@@ -58,8 +58,8 @@ export const ApiUrl = {
          pdfParserUrl: authUrlCreator('/pdf-parser'),
          emailMessage: authUrlCreator('/notification'),
          removeSublineFromLineItem: sublineUrlCreator('/removeSublineFromLineItem/tender/'),
-         bidUrl:urlCreator('/bid')
-
+         bidUrl: urlCreator('/bid')
+         
        };
 
 function urlCreator(actionName: string): string {

@@ -265,8 +265,8 @@ export class HttpService {
       observe: 'response'
     });
   }
-  public deleteSubLineItem(id) {
-    return this.httpClient.delete(ApiUrl.sublineItemUrl + '/' + id, {
+  public deleteSubLineItem(appendStr) {
+    return this.httpClient.delete(ApiUrl.sublineItemUrl + appendStr, {
       headers: this.getHeader(),
       observe: 'response'
     });
@@ -533,13 +533,19 @@ export class HttpService {
 
   // bid api
   public saveBid(tenderIdDetails) {
-    return this.httpClient.post(ApiUrl.bidUrl,tenderIdDetails, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.post(ApiUrl.bidUrl, tenderIdDetails, { headers: this.getHeader(), observe: 'response' });
   }
   public getSubmittedBid(tenderId) {
-    return this.httpClient.get(ApiUrl.bidUrl + '/tender/' + tenderId, { headers: this.getHeader(), observe: 'response' });
+    return this.httpClient.get(ApiUrl.bidUrl + '/tender/' + tenderId, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
   }
-  public submitFinalBid(tenderIdDetails){
-    return this.httpClient.put(ApiUrl.bidUrl,tenderIdDetails, { headers: this.getHeader(), observe: 'response' });
-
+  public submitFinalBid(tenderIdDetails) {
+    return this.httpClient.put(ApiUrl.bidUrl, tenderIdDetails, { headers: this.getHeader(), observe: 'response' });
+  }
+  public deleteSubline(tenderIdDetails, tenderId) {
+    const option = { headers: this.getHeader(), body: tenderIdDetails};
+    return this.httpClient.delete(`${ApiUrl.tendersUrl}/${tenderId}`, option);
   }
 }

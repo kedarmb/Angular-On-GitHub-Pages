@@ -200,8 +200,9 @@ export class TenderFastAttachComponent implements OnInit {
       });
     });
     if (runRemove) {
-      this.removeSubFormLine(removeFinalArr);
     }
+    
+    this.removeSubFormLine(removeFinalArr);
   }
 
   toBid() {
@@ -247,12 +248,10 @@ export class TenderFastAttachComponent implements OnInit {
   }
   removeSubFormLine(removeObj) {
     this.spinner.show();
-    this.httpService.removeSubFromLine(removeObj, this.tenderId).subscribe(
+    this.httpService.deleteSubline(removeObj, this.tenderId).subscribe(
       response => {
         this.spinner.hide();
-        if (response.status === 200) {
-          console.log(response);
-        }
+        console.log(response);
       },
       err => {
         console.log('Error getting Tender by id ', err);

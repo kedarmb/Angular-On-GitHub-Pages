@@ -117,6 +117,7 @@ export class TenderFastQuoteComponent implements OnInit {
   removeLineItem(subRef, i) {
     const lineItemArr: FormArray = this.sublineForm.get('subline') as FormArray;
     lineItemArr.removeAt(i);
+    this.removeSubFormLine(subRef.value);
   }
 
   setSubline() {
@@ -182,6 +183,22 @@ export class TenderFastQuoteComponent implements OnInit {
       error => {
         this.spinner.hide();
         this.toastr.error(error.error.message);
+      }
+    );
+  }
+  
+  removeSubFormLine(sub) {
+    let appendString = `/tender/${this.tenderID}/subContractor/${sub.subContractorId._id}/subLineItem/${sub._id}`;
+    console.log(appendString);
+    this.spinner.show();
+    this.httpService.deleteSubLineItem(appendString).subscribe(
+      response => {
+        this.spinner.hide();
+        console.log(response);
+      },
+      err => {
+        console.log('Error getting Tender by id ', err);
+        this.spinner.hide();
       }
     );
   }
