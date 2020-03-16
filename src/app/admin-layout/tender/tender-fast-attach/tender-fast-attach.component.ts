@@ -6,6 +6,16 @@ import { MatDialog, setLines } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import _lo from 'lodash';
+export const finalObj = {
+  subLineItemIds: [],
+  lineItemId: String,
+  sectionId: String
+};
+export const removefinalObj = {
+  subLineItemIds: [],
+  lineItem: String,
+  section: String
+};
 @Component({
   selector: 'app-tender-fast-attach',
   templateUrl: './tender-fast-attach.component.html',
@@ -13,7 +23,6 @@ import _lo from 'lodash';
 })
 export class TenderFastAttachComponent implements OnInit {
   tenderId: any;
-  // sectionId: any;
   tenderData: any;
   selectedQuotes: Object;
   filteredSection: any;
@@ -27,6 +36,7 @@ export class TenderFastAttachComponent implements OnInit {
   _Items = [];
   subLineObj = [];
   tempFinalArr = [];
+  add: boolean;
 
   constructor(
     private router: Router,
@@ -53,11 +63,8 @@ export class TenderFastAttachComponent implements OnInit {
   // method runs on select/unselect of line item.
   selectLineItem(e, itemId, sectionId) {
     // object for line item to send to server.
-    const finalObj = {
-      subLineItemIds: [],
-      lineItemId: itemId._id,
-      sectionId: sectionId
-    };
+    finalObj.lineItemId = itemId._id;
+    finalObj.sectionId = sectionId;
 
     // property to validate if any line item selected to disable
     // select section selectbox.
@@ -114,9 +121,6 @@ export class TenderFastAttachComponent implements OnInit {
     }
   }
   assignSubline() {
-    // this.finalArr = [];
-    // this.finalArr = [...this.finalArr];
-
     // json to sending to server.
     this.finalArr.map(val => {
       for (let line of this.lineItemId) {
@@ -130,8 +134,8 @@ export class TenderFastAttachComponent implements OnInit {
         }
       }
     });
-
-    // json to show on ui.
+    this.add = true;
+    // json to show on UI.
     for (let i of this.lineItemId) {
       for (let line of this.filteredSection[0].lineItems) {
         if (line._id == i._id) {
@@ -141,7 +145,6 @@ export class TenderFastAttachComponent implements OnInit {
           });
         }
       }
-      
     }
     console.log(this.finalArr);
 
@@ -166,16 +169,29 @@ export class TenderFastAttachComponent implements OnInit {
     const k = this.filteredSection[0].lineItems[j].subLineItems.findIndex(e => {
       return e._id === sub._id;
     });
+
     this.filteredSection[0].lineItems[j].subLineItems.splice(index, 1);
-    const fArrIdx = this.finalArr.findIndex(e => e.lineItemId === item._id);
-    const sublineId = this.finalArr[fArrIdx].subLineItemIds.findIndex(i => i === sub._id);
-    this.finalArr[fArrIdx].subLineItemIds.splice(sublineId, 1);
-    this.finalArr.map((i, idx) => {
-      if (!i.subLineItemIds.length) {
-        this.finalArr.splice(idx, 1);
-      }
-    });
+    if (this.finalArr.length) {
+      const fArrIdx = this.finalArr.findIndex(e => e.lineItemId === item._id);
+      const sublineId = this.finalArr[fArrIdx].subLineItemIds.findIndex(i => i === sub._id);
+      this.finalArr[fArrIdx].subLineItemIds.splice(sublineId, 1);
+      this.finalArr.map((i, idx) => {
+        if (!i.subLineItemIds.length) {
+          this.finalArr.splice(idx, 1);
+        }
+      });
+    }
+
+    const removeFinalArr = [];
+    const removeFinal = Object.assign({}, removefinalObj);
+    removeFinal.lineItem = item._id;
+    removeFinal.section = this.sectionId;
+    removeFinal.subLineItemIds.push(sub._id);
+    removeFinalArr.push(removeFinal);
+    console.log(removeFinal);
+    removeFinalArr;
     console.log(this.finalArr);
+    this.removeSubFormLine(removeFinalArr);
   }
 
   toBid() {
@@ -211,6 +227,21 @@ export class TenderFastAttachComponent implements OnInit {
       response => {
         this.spinner.hide();
         if (response.status === 200) {
+        }
+      },
+      err => {
+        console.log('Error getting Tender by id ', err);
+        this.spinner.hide();
+      }
+    );
+  }
+  removeSubFormLine(removeObj) {
+    this.spinner.show();
+    this.httpService.removeSubFromLine(removeObj, this.tenderId).subscribe(
+      response => {
+        this.spinner.hide();
+        if (response.status === 200) {
+          console.log(response);
         }
       },
       err => {

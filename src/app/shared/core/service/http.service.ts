@@ -481,7 +481,7 @@ export class HttpService {
     });
   }
 
-  public updateSeletedSubForLine(id, body) {
+  public updateSeletedSubForLine(body, id) {
     return this.httpClient.put(ApiUrl.seletedSubForLineUrl + id, body, {
       headers: this.getHeader(),
       observe: 'response'
@@ -517,6 +517,12 @@ export class HttpService {
   }
   public sendEmail(body) {
     return this.httpClient.post(ApiUrl.emailMessage + '/', body, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
+  public removeSubFromLine(body, id) {
+    return this.httpClient.put(ApiUrl.removeSublineFromLineItem + id, body, {
       headers: this.getHeader(),
       observe: 'response'
     });

@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
-import { ValidatorFn, FormControl } from "@angular/forms";
-import { BehaviorSubject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { ValidatorFn, FormControl } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class HelperService {
-  equipmentData = new BehaviorSubject<any>("");
-  labourData = new BehaviorSubject<any>("");
+  equipmentData = new BehaviorSubject<any>('');
+  labourData = new BehaviorSubject<any>('');
   equipmentStore: any;
   labourStore: any;
   //
@@ -22,13 +22,13 @@ export class HelperService {
 
   /**Returns list of all Organizations from Local Storage */
   getOrgList() {
-    const _orgList = JSON.parse(localStorage.getItem("orgList"));
+    const _orgList = JSON.parse(localStorage.getItem('orgList'));
     return _orgList;
   }
   /** Returns Organization ID from Local Storage */
   getOrgId() {
-    const uData = JSON.parse(sessionStorage.getItem("userData"));
-    const _orgID = uData["organization"];
+    const uData = JSON.parse(sessionStorage.getItem('userData'));
+    const _orgID = uData['organization'];
     return _orgID;
   }
 
@@ -40,29 +40,29 @@ export class HelperService {
   }
 
   addOrgToLocalList(param) {
-    const orgData = JSON.parse(localStorage.getItem("orgList"));
+    const orgData = JSON.parse(localStorage.getItem('orgList'));
     orgData.push(param);
-    this.setInLocalStorage("orgList", orgData);
+    this.setInLocalStorage('orgList', orgData);
   }
 
   /** Returns a List of Sub Contractors (after filtering all Organization), from Local Storage */
   getSubContractorList() {
-    const orgData = JSON.parse(localStorage.getItem("orgList"));
+    const orgData = JSON.parse(localStorage.getItem('orgList'));
     const _subList = (orgData as Array<any>).filter(item => {
-      return item["orgType"][0] === "Sub";
+      return item['orgType'][0] === 'Sub';
     });
     return _subList;
   }
 
   /**Returns list of all Equipments from Local Storage */
   getEquipmentList() {
-    const _allEquipList = JSON.parse(localStorage.getItem("equipList"));
+    const _allEquipList = JSON.parse(localStorage.getItem('equipList'));
     return _allEquipList;
   }
 
   /**Returns list of all Labours from Local Storage */
   getLabourList() {
-    const _allLabourList = JSON.parse(localStorage.getItem("labourList"));
+    const _allLabourList = JSON.parse(localStorage.getItem('labourList'));
     return _allLabourList;
   }
 
@@ -76,7 +76,7 @@ export class HelperService {
   }
 
   updateLocalTenderListByID(tData) {
-    console.log("tData is >>>>>> ", tData);
+    console.log('tData is >>>>>> ', tData);
     // after modifying tender line/subline/crew/trench the modified saved at local end
     const tID = tData._id;
     for (let i = 0; i < this.tenderList.length; i++) {
@@ -89,14 +89,14 @@ export class HelperService {
 
   /** Returns list of all Crews from local storage */
   getCrewList() {
-    const _allCrewList = JSON.parse(localStorage.getItem("allCrewList"));
+    const _allCrewList = JSON.parse(localStorage.getItem('allCrewList'));
     return _allCrewList;
   }
   /** Sets newly created crew in local storage after successful creation in BE */
   addCrewToLocalList(param) {
-    const _crewLst = JSON.parse(localStorage.getItem("allCrewList"));
+    const _crewLst = JSON.parse(localStorage.getItem('allCrewList'));
     _crewLst.push(param);
-    this.setInLocalStorage("allCrewList", _crewLst);
+    this.setInLocalStorage('allCrewList', _crewLst);
   }
   //
 
@@ -135,7 +135,7 @@ export class HelperService {
     if (client !== undefined) {
       return client.name;
     } else if (client === undefined) {
-      return "N. Available";
+      return 'N. Available';
     }
   }
 
@@ -170,7 +170,7 @@ export class HelperService {
     localStorage.setItem(key, JSON.stringify(value));
   }
   // methods space ends
-
+  // filter uniue array of object using subContractorId._id from API data
   unique(list): [] {
     const Nlist: any = [...list];
     const unique = Nlist.filter((entry, i, flags) => {
@@ -182,8 +182,20 @@ export class HelperService {
     });
     return unique;
   }
+  // filter uniue array of object using _id from API data
+  UniqueArrObj(data) {
+    data.filter((thing, index, self) => {
+      return index === self.findIndex(t => t._id == thing._id);
+    });
+  }
+  // filter uniue array of String
+  UniqueArrStr(data) {
+    data.filter((thing, index, self) => {
+      return index === self.findIndex(t => t == thing);
+    });
+  }
   getSubName(data) {
-    const orgData = JSON.parse(localStorage.getItem("orgList"));
+    const orgData = JSON.parse(localStorage.getItem('orgList'));
     const k = orgData.filter(e => e._id === data);
     const j: any = {};
     const mappedArr = k.map(e => {

@@ -3,15 +3,10 @@
     <h4>Sub Name: {{ subName.name }}</h4>
     <form [formGroup]="sublineForm">
       <div class="col-3">
-        <app-invited-subcontractors
-          [notifiedSubs]="tenderID"
-          (subSelected)="subConSelection($event)"
-        ></app-invited-subcontractors>
+        <app-invited-subcontractors [notifiedSubs]="tenderID" (subSelected)="subConSelection($event)">
+        </app-invited-subcontractors>
       </div>
-      <table
-        class="table table-bordered"
-        *ngIf="sublineForm.get('subline').controls.length"
-      >
+      <table class="table table-bordered" *ngIf="sublineForm.get('subline').controls.length">
         <thead>
           <th>Action</th>
           <th>Name</th>
@@ -21,60 +16,32 @@
         </thead>
 
         <tbody formArrayName="subline">
-          <tr
-            *ngFor="
+          <tr *ngFor="
               let lineItem of sublineForm.get('subline').controls;
               let i = index;
               let last = last
-            "
-            [formGroupName]="i"
-          >
+            " [formGroupName]="i">
             <td class="width-2">
               <a><i class="material-icons">edit</i></a>
               <a><i class="material-icons">remove_red_eye</i></a>
-              <a
-                ><i class="material-icons" (click)="removeLineItem(lineItem, i)"
-                  >delete_sweep</i
-                ></a
-              >
+              <a><i class="material-icons" (click)="removeLineItem(lineItem, i)">delete_sweep</i></a>
             </td>
             <td class="width-2">
-              <textarea
-                type="text"
-                class="form-control"
-                formControlName="name"
-              ></textarea>
+              <textarea type="text" class="form-control" formControlName="name"></textarea>
             </td>
             <td class="width-2">
-              <textarea
-                type="text"
-                class="form-control"
-                formControlName="description"
-              ></textarea>
+              <textarea type="text" class="form-control" formControlName="description"></textarea>
             </td>
             <td class="width-2">
-              <textarea
-                type="text"
-                class="form-control"
-                formControlName="unit"
-              ></textarea>
+              <textarea type="text" class="form-control" formControlName="unit"></textarea>
             </td>
             <td class="width-2">
-              <textarea
-                type="text"
-                class="form-control"
-                formControlName="unitPrice"
-              ></textarea>
+              <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
             </td>
           </tr>
           <tr>
             <td>
-              <button
-                mat-raised-button
-                type="button"
-                color="primary"
-                (click)="addLineItem()"
-              >
+              <button mat-raised-button type="button" color="primary" (click)="addLineItem()">
                 Add more
               </button>
             </td>
@@ -82,38 +49,18 @@
         </tbody>
       </table>
       <!-- <div class="d-flex pull-right   px-4 py-2   "> -->
-<div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
+      <div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
 
-        <button
-          mat-raised-button
-          type="button"
-          color="primary"
-          class="justify-content-end save"
-          type="submit"
-          (click)="createSubline(true)"
-          [disabled]="!sublineForm.valid"
-        >
+        <button mat-raised-button type="button" color="primary" class="justify-content-end save" type="submit"
+          (click)="createSubline(true)" [disabled]="!sublineForm.valid">
           save
         </button>
-        <button
-          mat-raised-button
-          type="button"
-          color="primary"
-          class="justify-content-end conti"
-          type="submit"
-          (click)="createSubline(false)"
-          [disabled]="!sublineForm.valid"
-        >
+        <button mat-raised-button type="button" color="primary" class="justify-content-end conti" type="submit"
+          (click)="createSubline(false)" [disabled]="!sublineForm.valid">
           Save and continue
         </button>
-        <button
-          mat-raised-button
-          type="button"
-          color="primary"
-          class="justify-content-end cancel"
-          type="submit"
-          (click)="cancel()"
-        >
+        <button mat-raised-button type="button" color="primary" class="justify-content-end cancel" type="submit"
+          (click)="cancel()">
           Cancel
         </button>
       </div>
