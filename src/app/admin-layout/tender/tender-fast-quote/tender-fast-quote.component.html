@@ -51,16 +51,15 @@
       <!-- <div class="d-flex pull-right   px-4 py-2   "> -->
       <div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
 
-        <button mat-raised-button type="button" color="primary" class="justify-content-end save" type="submit"
+        <button mat-raised-button type="button" color="primary" class="justify-content-end"
           (click)="createSubline(true)" [disabled]="!sublineForm.valid">
           save
         </button>
-        <button mat-raised-button type="button" color="primary" class="justify-content-end conti" type="submit"
+        <button mat-raised-button type="button" class="justify-content-end save"
           (click)="createSubline(false)" [disabled]="!sublineForm.valid">
           Save and continue
         </button>
-        <button mat-raised-button type="button" color="primary" class="justify-content-end cancel" type="submit"
-          (click)="cancel()">
+        <button mat-raised-button type="button" class="justify-content-end" color="warn" (click)="cancel()">
           Cancel
         </button>
       </div>

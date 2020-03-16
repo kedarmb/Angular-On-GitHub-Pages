@@ -191,7 +191,17 @@ export class TenderFastAttachComponent implements OnInit {
     console.log(removeFinal);
     removeFinalArr;
     console.log(this.finalArr);
-    this.removeSubFormLine(removeFinalArr);
+    let runRemove = false;
+    removeFinal.subLineItemIds.map(i => {
+      this.filteredSection[0].lineItems.map(subl => {
+        if (i === subl._id) {
+          runRemove = true;
+        }
+      });
+    });
+    if (runRemove) {
+      this.removeSubFormLine(removeFinalArr);
+    }
   }
 
   toBid() {
@@ -250,7 +260,6 @@ export class TenderFastAttachComponent implements OnInit {
       }
     );
   }
- 
 
   // call subline get API
   getSelectedSubline() {
@@ -269,4 +278,7 @@ export class TenderFastAttachComponent implements OnInit {
     );
   }
   // Get api's end
+  cancel() {
+    this.router.navigate(['/fast-compare/' + this.tenderId]);
+  }
 }
