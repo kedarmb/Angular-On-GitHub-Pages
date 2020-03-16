@@ -1,6 +1,6 @@
 <div class="bg-white">
-    <div class="table-responsive bid">
-        <table class="table table-bordered" *ngFor="let section of tenderBid.sections">
+    <div class="table-responsive bid" *ngIf="tender&&tender.sections&&tender.sections.length else notShow">
+        <table class="table table-bordered" *ngFor="let section of tender.sections">
             <thead class=" text-primary">
                 <tr>
                     <th colspan=7>{{section.name}} </th>
@@ -12,25 +12,38 @@
                 <th>Quantity</th>
                 <th>Unit Cost</th>
                 <th>Total Cost</th>
+                <th>More<th>
             </thead>
-            <tbody>
+            <tbody *ngIf="section.lineItems&&section.lineItems.length">
                 <tr *ngFor="let item of section.lineItems">
                     <td>{{item.name}}</td>
-                    <td>{{item.specNo}}</td>
-                    <td>{{item.itemNo}}</td>
-                    <td>{{item.unit}}</td>
-                    <td>{{item.quantity}}</td>
-                    <td>{{item.lineItemTotal[0].unitPrice}}</td>
-                    <td>{{item.lineItemTotal[0].totalPrice}}</td>
+                    <td>{{item.specNo?item.specNo:disableMethod(item.specNo)}}</td>
+                    <td>{{item.itemNo?item.itemNo:disableMethod(item.itemNo)}}</td>
+                    <td>{{item.unit?item.unit:disableMethod(item.unit)}}</td>
+                    <td>{{item.quantity?item.quantity:disableMethod(item.quantity)}}</td>
+                    <td>{{item.unitPrice?item.unitPrice:disableMethod(item.unitPrice)}}</td>
+                    <td>{{item.total?item.total:disableMethod(item.total)}}</td>
+                    <td (click)=getlineItemDetails(item) style="cursor: pointer;">...</td>
                 </tr>
                 <tr>
                     <th class="text-right" colspan=6>Section total</th>
-                    <td class="text-right" colspan=1>{{section.sectionTotal[0].totalPrice}}</td>
+                    <td class="text-right" colspan=1>{{section.sectionTotalPrice?section.sectionTotalPrice:disableMethod(section.sectionTotalPrice)}}</td>
                 </tr>
-            
             </tbody>
         </table>
-        <button mat-raised-button type="button" class="pull-right m-2" color="primary">save</button>
+        <div style="float: right;">
+        <p><b>Section Total:</b>  {{sectionTotal?sectionTotal:disableMethod(sectionTotal)}}</p>
+        <p><b>tax:</b>  <input [(ngModel)]="taxPercent" (ngModelChange)=getBidTax(taxPercent) [disabled]='tender.status=="completed"'></p>
+        <p *ngIf='taxPercent&&sectionTotal'>tax Ammount:{{taxAmmount?taxAmmount:disableMethod(taxAmmount)}}</p>
+        <p *ngIf='taxPercent&&sectionTotal&&taxAmmount'>Total Bid Ammount:{{totalBidAmmount?totalBidAmmount:disableMethod(totalBidAmmount)}}</p>
+        <button mat-raised-button type="button" class="pull-right m-2" color="primary" (click)=submitFinalBid() [disabled]='!bidEnable||notSaveEnable||tender.status=="completed"'>Submit</button>
+        <button mat-raised-button type="button" class="pull-right m-2" color="primary" (click)=saveBid() [disabled]='notSaveEnable||tender.status=="completed"'>Save</button>
+        </div>
     </div>
+    <ng-template #notShow>
+        <p>
+            Tender is not Available
+        </p>
+      </ng-template>
 
 </div>

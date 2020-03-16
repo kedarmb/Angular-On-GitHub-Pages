@@ -136,8 +136,9 @@ export class TenderComponent implements OnInit {
     this.hs.setSession('tenderIdNow', JSON.stringify(tender._id));
   }
 
-  compare(tender) {
+  compare(tenderId) {
     this.router.navigateByUrl('/compare');
+    this.hs.passTenderIdToCompare(tenderId)
   }
   notifySubC(ele) {
     //

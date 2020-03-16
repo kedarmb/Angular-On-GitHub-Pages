@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy,OnInit } from '@angular/core';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
 import { ToastrService } from 'ngx-toastr';
-
-import { id } from 'date-fns/locale';
 import { Router } from '@angular/router';
 @Component({
   selector: "app-tender-compare",
@@ -12,85 +10,108 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TenderCompareComponent implements OnInit {
+export class TenderCompareComponent implements OnInit{
   lineTotal: any;
   selection;
   tenderCompare;
   tender:any
   tenderId:any
   notifiedSub
+  public calculateSecTotal = 0
+  public sectionTotal
+  calculatedSectionTotal
+  selectedSubList =[]
+  sectionList=[]
+  displayedColumns: string[] = ['select', 'SubContractor', 'unitPrice', 'totalPrice'];
   
-    displayedColumns: string[] = ['select', 'SubContractor', 'unitPrice', 'totalPrice'];
-  // router: any;
-  constructor(private httpService: HttpService, private router: Router, private hs: HelperService,private toastr: ToastrService,
-    ) {
-
-    // this.getAllTenders();
-    this.getTenderById("5e5640b1e89fd6001e517bc7")
-    this.tenderId="5e5640b1e89fd6001e517bc7"
-    
-    console.log("ddddddjaaaaaa",this.selectedSubList)
+  constructor(private httpService: HttpService, private router: Router, private hs: HelperService,private toastr: ToastrService) {
+    // this.getTenderById("5e5e3c91aa168f7ea40f864f")
+    // this.tenderId="5e5e3c91aa168f7ea40f864f"
   }
 
-  ngOnInit() {
-    // this.tenderId=JSON.parse(this.hs.getSession('tenderIdNow'));
-    // console.log("hhhhhhhhhh",this.tenderId);
-    // if(this.tenderId){
-    // this.getTenderById(this.tenderId)
-    // }else{
-    //   this.toastr.info("TENDER NOT AVAILABLE")
-    // }
+ngOnInit(){
+  this.hs.tenderId.subscribe(tenderId => this.tenderId = tenderId)
+  if(this.tenderId)
+      this.getTenderById(this.tenderId)
+else 
+this.toastr.info("tender not found")
 
-    // this.fetchLineTotal();
-  }
-  fetchLineTotal(sec, lt, slt) {
-    this.lineTotal = this.tender.sections[sec].lineItems[
-      lt
-    ].lineItemTotal.filter(val => val.quoteSub === slt);
-    console.log(this.lineTotal);
-  }
- public calculateSecTotal = 0
-
-  getTotal(event, total) {
-    console.log("jjjjjjjjjjjjjjjjjj")
-    if(!event) {
-      console.log(' true', this.calculateSecTotal)
-      this.calculateSecTotal = Math.abs(this.calculateSecTotal - parseInt(total))
-    } if (event) {
-
-      this.calculateSecTotal = parseInt(total) + this.calculateSecTotal
-      console.log('false', this.calculateSecTotal)
-  }
 }
-selectedSubList =[]
-getSelectedLineItem(event,section,lineItem,subContractorId){
+calculateSectionTotal(selectedSub){
+  this.sectionTotal = selectedSub.reduce(function(r, e) {
+    var section = e.section
+    if (r[section] == undefined) {
+        r[section] = {section: section,totalPrice:e.totalPrice};
+    }
+    else{
+      console.log("rrrrrrrrr",r)
+    r[section].totalPrice= r[section].totalPrice+e.totalPrice  
+    }  
+    return r
+  },{})
+  console.log("section totalddjdjdjdjdj",this.sectionTotal);
+}
+
+getSectionTotal(sectionId,sectionTotal) {
+    if(sectionTotal){
+      if(this.sectionTotal&&this.sectionTotal[sectionId]){
+        return this.sectionTotal[sectionId].totalPrice+sectionTotal
+      }else{
+        return sectionTotal
+      }
+    }else{
+      if(this.sectionTotal&&this.sectionTotal[sectionId]){
+        return this.sectionTotal[sectionId].totalPrice
+      }else{
+        return 0
+    }
+    }
+}
+  
+
+
+
+getSelectedLineItem(event,section,lineItem,subContractorId,totalPrice,sectionTotal){
   console.log(section,lineItem,subContractorId)
   if(event){
   this.selectedSubList.push({section,lineItem,subContractorId})
-  console.log("ggggggg",this.selectedSubList)
+  this.sectionList.push({section,totalPrice,lineItem})
+  console.log("ggggggg",this.selectedSubList,this.sectionList)
+  this.calculateSectionTotal(this.sectionList)
+  this.getSectionTotal(section,sectionTotal)
   }
-if(!event){
- const deSelectedSub= this.selectedSubList.filter(obj=>(obj.subContractorId).toString()!==(subContractorId).toString())
- this.selectedSubList = deSelectedSub
- console.log( "ddddddddddd",deSelectedSub,this.selectedSubList)
-}
+  if(!event){
+  // sectionList
+  const deSelectedSub= this.selectedSubList.filter(obj=>(obj.subContractorId).toString()!==(subContractorId).toString())
+  const removeSection=this.sectionList.filter(obj=>(obj.lineItem).toString()!==(lineItem).toString())
+  console.log("ddjjjjjjjjjjjjj",this.sectionList,removeSection)
+  this.selectedSubList = deSelectedSub
+  this.sectionList = removeSection
+  console.log( "ddddddddddd",deSelectedSub,this.selectedSubList,this.sectionList)
+  this.calculateSectionTotal(this.sectionList)
+  this.getSectionTotal(section,sectionTotal)
+
+  }
 }
 
-getAlreadySelectedLineItem(section,lineItem,subContractorId,selectedSub){
-  console.log("jjjjjjjjjjjj" ,section,lineItem,subContractorId,selectedSub)
-  if(selectedSub==subContractorId){
-  this.selectedSubList.push({section,lineItem,subContractorId})
-  console.log("lllllllllll",this.selectedSubList)
-return true
-  }else{
-    return false
-  }
-}
+// getAlreadySelectedLineItem(section,lineItem,subContractorId,selectedSub){
+//   console.log("jjjjjjjjjjjj" ,section,lineItem,subContractorId,selectedSub)
+//   if(selectedSub==subContractorId){
+//   this.selectedSubList.push({section,lineItem,subContractorId})
+//   // this.sectionList.push({section,totalPrice,lineItem})
+
+//   console.log("lllllllllll",this.selectedSubList)
+// return true
+//   }else{
+//     return false
+//   }
+// }
 
 
 save() {
   
-  if(this.selectedSubList&&this.selectedSubList){
+  if(this.selectedSubList&&this.selectedSubList.length){
+    console.log("fffffddddddd",this.selectedSubList)
     let totalLineItem =[]
     if(this.tender&&this.tender.sections&&this.tender.sections.length){
     let init =0
@@ -118,53 +139,35 @@ save() {
 
 
     }
-    if(totalLineItem&&totalLineItem.length&&totalLineItem[0]==this.selectedSubList.length){
-    return this.httpService.updateSelectedSubForLineItem(this.tenderId,this.selectedSubList).subscribe((response) => {
+    if(totalLineItem&&totalLineItem.length&&totalLineItem[totalLineItem.length-1]==this.selectedSubList.length){
+    return this.httpService.updateSelectedSubForLineItem(this.tenderId,{selectedSub:this.selectedSubList,sectionToatal:this.sectionTotal }).subscribe((response) => {
       if (response.status === 200) {
         this.tenderCompare = response.body;
+        this.toastr.success("success")
         console.log(this.tenderCompare)
       }
     }, (error) => {
       this.toastr.error("unable to submit please try later")
-      // this.toastr.error(error.error.message)
-
-      console.log('err in fetching tender headers ', error);
     })
   }else{
     this.toastr.warning("please complete the compare")
-    // console.log("please complete the compare")
   }
   }else{
     this.toastr.warning("please complete the compare")
 
-    // console.log("select the line item")
   }
-  this.router.navigateByUrl('bid')
 }
-getAllTenders() {
-    const appendStr = '/0/0';
-    return this.httpService.getTenders(appendStr).subscribe((response) => {
-      if (response.status === 200) {
-        this.tenderCompare = response.body;
-        console.log(this.tenderCompare)
-      }
-    }, (error) => {
-      console.log('err in fetching tender headers ', error);
-    })
-}
+
 getNotifiedSubContractorName(){
   this.httpService.getNotifiedSubs(this.tenderId).subscribe((response) => {
     if (response.status === 200) {
-      console.log("dddddddddddddddddddddddd",response.body);
-      console.log("ddddsgsggs",response.body['_id'])
-      console.log(response.body["headerLevelNotifiedSubs"])
+      // console.log(response.body["headerLevelNotifiedSubs"])
       if(response.body){
 
       if(this.tender._id==response.body['_id']){
         this.notifiedSub = response.body["headerLevelNotifiedSubs"]
         console.log("lllllll",this.notifiedSub)
       }
-      // console.log("dddddddddd",this.tender)
     }
   }
     })
@@ -182,14 +185,12 @@ getName(id){
   return "no name"
 }
 }
-  getTenderById(tenderId){
-    const appendStr = tenderId;
 
- return this.httpService.getTenderDetailById(appendStr).subscribe((response) => {
-      if (response.status === 200) {
-        this.tender = response.body;
-        this.getNotifiedSubContractorName()
-        console.log("dddddddddd",this.tender)
+getTenderById(tenderId){
+  return this.httpService.getTenderDetailById(tenderId).subscribe((response) => {
+    if (response.status === 200) {
+      this.tender = response.body;
+      this.getNotifiedSubContractorName()
         if(this.tender&&this.tender.sections&&this.tender.sections.length){
       
           this.tender.sections.map(obj=>
@@ -201,8 +202,7 @@ getName(id){
                       console.log("jjjjjjjjjjjjjjjjjjselectedsub")
                       this.selectedSubList.push({section:obj._id,lineItem:lineItem._id,subContractorId:lineItem.selectedSub})
                     }
-                  }
-                  )
+                  })
               }
             })
         }

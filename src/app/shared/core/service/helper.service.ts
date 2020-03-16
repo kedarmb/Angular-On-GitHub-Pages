@@ -17,6 +17,10 @@ export class HelperService {
   filteredOrgList: any[] = [];
   equipments: any;
   public reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  public tenderId = new BehaviorSubject(null);
+  currentTenderId= this.tenderId.asObservable();
+
   //
   constructor() {}
 
@@ -205,5 +209,11 @@ export class HelperService {
     });
     const mappedObj = mappedArr[0];
     return mappedObj;
+  }
+
+  // comparepage
+  passTenderIdToCompare(tenderId:string){
+    this.tenderId.next(tenderId)
+
   }
 }

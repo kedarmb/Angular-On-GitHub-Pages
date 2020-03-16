@@ -1,355 +1,145 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy,ViewChild,QueryList,AfterViewInit } from '@angular/core';
+import { HttpService } from 'app/shared/core/service/http.service';
+import { HelperService } from 'app/shared/core/service/helper.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tender-bid',
   templateUrl: './tender-bid.component.html',
   styleUrls: ['./tender-bid.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // encapsulation: ViewEncapsulation.None,
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TenderBidComponent implements OnInit {
-  tenderBid = {
-    'name': 'tender Pipe line laying',
-    'clientRef': '',
-    'description': 'String',
-    'openDate': 'String',
-    'closeDate': 'String',
-    'quoteStartDate': 'String',
-    'quoteEndDate': 'String',
-    'sections': [
-      {
-        'name': 'section 1',
-        'sectionTotal': [{
-          'totalPrice': '1800',
-          'quoteSub': 'sf444'
-        }],
+  tenderId:any
+  tender:any
+  bidEnable:boolean=false
+  sectionTotal=0
+  taxPercent =0
+  taxAmmount = 0
+  totalBidAmmount= 0
+  notSaveEnable:boolean=false
 
-        'lineItems': [
-          {
-            'specNo': '561000Sno',
-            'itemNo': '981000Ino',
-            'name': 'line 3',
-            'description': 'String',
-            'unit': 'String',
-            'quantity': '150',
-            'notifiedSubs': [
-              '1',
-              '2'
-            ],
-            'selectedSub': [
-              '1'
-            ],
-            'subLineItems': [
-              {
-                'name': 'String',
-                'quotes': [
-                  {
-                    'unit': 'String',
-                    'quantity': '5',
-                    'unitPrice': '50',
-                    'totalPrice': '250',
-                    'quoteSub': 'sf444'
-                  }
-                ],
+  constructor(private httpService: HttpService, private router: Router, private hs: HelperService,private toastr: ToastrService) {
 
-                'trenchRef': 'sda5455',
-                'crewRef': 'sdf545'
-              },
-              {
-                'name': 'String',
-                'quotes': [
-                  {
-                    'unit': 'String',
-                    'quantity': '5',
-                    'unitPrice': '50',
-                    'totalPrice': '250',
-                    'quoteSub': 'sf445'
-                  }
-                ],
-
-                'trenchRef': 'sda5455',
-                'crewRef': 'sdf545'
-              }
-            ],
-            'lineItemTotal': [
-              {
-                'unitPrice': '500',
-                'totalPrice': '900',
-                'quoteSub': 'sf444'
-              },
-              {
-                'unitPrice': '500',
-                'totalPrice': '900',
-                'quoteSub': 'sf445'
-              },
-              {
-                'unitPrice': '700',
-                'totalPrice': '900',
-                'quoteSub': 'sf446'
-              },
-              {
-                'unitPrice': '600',
-                'totalPrice': '900',
-                'quoteSub': 'sf447'
-              },
-              {
-                'unitPrice': '300',
-                'totalPrice': '900',
-                'quoteSub': 'sf448'
-              },
-              {
-                'unitPrice': '500',
-                'totalPrice': '900',
-                'quoteSub': 'sf449'
-              },
-              {
-                'unitPrice': '500',
-                'totalPrice': '900',
-                'quoteSub': 'sf450'
-              },
-              {
-                'unitPrice': '400',
-                'totalPrice': '900',
-                'quoteSub': 'sf451'
-              },
-              {
-                'unitPrice': '500',
-                'totalPrice': '900',
-                'quoteSub': 'sf452'
-              }, {
-                'unitPrice': '600',
-                'totalPrice': '900',
-                'quoteSub': 'sf452'
-              },
-              {
-                'unitPrice': '300',
-                'totalPrice': '900',
-                'quoteSub': 'sf452'
-              }, {
-                'unitPrice': '300',
-                'totalPrice': '900',
-                'quoteSub': 'sf452'
-              }, {
-                'unitPrice': '300',
-                'totalPrice': '900',
-                'quoteSub': 'sf452'
-              }, {
-                'unitPrice': '500',
-                'totalPrice': '900',
-                'quoteSub': 'sf452'
-              }, {
-                'unitPrice': '400',
-                'totalPrice': '900',
-                'quoteSub': 'sf452'
-              }, {
-                'unitPrice': '200',
-                'totalPrice': '900',
-                'quoteSub': 'sf452'
-              }
-
-
-            ],
-          },
-          {
-            'specNo': '561001Sno',
-            'itemNo': '981001Ino',
-            'name': 'line 4',
-            'description': 'String',
-            'unit': 'String',
-            'quantity': '300',
-            'notifiedSubs': [
-              '1',
-              '2'
-            ],
-            'selectedSub': [
-              '1'
-            ],
-            'subLineItems': [
-              {
-                'name': 'String',
-                'quotes': [
-                  {
-                    'unit': 'String',
-                    'quantity': '5',
-                    'unitPrice': '50',
-                    'totalPrice': '250',
-                    'quoteSub': 'sf444'
-                  }
-                ],
-                'trenchRef': 'sda5455',
-                'crewRef': 'sdf545'
-              },
-              {
-                'name': 'String',
-                'quotes': [
-                  {
-                    'unit': 'String',
-                    'quantity': '5',
-                    'unitPrice': '50',
-                    'totalPrice': '250',
-                    'quoteSub': 'sf445'
-                  }
-                ],
-
-                'trenchRef': 'sda5455',
-                'crewRef': 'sdf545'
-              }
-            ],
-            'lineItemTotal': [
-              {
-                'unitPrice': '400',
-                'totalPrice': '900',
-                'quoteSub': 'sf444'
-              },
-              {
-                'unitPrice': '900',
-                'totalPrice': '900',
-                'quoteSub': 'sf445'
-              }
-            ],
-          }
-        ],
-        'status': 'Created'
-      },
-      {
-        'name': 'section 2',
-        'sectionTotal': [{
-          'totalPrice': '1800',
-          'quoteSub': 'sf444'
-        }],
-
-        'lineItems': [
-          {
-            'specNo': '561002Sno',
-            'itemNo': '981002Ino',
-            'name': 'line 1',
-            'description': 'String',
-            'unit': 'String',
-            'quantity': '800',
-            'notifiedSubs': [
-              '1',
-              '2'
-            ],
-            'selectedSub': [
-              '1'
-            ],
-            'subLineItems': [
-              {
-                'name': 'String',
-                'quotes': [
-                  {
-                    'unit': 'String',
-                    'quantity': '5',
-                    'unitPrice': '50',
-                    'totalPrice': '250',
-                    'quoteSub': 'sf444'
-                  }
-                ],
-
-                'trenchRef': 'sda5455',
-                'crewRef': 'sdf545'
-              },
-              {
-                'name': 'String',
-                'quotes': [
-                  {
-                    'unit': 'String',
-                    'quantity': '5',
-                    'unitPrice': '50',
-                    'totalPrice': '250',
-                    'quoteSub': 'sf445'
-                  }
-                ],
-
-                'trenchRef': 'sda5455',
-                'crewRef': 'sdf545'
-              }
-            ],
-            'lineItemTotal': [
-              {
-                'unitPrice': '400',
-                'totalPrice': '900',
-                'quoteSub': 'sf444'
-              },
-              {
-                'unitPrice': '600',
-                'totalPrice': '900',
-                'quoteSub': 'sf445'
-              }
-            ],
-          },
-          {
-            'specNo': '561003Sno',
-            'itemNo': '981003Ino',
-            'name': 'line 2',
-            'description': 'String',
-            'unit': 'String',
-            'quantity': '500',
-            'notifiedSubs': [
-              '1',
-              '2'
-            ],
-            'selectedSub': [
-              '1'
-            ],
-            'subLineItems': [
-              {
-                'name': 'String',
-                'quotes': [
-                  {
-                    'unit': 'String',
-                    'quantity': '5',
-                    'unitPrice': '50',
-                    'totalPrice': '250',
-                    'quoteSub': 'sf444'
-                  }
-                ],
-
-                'trenchRef': 'sda5455',
-                'crewRef': 'sdf545'
-              },
-              {
-                'name': 'String',
-                'quotes': [
-                  {
-                    'unit': 'String',
-                    'quantity': '5',
-                    'unitPrice': '50',
-                    'totalPrice': '250',
-                    'quoteSub': 'sf445'
-                  }
-                ],
-
-                'trenchRef': 'sda5455',
-                'crewRef': 'sdf545'
-              }
-            ],
-            'lineItemTotal': [
-              {
-                'unitPrice': '500',
-                'totalPrice': '900',
-                'quoteSub': 'sf444'
-              },
-              {
-                'unitPrice': '800',
-                'totalPrice': '900',
-                'quoteSub': 'sf445'
-              }
-            ],
-          }
-        ],
-        'status': 'Created'
-      }
-    ],
-    'createdDate': '4564646',
-    'createdBy': '6546464664654',
-    'updatedDate': '65464646656231',
-    'updatedBy': '54646461asdsaas',
-    'organizationRef': '45sdfs'
-  }
-
-  constructor() { }
+   }
 
   ngOnInit() {
+    this.hs.tenderId.subscribe(tenderId => this.tenderId = tenderId)
+    if(this.tenderId){
+      this.httpService.getSubmittedBid(this.tenderId).subscribe((response) => {
+        console.log("hhhhhhhhhhhhhhh",response.body)
+        if(response.body){
+          this.bidEnable = false
+          this.tender = response.body
+          this.sectionTotal=this.tender.bidTotalPrice
+          this.taxPercent=this.tender.taxPercent,
+          this.taxAmmount=this.tender.bidTotalTax,
+          this.totalBidAmmount=this.tender.bidFinalTotal
+          // this.getSectionTotal(this.tender)
+          console.log("kkkkkkkkkkkkkkkkkkkkkkk",response.body)
+        }else{
+          this.bidEnable = true
+          this.getTenderById(this.tenderId) 
+        }
+        },error=>{
+          this.bidEnable = true
+          this.tender =[]
+        })
+    }
+    else 
+       this.toastr.info("tender not found")
   }
+
+disableMethod(value){
+  this.notSaveEnable=true
+}
+  
+getTenderById(tenderId){
+  return this.httpService.getTenderDetailById(tenderId).subscribe((response) => {
+    if (response.status === 200||response.body) {
+      this.tender = response.body;
+      this.getSectionTotal(this.tender)
+      console.log(this.tender,"tenderrrrrrrrrrrrrr")
+      }
+    }, (error) => {
+      this.tender = []
+      console.log('err in fetching tender headers ', error);
+    })
+}
+
+saveBid(){
+    const tenderDetails={
+      tenderId:this.tenderId,
+      bidTotalPrice:this.sectionTotal,
+      taxPercent:this.taxPercent,
+      bidTotalTax:this.taxAmmount,
+      bidFinalTotal:this.totalBidAmmount
+    }
+    return this.httpService.saveBid(tenderDetails).subscribe((response) => {
+      console.log("ssssssssssss",response.body)
+      this.tender = response.body
+      this.sectionTotal=this.tender.bidTotalPrice
+      this.taxPercent=this.tender.taxPercent,
+      this.taxAmmount=this.tender.bidTotalTax,
+      this.totalBidAmmount=this.tender.bidFinalTotal
+    },error=>{
+      this.tender = []
+      console.log('err in fetching tender headers ', error);
+    })
+}
+
+ 
+getSectionTotal(tender){
+  if(tender&&tender.sections&&tender.sections.length){
+    tender.sections.map(section=>{
+      if(section.sectionTotalPrice&&parseInt(section.sectionTotalPrice)){
+            this.sectionTotal = section.sectionTotalPrice+this.sectionTotal
+            console.log("fffffffffffffffff",this.sectionTotal)
+      }
+    })
+  }
+  
+}
+
+getBidTax(taxPercent){
+  if(taxPercent && !isNaN(taxPercent)){
+   this.taxAmmount = this.sectionTotal*(taxPercent/100)
+   console.log(this.taxAmmount)
+   this.totalBidAmmount = this.taxAmmount+this.sectionTotal
+   console.log(this.totalBidAmmount)
+  }else{
+   this.toastr.info('please provde correct percentage')
+  }
+}
+
+submitFinalBid(){
+  const tenderDetails={
+    tenderId:this.tenderId,
+    bidTotalPrice:this.sectionTotal,
+    taxPercent:this.taxPercent,
+    bidTotalTax:this.taxAmmount,
+    bidFinalTotal:this.totalBidAmmount
+  }
+  return this.httpService.submitFinalBid(tenderDetails).subscribe((response) => {
+    this.bidEnable =false 
+    console.log("ssssssssssss",response.body)
+    this.tender = response.body
+    this.sectionTotal=this.tender.bidTotalPrice
+    this.taxPercent=this.tender.taxPercent,
+    this.taxAmmount=this.tender.bidTotalTax,
+    this.totalBidAmmount=this.tender.bidFinalTotal
+    
+  },error=>{
+    this.tender = []
+    console.log('err in fetching tender headers ', error);
+  })
+
+}
+
+getlineItemDetails(item){
+  console.log("kkkkkkkkkklllllll",item)
+}
+ 
 }

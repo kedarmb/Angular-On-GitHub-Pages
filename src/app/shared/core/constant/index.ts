@@ -57,7 +57,9 @@ export const ApiUrl = {
          seleteDeselectSubUrl: sublineUrlCreator('/selectDeselect/tender/'),
          pdfParserUrl: authUrlCreator('/pdf-parser'),
          emailMessage: authUrlCreator('/notification'),
-         removeSublineFromLineItem: sublineUrlCreator('/removeSublineFromLineItem/tender/')
+         removeSublineFromLineItem: sublineUrlCreator('/removeSublineFromLineItem/tender/'),
+         bidUrl:urlCreator('/bid')
+
        };
 
 function urlCreator(actionName: string): string {

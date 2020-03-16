@@ -530,4 +530,16 @@ export class HttpService {
   // public sendMail(tenderid) {
   //   return this.httpClient.post(ApiUrl.emailMessage + '/notification' + tenderid + )
   // }
+
+  // bid api
+  public saveBid(tenderIdDetails) {
+    return this.httpClient.post(ApiUrl.bidUrl,tenderIdDetails, { headers: this.getHeader(), observe: 'response' });
+  }
+  public getSubmittedBid(tenderId) {
+    return this.httpClient.get(ApiUrl.bidUrl + '/tender/' + tenderId, { headers: this.getHeader(), observe: 'response' });
+  }
+  public submitFinalBid(tenderIdDetails){
+    return this.httpClient.put(ApiUrl.bidUrl,tenderIdDetails, { headers: this.getHeader(), observe: 'response' });
+
+  }
 }
