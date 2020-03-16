@@ -110,7 +110,7 @@ export class TenderComponent implements OnInit {
   }
 
   reviewTender(tender){
-    // this.spinner.show();
+    this.spinner.show();
     this.router.navigateByUrl('review-tender/', { state: tender });
   }
   viewTender(tender) {
@@ -121,6 +121,7 @@ export class TenderComponent implements OnInit {
   }
 
   viewer(tender) {
+    this.spinner.show();
     this.router.navigateByUrl('pdf-viewer/' + tender._id);
   }
 

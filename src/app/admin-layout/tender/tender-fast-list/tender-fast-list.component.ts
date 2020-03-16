@@ -84,6 +84,7 @@ export class TenderFastListComponent implements OnInit {
   }
 
   createSub(id) {
+    //this.spinner.show();
     this.router.navigate(['/fast-quote/' + this.tenderID + '/' + id]);
     this.hs.setSession('subConIdNow', JSON.stringify(id));
   }
