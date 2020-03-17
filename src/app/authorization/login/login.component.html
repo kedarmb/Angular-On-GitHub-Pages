@@ -40,9 +40,9 @@
     <p style="font-size: 20px; color: white; margin-top: 60px;">Please give us a moment, while we validate your credentials </p>
 </ngx-spinner> -->
 
-<form [formGroup]="loginForm" novalidate (ngSubmit)="submit()">
+<form [formGroup]="loginForm" novalidate (ngSubmit)="submit()" class="pad-l-r">
   <mat-form-field>
-    <input formControlName="email" matInput placeholder="Email" type="text" required />
+    <input formControlName="email" matInput placeholder="Email" type="text" />
     <div
       *ngIf="!loginForm.controls.email.valid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"
       class="error"
@@ -70,8 +70,8 @@
       <option value="saab">Sub Contractor</option>
     </select>
   </mat-form-field>
-  <p>your organization does not exist?<a class="marg" routerLink="/organization">Add Organization</a></p>
-  Don't have account ? <a class="marg" routerLink="/signup">Signup</a>
+  <p>Your organization does not exist?<a class="marg" (click)="orgRoute(2)">Add Organization</a></p>
+  Don't have account ? <a class="marg" (click)="signRoute(1)">Signup</a>
 
   <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary" class=" pull-right">
     login

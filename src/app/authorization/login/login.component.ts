@@ -1,5 +1,5 @@
 import { HelperService } from '../../shared/core/service/helper.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 // import { LoginFormControl } from './login.validator';
 // import { LoginFormGroup } from './login.validator';
@@ -10,6 +10,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { errorMsg, regex } from '../../shared/core/constant/index';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EntryComponent } from '../entry/entry.component';
 //
 @Component({
   selector: 'app-login',
@@ -17,43 +18,56 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
   formSubmitted = false;
   loginObj: Login = new Login();
-  constructor(private router: Router,
+  selectedIndex: number;
+  @Output() changeRoute = new EventEmitter();
+  //@ViewChild(EntryComponent, { static: false }) enrtyComp: EntryComponent;
+  constructor(
+    private router: Router,
     private formBuider: FormBuilder,
     private httpService: HttpService,
     private helperService: HelperService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService) {
-  }
-
+    private spinner: NgxSpinnerService
+  ) {}
   ngOnInit() {
     this.loginForm = this.formBuider.group({
-      email: ['', [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg, msg: errorMsg.email })]],
+      email: [
+        '',
+        [Validators.required, this.helperService.customPatternValid({ pattern: regex.emailReg, msg: errorMsg.email })]
+      ],
       password: ['', Validators.required]
-    })
+    });
   }
 
   submit() {
     this.spinner.show();
     // console.log(this.loginForm.value);
-    this.httpService.login(this.loginForm.value)
-      .subscribe((response: any) => {
+    this.httpService.login(this.loginForm.value).subscribe(
+      (response: any) => {
         // console.log('result of login response: ', response);
         if (response.status === 200) {
-          const uData = JSON.stringify(response.body.user)
+          const uData = JSON.stringify(response.body.user);
           sessionStorage.setItem('userData', uData);
           // this.router.navigateByUrl('/dashboard');
           this.loadInitData();
         }
-      }, error => {
+      },
+      error => {
         this.spinner.hide();
         console.log('result of login response: ', error);
-        this.toastr.error(error.error.message)
+        this.toastr.error(error.error.message);
         // console.log(error);
-      });
+      }
+    );
+  }
+  signRoute(val) {
+    this.changeRoute.emit(val);
+  }
+  orgRoute(val) {
+    this.changeRoute.emit(val);
   }
 
   loadInitData() {
@@ -79,7 +93,6 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/dashboard').then(() => {
         this.spinner.hide();
       });
-
-    })
+    });
   }
 }

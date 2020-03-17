@@ -1,42 +1,13 @@
-// .main-content {
-//     height: 100%;
-//     overflow-y: hidden!important;
-//     margin-top:100px;
-//     overflow:hidden;
-// }
-body {
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-  overflow: hidden !important;
+.main-content {
+  height: 100%;
+  position: relative;
+  margin-top: 100px;
 }
 .pad0 {
-  // padding: 0px
   padding-left: 0px;
   height: 100vh;
 }
 
-.modal-title {
-  color: #000;
-  text-align: center;
-  font-weight: 600;
-}
-
-.link {
-  text-decoration: none;
-  color: #000000;
-  letter-spacing: 0.9px;
-}
-
-.link:hover {
-  text-decoration: none;
-}
-
-.sign {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 0.8;
-}
 
 .log {
   width: 68px;
@@ -94,7 +65,6 @@ body {
   padding: 0;
   top: 0;
 }
-
 .mod {
   z-index: -1 !important;
 }
@@ -157,16 +127,38 @@ label {
   margin-left: 0px;
 }
 
-.pad-l-r{
-    padding: 0px 30px !important;
-}
-
 .ft-tab {
   padding: 0px 15px;
 }
 .box {
-  // padding: 140px 180px;
+  padding: 10px 220px 0;
+  padding: 10px 0px 0;
+}
+.tab-content > .active,
+form {
+  display: block;
+}
+.mat-dialog-content {
 }
 form {
-    margin-top: 30px;
-  }
+  margin-top: 40px;
+}
+.pl0 {
+  padding-left: 0;
+}
+.plr0 {
+  padding-left: 0;
+  padding-right: 0px;
+}
+
+.pad-l-r{
+    padding: 0px 30px !important;
+}
+
+element.style {
+  /* margin-top: 20px; */
+}
+
+.mat-tab-body.mat-tab-body-active {
+  margin-top: 20px;
+}

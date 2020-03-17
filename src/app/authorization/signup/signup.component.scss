@@ -8,6 +8,9 @@
   height: 100vh;
 }
 
+.pad-l-r{
+    padding: 0px 30px !important;
+}
 
 .log {
   width: 68px;
@@ -132,7 +135,7 @@ label {
 }
 .box {
   padding: 10px 220px 0;
-  padding: 10px 180px 0;
+  padding: 10px 0px 0;
 }
 .tab-content > .active,
 form {

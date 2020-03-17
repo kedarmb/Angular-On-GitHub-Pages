@@ -9,11 +9,13 @@ import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule,
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SharedModule } from 'app/shared/shared.module';
+import { EntryComponent } from './entry/entry.component';
 
 @NgModule({
     declarations: [
         LoginComponent,
         SignupComponent,
+        EntryComponent,
     ],
     imports: [
         SharedModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { SignupFormGroup } from './signup.validator';
 import { TooltipPosition } from '@angular/material/tooltip';
@@ -17,11 +17,9 @@ export class SignupComponent implements OnInit {
   positionOptions: TooltipPosition[] = ['below'];
   position = new FormControl(this.positionOptions[0]);
   signup: Signup = new Signup();
-  constructor(
-    private fb: FormBuilder,
-    private httpService: HttpService,
-    private route: Router
-  ) {}
+  selectedIndex: number;
+  @Output() changeRoute = new EventEmitter();
+  constructor(private fb: FormBuilder, private httpService: HttpService, private route: Router) {}
   ngOnInit() {}
   submit(registrationForm) {
     for (let i in registrationForm.controls) {
@@ -32,5 +30,8 @@ export class SignupComponent implements OnInit {
       console.log(data);
       this.route.navigateByUrl('/login');
     });
+  }
+  loginRoute(val) {
+    this.changeRoute.emit(val);
   }
 }
