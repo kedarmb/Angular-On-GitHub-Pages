@@ -102,7 +102,7 @@
                                                 <button (click)="addCrewToLine(selectedSection, item._id)">Add
                                                     crew</button>
                                             </div>
-                                            <div *ngIf="item.crewItemRef !== null">
+                                            <div *ngIf="item.crewItemRef !== null" >
                                                 <p>labour Total Cost: {{item.crewItemRef.labourTotalCost}}</p>
                                                 <p>equipmentTotalCost: {{item.crewItemRef.equipmentTotalCost}}</p>
                                                 <p>crewTotalCost: {{item.crewItemRef.crewTotalCost}}</p>
@@ -114,7 +114,39 @@
                                                     Trench
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
-                                            <button (click)="addTrenchToLine(item._id)">Add trench</button>
+                                            <div *ngIf="item.trenchRef == null">
+                                                <button (click)="addTrenchToLine(item._id)">Add trench</button>
+                                            </div>
+                                            <div *ngIf="item.trenchRef !== null">
+                                                <div class="row">
+                                                    <div class="col">Bedding Volume:</div>
+                                                    <div class="col">
+                                                        <span
+                                                            style="font-weight: bold;">{{ item.trenchRef.beddingVolume}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <div class="row">
+                                                    <div class="col">Bedding weight:</div>
+                                                    <div class="col">
+                                                        <span
+                                                            style="font-weight: bold;">{{ item.trenchRef.beddingWeight}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">Backfill Volume:</div>
+                                                    <div class="col">
+                                                        <span
+                                                            style="font-weight: bold;">{{ item.trenchRef.backfillVolume}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">Bedding Volume:</div>
+                                                    <div class="col">
+                                                        <span
+                                                            style="font-weight: bold;">{{ item.trenchRef.backfillWeight}}</span>
+                                                    </div>
+                                                </div>
                                         </mat-expansion-panel>
                                     </td>
                                 </tr>

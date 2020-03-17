@@ -1,14 +1,7 @@
 import { MatDialog } from '@angular/material';
 import { HttpService } from 'app/shared/core/service/http.service';
 import { HelperService } from 'app/shared/core/service/helper.service';
-import {
-  Component,
-  OnInit,
-  QueryList,
-  ViewChildren,
-  AfterViewInit,
-  OnChanges
-} from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, AfterViewInit, OnChanges } from '@angular/core';
 import { LineItemCrewComponent } from 'app/shared/components/line-item-crew/line-item-crew.component';
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -73,18 +66,15 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
 
   // call tenderpost api
   createSublineWithLine() {
-    this.httpService
-      .updateSeletedSubForLine(this.tenderId, this.finalArr)
-      .subscribe(
-        response => {
-          if (response.status === 200) {
-            console.log(response);
-          }
-        },
-        err => {
-          console.log('Error getting Tender by id ', err);
-        },
-
+    this.httpService.updateSeletedSubForLine(this.tenderId, this.finalArr).subscribe(
+      response => {
+        if (response.status === 200) {
+          console.log(response);
+        }
+      },
+      err => {
+        console.log('Error getting Tender by id ', err);
+      }
     );
   }
 
@@ -134,6 +124,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
           this.filteredSection[0].lineItems[i].total / this.filteredSection[0].lineItems[i].quantity;
       }
     }
+    this.calculateCrewOnly();
   }
   // filters section from dropdown.
 
@@ -189,7 +180,34 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       ).toFixed(2);
     }
   }
-
+  calculateCrewOnly() {
+    for (let i in this.filteredSection[0].lineItems) {
+      console.log(this.filteredSection[0].lineItems[i].total);
+      if (isNaN(this.filteredSection[0].lineItems[i].total) || this.filteredSection[0].lineItems[i].total == null) {
+        this.filteredSection[0].lineItems[i].total = 0;
+        console.log(this.filteredSection[0].lineItems[i].total);
+      }
+      if (
+        isNaN(this.filteredSection[0].lineItems[i].unitPrice) ||
+        this.filteredSection[0].lineItems[i].unitPrice == null
+      ) {
+        this.filteredSection[0].lineItems[i].unitPrice = 0;
+        console.log(this.filteredSection[0].lineItems[i].unitPrice);
+      }
+      if (this.filteredSection[0].lineItems[i].crewItemRef != null) {
+        if (
+          this.filteredSection[0].lineItems[i].subLineItems.length == 0 ||
+          this.filteredSection[0].lineItems[i].subLineItems == null
+        ) {
+          this.filteredSection[0].lineItems[i].total += this.filteredSection[0].lineItems[i].crewItemRef.crewTotalCost;
+          this.filteredSection[0].lineItems[i].unitPrice = (
+            this.filteredSection[0].lineItems[i].total / this.filteredSection[0].lineItems[i].quantity
+          ).toFixed(2);
+          console.log(this.filteredSection[0].lineItems[i].total);
+        }
+      }
+    }
+  }
   addCrewToLine(sectionID, lineItmID) {
     console.log(sectionID, lineItmID);
     const postIds = {
@@ -215,7 +233,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         this.getTenderById();
         this.showSection(sectionID);
         console.log(response.data);
-        this.spinner.hide()
+        this.spinner.hide();
       }
       if (response.status === 'add') {
         // this.getTenderById()
@@ -270,14 +288,34 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
   }
 
   // Trench Integration
-  addTrenchToLine(lineItmID) {
-    console.log('section  id ?? ', this.selectedSection);
-    console.log('line Item  id ?? ', lineItmID);
+  addTrenchToLine(item) {
+    // console.log('section  id ?? ', this.selectedSection);
+    console.log('line Item  id ?? ', item);
     //
+    /// return;
+    const postObj = this.getTrenchPostObject();
+    postObj.tender = this.tenderId;
+    postObj.section = this.sectionId;
+    postObj.lineItem = item._id;
+    postObj.hasTrenchRef = item.trenchRef;
+    //
+    const modalRef = this.modalService.open(TrenchModalComponent, {
+      height: 'auto',
+      width: '85%',
+      data: postObj,
+      disableClose: true,
+      maxHeight: '95vh'
+    });
+    //
+  }
+
+  private getTrenchPostObject() {
     const postTrenchIds = {
-      tender: this.tenderData._id,
-      section: this.selectedSection,
-      lineItem: lineItmID,
+      tender: null,
+      section: null,
+      lineItem: null,
+      hasTrenchRef: null,
+      // above keys are for POST/PUT API - following is the payload
       calculationName: null,
       beddingLength: null,
       beddingWidth: null,
@@ -296,12 +334,6 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       backfillHeight: null,
       backfillWeight: null
     };
-    const modalRef = this.modalService.open(TrenchModalComponent, {
-      height: 'auto',
-      width: '65%',
-      data: postTrenchIds,
-      disableClose: true,
-      maxHeight: '95vh'
-    });
+    return postTrenchIds;
   }
 }
