@@ -13,6 +13,7 @@ import { LineItemCrewComponent } from 'app/shared/components/line-item-crew/line
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { TrenchModalComponent } from 'app/shared/components/trench-modal/trench-modal.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-tender-fast-prepare-bid',
@@ -39,7 +40,8 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
     private httpService: HttpService,
     public fastCompareDialog: MatDialog,
     private modalService: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {
     this.tenderId = JSON.parse(this.hs.getSession('tenderIdNow'));
     // location.onPopState((e) => {
@@ -213,6 +215,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         this.getTenderById();
         this.showSection(sectionID);
         console.log(response.data);
+        this.spinner.hide()
       }
       if (response.status === 'add') {
         // this.getTenderById()

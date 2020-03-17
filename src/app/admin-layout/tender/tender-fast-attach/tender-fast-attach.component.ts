@@ -212,7 +212,8 @@ export class TenderFastAttachComponent implements OnInit {
   //
   // get API's start
   //
-
+  
+  // this.toastr.success('successfully Removed')
   // call tender get API
   getTenderById() {
     this.spinner.show();
@@ -237,47 +238,50 @@ export class TenderFastAttachComponent implements OnInit {
     this.httpService.updateSeletedSubForLine(this.finalArr, this.tenderId).subscribe(
       response => {
         this.spinner.hide();
-        if (response.status === 200) {
-        }
-      },
-      err => {
-        console.log('Error getting Tender by id ', err);
-        this.spinner.hide();
-      }
-    );
-  }
-  removeSubFormLine(removeObj) {
-    this.spinner.show();
-    this.httpService.deleteSubline(removeObj, this.tenderId).subscribe(
-      response => {
-        this.spinner.hide();
-        console.log(response);
-      },
-      err => {
-        console.log('Error getting Tender by id ', err);
-        this.spinner.hide();
-      }
-    );
-  }
-
-  // call subline get API
-  getSelectedSubline() {
-    this.spinner.show();
-    this.httpService.getselectedsubline(this.tenderId).subscribe(
-      response => {
-        this.spinner.hide();
         if (response.status === 201) {
-          this.selectedQuotes = response.body;
+          this.toastr.success('successfully updated')
         }
+      },
+      err => {
+        console.log('Error getting Tender by id ', err);
+        this.spinner.hide();
+      }
+      );
+    }
+    removeSubFormLine(removeObj) {
+      this.spinner.show();
+      this.httpService.removeSubFromLine(removeObj, this.tenderId).subscribe(
+        response => {
+          this.spinner.hide();
+          this.toastr.success('successfully Removed');
+          console.log(response);
+        },
+        err => {
+          this.spinner.hide();
+          console.log('Error getting Tender by id ', err);
+          this.spinner.hide();
+        }
+      );
+      }
+      
+      // call subline get API
+      getSelectedSubline() {
+        this.spinner.show();
+        this.httpService.getselectedsubline(this.tenderId).subscribe(
+          response => {
+            this.spinner.hide();
+            if (response.status === 201) {
+              this.selectedQuotes = response.body;
+            }
       },
       err => {
         this.spinner.hide();
         console.log('Error getting Tender by id ', err);
       }
-    );
-  }
-  // Get api's end
-  cancel() {
-    this.router.navigate(['/fast-compare/' + this.tenderId]);
-  }
+      );
+    }
+    // Get api's end
+    cancel() {
+      this.router.navigate(['/fast-compare/' + this.tenderId]);
+    }
 }

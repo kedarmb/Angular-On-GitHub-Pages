@@ -265,6 +265,7 @@ export class TrenchModalComponent implements OnInit {
     this.httpService.saveTrenchForLineItem(appendStr, this._payload).subscribe(
       response => {
         console.log('success ', response);
+        this.spinner.hide();
         if (response.status === 201) {
           this.resData.status = 'add';
           this.resData.data = response.body;
@@ -288,6 +289,7 @@ export class TrenchModalComponent implements OnInit {
     this.spinner.show();
     this.httpService.updateTrench(finaVal, finaVal._id).subscribe(
       (response: any) => {
+        this.spinner.hide();
         if (response.status === 200) {
           this.resData.status = 'update';
           this.toastr.success('Trench for Line Item updated');
