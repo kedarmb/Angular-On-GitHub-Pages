@@ -117,6 +117,10 @@ export class TenderFastQuoteComponent implements OnInit {
   removeLineItem(subRef, i) {
     const lineItemArr: FormArray = this.sublineForm.get('subline') as FormArray;
     lineItemArr.removeAt(i);
+    const subIdx = this.subData.findIndex(e => e._id === subRef.value._id);
+    this.subData.splice(subIdx, 1)
+    console.log(this.subData)
+    this.hs.setSession('sublineDataNow', JSON.stringify(this.subData));
     this.removeSubFormLine(subRef.value);
   }
 
