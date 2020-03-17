@@ -43,7 +43,7 @@
                     <td colspan="2">
                       <mat-radio-group name="{{itemN}}">
                         <mat-radio-button value="{{i}}" [checked]="quote.value.selected"
-                          (change)="selectQuote(quote.value.subContractorId._id, quote)">
+                          (change)="selectQuote({e:$event, q:item, qId:quote.value.subContractorId._id})">
                           {{quote.value.subContractorId.name | ellipsis: 20}}
                         </mat-radio-button>
                       </mat-radio-group>
@@ -55,7 +55,7 @@
                 </tbody>
               </table>
             </td>
-            <td *ngIf="i==3" (click)="moreQuotes()">...</td>
+            <td *ngIf="i==2" ><span (click)="moreQuotes()">...</span></td>
           </ng-container>
         </tr>
       </ng-container>

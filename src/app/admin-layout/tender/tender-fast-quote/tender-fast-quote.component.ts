@@ -170,7 +170,7 @@ export class TenderFastQuoteComponent implements OnInit {
     });
     this.httpService.createSubline(k, this.tenderID).subscribe(
       (response: any) => {
-        if (response.status === 201) {
+      if (response.status === 201) {
           this.spinner.hide();
           this.toastr.success(response.statusText);
           console.log(response.body);

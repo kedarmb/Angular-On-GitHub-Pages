@@ -4,6 +4,8 @@ import { HelperService } from 'app/shared/core/service/helper.service';
 import { HttpService } from './../../../shared/core/service/http.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-tender-fast-compare',
@@ -19,7 +21,9 @@ export class TenderFastCompareComponent implements OnInit {
     private router: Router,
     private hs: HelperService,
     private httpService: HttpService,
-    public fastCompareDialog: MatDialog
+    public fastCompareDialog: MatDialog,
+    public toastr:ToastrService,
+    public spinner:NgxSpinnerService
   ) {
     this.tenderId = JSON.parse(this.hs.getSession('tenderIdNow'));
     console.log(this.tenderId);
@@ -30,19 +34,22 @@ export class TenderFastCompareComponent implements OnInit {
   }
 
   getQuotes() {
+    this.spinner.show();
     this.httpService.getUniqueSubline(this.tenderId).subscribe(
       response => {
+        this.spinner.hide();
         if (response.status === 201) {
+          // this.toastr.success('successfully saved  subline items');
           const _sublineData = response.body as Array<any>;
           this.sublineData = _sublineData.sort((a, b) => {
             var nameA = a.name.toLowerCase(),
               nameB = b.name.toLowerCase();
-            if (nameA < nameB)
+              if (nameA < nameB)
               //sort string ascending
               return -1;
-            if (nameA > nameB) return 1;
-            return 0; //default return value (no sorting)
-          });
+              if (nameA > nameB) return 1;
+              return 0; //default return value (no sorting)
+            });
           _sublineData.forEach(val => {
             val.quotes.sort((a, b) => {
               return a.unitPrice - b.unitPrice;
@@ -53,18 +60,23 @@ export class TenderFastCompareComponent implements OnInit {
         }
       },
       err => {
-        console.log('Error getting Tender by id ', err);
+        this.toastr.success('error getting  subline items');
+        this.spinner.hide();
+        console.log('Error getting subline items ', err);
       }
     );
   }
 
-  selectQuote(val, quote) {
+  selectQuote(val) {
+    console.log(val)
     this.sublineData.map(e => {
-      if (quote._id == e._id) {
+      if (val.q.value._id == e._id) {
+        console.log('true')
         e.quotes.map(f => {
           f.selected = false;
-          if (f.subContractorId._id == val) {
+          if (f.subContractorId._id == val.qId) {
             f.selected = true;
+            console.log(f.selected);
           }
         });
       }
@@ -102,6 +114,7 @@ export class TenderFastCompareComponent implements OnInit {
   }
 
   save() {
+    this.spinner.show();
     let _selectedSub = [];
     let _deSelectedSub = [];
     for (let i of this.sublineData) {
@@ -114,9 +127,9 @@ export class TenderFastCompareComponent implements OnInit {
         }
       }
     }
-    const selectedSub = _selectedSub.map(e => e.sublineItemId);
-    const deSelectedSub = _deSelectedSub.map(e => e.sublineItemId);
-
+    const selectedSub = _selectedSub.map(selSubId => selSubId.sublineItemId);
+    const deSelectedSub = _deSelectedSub.map(deselSubId => deselSubId.sublineItemId);
+    
     const sublineItemIds = {
       deSelectedSub: deSelectedSub,
       selectedSub: selectedSub
@@ -124,12 +137,16 @@ export class TenderFastCompareComponent implements OnInit {
     console.log(sublineItemIds);
     this.httpService.updateseletedDeselectSub(sublineItemIds, this.tenderId).subscribe(
       response => {
+        this.spinner.hide();
+        this.toastr.success('successfully saved compared results')
         if (response.status === 200) {
           console.log(response);
         }
       },
       err => {
-        console.log('Error getting Tender by id ', err);
+        this.spinner.hide();
+        this.toastr.success('Error saving compared results');
+        console.log('Error saving compared results ', err);
       }
     );
   }

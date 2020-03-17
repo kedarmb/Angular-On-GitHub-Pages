@@ -36,7 +36,7 @@
               <textarea type="text" class="form-control" formControlName="unit"></textarea>
             </td>
             <td class="width-2">
-              <textarea type="text" class="form-control" formControlName="unitPrice"></textarea>
+              <textarea type="number" class="form-control" formControlName="unitPrice"></textarea>
             </td>
           </tr>
           <tr>
@@ -55,8 +55,8 @@
           (click)="createSubline(true)" [disabled]="!sublineForm.valid">
           save
         </button>
-        <button mat-raised-button type="button" class="justify-content-end save"
-          (click)="createSubline(false)" [disabled]="!sublineForm.valid">
+        <button mat-raised-button type="button" class="justify-content-end save" (click)="createSubline(false)"
+          [disabled]="!sublineForm.valid">
           Save and continue
         </button>
         <button mat-raised-button type="button" class="justify-content-end" color="warn" (click)="cancel()">
