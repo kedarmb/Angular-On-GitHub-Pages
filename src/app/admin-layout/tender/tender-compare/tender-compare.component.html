@@ -1,7 +1,7 @@
 <mat-tab-group class="tender mt-5">
     <mat-tab label="First">
         <div class="col-12" *ngIf="tender&&tender.sections&&tender.sections.length">
-        <div class="bg-white mt-4" *ngFor="let section of tender.sections">
+         <div class="bg-white mt-4" *ngFor="let section of tender.sections">
             <h3 class="px-3 pt-2 mb-0">{{section.name}}</h3>
             <ng-container *ngIf='section&& section.lineItems&&section.lineItems.length'>
                 <div class="bg-light m-3" *ngFor="let item of section.lineItems">
@@ -23,25 +23,25 @@
                                     <p class="mb-1">Unit Price: {{quote.unitPrice}}</p>
                                     <p class="mb-1">Total Price: {{quote.totalPrice}}</p>
                                     <!-- <mat-radio-button></mat-radio-button> -->
-                                    <mat-checkbox #e  (change)="getSelectedLineItem(e.checked,section._id,item._id,quote.quoteSub)" [checked]="quote.selected === true"></mat-checkbox>
-                                </mat-card-content>
+                                    <mat-checkbox #e  (change)="getSelectedLineItem(e.checked,section._id,item._id,quote.quoteSub,quote.totalPrice,section.sectionTotalPrice)" [checked]= "item.selectedSub==quote.quoteSub"></mat-checkbox>
+                                </mat-card-content> 
                             </mat-card>
                         </div>
                     </div>
                 </div>
-            </ng-container>
-            <h4 class="mt-2 px-3">Section Total: {{calculateSecTotal}}</h4>
+             </ng-container>
+            <h4 class="mt-2 px-3">Section Total:{{getSectionTotal(section._id,section.sectionTotalPrice)}}</h4>
         </div >
         <button mat-raised-button type="button" (click)="save()" class="m-2" color="primary">save</button>
     </div>  
     </mat-tab>
     <mat-tab label="second">
-        <div class="col-12">
+        <div class="col-12"  *ngIf="tender&&tender.sections&&tender.sections.length">
             <mat-card class="mt-4" *ngFor="let section of tender.sections">
                 <mat-card-header>
                     <mat-card-title>{{section.name}}</mat-card-title>
                 </mat-card-header>
-                <mat-card-content>
+                <mat-card-content *ngIf='section&& section.lineItems&&section.lineItems.length'>
                     <ng-container *ngFor="let item of section.lineItems">
                         <div class="bg-light p-1 mb-3">
                             <mat-chip-list>
