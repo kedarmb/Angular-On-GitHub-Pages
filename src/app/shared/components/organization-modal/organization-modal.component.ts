@@ -128,8 +128,8 @@ export class OrganizationModalComponent implements OnInit {
           this.resData.data = response.body;
           console.log('existing organisation created .. ', response.body);
           this.helperService.addOrgToLocalList(response.body);
-          this.dialogRef.close(this.resData);
           this.toastr.success(response.statusText)
+          this.dialogRef.close(this.resData);
         }
       }, error => {
         this.toastr.error(error.error.message)
