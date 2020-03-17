@@ -186,12 +186,12 @@ export class TenderFastQuoteComponent implements OnInit {
       }
     );
   }
-  
+
   removeSubFormLine(sub) {
-    let appendString = `/tender/${this.tenderID}/subContractor/${sub.subContractorId._id}/subLineItem/${sub._id}`;
+    const appendString = `/tender/${this.tenderID}/subContractor/${sub.subContractorId._id}/subLineItem/${sub._id}`;
     console.log(appendString);
     this.spinner.show();
-    this.httpService.deleteSubLineItem(appendString).subscribe(
+    this.httpService.removeSingleSublineItem(appendString).subscribe(
       response => {
         this.spinner.hide();
         console.log(response);

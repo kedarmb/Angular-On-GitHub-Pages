@@ -265,7 +265,16 @@ export class HttpService {
       observe: 'response'
     });
   }
-  public deleteSubLineItem(appendStr) {
+  public deleteSubLineItem(id, payload) {
+    // https:/ / smartbid - api.herokuapp.com / v1 / subline - item / remove / sublineItemID;
+    // TODO: find way to use DELETE verb instead of PUT for deleting Sub Line Item
+    return this.httpClient.put(ApiUrl.sublineItemUrl + '/remove/' + id, payload, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
+
+  public removeSingleSublineItem(appendStr) {
     return this.httpClient.delete(ApiUrl.sublineItemUrl + appendStr, {
       headers: this.getHeader(),
       observe: 'response'
@@ -545,7 +554,7 @@ export class HttpService {
     return this.httpClient.put(ApiUrl.bidUrl, tenderIdDetails, { headers: this.getHeader(), observe: 'response' });
   }
   public deleteSubline(tenderIdDetails, tenderId) {
-    const option = { headers: this.getHeader(), body: tenderIdDetails};
+    const option = { headers: this.getHeader(), body: tenderIdDetails };
     return this.httpClient.delete(`${ApiUrl.tendersUrl}/${tenderId}`, option);
   }
 }

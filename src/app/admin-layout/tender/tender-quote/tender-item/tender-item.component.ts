@@ -325,8 +325,9 @@ export class TenderItemComponent implements OnInit, OnChanges {
       sublineItemArr.push(_sublineItem);
     }
   }
-  __removeSubLineItem(lineItemRef, indx) {
-    const sublineItemArr = lineItemRef.get('subLineItems') as FormArray;
+
+  __removeSubLineItem(lineitemRef, indx) {
+    const sublineItemArr = lineitemRef.get('subLineItems') as FormArray;
     const sublineRef = sublineItemArr.at(indx).value;
     //
     console.log('sublineRef ... ', sublineRef);
@@ -335,15 +336,38 @@ export class TenderItemComponent implements OnInit, OnChanges {
       // subline not saved yet.. just removing from local array
       sublineItemArr.removeAt(indx);
     } else if (sublineRef._id != '') {
-      console.log('delete with API ... ');
-      this.toastr.info('Feature under development');
+      // console.log('delete with API ... ');
+      // this.toastr.info('Feature under development');
+      //
+      let lineTotal_id;
+      // console.log(lineitemRef.value);
+      const lineTotalPricesArr = lineitemRef.value.lineTotalPrice;
+      for (let i = 0; i < lineTotalPricesArr.length; i++) {
+        if (lineTotalPricesArr[i].quoteSub === this.selectedSubInp._id) {
+          lineTotal_id = lineTotalPricesArr[i]._id;
+          break;
+        }
+      }
+      const tempTotalPrice = this.addAllLineLevelSublines(lineitemRef);
+      //
+      const lineTotalPrice = {
+        unitPrice: lineitemRef.value.unitPrice,
+        totalPrice: Math.abs(tempTotalPrice - sublineRef.totalPrice),
+        quoteSub: this.selectedSubInp._id,
+        _id: lineTotal_id
+      };
+
+      console.log('lineItemData... ', lineTotalPrice);
+      console.log('subline id ... ', sublineRef._id);
+      // return;
+      this.spinner.show();
       // this.toastr.success('Successfully deleted subline item');
-      /* this.httpService.deleteSubLineItem(sublineRef._id).subscribe(
+      this.httpService.deleteSubLineItem(sublineRef._id, lineTotalPrice).subscribe(
         response => {
           console.log(response);
           if (response.status === 200) {
             this.toastr.success('Successfully deleted subline item');
-            this.calculateSublineTotal(lineItemRef);
+            // this.calculateSublineTotal(lineItemRef);
             setTimeout(() => {
               this.refreshFormData();
             }, 100);
@@ -353,7 +377,7 @@ export class TenderItemComponent implements OnInit, OnChanges {
           this.toastr.error('Error deleting subline item. Please try later.');
           console.log('Error deleting subline item ', err);
         }
-      ); */
+      );
     }
   }
 

@@ -63,7 +63,9 @@ export class TenderReviewComponent implements OnInit {
     //
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.spinner.hide();
+  }
   back() {
     this.router.navigateByUrl('/tender');
   }
@@ -189,11 +191,20 @@ export class TenderReviewComponent implements OnInit {
           crewItemRef: lineItem.crewItemRef,
           crewChosen: [],
           trenchRef: lineItem.trenchRef,
-          subLineItems: []
+          subLineItems: this.checkIfSublineExists(lineItem.subLineItems)
         })
       );
     });
     return line_items_array;
+  }
+
+  private checkIfSublineExists(sublineArray) {
+    // console.log('param is  .... ', sublineArray);
+    let hasSublines = false;
+    if (sublineArray.length > 0) {
+      hasSublines = true;
+    }
+    return hasSublines;
   }
 
   __addSection() {
@@ -309,14 +320,15 @@ export class TenderReviewComponent implements OnInit {
       }
     );
   }
-  __removeLineItem(sectionRef, indx) {
+  __removeLineItem(sectionRef, lineItemRef, indx) {
     const lineItemArr = sectionRef.get('lineItems') as FormArray;
-    if (lineItemArr.length === 1) {
-      this.toastr.warning('At least one line item shoud stay', 'Action denied');
-      return;
+    console.log('line item ... ', lineItemRef.value);
+    if (lineItemRef.value.subLineItems == true) {
+      this.toastr.warning('Line Item has associated Subline Items / Crew / Trench. Please delete those first.', 'Action denied');
+    } else if (lineItemRef.value.subLineItems == false) {
+      lineItemArr.removeAt(indx);
+      this.toastr.info('not deleted from database. Functionality under development', 'Dlelete Action');
     }
-    lineItemArr.removeAt(indx);
-    this.toastr.info('not deleted from database. Functionality under development', 'Dlelete Action');
   }
 
   // line item calculation
