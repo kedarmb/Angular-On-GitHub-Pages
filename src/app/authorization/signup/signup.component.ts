@@ -5,6 +5,7 @@ import { TooltipPosition } from '@angular/material/tooltip';
 import Signup from 'app/shared/core/model/signup.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService } from 'app/shared/core/service/http.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -19,7 +20,7 @@ export class SignupComponent implements OnInit {
   signup: Signup = new Signup();
   selectedIndex: number;
   @Output() changeRoute = new EventEmitter();
-  constructor(private fb: FormBuilder, private httpService: HttpService, private route: Router) {}
+  constructor(private fb: FormBuilder, private httpService: HttpService, private toastr: ToastrService, private route: Router) {}
   ngOnInit() {}
   submit(registrationForm) {
     for (let i in registrationForm.controls) {
@@ -29,9 +30,15 @@ export class SignupComponent implements OnInit {
       this.data = data;
       console.log(data);
       this.route.navigateByUrl('/login');
-    });
+    },
+    error => {
+        console.log('Please Register your organization: ', error);
+        this.toastr.error('Please Register your organization');
+      }
+    );
   }
   loginRoute(val) {
     this.changeRoute.emit(val);
   }
+  
 }
