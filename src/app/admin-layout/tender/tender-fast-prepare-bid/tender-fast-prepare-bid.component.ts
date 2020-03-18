@@ -309,7 +309,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
     //
   }
 
-  private getTrenchPostObject() {
+  public getTrenchPostObject() {
     const postTrenchIds = {
       tender: null,
       section: null,
