@@ -32,11 +32,9 @@ export class TenderFastAttachComponent implements OnInit {
   @ViewChildren('quo') subQuote: QueryList<any>;
   @ViewChildren('lineCheck') lineCheck: QueryList<any>;
   lineItemId = [];
-  finalsubline = [];
-  _Items = [];
   subLineObj = [];
-  tempFinalArr = [];
   add: boolean;
+  defaultSec;
 
   constructor(
     private router: Router,
@@ -55,7 +53,7 @@ export class TenderFastAttachComponent implements OnInit {
   }
 
   // filters section from dropdown.
-  selectSection(sectionId, a) {
+  selectSection(sectionId) {
     this.filteredSection = this.tenderData.sections.filter(section => section._id === sectionId);
     this.sectionId = sectionId;
   }
@@ -201,7 +199,7 @@ export class TenderFastAttachComponent implements OnInit {
     });
     if (runRemove) {
     }
-    
+
     this.removeSubFormLine(removeFinalArr);
   }
 
@@ -212,8 +210,7 @@ export class TenderFastAttachComponent implements OnInit {
   //
   // get API's start
   //
-  
-  // this.toastr.success('successfully Removed')
+
   // call tender get API
   getTenderById() {
     this.spinner.show();
@@ -222,6 +219,15 @@ export class TenderFastAttachComponent implements OnInit {
         this.spinner.hide();
         if (response.status === 200) {
           this.tenderData = response.body;
+          if (this.tenderData.sections.length) {
+            this.tenderData.sections.map((e, i) => {
+              if (i == 0) {
+                this.defaultSec = e._id;
+              }
+            });
+            console.log(this.defaultSec);
+            this.selectSection(this.defaultSec);
+          }
           this.hs.setSession('tenderDataNow', JSON.stringify(this.tenderData));
         }
       },
@@ -239,49 +245,49 @@ export class TenderFastAttachComponent implements OnInit {
       response => {
         this.spinner.hide();
         if (response.status === 201) {
-          this.toastr.success('successfully updated')
+          this.toastr.success('successfully updated');
         }
       },
       err => {
         console.log('Error getting Tender by id ', err);
         this.spinner.hide();
       }
-      );
-    }
-    removeSubFormLine(removeObj) {
-      this.spinner.show();
-      this.httpService.removeSubFromLine(removeObj, this.tenderId).subscribe(
-        response => {
-          this.spinner.hide();
-          this.toastr.success('successfully Removed');
-          console.log(response);
-        },
-        err => {
-          this.spinner.hide();
-          console.log('Error getting Tender by id ', err);
-          this.spinner.hide();
-        }
-      );
+    );
+  }
+  removeSubFormLine(removeObj) {
+    this.spinner.show();
+    this.httpService.removeSubFromLine(removeObj, this.tenderId).subscribe(
+      response => {
+        this.spinner.hide();
+        this.toastr.success('successfully Removed');
+        console.log(response);
+      },
+      err => {
+        this.spinner.hide();
+        console.log('Error getting Tender by id ', err);
+        this.spinner.hide();
       }
-      
-      // call subline get API
-      getSelectedSubline() {
-        this.spinner.show();
-        this.httpService.getselectedsubline(this.tenderId).subscribe(
-          response => {
-            this.spinner.hide();
-            if (response.status === 201) {
-              this.selectedQuotes = response.body;
-            }
+    );
+  }
+
+  // call subline get API
+  getSelectedSubline() {
+    this.spinner.show();
+    this.httpService.getselectedsubline(this.tenderId).subscribe(
+      response => {
+        this.spinner.hide();
+        if (response.status === 201) {
+          this.selectedQuotes = response.body;
+        }
       },
       err => {
         this.spinner.hide();
         console.log('Error getting Tender by id ', err);
       }
-      );
-    }
-    // Get api's end
-    cancel() {
-      this.router.navigate(['/fast-compare/' + this.tenderId]);
-    }
+    );
+  }
+  // Get api's end
+  cancel() {
+    this.router.navigate(['/fast-compare/' + this.tenderId]);
+  }
 }

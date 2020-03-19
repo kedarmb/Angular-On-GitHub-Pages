@@ -10,9 +10,11 @@ import { HttpService } from '../../../shared/core/service/http.service';
 export class InvitedSubcontractorsComponent implements OnInit {
   @Output() public subs = new EventEmitter();
   @Input() notifiedSubs: string;
+  @Input() selected: string;
   notifiedSubList = [];
   selectedVal: any;
   notifiedSubIds = [];
+  select
   tenderID: any;
   responseData: any;
   @Output() dataLoaded = new EventEmitter<string>();
@@ -21,6 +23,7 @@ export class InvitedSubcontractorsComponent implements OnInit {
   constructor(private hs: HelperService, private httpServ: HttpService) {}
 
   ngOnInit() {
+    this.select = this.selected
     this.getTenderByID();
   }
   private modifyNotifiedSubList() {

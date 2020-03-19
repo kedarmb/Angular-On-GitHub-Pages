@@ -3,7 +3,8 @@
     <h4>Sub Name: {{ subName.name }}</h4>
     <form [formGroup]="sublineForm">
       <div class="col-3">
-        <app-invited-subcontractors [notifiedSubs]="tenderID" (subSelected)="subConSelection($event)">
+        <app-invited-subcontractors [selected]="subName._id" [notifiedSubs]="tenderID"
+          (subSelected)="subConSelection($event)">
         </app-invited-subcontractors>
       </div>
       <table class="table table-bordered" *ngIf="sublineForm.get('subline').controls.length">
@@ -33,10 +34,14 @@
               <textarea type="text" class="form-control" formControlName="description"></textarea>
             </td>
             <td class="width-2">
+
               <textarea type="text" class="form-control" formControlName="unit"></textarea>
             </td>
             <td class="width-2">
-              <textarea type="number" class="form-control" formControlName="unitPrice"></textarea>
+              <mat-form-field appearance="standard">
+                <span matPrefix>$&nbsp;</span>
+                <textarea type="number" matInput class="form-control" formControlName="unitPrice"></textarea>
+              </mat-form-field>
             </td>
           </tr>
           <tr>

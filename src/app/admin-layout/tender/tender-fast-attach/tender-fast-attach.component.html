@@ -1,143 +1,125 @@
 <div class="row top-70">
-  <div class="col-3 pr-0">
-    <h3>Subline Items</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Item Name</th>
-          <th>Unit</th>
-          <th>Unit Price</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let quote of selectedQuotes; let itemN = index">
-          <mat-radio-group name="selectedQuotes">
-            <td>{{ quote.name }}</td>
-          </mat-radio-group>
-          <td>{{ quote.unit }}</td>
-          <td>{{ quote.unitPrice }}</td>
-          <td>
-            <mat-checkbox
-              [disabled]="!finalArr.length"
-              id="{{ quote._id }}"
-              #quo
-              [value]="quote._id"
-              (change)="selectsublineItem($event, quote, selectedQuotes)"
-            >
-              <!-- (change)="getQuote($event, quote, selectedQuotes);" -->
-            </mat-checkbox>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-9 px-0">
-    <div class="row">
-        <button
-        mat-raised-button
-        type="button"
-        class="justify-content-start"
-        [disabled]="!subLineObj.length"
-        (click)="assignSubline()"
-        class="btn btn-danger btn-link btn-sm btn-just-icon"
-        matTooltip="Add to Selected Lines"
-      >
-        <i class="material-icons">
-          file_copy
-        </i>
-      </button>
-      <div class="col-3">
-        <mat-form-field *ngIf="tenderData">
-        
-          <mat-label>Tender Line Items</mat-label>
-          <select
-            [disabled]="ifSelectedLine"
-            matNativeControl
-            required
-            #selSec
-            (change)="selectSection(selSec.value, '1')"
-          >
-            <option>Select Section</option>
-            <!-- (onSelectionChange)="selectSection(selSec.value)" -->
-            <option *ngFor="let section of tenderData.sections" value="{{ section._id }}">{{ section.name }} </option>
-          </select>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div class="col-12 px-0">
-      <div *ngIf="filteredSection">
+    <div class="col-3 pr-0">
+        <h3>Subline Items</h3>
         <table>
-          <thead>
-            <th></th>
-            <th>specNo</th>
-            <th>itemNo</th>
-            <th>itemName</th>
-            <th>description</th>
-            <th>unit</th>
-            <th>unitPrice</th>
-            <th>quantity</th>
-          </thead>
-          <tbody>
-            <ng-container *ngIf="filteredSection[0].lineItems">
-              <ng-container *ngFor="let item of filteredSection[0].lineItems; let lIdx = index">
+            <thead>
                 <tr>
-                  <td>
-                    <mat-checkbox
-                      id="{{ item._id }}"
-                      #lineCheck
-                      [value]="item.id"
-                      (change)="selectLineItem($event, item, sectionId)"
-                    >
-                    </mat-checkbox>
-                  </td>
-                  <td>{{ item.specNo }}</td>
-                  <td>{{ item.itemNo }}</td>
-                  <td>{{ item.itemName }}</td>
-                  <td>{{ item.description }}</td>
-                  <td>{{ item.unit }}</td>
-                  <td>{{ item.unitPrice }}</td>
-                  <td>{{ item.quantity }}</td>
+                    <th>Item Name</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th></th>
                 </tr>
-                <tr *ngIf="item.subLineItems.length" class="bg-light">
-                  <td colspan="1"></td>
-                  <td colspan="8">
-                    <table>
-                      <tbody>
-                        <tr *ngFor="let si of item.subLineItems; let sIdx = index">
-                          <td><i class="material-icons" (click)="removeSubline(sIdx, item, si, lIdx)">clear</i></td>
-
-                          <!-- <td></td> -->
-                          <td>L{{ sIdx }}</td>
-                          <td>{{ si.name }}</td>
-                          <td>{{ si.unit }}</td>
-                          <td>{{ si.unitPrice }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
+            </thead>
+            <tbody>
+                <tr *ngFor="let quote of selectedQuotes; let itemN = index">
+                    <mat-radio-group name="selectedQuotes">
+                        <td>{{ quote.name }}</td>
+                    </mat-radio-group>
+                    <td>{{ quote.unit }}</td>
+                    <td>{{ quote.unitPrice }}</td>
+                    <td>
+                        <mat-checkbox [disabled]="!finalArr.length" id="{{ quote._id }}" #quo [value]="quote._id"
+                            (change)="selectsublineItem($event, quote, selectedQuotes)">
+                            <!-- (change)="getQuote($event, quote, selectedQuotes);" -->
+                        </mat-checkbox>
+                    </td>
                 </tr>
-              </ng-container>
-            </ng-container>
-          </tbody>
+            </tbody>
         </table>
-        <div *ngIf="!filteredSection[0].lineItems.length">
-          <p class="d-flex justify-content-center">
-            No lineitem found...
-          </p>
-        </div>
-      </div>
-      <ng-container *ngIf="!filteredSection">
-        <p class="d-flex justify-content-center">
-          Select Line items to attach subline item
-        </p>
-      </ng-container>
     </div>
-  </div>
-  <!-- <div class="d-flex fixed-bottom px-4 py-2 border-top left-16"> -->
-  <div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
-    <!-- <button
+    <div class="col-9 px-0">
+        <div class="row">
+            <button mat-raised-button type="button" class="justify-content-start" [disabled]="!subLineObj.length"
+                (click)="assignSubline()" class="btn btn-danger btn-link btn-sm btn-just-icon"
+                matTooltip="Add to Selected Lines">
+                <i class="material-icons">
+                    file_copy
+                </i>
+            </button>
+            <div class="col-3">
+                <mat-form-field *ngIf="tenderData">
+
+                    <mat-label>Tender Line Items</mat-label>
+                    <select [disabled]="ifSelectedLine" matNativeControl required #selSec
+                        (change)="selectSection(selSec.value, '1')">
+                        <option>Select Section</option>
+                        <!-- (onSelectionChange)="selectSection(selSec.value)" -->
+                        <option *ngFor="let section of tenderData.sections" value="{{ section._id }}">{{ section.name }}
+                        </option>
+                    </select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-12 px-0">
+            <div *ngIf="filteredSection">
+                <table>
+                    <thead>
+                        <th></th>
+                        <th>specNo</th>
+                        <th>itemNo</th>
+                        <th>itemName</th>
+                        <th>description</th>
+                        <th>unit</th>
+                        <th>unitPrice</th>
+                        <th>quantity</th>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="filteredSection[0].lineItems">
+                            <ng-container *ngFor="let item of filteredSection[0].lineItems; let lIdx = index">
+                                <tr>
+                                    <td>
+                                        <mat-checkbox id="{{ item._id }}" #lineCheck [value]="item.id"
+                                            (change)="selectLineItem($event, item, sectionId)">
+                                        </mat-checkbox>
+                                    </td>
+                                    <td>{{ item.specNo }}</td>
+                                    <td>{{ item.itemNo }}</td>
+                                    <td>{{ item.itemName }}</td>
+                                    <td>{{ item.description }}</td>
+                                    <td>{{ item.unit }}</td>
+                                    <td>{{ item.unitPrice }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                </tr>
+                                <tr *ngIf="item.subLineItems.length" class="bg-light">
+                                    <td colspan="1"></td>
+                                    <td colspan="8">
+                                        <table>
+                                            <tbody>
+                                                <tr *ngFor="let si of item.subLineItems; let sIdx = index">
+                                                    <td><i class="material-icons"
+                                                            (click)="removeSubline(sIdx, item, si, lIdx)">clear</i></td>
+
+                                                    <!-- <td></td> -->
+                                                    <td>L{{ sIdx }}</td>
+                                                    <td>{{ si.name }}</td>
+                                                    <td>{{ si.unit }}</td>
+                                                    <td>{{ si.unitPrice }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
+                <div *ngIf="!filteredSection[0].lineItems.length">
+                    <p class="d-flex justify-content-center">
+                        No lineitem found...
+                    </p>
+                </div>
+            </div>
+            <ng-container *ngIf="!filteredSection">
+                <p class="d-flex justify-content-center">
+                    Select Line items to attach subline item
+                </p>
+            </ng-container>
+        </div>
+    </div>
+    <!-- <div class="d-flex fixed-bottom px-4 py-2 border-top left-16"> -->
+    <div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
+        <!-- <button
       mat-raised-button
       type="button"
       class="justify-content-start"
@@ -147,7 +129,7 @@
     >
       Add to Selected Lines
     </button> -->
-    <!-- <button
+        <!-- <button
       mat-raised-button
       type="button"
       class="justify-content-start"
@@ -161,17 +143,11 @@
       </i>
     </button> -->
 
-    <button
-      mat-raised-button
-      type="button"
-      color="primary"
-      [disabled]="!finalArr.length"
-      class="justify-content-end"
-      (click)="updateSublineWithLine()"
-    >
-      Save
-    </button>
-    <!-- <button
+        <button mat-raised-button type="button" color="primary" [disabled]="!finalArr.length"
+            class="justify-content-end" (click)="updateSublineWithLine()">
+            Save
+        </button>
+        <!-- <button
     mat-raised-button
     type="button"
     class="justify-content-end"
@@ -185,13 +161,13 @@
     </i>
   </button> -->
 
-    <button mat-raised-button type="button" class="justify-content-end" color="warn" (click)="cancel()">
-      Cancel
-    </button>
-    <button mat-raised-button type="button" class="justify-content-end" (click)="toBid()">Continue to Bid</button>
-  </div>
+        <button mat-raised-button type="button" class="justify-content-end" color="warn" (click)="cancel()">
+            Cancel
+        </button>
+        <button mat-raised-button type="button" class="justify-content-end" (click)="toBid()">Continue to Bid</button>
+    </div>
 </div>
 
 <ngx-spinner type="cog" size="medium" color="#b8a5e8">
-  <p style="font-size: 20px; color: white; margin-top: 60px;">preparing tender..</p>
+    <p style="font-size: 20px; color: white; margin-top: 60px;">preparing tender..</p>
 </ngx-spinner>

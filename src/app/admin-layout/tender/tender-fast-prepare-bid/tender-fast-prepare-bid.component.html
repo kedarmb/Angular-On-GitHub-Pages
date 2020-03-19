@@ -4,7 +4,7 @@
             <mat-form-field *ngIf="tenderData">
                 <mat-label>Cars</mat-label>
                 <select [disabled]="ifSelectedLine" matNativeControl required #selSec
-                    (change)="showSection(selSec.value, '1')">
+                    (change)="showSection(selSec.value, '1')" [(ngModel)]="defaultSec">
                     <option>Select Section</option>
                     <option *ngFor="let section of tenderData.sections" (onSelectionChange)="showSection(selSec.value)"
                         value="{{section._id}}">{{section.name}}</option>

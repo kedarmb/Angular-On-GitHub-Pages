@@ -27,6 +27,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
   mVal: any;
   sublineTotalPrice: any;
   quantity = new FormControl();
+  defaultSec;
 
   constructor(
     private hs: HelperService,
@@ -56,6 +57,15 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         if (response.status === 200) {
           this.hs.setSession('tenderDataNow', JSON.stringify(response.body));
           this.tenderData = JSON.parse(this.hs.getSession('tenderDataNow'));
+          if (this.tenderData.sections.length) {
+            this.tenderData.sections.map((e, i) => {
+              if (i == 0) {
+                this.defaultSec = e._id;
+              }
+            });
+            console.log(this.defaultSec);
+            this.showSection(this.defaultSec);
+          }
         }
       },
       err => {
