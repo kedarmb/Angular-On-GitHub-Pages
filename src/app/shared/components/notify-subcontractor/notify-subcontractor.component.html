@@ -9,17 +9,17 @@
           </button>
           <button type="button" mat-raised-button color="warn" (click)="closeModal()">Cancel</button>
         </div>
-        <form [formGroup]="inviteSubForm">
-          <div class="row">
+        <div class="col-4">
+          <mat-form-field appearance="outline">
             <mat-label>Search by Service Area/Type</mat-label>
-            <input
-              type="text"
+            <input type="text"
               matInput
               [ngModelOptions]="{ standalone: true }"
               placeholder="type service type/service area name"
-              [(ngModel)]="searchByArea"
-            />
-          </div>
+              [(ngModel)]="searchByArea"/>
+          </mat-form-field>
+        </div>
+        <form [formGroup]="inviteSubForm">
           <table class="table table-condensed">
             <thead>
               <tr>

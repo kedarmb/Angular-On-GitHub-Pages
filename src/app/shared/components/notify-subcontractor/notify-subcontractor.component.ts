@@ -80,7 +80,7 @@ export class NotifySubcontractorComponent implements OnInit {
   }
 
   onTabChanged(evt) {
-    evt.index == 1 ? (this._purpose = ModalPurpose.toNotify) : (this._purpose = ModalPurpose.toAdd);
+    evt.index === 1 ? (this._purpose = ModalPurpose.toNotify) : (this._purpose = ModalPurpose.toAdd);
     this.selectedTab = this._purpose;
     /* console.log('purpose is ...', this._purpose);
     if (this._purpose == ModalPurpose.toNotify && this.notifySubForm == undefined) {
@@ -119,12 +119,12 @@ export class NotifySubcontractorComponent implements OnInit {
   onCheckboxChange(e, orgObj) {
     // console.log('event is ', e.target.value, '...', e.target);
     //
-    if (e.target.checked == true) {
+    if (e.target.checked === true) {
       // orgData.push(new FormControl(e.target.value));
       this.checkedIds.push(orgObj._id);
       this.emailList.push(orgObj.contactEmail);
       //
-    } else if (e.target.checked == false) {
+    } else if (e.target.checked === false) {
       //
       this.checkedIds.map((item, i) => {
         if (item === orgObj._id) {
@@ -133,7 +133,7 @@ export class NotifySubcontractorComponent implements OnInit {
         }
       });
       //
-      if (this._purpose == ModalPurpose.toNotify) {
+      if (this._purpose === ModalPurpose.toNotify) {
         this.emailList.map((mailID, i) => {
           if (mailID === orgObj.contactEmail) {
             this.emailList.splice(i, 1);
@@ -214,7 +214,7 @@ export class NotifySubcontractorComponent implements OnInit {
       (response: any) => {
         if (response.status === 201) {
           //
-          if (this._purpose == ModalPurpose.toAdd) {
+          if (this._purpose === ModalPurpose.toAdd) {
             this.selectedTab = ModalPurpose.toNotify;
             this.getNotifiedSub();
           }
