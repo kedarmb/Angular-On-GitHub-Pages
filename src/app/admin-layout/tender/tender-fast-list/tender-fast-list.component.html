@@ -1,50 +1,60 @@
 <div class="mt-5">
-
-    <table class="table m-top ">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Total Line Items</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngIf="subList.length">
-                <tr *ngFor="let item of subList">
-                    <td>
-                    </td>
-                    <td>{{item._id | orgName}}</td>
-                    <td>
-                        <span *ngIf="item.status">Submitted</span>
-                        <span *ngIf="!item.status">Pending</span>
-                    </td>
-                    <td>{{item.lineItemCount}}</td>
-                    <td *ngIf="!item.lineItemCount"><button mat-raised-button type="button" color="primary"
+  <table class="table m-top ">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Total Line Items</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="subList.length">
+        <tr *ngFor="let item of subList">
+          <td></td>
+          <td>{{ item._id | orgName }}</td>
+          <td>
+            <span *ngIf="item.status">Submitted</span>
+            <span *ngIf="!item.status">Pending</span>
+          </td>
+          <td>{{ item.lineItemCount }}</td>
+          <td *ngIf="!item.lineItemCount">
+            <!-- <button mat-raised-button type="button" color="primary"
                             (click)="createSub(item._id)">Add
-                            quote</button></td>
-                    <td *ngIf="item.lineItemCount"><button mat-raised-button type="button" color="primary"
-                            (click)="createSub(item._id)">Edit
-                            quote</button></td>
-                </tr>
-            </ng-container>
-            <tr *ngIf="!nfSl.length">
-                <td colspan="4">
-                    <p class="d-flex justify-content-center">There are no invited Sub-contractors</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                            quote</button> -->
 
-    <!-- <div class="d-flex  px-4 py-2  pull-right"> -->
-    <div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
-        <button mat-raised-button color="warn" class="justify-content-end" (click)="cancel()">Cancel</button>
-        <button mat-raised-button class="justify-content-end" (click)="compare()">compare quotes</button>
+            <button
+              mat-raised-button
+              type="button"
+              (click)="createSub(item._id)"
+              class="btn btn-danger btn-link btn-sm btn-just-icon"
+              matTooltip="Add quote"
+            >
+              <i class="material-icons">
+                library_add
+              </i>
+            </button>
+          </td>
+          <td *ngIf="item.lineItemCount">
+            <button mat-raised-button type="button" color="primary" (click)="createSub(item._id)">Edit quote</button>
+          </td>
+        </tr>
+      </ng-container>
+      <tr *ngIf="!nfSl.length">
+        <td colspan="4">
+          <p class="d-flex justify-content-center">There are no invited Sub-contractors</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-    </div>
-
+  <!-- <div class="d-flex  px-4 py-2  pull-right"> -->
+  <div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
+    <button mat-raised-button color="warn" class="justify-content-end" (click)="cancel()">Cancel</button>
+    <button mat-raised-button class="justify-content-end" (click)="compare()">compare quotes</button>
+  </div>
 </div>
 <ngx-spinner type="cog" size="medium" color="#b8a5e8">
-    <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
+  <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
 </ngx-spinner>
