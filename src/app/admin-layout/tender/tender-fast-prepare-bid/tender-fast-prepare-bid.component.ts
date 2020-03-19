@@ -295,7 +295,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
     /// return;
     const postObj = this.getTrenchPostObject();
     postObj.tender = this.tenderId;
-    postObj.section = this.sectionId;
+    postObj.section = this.selectedSection;
     postObj.lineItem = item._id;
     postObj.hasTrenchRef = item.trenchRef;
     //

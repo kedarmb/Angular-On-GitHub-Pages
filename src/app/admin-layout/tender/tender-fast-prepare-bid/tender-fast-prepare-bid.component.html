@@ -50,7 +50,7 @@
                                 <tr *ngIf="item.subLineItems.length;" class="bg-light">
                                     <!-- <td colspan="1">
                                     </td> -->
-                                    <td colspan="8">
+                                    <td colspan="10">
                                         <table>
                                             <thead>
                                                 <tr>
@@ -91,7 +91,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="10">
                                         <mat-expansion-panel>
                                             <mat-expansion-panel-header>
                                                 <mat-panel-title>
@@ -115,18 +115,20 @@
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <div *ngIf="item.trenchRef == null">
-                                                <button (click)="addTrenchToLine(item._id)">Add trench</button>
+                                                <button (click)="addTrenchToLine(item)">Add trench</button>
                                             </div>
                                             <div *ngIf="item.trenchRef !== null">
-                                                <div>
-                                                    <div class="row">
-                                                        <div class="col">Bedding Volume:</div>
-                                                        <div class="col">
-                                                            <span
-                                                                style="font-weight: bold;">{{ item.trenchRef.beddingVolume}}</span>
+                                                <!--
+                                                    <div>
+                                                        <div class="row">
+                                                            <div class="col">Bedding Volume:</div>
+                                                            <div class="col">
+                                                                <span
+                                                                    style="font-weight: bold;">{{ item.trenchRef.beddingVolume}}</span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                -->
                                                 <div class="row">
                                                     <div class="col">Bedding weight:</div>
                                                     <div class="col">
@@ -134,13 +136,15 @@
                                                             style="font-weight: bold;">{{ item.trenchRef.beddingWeight}}</span>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col">Backfill Volume:</div>
-                                                    <div class="col">
-                                                        <span
-                                                            style="font-weight: bold;">{{ item.trenchRef.backfillVolume}}</span>
+                                                <!--
+                                                    <div class="row">
+                                                        <div class="col">Backfill Volume:</div>
+                                                        <div class="col">
+                                                            <span
+                                                                style="font-weight: bold;">{{ item.trenchRef.backfillVolume}}</span>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                -->
                                                 <div class="row">
                                                     <div class="col">Bedding Volume:</div>
                                                     <div class="col">
