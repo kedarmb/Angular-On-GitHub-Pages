@@ -320,6 +320,21 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       maxHeight: '95vh'
     });
     //
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+        this.getTenderById();
+        this.showSection(this.selectedSection);
+        console.log('testing by pravin', response.data);
+        this.spinner.hide();
+      }
+      if (response.status === 'add') {
+        // this.getTenderById()
+        this.hs.setSession('tenderDataNow', JSON.stringify(response.data));
+        this.tenderData = JSON.parse(this.hs.getSession('tenderDataNow'));
+        this.showSection(this.selectedSection);
+        console.log('Trench resp add by pravin... ', response);
+      }
+    });
   }
 
   public getTrenchPostObject() {
@@ -348,5 +363,5 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       backfillWeight: null
     };
     return postTrenchIds;
-  }
+  };
 }
