@@ -37,7 +37,18 @@
             </button>
           </td>
           <td *ngIf="item.lineItemCount">
-            <button mat-raised-button type="button" color="primary" (click)="createSub(item._id)">Edit quote</button>
+            <!-- <button mat-raised-button type="button" color="primary" (click)="createSub(item._id)">Edit quote</button> -->
+            <button
+            mat-raised-button
+            type="button"
+            (click)="createSub(item._id)"
+            class="btn btn-danger btn-link btn-sm btn-just-icon"
+            matTooltip="Edit quote"
+          >
+            <i class="material-icons">
+              collections_bookmark
+            </i>
+          </button>
           </td>
         </tr>
       </ng-container>
