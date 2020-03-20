@@ -6,11 +6,6 @@ import { MatDialog, setLines } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import _lo from 'lodash';
-export const finalObj = {
-  subLineItemIds: [],
-  lineItemId: String,
-  sectionId: String
-};
 export const removefinalObj = {
   subLineItemIds: [],
   lineItem: String,
@@ -61,8 +56,11 @@ export class TenderFastAttachComponent implements OnInit {
   // method runs on select/unselect of line item.
   selectLineItem(e, itemId, sectionId) {
     // object for line item to send to server.
-    finalObj.lineItemId = itemId._id;
-    finalObj.sectionId = sectionId;
+    const finalObj = {
+      subLineItemIds: [],
+      lineItemId: itemId._id,
+      sectionId: sectionId
+    };
 
     // property to validate if any line item selected to disable
     // select section selectbox.
@@ -73,9 +71,6 @@ export class TenderFastAttachComponent implements OnInit {
     // if line item checked is true.
     if (e.checked) {
       if (!this.checkLineItem(itemId)) {
-        this.finalArr.push(finalObj);
-      }
-      if (!this.finalArr.length) {
         this.finalArr.push(finalObj);
       }
     }
@@ -96,10 +91,10 @@ export class TenderFastAttachComponent implements OnInit {
   }
 
   // method to check if line item exists
-  checkLineItem(id) {
+  checkLineItem(line) {
     let k = false;
     for (let i in this.finalArr) {
-      if (this.finalArr[i].lineItemId == id) {
+      if (this.finalArr[i].lineItemId == line._id) {
         k = true;
         break;
       }
