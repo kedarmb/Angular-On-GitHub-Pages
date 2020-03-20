@@ -1,9 +1,10 @@
 <div *ngIf="notifiedSubList.length > 0"></div>
 <mat-form-field>
     <mat-label>Select Sub Contractor</mat-label>
-    <mat-select #notify (selectionChange)="subSelection(notify.value)" [(ngModel)]="select">
+    <mat-select #notify (selectionChange)="subSelection(notify.value)" [(ngModel)]="select._id">
         <mat-option *ngFor="let sub of notifiedSubList" [value]="sub._id">
             {{sub.name}}
         </mat-option>
     </mat-select>
+    
 </mat-form-field>

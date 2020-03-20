@@ -77,10 +77,10 @@ export class TenderFastQuoteComponent implements OnInit {
 
   subConSelection(e) {
     this.selectedSub = e;
-    this.subId = this.hs.setSession('subConIdNow', JSON.stringify(e._id));
+    this.subId = this.hs.setSession('subConIdNow', JSON.stringify(e));
     this.subId = JSON.parse(this.hs.getSession('subConIdNow'));
     this.subName = this.hs.getSubName(this.subId);
-    this.newSubs = this.subData.filter(obj => obj.subContractorId._id === e._id);
+    this.newSubs = this.subData.filter(obj => obj.subContractorId._id === e);
     const subline = this.sublineForm.get('subline');
     while (subline.length !== 0) {
       subline.removeAt(0);

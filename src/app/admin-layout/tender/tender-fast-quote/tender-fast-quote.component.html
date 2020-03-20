@@ -3,7 +3,7 @@
     <h4>Sub Name: {{ subName.name }}</h4>
     <form [formGroup]="sublineForm">
       <div class="col-3">
-        <app-invited-subcontractors [selected]="subName._id" [notifiedSubs]="tenderID"
+        <app-invited-subcontractors [selected]="subName" [notifiedSubs]="tenderID"
           (subSelected)="subConSelection($event)">
         </app-invited-subcontractors>
       </div>
