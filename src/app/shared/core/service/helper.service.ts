@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { ActiveTenderOrigin } from '../constant/index';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,9 @@ export class HelperService {
   //
   filteredOrgList: any[] = [];
   equipments: any;
-  public reducer = (accumulator, currentValue) => accumulator + currentValue;
+  // public reducer = ((accumulator, currentValue) => accumulator + currentValue);
 
-  public tenderId = new BehaviorSubject(null);
+  tenderId = new BehaviorSubject(null);
   currentTenderId = this.tenderId.asObservable();
 
   //
@@ -222,5 +223,20 @@ export class HelperService {
   // comparepage
   passTenderIdToCompare(tenderId: string) {
     this.tenderId.next(tenderId);
+  }
+
+  // Flex-Flow - Active Tender set in Session Storage
+  public setFlexActiveTender(tenderData) {
+    const flexTender = {
+      type: ActiveTenderOrigin.flexFlow,
+      tender: tenderData
+    };
+    sessionStorage.setItem('FlexActiveTender', JSON.stringify(flexTender));
+  }
+
+  public getFlexActiveTender() {
+    const sessionData = sessionStorage.getItem('FlexActiveTender');
+    const tenderData = JSON.parse(sessionData).tender;
+    return tenderData;
   }
 }

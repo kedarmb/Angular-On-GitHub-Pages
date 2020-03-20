@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { TrenchModalComponent } from 'app/shared/components/trench-modal/trench-modal.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tender-fast-prepare-bid',
@@ -31,6 +32,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
 
   constructor(
     private hs: HelperService,
+    private router: Router,
     private httpService: HttpService,
     public fastCompareDialog: MatDialog,
     private modalService: MatDialog,
@@ -100,6 +102,10 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         console.log('Error getting Tender by id', err);
       }
     );
+  }
+
+  next() {
+    this.router.navigateByUrl('/bid');
   }
 
   showSection(value) {
@@ -197,10 +203,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         this.filteredSection[0].lineItems[i].total = 0;
         console.log(this.filteredSection[0].lineItems[i].total);
       }
-      if (
-        isNaN(this.filteredSection[0].lineItems[i].unitPrice) ||
-        this.filteredSection[0].lineItems[i].unitPrice == null
-      ) {
+      if (isNaN(this.filteredSection[0].lineItems[i].unitPrice) || this.filteredSection[0].lineItems[i].unitPrice == null) {
         this.filteredSection[0].lineItems[i].unitPrice = 0;
         console.log(this.filteredSection[0].lineItems[i].unitPrice);
       }

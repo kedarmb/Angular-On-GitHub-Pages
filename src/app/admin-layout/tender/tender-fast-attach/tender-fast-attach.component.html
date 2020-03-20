@@ -147,11 +147,29 @@
       Save
     </button>
 
-    <button mat-raised-button type="button" class="justify-content-end" color="warn" (click)="cancel()">
-      Cancel
-    </button>
-    <button mat-raised-button type="button" class="justify-content-end" (click)="toBid()">Continue to Bid</button>
-  </div>
+        <button mat-raised-button type="button" color="primary" [disabled]="!finalArr.length"
+            class="justify-content-end" (click)="updateSublineWithLine()">
+            Save
+        </button>
+        <!-- <button
+    mat-raised-button
+    type="button"
+    class="justify-content-end"
+    [disabled]="!finalArr.length"
+    (click)="updateSublineWithLine()"
+    class="btn btn-danger btn-link btn-sm btn-just-icon"
+    matTooltip="Save"
+  >
+    <i class="material-icons">
+      save
+    </i>
+  </button> -->
+
+        <button mat-raised-button type="button" class="justify-content-end" color="warn" (click)="cancel()">
+            Cancel
+        </button>
+        <button mat-raised-button type="button" class="justify-content-end" (click)="toBid()">Prepare Bid</button>
+    </div>
 </div>
 
 <ngx-spinner type="cog" size="medium" color="#b8a5e8">

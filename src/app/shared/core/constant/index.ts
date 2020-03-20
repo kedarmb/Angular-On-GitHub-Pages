@@ -82,3 +82,7 @@ export const userStatus = [
   { name: 'completed' },
   { name: 'inactive' }
 ];
+export enum ActiveTenderOrigin {
+  flexFlow,
+  fastFlow
+}
