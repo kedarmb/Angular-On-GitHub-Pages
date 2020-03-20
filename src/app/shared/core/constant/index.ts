@@ -29,38 +29,37 @@ export const errorMsg = {
 };
 const tender = '/tender';
 export const ApiUrl = {
-         baseUrl: environment.baseURL,
-         LabourUrl: urlCreator('/labour'),
-         equipmentUrl: urlCreator('/equipment'),
-         orgUrl: urlCreator('/organization'),
-         labourEquipment: urlCreator('/labourequipment'),
-         UserUrl: urlCreator('/user'),
-         sectionUrl: urlCreator('/section'),
-         tenderUrl: urlCreator('/tender'),
-         tendersUrl: urlCreator('/tender'),
-         lineItemUrl: urlCreator('/line-item'), // this is only for testing purposes. Real data to fetch with ID
-         crewTemplateUrl: urlCreator('/crewTemplate'),
-         crewById: urlCreator('/line-item/crewItem'), // to get data for single saved crew
-         subItemUrl: urlCreator('/subitem'),
-         sublineItemUrl: urlCreator('/subline-item'),
-         loginUrl: urlCreator('/auth/login'),
-         createAcc: authUrlCreator('/auth/register'),
-         createTrench: authUrlCreator('/trench'),
-         trenchUrl: authUrlCreator('/trench'),
-         trenchForOrg: authUrlCreator('/trench/getAll/0/0'),
-         notifiedSubsUrl: authUrlCreator('/tender/'),
-         inviteSubUrl: authUrlCreator(`/tender/headerlevelNotifySub`),
-         createSubline: sublineUrlCreator('/tender/'),
-         createUniqueSubline: sublineUrlCreator('/getUniqueSubLine/tender'),
-         selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/'),
-         seletedSubForLineUrl: sublineUrlCreator('/seletedSubForLine/tender/'),
-         seleteDeselectSubUrl: sublineUrlCreator('/selectDeselect/tender/'),
-         pdfParserUrl: authUrlCreator('/pdf-parser'),
-         emailMessage: authUrlCreator('/notification'),
-         removeSublineFromLineItem: sublineUrlCreator('/removeSublineFromLineItem/tender/'),
-         bidUrl: urlCreator('/bid')
-         
-       };
+  baseUrl: environment.baseURL,
+  LabourUrl: urlCreator('/labour'),
+  equipmentUrl: urlCreator('/equipment'),
+  orgUrl: urlCreator('/organization'),
+  labourEquipment: urlCreator('/labourequipment'),
+  UserUrl: urlCreator('/user'),
+  sectionUrl: urlCreator('/section'),
+  tenderUrl: urlCreator('/tender'),
+  tendersUrl: urlCreator('/tender'),
+  lineItemUrl: urlCreator('/line-item'), // this is only for testing purposes. Real data to fetch with ID
+  crewTemplateUrl: urlCreator('/crewTemplate'),
+  crewById: urlCreator('/line-item/crewItem'), // to get data for single saved crew
+  subItemUrl: urlCreator('/subitem'),
+  sublineItemUrl: urlCreator('/subline-item'),
+  loginUrl: urlCreator('/auth/login'),
+  createAcc: authUrlCreator('/auth/register'),
+  createTrench: authUrlCreator('/trench'),
+  trenchUrl: authUrlCreator('/trench'),
+  trenchForOrg: authUrlCreator('/trench/getAll/0/0'),
+  notifiedSubsUrl: authUrlCreator('/tender/'),
+  inviteSubUrl: authUrlCreator(`/tender/headerlevelNotifySub`),
+  createSubline: sublineUrlCreator('/tender/'),
+  createUniqueSubline: sublineUrlCreator('/getUniqueSubLine/tender'),
+  selectedsublineUrl: sublineUrlCreator('/selectedSub/tender/'),
+  seletedSubForLineUrl: sublineUrlCreator('/seletedSubForLine/tender/'),
+  seleteDeselectSubUrl: sublineUrlCreator('/selectDeselect/tender/'),
+  pdfParserUrl: authUrlCreator('/pdf-parser'),
+  emailMessage: authUrlCreator('/notification'),
+  removeSublineFromLineItem: sublineUrlCreator('/removeSublineFromLineItem/tender/'),
+  bidUrl: urlCreator('/bid')
+};
 
 function urlCreator(actionName: string): string {
   return `${environment.baseURL}${actionName}`;
@@ -75,16 +74,11 @@ function sublineUrlCreator(actionName: string): string {
 export const orgType = [{ name: 'Client' }, { name: 'Sub' }, { name: 'Prime' }];
 export const userStats = [{ name: 'Inactive' }, { name: 'Active' }];
 export const userRole = [{ name: 'Admin' }, { name: 'User' }];
-export const modeOfSubmission = [
-  { name: 'online' },
-  { name: 'handwritten' },
-  { name: 'print' },
-  { name: 'electronic' }
-];
+export const modeOfSubmission = [{ name: 'online' }, { name: 'handwritten' }, { name: 'print' }, { name: 'electronic' }];
 export const userStatus = [
   { name: 'created' },
   { name: 'in progress' },
   { name: 'active' },
   { name: 'completed' },
   { name: 'inactive' }
-]
+];

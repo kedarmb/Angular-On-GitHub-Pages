@@ -5,8 +5,9 @@
       <div formGroupName='clientName'>
         <input matInput formControlName="name" placeholder="choose an existing client" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let client of clientList | async" [value]="client.name" (blur)="removeNonExistentClient($event)" (click)='getClientID(client._id,client.name)'>
+          <mat-option *ngFor="let client of clientList | async" [value]="client.name" (click)='getClientID(client._id,client.name)'>
             <span>{{client.name}}</span>
+            <!-- (blur)="removeNonExistentClient($event)"  -->
           </mat-option>
         </mat-autocomplete>
       </div>

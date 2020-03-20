@@ -253,6 +253,14 @@ export class HttpService {
     });
   }
 
+  public deleteLineItemById(id): Observable<any> {
+    // /:id/tender/:tenderId/section/:sectionId
+    return this.httpClient.delete(ApiUrl.lineItemUrl + '/' + id, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
+
   public saveSubLineItem(appendStr, payload): Observable<any> {
     return this.httpClient.post(ApiUrl.sublineItemUrl + appendStr, payload, {
       headers: this.getHeader(),
@@ -350,6 +358,14 @@ export class HttpService {
 
   public createNewSection(body) {
     return this.httpClient.post(ApiUrl.sectionUrl, body, {
+      headers: this.getHeader(),
+      observe: 'response'
+    });
+  }
+
+  public deleteSection(id): Observable<any> {
+    // v1/section/:sectionID/
+    return this.httpClient.delete(ApiUrl.sectionUrl + '/' + id, {
       headers: this.getHeader(),
       observe: 'response'
     });

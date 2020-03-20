@@ -213,8 +213,32 @@ export class TenderReviewComponent implements OnInit {
     sectionsArr.push(newSection);
   }
 
-  deleteSection() {
-    this.toastr.warning('Functionality under development', 'Delete Section');
+  deleteSection(sectionRef) {
+    const lineItemsArr = sectionRef.value.lineItems;
+    if (lineItemsArr.length > 0) {
+      this.toastr.warning('Section has associated Line Items. Please delete those first.', 'Action denied');
+    } else if (lineItemsArr.length <= 0) {
+      // call api to delete section
+      this.spinner.show();
+      this.httpService.deleteSection(sectionRef.value._id).subscribe(
+        response => {
+          // console.log('succ in deleting line item ', response);
+          // status 200
+          if (response.status === 200) {
+            this.toastr.success('Successfully deleted the Section.');
+            this.refreshFormData();
+          }
+        },
+        err => {
+          this.spinner.hide();
+          this.toastr.error('Error deleting Section. Try later');
+          console.log('err in deleting ine  item ', err);
+        }
+      );
+      //
+    }
+    console.log('section ref ', sectionRef.value.lineItems);
+    // this.toastr.warning('Functionality under development', 'Delete Section');
   }
   __addLineItem(sectionRef) {
     const _lineItem = this.initLineItemCtrl();
@@ -321,13 +345,37 @@ export class TenderReviewComponent implements OnInit {
     );
   }
   __removeLineItem(sectionRef, lineItemRef, indx) {
+    // let hasChild = true;
     const lineItemArr = sectionRef.get('lineItems') as FormArray;
     console.log('line item ... ', lineItemRef.value);
     if (lineItemRef.value.subLineItems == true) {
-      this.toastr.warning('Line Item has associated Subline Items / Crew / Trench. Please delete those first.', 'Action denied');
-    } else if (lineItemRef.value.subLineItems == false) {
-      lineItemArr.removeAt(indx);
-      this.toastr.info('not deleted from database. Functionality under development', 'Dlelete Action');
+      this.toastr.warning('Line Item has associated Subline Items. Please delete those first.', 'Action denied');
+    } else if (lineItemRef.value.crewItemRef != null) {
+      this.toastr.warning('Line Item has associated Crew. Please delete those first.', 'Action denied');
+    } else if (lineItemRef.value.trenchRef != null) {
+      this.toastr.warning('Line Item has associated Trench. Please delete those first.', 'Action denied');
+    } else if (
+      lineItemRef.value.subLineItems == false &&
+      lineItemRef.value.crewItemRef == null &&
+      lineItemRef.value.trenchRef == null
+    ) {
+      // lineItemArr.removeAt(indx);
+      this.spinner.show();
+      this.httpService.deleteLineItemById(lineItemRef.value._id).subscribe(
+        response => {
+          // console.log('succ in deleting line item ', response);
+          // status 200
+          if (response.status === 200) {
+            this.toastr.success('Successfully deleted the Line Item.');
+            this.refreshFormData();
+          }
+        },
+        err => {
+          this.spinner.hide();
+          this.toastr.error('Error deleting Line item. Try later');
+          console.log('err in deleting ine  item ', err);
+        }
+      );
     }
   }
 
@@ -344,6 +392,7 @@ export class TenderReviewComponent implements OnInit {
       response => {
         // console.log('get API seccess .. ', response);
         if (response.status === 200) {
+          this.spinner.hide();
           console.log('refreshFormData :: get API seccess .. ', response);
           this.tenderData = response.body;
           this.masterForm.reset();

@@ -146,8 +146,9 @@ export class OrganizationModalComponent implements OnInit {
         if (response.status === 201) {
           this.resData.status = 'update';
           this.resData.data = response.body;
-          this.helperService.setInLocalStorage('orgList', response.body);
-          console.log('existing organisation updated .. ', this.resData.data)
+          // this.helperService.setInLocalStorage('orgList', response.body);
+          this.helperService.addOrgToLocalList(response.body);
+          // console.log('existing organisation updated .. ', this.resData.data)
           this.resData.id = this.data.id;
           this.dialogRef.close(this.resData);
           this.toastr.success(response.statusText)

@@ -19,7 +19,7 @@ export class HelperService {
   public reducer = (accumulator, currentValue) => accumulator + currentValue;
 
   public tenderId = new BehaviorSubject(null);
-  currentTenderId= this.tenderId.asObservable();
+  currentTenderId = this.tenderId.asObservable();
 
   //
   constructor() {}
@@ -45,6 +45,14 @@ export class HelperService {
 
   addOrgToLocalList(param) {
     const orgData = JSON.parse(localStorage.getItem('orgList'));
+    for (let i = 0; i < orgData.length; i++) {
+      if (orgData[i]._id == param._id) {
+        // same org exists;
+        console.log('same org exists .. ');
+        orgData.splice(i, 1);
+        break;
+      }
+    }
     orgData.push(param);
     this.setInLocalStorage('orgList', orgData);
   }
@@ -212,8 +220,7 @@ export class HelperService {
   }
 
   // comparepage
-  passTenderIdToCompare(tenderId:string){
-    this.tenderId.next(tenderId)
-
+  passTenderIdToCompare(tenderId: string) {
+    this.tenderId.next(tenderId);
   }
 }

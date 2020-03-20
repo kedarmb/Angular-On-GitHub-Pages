@@ -9,17 +9,17 @@
   <div class=" sb-toolbar">
     <!-- <button mat-raised-button (click)="__addSection()">Add Another Section</button> -->
     <button
-    mat-raised-button
-    type="button"
-    matTooltip="Add Another Section"
-    (click)="__addSection()"
-    [matTooltipPosition]="'above'"
-    class="btn btn-danger btn-link btn-sm btn-just-icon"
-  >
-  <i class="material-icons">
-    note_add
-    </i>
-  </button>
+      mat-raised-button
+      type="button"
+      matTooltip="Add Another Section"
+      (click)="__addSection()"
+      [matTooltipPosition]="'above'"
+      class="btn btn-danger btn-link btn-sm btn-just-icon"
+    >
+      <i class="material-icons">
+        note_add
+      </i>
+    </button>
     <!-- <button mat-raised-button (click)="notifySubC()">Invite Sub Contractors</button> -->
 
     <button
@@ -47,20 +47,20 @@
         flip_to_back
       </i>
     </button>
-    
+
     <!-- <button mat-raised-button (click)="back()">Close</button> -->
     <button
-    mat-raised-button
-    type="button"
-    matTooltip="Close"
-    (click)="back()"
-    [matTooltipPosition]="'above'"
-    class="btn btn-danger btn-link btn-sm btn-just-icon"
-  >
-  <i class="material-icons">
-    close
-    </i>
-  </button>
+      mat-raised-button
+      type="button"
+      matTooltip="Close"
+      (click)="back()"
+      [matTooltipPosition]="'above'"
+      class="btn btn-danger btn-link btn-sm btn-just-icon"
+    >
+      <i class="material-icons">
+        close
+      </i>
+    </button>
   </div>
 
   <div class="table-responsive">
@@ -74,19 +74,14 @@
             >
               <!-- <mat-toolbar> -->
               <!-- <span> -->
-              <textarea
-                type="text"
-                class="t-area"
-                formControlName="name"
-                placeholder="section name goes here"
-              ></textarea>
+              <textarea type="text" class="t-area" formControlName="name" placeholder="section name goes here"></textarea>
               <!-- </span> -->
               <!-- <span class="toolbar-spacer"></span> -->
-              <button mat-icon-button color="warn" (click)="deleteSection()" matTooltip="delete section">
+              <button mat-icon-button color="warn" (click)="deleteSection(section)" matTooltip="delete section">
                 <!-- <mat-icon>remove</mat-icon> -->
                 <i class="material-icons">
-                    delete
-                    </i>
+                  delete
+                </i>
               </button>
               <!-- </mat-toolbar> -->
               <div formArrayName="lineItems" class="table-responsive">
@@ -151,12 +146,7 @@
                           ></textarea>
                         </td>
                         <td class="width-2">
-                          <textarea
-                            type="text"
-                            class="form-control"
-                            formControlName="unitPrice"
-                            [readonly]="true"
-                          ></textarea>
+                          <textarea type="text" class="form-control" formControlName="unitPrice" [readonly]="true"></textarea>
                         </td>
                         <td class="width-2">
                           <textarea
@@ -190,8 +180,8 @@
                           >
                             <!-- <i class="material-icons">minimize</i> -->
                             <i class="material-icons">
-                                delete
-                                </i>
+                              delete
+                            </i>
                           </button>
                           <button
                             mat-raised-button

@@ -6,6 +6,7 @@ import { HttpService } from '../../shared/core/service/http.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { HelperService } from 'app/shared/core/service/helper.service';
 @Component({
   selector: 'app-organization',
   templateUrl: './organization.component.html',
@@ -36,17 +37,20 @@ export class OrganizationComponent implements OnInit {
   constructor(
     private modalService: MatDialog,
     private httpService: HttpService,
+    private helperSerfvice: HelperService,
     private router: Router,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
-    this.getOrganization();
-    this.spinner.show();
+    // this.getOrganization();
+    this.organizations = this.helperSerfvice.getOrgList();
+    this.organizations.reverse();
+    // this.spinner.show();
   }
 
-  getOrganization() {
+  /* getOrganization() {
     this.httpService.getAllOrganization().subscribe(
       (response: any) => {
         if (response.status === 200) {
@@ -59,7 +63,7 @@ export class OrganizationComponent implements OnInit {
         this.spinner.hide();
       }
     );
-  }
+  } */
 
   openModal() {
     const modalRef = this.modalService.open(OrganizationModalComponent, {
@@ -72,13 +76,17 @@ export class OrganizationComponent implements OnInit {
       if (response.status === 'close' || response.status === undefined) {
       }
       if (response.status === 'add') {
-        this.organizations.unshift(response.data);
+        // this.organizations.unshift(response.data);
+         this.organizations = this.helperSerfvice.getOrgList();
+         this.organizations.reverse();
         this.table.renderRows();
       }
       if (response.status === 'update') {
+        this.organizations = this.helperSerfvice.getOrgList();
+        this.organizations.reverse();
         this.table.renderRows();
-        this.organizations[response.id] = response.data;
-        console.log(this.organizations[response.id]);
+        // this.organizations[response.id] = response.data;
+        // console.log(this.organizations[response.id]);
       }
     });
   }

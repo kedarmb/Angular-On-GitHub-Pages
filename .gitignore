@@ -43,3 +43,6 @@ Thumbs.db
 
 # Git Workflows
 .github/*
+.vscode/settings.json
+.gitignore
+.vscode/settings.json
