@@ -32,3 +32,8 @@ tr {
   width: calc(100% - 220px);
   display: flex;
 }
+.table{
+th{
+min-width:100px;
+}
+}

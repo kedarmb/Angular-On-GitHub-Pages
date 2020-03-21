@@ -16,16 +16,16 @@
                 <table>
                     <thead>
                         <!-- <th></th> -->
-                        <th style="width: 15%">specNo</th>
-                        <th style="width: 7%">itemNo</th>
-                        <th style="width: 10%">itemName</th>
-                        <th style="width: 10%">description</th>
-                        <th style="width: 10%">description</th>
-                        <th style="width: 5%">unit</th>
-                        <th style="width: 8%">unit Price</th>
-                        <th style="width: 8%">quantity</th>
-                        <th style="width: 8%">Total Price</th>
-                        <th style="width: 7%">Action</th>
+                        <th>specNo</th>
+                        <th >itemNo</th>
+                        <th >itemName</th>
+                        <th >description</th>
+                        <th >description</th>
+                        <th >unit</th>
+                        <th >unit Price</th>
+                        <th >quantity</th>
+                        <th >Total Price</th>
+                        <th >Action</th>
                     </thead>
                     <tbody class="table-bordered">
                         <ng-container *ngIf="filteredSection[0].lineItems">
@@ -184,6 +184,6 @@
     <button class="justify-content-end">Save</button>
 </div> -->
 
-<ngx-spinner type="cog" size="medium" color="#b8a5e8">
-    <p style="font-size: 20px; color: white; margin-top: 60px;"></p>
+<ngx-spinner type="cog" size="medium" >
+    <p >Loading data</p>
 </ngx-spinner>

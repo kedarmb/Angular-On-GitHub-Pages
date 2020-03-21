@@ -8,8 +8,22 @@ $custom-typography: mat-typography-config(
   $subheading-1: mat-typography-level(14px, 33.6px, 400),
   $body-1: mat-typography-level(12px, 24px, 500),
   $body-2: mat-typography-level(14px, 24px, 500),
-  
 );
 
 @include angular-material-typography($custom-typography);
 
+@mixin md-icon-size($size: 18px) {
+  font-size: $size;
+  height: $size;
+  width: $size;
+  line-height: $size;
+}
+
+/* 2. Then use it like this in you component scss */
+
+.material-icons{
+  @include md-icon-size(18px);
+}
+// .btn.btn-just-icon.btn-sm .material-icons{
+
+// }

@@ -1,39 +1,23 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-5 pad0">
-            <img class="bg" width="100%" src="/assets/img/thumbnail.png" />
-        </div>
-        <div class="col-md-7 ">
-            <div class=" box ">
-                <!--
-                    <mat-tab-group>
-                        <mat-tab label="Sign In">
-                            <app-login></app-login>
-                        </mat-tab>
-                        <mat-tab label="Sign Up">
-                            <app-signup></app-signup>
-                        </mat-tab>
-                        <mat-tab label="Add Organization"><br /><br />
-                            <app-organization-modal></app-organization-modal>
-                        </mat-tab>
-                    </mat-tab-group>
-                -->
-                <mat-tab-group [selectedIndex]="selected" #tab (selectedTabChange)="change($event)">
-                   <!-- <mat-tab *ngFor="let link of navLinks"  [label]="link.label" (click)="change()" [routerLink]="link.path"> -->
-                    <mat-tab label="Sign In">
-                        <app-login (changeRoute)="tabchange($event)"></app-login>
-                    </mat-tab>
-                    <mat-tab label="Sign Up">
-                        <app-signup (changeRoute)="tabchange($event)"></app-signup>
-                    </mat-tab>
-                    <mat-tab label="Add Organization"><br /><br />
-                        <app-organization-modal></app-organization-modal>
-                    </mat-tab>
-                   <!-- </mat-tab> -->
-                </mat-tab-group>
-                
-                
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-md-5 pad0">
+      <img class="bg" width="100%" src="/assets/img/thumbnail.png" />
     </div>
+    <div class="col-md-7 ">
+      <div class=" box ">
+        <mat-tab-group [selectedIndex]="selected" #tab (selectedTabChange)="change($event)">
+          <mat-tab label="Sign In">
+            <app-login (changeRoute)="tabchange($event)"></app-login>
+          </mat-tab>
+          <mat-tab label="Sign Up">
+            <app-signup (changeRoute)="tabchange($event)"></app-signup>
+          </mat-tab>
+          <mat-tab label="Add Organization"
+            ><br /><br />
+            <app-organization-modal></app-organization-modal>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
 </div>
