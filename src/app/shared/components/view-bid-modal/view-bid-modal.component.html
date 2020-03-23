@@ -1,0 +1,46 @@
+<div class="modal-body">
+    <div class="bg-white">
+    <div class="table-responsive bid" *ngIf="data&&data.item else notShow">
+        <table class="table table-bordered">
+            <thead class=" text-primary">
+                <th>Name</th>
+                <th>Spec No</th>
+                <th>Item No</th>
+                <th colspan=1>Unit</th>
+                <th>Quantity</th>
+                <th>Unit Cost</th>
+                <th>Total Cost</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{data.item.name}}</td>
+                    <td>{{data.item.specNo}}</td>
+                    <td>{{data.item.itemNo}}</td>
+                    <td>{{data.item.unit}}</td>
+                    <td>{{data.item.quantity}}</td>
+                    <td>{{data.item.unitPrice}}</td>
+                    <td>{{data.item.total}}</td>
+                </tr>
+                <!-- <tr>
+                    <th class="text-right" colspan=6>Section total</th>
+                    <td class="text-right" colspan=1>{{section.sectionTotalPrice?section.sectionTotalPrice:disableMethod(section.sectionTotalPrice)}}</td>
+                </tr> -->
+            </tbody>
+        </table>
+        <div style="float: right;">
+        <p><b>Section Total:</b>  {{sectionTotal?sectionTotal:disableMethod(sectionTotal)}}</p>
+        <p><b>tax:</b>  <input [(ngModel)]="taxPercent" (ngModelChange)=getBidTax(taxPercent) [disabled]='tender.status=="completed"'></p>
+        <p *ngIf='taxPercent&&sectionTotal'>tax Amount:{{taxAmount?taxAmount:disableMethod(taxAmount)}}</p>
+        <p *ngIf='taxPercent&&sectionTotal&&taxAmount'>Total Bid Amount:{{totalBidAmount?totalBidAmount:disableMethod(totalBidAmount)}}</p>
+        <button mat-raised-button type="button" class="pull-right m-2" color="primary" (click)=submitFinalBid() [disabled]='(!bidEnable&&notSaveEnable)||tender.status=="completed"'>Submit</button>
+        <button mat-raised-button type="button" class="pull-right m-2" color="primary" (click)=saveBid() [disabled]='notSaveEnable||tender.status=="completed"'>Save</button>
+        </div>
+    </div>
+    <ng-template #notShow>
+        <p>
+            Tender is not Available
+        </p>
+      </ng-template>
+
+    </div>
+</div>

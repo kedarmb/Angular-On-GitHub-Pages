@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TagInputModule } from 'ngx-chips';
 import { TenderModalComponent } from './components/tender-modal/tender-modal.component';
+import { TenderBidHelperComponent } from './components/view-bid-modal/view-bid-modal.component'
 import { CrewModalComponent } from './components/crew-modal/crew-modal.component';
 import { OrganizationModalComponent } from './components/organization-modal/organization-modal.component';
 import { EquipmentsModalComponent } from './components/equipments-modal/equipments-modal.component';
@@ -51,6 +52,7 @@ const MaterialComponent = [
 
 @NgModule({
   declarations: [
+    TenderBidHelperComponent,
     TostringPipe,
     TenderModalComponent,
     TrenchModalComponent,
@@ -68,7 +70,7 @@ const MaterialComponent = [
     InvitedSubcontractorsComponent,
     ViewQuotesComponent,
     ActiveTendersComponent,
-    OrgNamePipe
+    OrgNamePipe,
   ],
   exports: [
     TostringPipe,
@@ -88,7 +90,8 @@ const MaterialComponent = [
     MaterialComponent,
     NgxTagsInputModule,
     InvitedSubcontractorsComponent,
-    ActiveTendersComponent
+    ActiveTendersComponent,
+    // TenderBidHelperComponent
     // NgxTagsInputModule
   ],
   imports: [
@@ -119,6 +122,7 @@ const MaterialComponent = [
     NgxSpinnerModule
   ],
   entryComponents: [
+    TenderBidHelperComponent,
     TenderModalComponent,
     TrenchModalComponent,
     CrewModalComponent,
@@ -129,7 +133,8 @@ const MaterialComponent = [
     LabourModalComponent,
     NotifySubcontractorComponent,
     SectionModalComponent,
-    ViewQuotesComponent
+    ViewQuotesComponent,
+    
   ]
 })
 export class SharedModule {}

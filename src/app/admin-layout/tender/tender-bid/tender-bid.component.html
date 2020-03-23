@@ -34,8 +34,8 @@
         <div style="float: right;">
         <p><b>Section Total:</b>  {{sectionTotal?sectionTotal:disableMethod(sectionTotal)}}</p>
         <p><b>tax:</b>  <input [(ngModel)]="taxPercent" (ngModelChange)=getBidTax(taxPercent) [disabled]='tender.status=="completed"'></p>
-        <p *ngIf='taxPercent&&sectionTotal'>tax Ammount:{{taxAmmount?taxAmmount:disableMethod(taxAmmount)}}</p>
-        <p *ngIf='taxPercent&&sectionTotal&&taxAmmount'>Total Bid Ammount:{{totalBidAmmount?totalBidAmmount:disableMethod(totalBidAmmount)}}</p>
+        <p *ngIf='taxPercent&&sectionTotal'>tax Amount:{{taxAmount.toFixed(2)?taxAmount:disableMethod(taxAmount)}}</p>
+        <p *ngIf='taxPercent&&sectionTotal&&taxAmount'>Total Bid Amount:{{totalBidAmount.toFixed(2)?totalBidAmount:disableMethod(totalBidAmount)}}</p>
         <button mat-raised-button type="button" class="pull-right m-2" color="primary" (click)=submitFinalBid() [disabled]='!bidEnable||notSaveEnable||tender.status=="completed"'>Submit</button>
         <button mat-raised-button type="button" class="pull-right m-2" color="primary" (click)=saveBid() [disabled]='notSaveEnable||tender.status=="completed"'>Save</button>
         </div>
