@@ -99,13 +99,33 @@
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <div *ngIf="item.crewItemRef === null">
-                                                <button (click)="addCrewToLine(selectedSection, item._id)">Add
+                                                <button (click)="addEditCrewToLine(selectedSection, item)">Add
                                                     crew</button>
                                             </div>
                                             <div *ngIf="item.crewItemRef !== null">
-                                                <p>labour Total Cost: {{item.crewItemRef.labourTotalCost}}</p>
-                                                <p>equipmentTotalCost: {{item.crewItemRef.equipmentTotalCost}}</p>
-                                                <p>crewTotalCost: {{item.crewItemRef.crewTotalCost}}</p>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <p>labour Total Cost: {{item.crewItemRef.labourTotalCost}}</p>
+                                                        <p>equipmentTotalCost: {{item.crewItemRef.equipmentTotalCost}}</p>
+                                                        <p>crewTotalCost: {{item.crewItemRef.crewTotalCost}}</p>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <button 
+                                                        mat-raised-button 
+                                                        color="primary" 
+                                                        (click)="addEditCrewToLine(item)">
+                                                            Edit Crew
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <button 
+                                                        mat-raised-button 
+                                                        color="warn" 
+                                                        (click)="deleteCrewFromLine(item.crewItemRef)">
+                                                            Delete Crew
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </mat-expansion-panel>
                                         <mat-expansion-panel>

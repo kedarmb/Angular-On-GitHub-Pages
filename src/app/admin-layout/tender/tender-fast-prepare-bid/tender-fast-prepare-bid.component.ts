@@ -224,12 +224,43 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       }
     }
   }
-  addCrewToLine(sectionID, lineItmID) {
-    console.log(sectionID, lineItmID);
+
+  protected addEditCrewToLine(item) {
+    //
+    const postObj = this.getCrewPostObj();
+    postObj.tender = this.tenderId;
+    postObj.section = this.selectedSection;
+    postObj.lineItem = item;
+    postObj.crewItemRef = item.crewItemRef;
+    //
+    const modalRef = this.modalService.open(LineItemCrewComponent, {
+      height: 'auto',
+      width: '65%',
+      data: postObj,
+      disableClose: true,
+      maxHeight: '95vh'
+    });
+    modalRef.afterClosed().subscribe(response => {
+      if (response.status === 'close' || response.status === undefined) {
+        // console.log(response.data);
+      }
+      if (response.status === 'add' || response.status === 'update') {
+        // console.log('crew resp... ', response);
+        this.calculateCrewOnly();
+        //
+        setTimeout(() => {
+          //this.refreshFormData();
+        }, 500);
+      }
+    });
+  }
+
+  private getCrewPostObj() {
     const postIds = {
-      tender: this.tenderData._id,
-      section: sectionID,
-      lineItem: lineItmID,
+      tender: null,
+      section: null,
+      lineItem: null,
+      crewItemRef: null,
       crewLabourEquipment: null,
       labourTotalCost: null,
       equipmentTotalCost: null,
@@ -238,28 +269,9 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       labourArr: null,
       equipmentArr: null
     };
-    const modalRef = this.modalService.open(LineItemCrewComponent, {
-      height: 'auto',
-      width: '65%',
-      data: postIds,
-      disableClose: true
-    });
-    modalRef.afterClosed().subscribe(response => {
-      if (response.status === 'close' || response.status === undefined) {
-        this.getTenderById();
-        this.showSection(sectionID);
-        console.log(response.data);
-        this.spinner.hide();
-      }
-      if (response.status === 'add') {
-        // this.getTenderById()
-        this.hs.setSession('tenderDataNow', JSON.stringify(response.data));
-        this.tenderData = JSON.parse(this.hs.getSession('tenderDataNow'));
-        this.showSection(sectionID);
-        console.log('crew resp... ', response);
-      }
-    });
+    return postIds;
   }
+
   postSubline(item) {
     const finalArr = {
       sublineItem: [],
@@ -299,6 +311,26 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       },
       err => {
         console.log('Error getting Tender by id', err);
+      }
+    );
+  }
+
+  protected deleteCrewFromLine(crewRefParam) {
+    console.log('crewRefParam is ... ', crewRefParam);
+    this.httpService.deleteCrewForLineItem(crewRefParam._id).subscribe(
+      response => {
+        console.log(response);
+        if (response.status === 200) {
+          this.calculateCrewOnly();
+          setTimeout(() => {
+            //this.refreshFormData();
+          }, 100);
+          this.toastr.success('Crew for Line Item deleted');
+        }
+      },
+      err => {
+        this.toastr.error('Error deleting crew for line item. Please try later.');
+        console.log('erre deleting crew for Line Item ', err);
       }
     );
   }
@@ -346,8 +378,8 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
     this.spinner.show();
     // const appendStr =
     //   'tender/' + this.tenderId + '/section/' + selectedSection + '/lineItem/' + item._id + '/trench/' + trenchRef._id;
-      // const appendStr =
-      //   trenchRef._id;
+    // const appendStr =
+    //   trenchRef._id;
     // return;
     this.httpService.deleteTrenchFromLineItem(trenchRef._id).subscribe(
       (response: any) => {
@@ -356,7 +388,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         // TODO: res status is 201 now - should be 200 from BE team
         if (response.status === 200) {
           this.toastr.success('Trench has been successfully deleted.');
-          this.refreshFormData();
+          //this.refreshFormData();
         }
       },
       error => {
@@ -364,9 +396,6 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         this.toastr.error('Could not delete Trench. Please try later.');
       }
     );
-  }
-  refreshFormData() {
-    throw new Error('Method not implemented.');
   }
 
   public getTrenchPostObject() {
@@ -395,5 +424,5 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       backfillWeight: null
     };
     return postTrenchIds;
-  };
+  }
 }
