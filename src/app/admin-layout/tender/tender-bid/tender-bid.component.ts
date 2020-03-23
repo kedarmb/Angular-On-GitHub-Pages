@@ -33,12 +33,24 @@ export class TenderBidComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.hs.tenderId.subscribe(tenderId => this.tenderId = tenderId)
+    this.hs.tenderId.subscribe(tenderId =>{ this.tenderId = tenderId
+      if(!this.tenderId){
+        this.tenderId = JSON.parse(this.hs.getSession('tenderIdNow'));
+      }
+    })
     if(this.tenderId){
       this.httpService.getSubmittedBid(this.tenderId).subscribe((response) => {
         if(response.body){
+          
           this.bidEnable = false
           this.tender = response.body
+          if(this.tender.status=='completed'){
+            this.bidEnable = false
+          }
+          else{
+          this.bidEnable = true
+          }
+
           this.sectionTotal=this.tender.bidTotalPrice
           this.taxPercent=this.tender.taxPercent,
           this.taxAmount=this.tender.bidTotalTax,
@@ -86,8 +98,11 @@ saveBid(){
       this.taxPercent=this.tender.taxPercent,
       this.taxAmount=this.tender.bidTotalTax,
       this.totalBidAmount=this.tender.bidFinalTotal
+      this.toastr.success("Saved Successfully")
     },error=>{
       this.tender = []
+      this.toastr.success("please try again later")
+
     })
 }
 
@@ -125,9 +140,12 @@ submitFinalBid(){
     this.taxPercent=this.tender.taxPercent,
     this.taxAmount=this.tender.bidTotalTax,
     this.totalBidAmount=this.tender.bidFinalTotal
+    this.toastr.success("Bid is submitted successfully")
     
   },error=>{
     this.tender = []
+    this.toastr.success("please try again later")
+
   })
 
 }
