@@ -118,38 +118,37 @@
                                                 <button (click)="addTrenchToLine(item)">Add trench</button>
                                             </div>
                                             <div *ngIf="item.trenchRef !== null">
-                                                <!--
-                                                    <div>
+                                                <div class="row">
+                                                    <div class="col-6">
                                                         <div class="row">
-                                                            <div class="col">Bedding Volume:</div>
+                                                            <div class="col">Bedding weight:</div>
                                                             <div class="col">
-                                                                <span
-                                                                    style="font-weight: bold;">{{ item.trenchRef.beddingVolume}}</span>
+                                                                <span style="font-weight: bold;">{{ item.trenchRef.beddingWeight}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">Backfill weight:</div>
+                                                            <div class="col">
+                                                                <span style="font-weight: bold;">{{ item.trenchRef.backfillWeight}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                -->
-                                                <div class="row">
-                                                    <div class="col">Bedding weight:</div>
-                                                    <div class="col">
-                                                        <span
-                                                            style="font-weight: bold;">{{ item.trenchRef.beddingWeight}}</span>
+                                                    <div class="col-3">
+                                                        <button 
+                                                        mat-raised-button 
+                                                        color="primary" 
+                                                        (click)="addTrenchToLine(item)">
+                                                            Edit Trench
+                                                        </button>
                                                     </div>
-                                                </div>
-                                                <!--
-                                                    <div class="row">
-                                                        <div class="col">Backfill Volume:</div>
-                                                        <div class="col">
-                                                            <span
-                                                                style="font-weight: bold;">{{ item.trenchRef.backfillVolume}}</span>
-                                                        </div>
-                                                    </div>
-                                                -->
-                                                <div class="row">
-                                                    <div class="col">Bedding Volume:</div>
-                                                    <div class="col">
-                                                        <span
-                                                            style="font-weight: bold;">{{ item.trenchRef.backfillWeight}}</span>
+                                                    <div class="col-3">
+                                                        <button 
+                                                        mat-raised-button 
+                                                        color="warn" 
+                                                        (click)="deleteTrenchFromLine(selectedSection,
+                                                                item, item.trenchRef)">
+                                                            Delete Trench
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

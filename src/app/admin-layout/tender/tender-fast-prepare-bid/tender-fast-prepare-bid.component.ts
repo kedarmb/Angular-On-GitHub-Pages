@@ -203,7 +203,10 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         this.filteredSection[0].lineItems[i].total = 0;
         console.log(this.filteredSection[0].lineItems[i].total);
       }
-      if (isNaN(this.filteredSection[0].lineItems[i].unitPrice) || this.filteredSection[0].lineItems[i].unitPrice == null) {
+      if (
+        isNaN(this.filteredSection[0].lineItems[i].unitPrice) ||
+        this.filteredSection[0].lineItems[i].unitPrice == null
+      ) {
         this.filteredSection[0].lineItems[i].unitPrice = 0;
         console.log(this.filteredSection[0].lineItems[i].unitPrice);
       }
@@ -301,7 +304,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
   }
 
   // Trench Integration
-  addTrenchToLine(item) {
+  protected addTrenchToLine(item) {
     // console.log('section  id ?? ', this.selectedSection);
     console.log('line Item  id ?? ', item);
     //
@@ -335,6 +338,35 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         console.log('Trench resp add by pravin... ', response);
       }
     });
+  }
+
+  protected deleteTrenchFromLine(selectedSection, item, trenchRef) {
+    // https://smartbid-api.herokuapp.com/v1/trench/tender/:tenderId/section/:sectionId/lineItem/:lineItemId/trench/:id
+    console.log('trench Id is .. ', trenchRef);
+    this.spinner.show();
+    // const appendStr =
+    //   'tender/' + this.tenderId + '/section/' + selectedSection + '/lineItem/' + item._id + '/trench/' + trenchRef._id;
+      // const appendStr =
+      //   trenchRef._id;
+    // return;
+    this.httpService.deleteTrenchFromLineItem(trenchRef._id).subscribe(
+      (response: any) => {
+        this.spinner.hide();
+        console.log(response);
+        // TODO: res status is 201 now - should be 200 from BE team
+        if (response.status === 200) {
+          this.toastr.success('Trench has been successfully deleted.');
+          this.refreshFormData();
+        }
+      },
+      error => {
+        this.spinner.hide();
+        this.toastr.error('Could not delete Trench. Please try later.');
+      }
+    );
+  }
+  refreshFormData() {
+    throw new Error('Method not implemented.');
   }
 
   public getTrenchPostObject() {

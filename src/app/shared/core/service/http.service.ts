@@ -407,8 +407,8 @@ export class HttpService {
       observe: 'response'
     });
   }
-  public deleteTrenchFromLineItem(appendStr): Observable<any> {
-    return this.httpClient.delete(ApiUrl.trenchUrl + '/' + appendStr, {
+  public deleteTrenchFromLineItem(id): Observable<any> {
+    return this.httpClient.delete(ApiUrl.trenchUrl + '/' + id, {
       headers: this.getHeader(),
       observe: 'response'
     });
