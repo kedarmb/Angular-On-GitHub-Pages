@@ -246,6 +246,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       }
       if (response.status === 'add' || response.status === 'update') {
         // console.log('crew resp... ', response);
+        this.getTenderById();
         this.calculateCrewOnly();
         //
         setTimeout(() => {
@@ -354,7 +355,7 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
       disableClose: true,
       maxHeight: '95vh'
     });
-    //
+    // 
     modalRef.afterClosed().subscribe(response => {
       if (response.status === 'close' || response.status === undefined) {
         this.getTenderById();
@@ -362,8 +363,8 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
         console.log('testing by pravin', response.data);
         this.spinner.hide();
       }
-      if (response.status === 'add') {
-        // this.getTenderById()
+      if (response.status === 'add' || response.status === 'update') {
+        this.getTenderById();
         this.hs.setSession('tenderDataNow', JSON.stringify(response.data));
         this.tenderData = JSON.parse(this.hs.getSession('tenderDataNow'));
         this.showSection(this.selectedSection);
@@ -376,11 +377,6 @@ export class TenderFastPrepareBidComponent implements OnInit, AfterViewInit, OnC
     // https://smartbid-api.herokuapp.com/v1/trench/tender/:tenderId/section/:sectionId/lineItem/:lineItemId/trench/:id
     console.log('trench Id is .. ', trenchRef);
     this.spinner.show();
-    // const appendStr =
-    //   'tender/' + this.tenderId + '/section/' + selectedSection + '/lineItem/' + item._id + '/trench/' + trenchRef._id;
-    // const appendStr =
-    //   trenchRef._id;
-    // return;
     this.httpService.deleteTrenchFromLineItem(trenchRef._id).subscribe(
       (response: any) => {
         this.spinner.hide();
