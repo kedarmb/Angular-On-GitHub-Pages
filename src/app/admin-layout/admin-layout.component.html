@@ -10,16 +10,18 @@
             <a mat-list-item href="#">Link 3</a>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content #topnav >
+    <mat-sidenav-content #topnav>
         <!-- <div class="main-panel"> -->
         <!-- <app-navbar></app-navbar> -->
 
-        <mat-toolbar [ngClass]="{'sticky': showToolBar}"  color="primary">
+        <mat-toolbar [ngClass]="{'sticky': showToolBar}" color="primary">
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <span >material-dashboard-angular</span>
-        </mat-toolbar>  
+            <a mat-button>Shut down</a>
+            <a mat-button>Restart</a>
+            <a mat-button>Hibernate</a>
+        </mat-toolbar>
         <!-- (scroll)="onScroll($event)" -->
         <router-outlet></router-outlet>
         <!-- Add Content Here -->

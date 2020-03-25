@@ -31,7 +31,9 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
   ngAfterViewInit() {
-    console.log(this.sidenavContainer.scrollable.elementScrolled().subscribe(scrolled => console.log('scrolled', scrolled)));
+    console.log(this.sidenavContainer.scrollable.elementScrolled().subscribe(scrolled => {
+      // console.log('scrolled', scrolled)
+    }));
   }
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(e) {
