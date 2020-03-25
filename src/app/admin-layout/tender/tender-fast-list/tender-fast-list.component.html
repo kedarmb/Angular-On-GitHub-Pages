@@ -20,35 +20,25 @@
           </td>
           <td>{{ item.lineItemCount }}</td>
           <td *ngIf="!item.lineItemCount">
-            <!-- <button mat-raised-button type="button" color="primary"
-                            (click)="createSub(item._id)">Add
-                            quote</button> -->
 
-            <button
-              mat-raised-button
-              type="button"
+            <span
               (click)="createSub(item._id)"
-              class="btn btn-danger btn-link btn-sm btn-just-icon"
               matTooltip="Add quote"
             >
               <i class="material-icons">
                 library_add
               </i>
-            </button>
+            </span>
           </td>
           <td *ngIf="item.lineItemCount">
-            <!-- <button mat-raised-button type="button" color="primary" (click)="createSub(item._id)">Edit quote</button> -->
-            <button
-            mat-raised-button
-            type="button"
+            <span
             (click)="createSub(item._id)"
-            class="btn btn-danger btn-link btn-sm btn-just-icon"
             matTooltip="Edit quote"
           >
             <i class="material-icons">
               collections_bookmark
             </i>
-          </button>
+          </span>
           </td>
         </tr>
       </ng-container>
@@ -60,7 +50,6 @@
     </tbody>
   </table>
 
-  <!-- <div class="d-flex  px-4 py-2  pull-right"> -->
   <div class="nav-bottom px-4 py-2 border-top d-flex justify-content-end">
     <button mat-raised-button color="warn" class="justify-content-end" (click)="cancel()">Cancel</button>
     <button mat-raised-button class="justify-content-end" (click)="compare()">compare quotes</button>

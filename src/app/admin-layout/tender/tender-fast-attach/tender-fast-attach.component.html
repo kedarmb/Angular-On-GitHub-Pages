@@ -44,15 +44,12 @@
             (change)="selectSection(selSec.value, '1')"
           >
             <option>Select Section</option>
-            <!-- (onSelectionChange)="selectSection(selSec.value)" -->
             <option *ngFor="let section of tenderData.sections" value="{{ section._id }}">{{ section.name }} </option>
           </select>
         </mat-form-field>
       </div>
       <div class="col-3">
         <button
-          mat-raised-button
-          type="button"
           class="justify-content-start"
           [disabled]="!subLineObj.length"
           (click)="assignSubline()"
@@ -146,24 +143,6 @@
     >
       Save
     </button>
-
-        <!-- <button mat-raised-button type="button" color="primary" [disabled]="!finalArr.length"
-            class="justify-content-end" (click)="updateSublineWithLine()">
-            Save
-        </button> -->
-        <!-- <button
-    mat-raised-button
-    type="button"
-    class="justify-content-end"
-    [disabled]="!finalArr.length"
-    (click)="updateSublineWithLine()"
-    class="btn btn-danger btn-link btn-sm btn-just-icon"
-    matTooltip="Save"
-  >
-    <i class="material-icons">
-      save
-    </i>
-  </button> -->
 
         <button mat-raised-button type="button" class="justify-content-end" color="warn" (click)="cancel()">
             Cancel

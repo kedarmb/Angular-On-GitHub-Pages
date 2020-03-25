@@ -1,5 +1,4 @@
 <ng-progress id="myProgress" [thick]="true" [spinner]="false"></ng-progress>
-
 <div class="table-responsive">
   <ng-container>
     <div *ngIf="masterForm">
@@ -9,9 +8,6 @@
             *ngFor="let section of masterForm.get('sections').controls; let secindx = index"
             [formGroupName]="secindx"
           >
-            <!-- <mat-toolbar> -->
-            <!-- <span
-                > -->
             <textarea
               type="text"
               class="t-area"
@@ -19,9 +15,6 @@
               [readonly]="true"
               placeholder="section name goes here"
             ></textarea>
-            <!-- </span> -->
-            <!-- <span class="toolbar-spacer"></span> -->
-            <!-- </mat-toolbar> -->
             <div formArrayName="lineItems" class="table-responsive">
               <table class="table table-bordered">
                 <thead class=" text-primary">
@@ -154,16 +147,13 @@
                                       <th>Quantity</th>
                                       <th>Total Price</th>
                                       <th style="width: 200px;">
-                                        <button
-                                          mat-raised-button
-                                          type="button"
+                                        <span
                                           matTooltip="add sub-line item"
                                           [matTooltipPosition]="'above'"
                                           (click)="__addSubLineItem(lineItem)"
-                                          class="btn btn-primary btn-link btn-sm btn-just-icon"
                                         >
                                           <i class="material-icons">add_box</i>
-                                        </button>
+                                      </span>
                                       </th>
                                     </thead>
                                     <tbody>
@@ -214,22 +204,18 @@
                                             ></textarea>
                                           </td>
                                           <td class="td-actions width-10">
-                                            <button
-                                              type="button"
-                                              class="btn btn-danger btn-link btn-sm btn-just-icon"
+                                            <span
                                               (click)="__removeSubLineItem(lineItem, slindx)"
                                               matTooltip="remove sub-line item"
                                             >
                                               <i class="material-icons">delete</i>
-                                            </button>
-                                            <button
-                                              type="button"
-                                              class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                          </span>
+                                            <span
                                               (click)="__saveSubLineItem(section, lineItem, slindx)"
                                               matTooltip="save sub-line item"
                                             >
                                               <i class="material-icons">save</i>
-                                            </button>
+                                        </span>
                                           </td>
                                         </tr>
                                         <tr>
@@ -346,17 +332,7 @@
                               <div for="trench_details_form">
                                 <div class="row" *ngIf="lineItem.value.trenchRef == null">
                                   <div class="col-6">
-                                    <!-- <button
-                                      mat-raised-button
-                                      color="primary"
-                                      (click)="addEditTrenchToLine(section.value._id, lineItem.value._id, lineItem.value.trenchRef)"
-                                    >
-                                      Create New Trench
-                                    </button> -->
-
-                                    <button
-                                      mat-raised-button
-                                      type="button"
+                                    <span
                                       matTooltip="Create New Trench"
                                       [matTooltipPosition]="'above'"
                                       (click)="
@@ -371,7 +347,7 @@
                                       <i class="material-icons">
                                         all_inbox
                                       </i>
-                                    </button>
+                                    </span>
                                   </div>
                                 </div>
                                 <div class="row" *ngIf="lineItem.value.trenchRef != null">

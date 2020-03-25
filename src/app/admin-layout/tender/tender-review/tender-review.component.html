@@ -4,64 +4,45 @@
     <li class="breadcrumb-item">Tender Review</li>
     <li class="breadcrumb-item">{{ tenderData.name }}</li>
   </ol>
-
-  <!-- <mat-toolbar color="primary"> -->
-  <!-- <mat-toolbar-row> -->
   <div class=" sb-toolbar">
-    <!-- <button mat-raised-button (click)="__addSection()">Add Another Section</button> -->
-    <button
-      mat-raised-button
-      type="button"
+    <span
       matTooltip="Add Another Section"
       (click)="__addSection()"
       [matTooltipPosition]="'above'"
-      class="btn btn-danger btn-link btn-sm btn-just-icon"
     >
       <i class="material-icons">
         note_add
       </i>
-    </button>
-    <!-- <button mat-raised-button (click)="notifySubC()">Invite Sub Contractors</button> -->
+    </span>
 
-    <button
-      mat-raised-button
-      type="button"
+    <span
       matTooltip="Invite Sub Contractors"
       (click)="notifySubC()"
       [matTooltipPosition]="'above'"
-      class="btn btn-danger btn-link btn-sm btn-just-icon"
     >
       <i class="material-icons">
         record_voice_over
       </i>
-    </button>
-    <!-- <button mat-raised-button (click)="gotoQuotePage()">Go to Quote</button> -->
-    <button
-      mat-raised-button
-      type="button"
+    </span>
+    <span
       matTooltip="Go to Quote"
       (click)="gotoQuotePage()"
       [matTooltipPosition]="'above'"
-      class="btn btn-danger btn-link btn-sm btn-just-icon"
     >
       <i class="material-icons">
         flip_to_back
       </i>
-    </button>
+    </span>
 
-    <!-- <button mat-raised-button (click)="back()">Close</button> -->
-    <button
-      mat-raised-button
-      type="button"
+    <span
       matTooltip="Close"
       (click)="back()"
       [matTooltipPosition]="'above'"
-      class="btn btn-danger btn-link btn-sm btn-just-icon"
     >
       <i class="material-icons">
         close
       </i>
-    </button>
+    </span>
   </div>
 
   <div class="table-responsive">
@@ -73,18 +54,13 @@
               *ngFor="let section of masterForm.get('sections').controls; let secindx = index"
               [formGroupName]="secindx"
             >
-              <!-- <mat-toolbar> -->
-              <!-- <span> -->
               <textarea type="text" class="t-area" formControlName="name" placeholder="section name goes here"></textarea>
-              <!-- </span> -->
-              <!-- <span class="toolbar-spacer"></span> -->
-              <button mat-icon-button color="warn" (click)="deleteSection(section)" matTooltip="delete section">
-                <!-- <mat-icon>remove</mat-icon> -->
+              <span color="warn" (click)="deleteSection(section)"
+               matTooltip="delete section">
                 <i class="material-icons">
                   delete
                 </i>
-              </button>
-              <!-- </mat-toolbar> -->
+              </span>
               <div formArrayName="lineItems" class="table-responsive">
                 <table class="table table-bordered">
                   <thead class=" text-primary">
@@ -158,52 +134,36 @@
                           ></textarea>
                         </td>
                         <td class="td-actions width-15">
-                          <!-- <button mat-raised-button type="button" matTooltip="view" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                            <i class="material-icons">remove_red_eye</i>
-                                                        </button> -->
-                          <button
-                            mat-raised-button
-                            type="button"
+                                                        <span
                             (click)="saveLineItem(section, lindx)"
                             matTooltip="save line item"
                             [matTooltipPosition]="'above'"
-                            class="btn btn-primary btn-link btn-sm btn-just-icon"
                           >
                             <i class="material-icons">save</i>
-                          </button>
-                          <button
-                            mat-raised-button
-                            type="button"
+                          </span>
+                          <span
                             (click)="__removeLineItem(section, lineItem, lindx)"
                             matTooltip="remove"
                             [matTooltipPosition]="'above'"
-                            class="btn btn-danger btn-link btn-sm btn-just-icon"
                           >
-                            <!-- <i class="material-icons">minimize</i> -->
                             <i class="material-icons">
                               delete
                             </i>
-                          </button>
-                          <button
-                            mat-raised-button
-                            type="button"
+                          </span>
+                          <span
                             matTooltip="less"
                             [matTooltipPosition]="'above'"
-                            class="btn btn-danger btn-link btn-sm btn-just-icon"
                           >
                             <i class="material-icons">expand_less</i>
-                          </button>
-                          <button
-                            mat-raised-button
-                            type="button"
+                        </span>
+                        <span
                             matTooltip="add line item"
                             [matTooltipPosition]="'above'"
                             (click)="__addLineItem(section)"
                             *ngIf="last"
-                            class="btn btn-danger btn-link btn-sm btn-just-icon"
                           >
                             <i class="material-icons">add_box</i>
-                          </button>
+                          </span>
                         </td>
                       </tr>
                     </ng-container>

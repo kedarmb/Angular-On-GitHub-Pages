@@ -1,3 +1,4 @@
+
 <div class="main-content">
   <div class=" sb-toolbar">
     <a (click)="AddUpdateTender(false)"><i class="material-icons" matTooltip=" Add Tender">add</i></a>
@@ -11,23 +12,32 @@
           {{ element.clientName.name }}
         </td>
       </ng-container>
-      <ng-container matColumnDef="Tender Name">
         <th mat-header-cell *matHeaderCellDef>Tender Name</th>
-        <td mat-cell *matCellDef="let element let i = index">
-          <button mat-raised-button type="button" matTooltip="Fast quote" (click)="fastQuote(element)"
-            [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+      <ng-container matColumnDef="Tender Name"> 
+        <td mat-cell *matCellDef="let element; let i index">
+          <span
+            matTooltip="Fast quote"
+            (click)="fastQuote(element)"
+            [matTooltipPosition]="'above'"
+          >
             <i class="material-icons">
-              flip_to_front
-            </i>
-          </button>
-          <button mat-raised-button type="button" matTooltip="Edit Task" (click)="AddUpdateTender(true, element)"
-            [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                flip_to_front
+                </i>
+          </span>
+          <span
+            matTooltip="Edit Task"
+            (click)="AddUpdateTender(true, element)"
+            [matTooltipPosition]="'above'"
+          >
             <i class="material-icons">edit</i>
-          </button>
-          <button mat-raised-button type="button" matTooltip="delete" (click)="deleteTender(element, i)"
-            [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+          </span>
+          <span
+            matTooltip="delete"
+            (click)="deleteTender(element, i)"
+            [matTooltipPosition]="'above'"
+          >
             <i class="material-icons">delete</i>
-          </button>
+          </span>
           {{ element.name }}
         </td>
       </ng-container>
@@ -69,50 +79,77 @@
       <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let tender; let i = index">
-          <button mat-raised-button type="button" (click)="notifySubC(tender)"
-            class="btn btn-danger btn-link btn-sm btn-just-icon" matTooltip="Notify sub contractor">
+          <!-- class="btn btn-danger btn-link btn-sm btn-just-icon"  -->
+          <span
+            (click)="notifySubC(tender)"
+            matTooltip="Notify sub contractor"
+          >
             <i class="material-icons">
               perm_phone_msg
             </i>
-          </button>
-          <button mat-raised-button type="button" matTooltip="Review Tender Details" (click)="reviewTender(tender)"
-            [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+          </span>
+          <span
+            matTooltip="Review Tender Details"
+            (click)="reviewTender(tender)"
+            [matTooltipPosition]="'above'"
+          >
             <i class="material-icons">view_list</i>
-          </button>
-          <button mat-raised-button type="button" matTooltip="Edit Tender Quotes" (click)="viewTender(tender)"
-            [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+        </span>
+          <span
+            matTooltip="Edit Tender Quotes"
+            (click)="viewTender(tender)"
+            [matTooltipPosition]="'above'"
+          >
             <i class="material-icons">collections_bookmark</i>
-          </button>
-          <button mat-raised-button type="button" matTooltip="Upload Tender" (click)="viewer(tender)"
-            [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+          </span>
+          <span
+            matTooltip="Upload Tender"
+            (click)="viewer(tender)"
+            [matTooltipPosition]="'above'"
+          >
             <i class="material-icons">
               cloud_upload
             </i>
-          </button>
-          <button class="btn btn-danger btn-link btn-sm btn-just-icon" [matMenuTriggerFor]="menu" mat-icon-button
-            aria-label="Example icon-button with a menu">
+          </span>
+          <span
+            class="btn btn-danger btn-link btn-sm btn-just-icon"
+            [matMenuTriggerFor]="menu"
+            mat-icon-button
+            aria-label="Example icon-button with a menu"
+          >
             <mat-icon>more_vert</mat-icon>
-          </button>
+        </span>
           <mat-menu #menu="matMenu">
-            <button mat-raised-button type="button" matTooltip="Final Pricing of Tender" (click)="quotes(tender)"
-              [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+            <span
+              matTooltip="Final Pricing of Tender"
+              (click)="quotes(tender)"
+              [matTooltipPosition]="'above'"
+            >
               <i class="material-icons">announcement</i>
-            </button>
-            <button mat-raised-button matTooltip="Compare" id="alish" [matTooltipPosition]="'above'"
-              (click)="compare(tender._id)" class="btn btn-danger btn-link btn-sm btn-just-icon">
+            </span>
+            <span
+              matTooltip="Compare"
+              id="alish"
+              [matTooltipPosition]="'above'"
+              (click)="compare(tender._id)"
+            >
               <i class="fa fa-window-restore"></i>
-            </button>
-            <button mat-raised-button matTooltip="Quote" [matTooltipPosition]="'above'"
-              class="btn btn-danger btn-link btn-sm btn-just-icon">
+          </span>
+          <span
+              matTooltip="Quote"
+              [matTooltipPosition]="'above'"
+            >
               <i class="material-icons">format_align_justify</i>
-            </button>
-            <button mat-raised-button matTooltip="Prepare" [matTooltipPosition]="'above'"
-              class="btn btn-danger btn-link btn-sm btn-just-icon">
+            </span>
+          <span
+              matTooltip="Prepare"
+              [matTooltipPosition]="'above'"
+            >
               <i class="fa fa-edit"></i>
-            </button>
-          </mat-menu>
-        </td>
-      </ng-container>
+            </span>
+
+          </mat-menu></td
+      ></ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
