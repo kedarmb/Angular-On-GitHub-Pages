@@ -17,7 +17,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpService } from './shared/core/service/http.service';
 import { HelperService } from './shared/core/service/helper.service';
 import { AppInitService } from './shared/core/service/app-init.service';
-import { SidebarModule } from 'ng-sidebar';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 
@@ -49,8 +48,6 @@ export function initializeApp1(appInitService: AppInitService) {
     MatListModule,
     ToastrModule.forRoot(),
     MatCardModule,
-    SidebarModule.forRoot()
-    // NgxSpinnerModule
   ],
   declarations: [AppComponent, AdminLayoutComponent],
 

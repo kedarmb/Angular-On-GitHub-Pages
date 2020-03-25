@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { DatepickerComponent } from './datepicker/datepicker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'app/shared/shared.module';
-import { SidebarModule } from 'ng-sidebar';
 import { SidenavComponent } from './sidenav/sidenav.component';
 // import { CalculationComponent } from './calculation/calculation.component';
 // import { SettingsComponent } from './settings/settings.component';
@@ -25,7 +24,6 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     ReactiveFormsModule,
     NgbModule,
     SharedModule,
-    SidebarModule.forRoot()
   ],
   declarations: [
     FooterComponent,

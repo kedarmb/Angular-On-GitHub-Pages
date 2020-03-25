@@ -63,7 +63,6 @@
     "lodash": "^4.17.15",
     "mat-timepicker": "^1.1.1",
     "moment": "^2.24.0",
-    "ng-sidebar": "^9.2.0",
     "ng2-charts": "^2.3.0",
     "ng2-file-upload": "^1.3.0",
     "ng2-material-dropdown": "^0.11.0",
