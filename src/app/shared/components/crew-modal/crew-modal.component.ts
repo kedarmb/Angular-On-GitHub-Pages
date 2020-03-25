@@ -1,14 +1,10 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { CrewItemService } from '../../core/service/crew-item.service';
-import { CrewItem } from '../../core/model/crew-item.model';
-import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { regex, errorMsg } from '../../core/constant/index';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatDialogClose, MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { Crew } from 'app/shared/core/model/crew.model';
-import { stringify } from 'querystring';
 import { HttpService } from 'app/shared/core/service/http.service';
 import {HelperService} from 'app/shared/core/service/helper.service';
 @Component({
@@ -37,8 +33,7 @@ export class CrewModalComponent implements OnInit {
     private httpService: HttpService,
     private spinner: NgxSpinnerService,
     private dialogRef: MatDialogRef<any>,
-    private toastr: ToastrService,
-    private crewItemService: CrewItemService) {
+    private toastr: ToastrService) {
 
     console.log('crew modal constructor');
 

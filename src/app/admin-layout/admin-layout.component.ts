@@ -1,193 +1,60 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Location, PopStateEvent } from '@angular/common';
+import { Component, OnInit, AfterViewInit, HostListener, Inject, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Location, PopStateEvent, DOCUMENT } from '@angular/common';
 import 'rxjs/add/operator/filter';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import PerfectScrollbar from 'perfect-scrollbar';
 import * as $ from 'jquery';
+import { HelperService } from 'app/shared/core/service/helper.service';
+import { Observable } from 'rxjs';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
+import { MatToolbar, MatSidenavContainer } from '@angular/material';
+import { CdkScrollable } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.scss']
 })
-export class AdminLayoutComponent implements OnInit , AfterViewInit {
-    pages = new Array(10);
-  private _router: Subscription;
-  private lastPoppedUrl: string;
-  private yScrollStack: number[] = [];
-
-  constructor( public location: Location, private router: Router) {}
+export class AdminLayoutComponent implements OnInit, AfterViewInit {
+  pages = new Array(10);
+  showToolBar = false;
+  // @ViewChild('topnav', { static: false }) topnav: ElementRef;
+  @ViewChild(MatSidenavContainer, { static: false }) sidenavContainer: MatSidenavContainer;
+  @ViewChild('topnav', { static: false }) scrollable: CdkScrollable;
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public location: Location,
+    public hs: HelperService,
+    @Inject(DOCUMENT) document,
+    public renderer: Renderer2
+  ) {}
 
   ngOnInit() {
-      const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
-
-    //   if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {
-    //       // if we are on windows OS we activate the perfectScrollbar function
-
-    //       document.getElementsByTagName('body')[0].classList.add('perfect-scrollbar-on');
-    //   } else {
-    //       document.getElementsByTagName('body')[0].classList.remove('perfect-scrollbar-off');
-    //   }
-      const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
-      const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
-
-      this.location.subscribe((ev: PopStateEvent) => {
-          this.lastPoppedUrl = ev.url;
-      });
-       this.router.events.subscribe((event: any) => {
-          if (event instanceof NavigationStart) {
-             if (event.url != this.lastPoppedUrl) {
-                 this.yScrollStack.push(window.scrollY);
-             }
-         } else if (event instanceof NavigationEnd) {
-             if (event.url == this.lastPoppedUrl) {
-                 this.lastPoppedUrl = undefined;
-                 window.scrollTo(0, this.yScrollStack.pop());
-             } else {
-                 window.scrollTo(0, 0);
-             }
-         }
-      });
-      this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
-           elemMainPanel.scrollTop = 0;
-           elemSidebar.scrollTop = 0;
-      });
-      if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-          let ps = new PerfectScrollbar(elemMainPanel);
-          ps = new PerfectScrollbar(elemSidebar);
-      }
-
-      const window_width = $(window).width();
-      const $sidebar = $('.sidebar');
-      const $sidebar_responsive = $('body > .navbar-collapse');
-      const $sidebar_img_container = $sidebar.find('.sidebar-background');
-
-
-      if (window_width > 767) {
-          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-              $('.fixed-plugin .dropdown').addClass('open');
-          }
-
-      }
-
-      $('.fixed-plugin a').click(function(event) {
-        // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-          if ($(this).hasClass('switch-trigger')) {
-              if (event.stopPropagation) {
-                  event.stopPropagation();
-              } else if (window.event) {
-                 window.event.cancelBubble = true;
-              }
-          }
-      });
-
-      $('.fixed-plugin .badge').click(function() {
-          const $full_page_background = $('.full-page-background');
-
-
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          const new_color = $(this).data('color');
-
-          if ($sidebar.length !== 0) {
-              $sidebar.attr('data-color', new_color);
-          }
-
-          if ($sidebar_responsive.length != 0) {
-              $sidebar_responsive.attr('data-color', new_color);
-          }
-      });
-
-      $('.fixed-plugin .img-holder').click(function() {
-          const $full_page_background = $('.full-page-background');
-
-          $(this).parent('li').siblings().removeClass('active');
-          $(this).parent('li').addClass('active');
-
-
-          const new_image = $(this).find('img').attr('src');
-
-          if ($sidebar_img_container.length != 0 ) {
-              $sidebar_img_container.fadeOut('fast', function() {
-                 $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                 $sidebar_img_container.fadeIn('fast');
-              });
-          }
-
-          if ($full_page_background.length != 0) {
-
-              $full_page_background.fadeOut('fast', function() {
-                 $full_page_background.css('background-image', 'url("' + new_image + '")');
-                 $full_page_background.fadeIn('fast');
-              });
-          }
-
-          if ($sidebar_responsive.length != 0) {
-              $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-          }
-      });
   }
   ngAfterViewInit() {
-      this.runOnRouteChange();
-      this.initChatBot();
+    console.log(this.sidenavContainer.scrollable.elementScrolled().subscribe(scrolled => console.log('scrolled', scrolled)));
   }
-  isMaps(path) {
-      let titlee = this.location.prepareExternalUrl(this.location.path());
-      titlee = titlee.slice( 1 );
-      if (path == titlee) {
-          return false;
-      } else {
-          return true;
-      }
-  }
-  runOnRouteChange(): void {
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
-    //   const ps = new PerfectScrollbar(elemMainPanel);
-    //   ps.update();
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(e) {
+    // console.log(e);
+    // console.log(this.topnav);
+    if (window.pageYOffset > 550) {
+      // this.showToolBar = false;
+      // console.log(this.showToolBar);
+    } else {
+      // this.showToolBar = true;
+      // console.log(this.showToolBar);
+      // this.topnav.nativeElement.hidden = false;
+      // this.topnav.nativeElement.remove('sticky');
+      // let element = document.getElementById('navbar');
+      // element.classList.remove('sticky');
     }
   }
-  isMac(): boolean {
-      let bool = false;
-      if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
-          bool = true;
-      }
-      return bool;
-  }
+  // @HostListener('scroll', ['$event'])
+  // onScroll(event) {
+  //   console.log('scrolling');
+  // }
 
-
-   initChatBot() {
-       const chatbox = jQuery.noConflict();
-
-       chatbox(() => {
-           chatbox('.chatbox-open').click(() =>
-               chatbox('.chatbox-popup, .chatbox-close').fadeIn()
-           );
-
-           chatbox('.chatbox-close').click(() =>
-               chatbox('.chatbox-popup, .chatbox-close').fadeOut()
-           );
-
-           chatbox('.chatbox-maximize').click(() => {
-               chatbox('.chatbox-popup, .chatbox-open, .chatbox-close').fadeOut();
-               chatbox('.chatbox-panel').fadeIn();
-               chatbox('.chatbox-panel').css({ display: 'flex' });
-           });
-
-           chatbox('.chatbox-minimize').click(() => {
-               chatbox('.chatbox-panel').fadeOut();
-               chatbox('.chatbox-popup, .chatbox-open, .chatbox-close').fadeIn();
-           });
-
-           chatbox('.chatbox-panel-close').click(() => {
-               chatbox('.chatbox-panel').fadeOut();
-               chatbox('.chatbox-open').fadeIn();
-           });
-       });
-
-   }
-
-
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
 }

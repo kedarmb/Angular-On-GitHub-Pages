@@ -146,8 +146,6 @@ export class PdfViewerComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     parseHTML(source) {
-
-
         var lastLeft = -1;
         var lastTop = -1;
         var obj = {};

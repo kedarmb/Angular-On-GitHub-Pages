@@ -1,45 +1,9 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  OnDestroy,
-  AfterViewInit,
-  ChangeDetectorRef
-} from '@angular/core';
-import { Observable, Subject, merge, ReplaySubject } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  tap,
-  takeUntil,
-  take
-} from 'rxjs/operators';
-import { CrewService } from '../../../shared/core/service/crew.service';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-// import { Tender } from '../../shared/core/model/tender.model';
-import { TenderItem } from '../../../shared/core/model/tender-item.model';
-import * as uuid from 'uuid';
-import { CrewModalComponent } from 'app/shared/components/crew-modal/crew-modal.component';
-
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  Validators,
-  FormControl
-} from '@angular/forms';
-import { isArray } from 'util';
+import { MatDialog } from '@angular/material/dialog';
+import { FormGroup } from '@angular/forms';
 import { HttpService } from '../../../shared/core/service/http.service';
 import { HelperService } from '../../../shared/core/service/helper.service';
-//
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import _ from 'lodash';
@@ -50,7 +14,6 @@ import _ from 'lodash';
   styleUrls: ['./view-tender.component.scss']
 })
 export class ViewTenderComponent implements OnInit {
-  // @ViewChild(TenderItemComponent, { static: false }) tender_item_c: TenderItemComponent;
 
   displayedColumns: string[] = [
     'ItemNo',

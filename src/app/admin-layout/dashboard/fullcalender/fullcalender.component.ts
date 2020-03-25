@@ -1,31 +1,12 @@
-import {
-  Component, OnInit,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef
-} from '@angular/core';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours
-} from 'date-fns';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView
-} from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { HelperService } from 'app/shared/core/service/helper.service';
-import { TenderService } from '../../shared/core/service/tender.service';
-import { Tender } from '../../shared/core/model/tender.model';
-import { HttpService } from '../../shared/core/service/http.service';
+import { TenderService } from '../../../shared/core/service/tender.service';
+import { Tender } from '../../../shared/core/model/tender.model';
+import { HttpService } from '../../../shared/core/service/http.service';
 
 const colors: any = {
   red: {
@@ -42,17 +23,16 @@ const colors: any = {
   }
 };
 
-
 @Component({
   selector: 'app-fullcalender',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./fullcalender.component.scss'],
   templateUrl: './fullcalender.component.html'
 })
-export class FullcalenderComponent implements OnInit  {
+export class FullcalenderComponent implements OnInit {
   tenders: any = [{}];
   data: any = [{}];
-  
+
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fa fa-fw fa-pencil"></i>',
@@ -74,7 +54,7 @@ export class FullcalenderComponent implements OnInit  {
   refresh: Subject<any> = new Subject();
   // events: CalendarEvent[{}] = settenderobj;
   events: CalendarEvent[] = [
-{
+    {
       start: new Date('2019-12-29T18:30:00.000Z'),
       end: new Date('2019-12-29T18:30:00.000Z'),
       title: 'Quote end date for tender - An excellent Tender',
@@ -128,26 +108,25 @@ export class FullcalenderComponent implements OnInit  {
     }
   ];
 
-
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-// mess = {};
+  // mess = {};
 
-view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Month;
 
-CalendarView = CalendarView;
+  CalendarView = CalendarView;
 
-viewDate: Date = new Date();
-activeDayIsOpen = true;
+  viewDate: Date = new Date();
+  activeDayIsOpen = true;
 
-modalData: {
-  action: string;
- event: CalendarEvent;   
-};
+  modalData: {
+    action: string;
+    event: CalendarEvent;
+  };
   public tender_events: any = {
     start: Date,
-    end:  Date,
-     title: String,
-     TenderName: String,
+    end: Date,
+    title: String,
+    TenderName: String,
     color: colors.red,
     allDay: true,
     resizable: {
@@ -155,16 +134,20 @@ modalData: {
       afterEnd: true
     },
     draggable: true
-  }
+  };
 
-  constructor(private modal: NgbModal, private hs: HelperService, 
-    private tenderService: TenderService, private httpServ: HttpService ) {
+  constructor(
+    private modal: NgbModal,
+    private hs: HelperService,
+    private tenderService: TenderService,
+    private httpServ: HttpService
+  ) {
     this.events = <any>this.hs.setTenderEven();
     // console.log('mmmmmmmm', this.events);
-       }
+  }
   ngOnInit() {
     this.getAllTenders();
-  const settenderobj: any = this.hs.setTenderEven();
+    const settenderobj: any = this.hs.setTenderEven();
     // console.log('jjjjjjjjjjjjjj', settenderobj);
   }
   getAllTenders() {
@@ -178,10 +161,7 @@ modalData: {
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
+      if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0) {
         this.activeDayIsOpen = false;
       } else {
         this.activeDayIsOpen = true;
@@ -190,11 +170,7 @@ modalData: {
     }
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-  }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map(iEvent => {
       if (iEvent === event) {
         return {

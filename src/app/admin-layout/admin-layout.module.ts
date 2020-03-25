@@ -10,8 +10,6 @@ import { AdminLayoutRoutesModule } from './admin-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { TableListComponent } from './table-list/table-list.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TenderFastQuoteComponent } from './tender/tender-fast-quote/tender-fast-quote.component';
 import { TenderFastListComponent } from './tender/tender-fast-list/tender-fast-list.component';
@@ -39,9 +37,7 @@ import {
 import { TenderComponent } from './tender/tender.component';
 import { TenderitemComponent } from './tenderitem/tenderitem.component';
 import { ViewTenderComponent } from './tender/tender-quote/view-tender.component';
-import { EditInputComponent } from './edit-input/edit-input.component';
 import { OrganizationComponent } from './organization/organization.component';
-import { UserComponent } from './user/user.component';
 import { CreateTenderItemComponent } from './create-tender-item/create-tender-item.component';
 import { AutoAdjustDirective } from '../shared/directive/auto-adjust.directive';
 import { CrewComponent } from './crew/crew.component';
@@ -51,8 +47,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ChartsModule } from 'ng2-charts';
 import { AnalyticsComponent } from './analytics/analytics.component';
-import { MedicalComprehendComponent } from './medical-comprehend/medical-comprehend.component';
-import { FullcalenderComponent } from './fullcalender/fullcalender.component';
+import { FullcalenderComponent } from './dashboard/fullcalender/fullcalender.component';
 import { CrewEquipmentComponent } from './crew/crew-equipment/crew-equipment.component';
 import { CrewLabourComponent } from './crew/crew-labour/crew-labour.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -117,15 +112,10 @@ import { SubContractorName } from '../shared/pipe/SubContractor-name.pipe';
     DashboardComponent,
     UserProfileComponent,
     TableListComponent,
-    MapsComponent,
-    NotificationsComponent,
     TenderComponent,
     TenderitemComponent,
     ViewTenderComponent,
-    EditInputComponent,
     OrganizationComponent,
-    MedicalComprehendComponent,
-    UserComponent,
     TrenchCalculationComponent,
     CreateTenderItemComponent,
     AutoAdjustDirective,
@@ -145,7 +135,7 @@ import { SubContractorName } from '../shared/pipe/SubContractor-name.pipe';
     TenderFastListComponent,
     TenderFastCompareComponent,
     TenderFastQuoteComponent,
-    TenderFastCompareComponent,
+    TenderFastCompareComponent, 
     TenderFastListComponent,
     TenderFastAttachComponent,
     TenderReviewComponent,

@@ -1,32 +1,10 @@
-/* .red {
-    color: red;
-    ;
-} */
-
-
-/* .sidebar .nav li:first-child>a .red {
-    color: red;
+ng-sidebar-container {
+  height: 100vh;
+  .biddr-sidebar {
+    background-color: #fff;
+    padding: 2em 1em;
+    &.ng-sidebar--opened.ng-sidebar--over {
+      box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+    }
+  }
 }
-
-.sidebar .nav p .red {
-    color: red;
-} */
-           /* .grey {
-               background: #968e8e!important;
-           }
-          
-           
-           .blue {
-               background: #e6e1e1;
-               color: #fff!important;
-           }
-           
-           .blue:hover {
-               background: #e6e1e1;
-               color: #fff!important;
-           }
-           
-           .sidebar .nav p .grey {
-               color: green!important;
-           }
-        */

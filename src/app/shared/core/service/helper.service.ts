@@ -21,10 +21,14 @@ export class HelperService {
 
   tenderId = new BehaviorSubject(null);
   currentTenderId = this.tenderId.asObservable();
+  _opened: boolean;
 
   //
   constructor() {}
-
+  _toggleSidebar() {
+    console.log('called sidenav')
+    this._opened = !this._opened;
+  }
   /**Returns list of all Organizations from Local Storage */
   getOrgList() {
     const _orgList = JSON.parse(localStorage.getItem('orgList'));
