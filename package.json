@@ -60,7 +60,7 @@
     "googleapis": "40.0.0",
     "hammerjs": "2.0.8",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mat-timepicker": "^1.1.1",
     "moment": "^2.24.0",
     "ng2-charts": "^2.3.0",
